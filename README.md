@@ -3,7 +3,7 @@ RECODMOD-V9 alpha (unstable version)
 
 Stable version V9  ->  JUNE 20, 2020
 
-New version RECODMOD V9 not compatible with old RECODMOD versions!
+New version RECODMOD V9 not compatible with old RECODMOD versions and not compatible with old WEB RECODMOD versions!!
 
 Support and report \ Русский || English
 
