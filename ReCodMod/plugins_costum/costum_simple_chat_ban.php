@@ -247,7 +247,7 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
           
           try
           {
-           if (empty($Msql_support))
+           if (empty(SqlDataBase))
            {
             $sb = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
            }
@@ -624,7 +624,7 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
       
        try
        {
-        if (empty($Msql_support))
+        if (empty(SqlDataBase))
         {
          $sb = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
         }

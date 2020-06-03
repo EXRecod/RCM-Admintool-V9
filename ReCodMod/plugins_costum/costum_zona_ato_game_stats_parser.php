@@ -8,8 +8,15 @@ if (strpos($parseline, ' CP;') !== false)
 	  if(!empty($camp_guid)){
 					$cshid = trim($server_port.$camp_guid);	
 					$cshid = dbGuid(4).(abs(hexdec(crc32($cshid))));
-	    $player_skill_bonus[$cshid]['camp'][] = $cshid; 
-		$player_arrays[$cshid]['camp'][] = $cshid;
+					
+		if (empty($stats_array[$cshid]['scores;camps'])) 			
+	    $stats_array[$cshid]['scores;camps'] = 1;
+         else	
+		 {
+		 $camps = $stats_array[$cshid]['scores;camps'];	 
+		 $stats_array[$cshid]['scores;camps'] = $camps+1; 	 
+		 }
+		
 		echo "\n [camp] : ".$camp_guid."  ".$camp_player_name."";
 	  }
 		  }
@@ -20,8 +27,13 @@ if (strpos($parseline, ' CP;') !== false)
 	  if(!empty($flag_guid)){
 					$fshid = trim($server_port.$flag_guid);	
 					$fshid = dbGuid(4).(abs(hexdec(crc32($fshid))));
-	    $player_skill_bonus[$fshid]['flags'][] = $fshid; 
-		$player_arrays[$fshid]['flags'][] = $fshid;
+		if (empty($stats_array[$fshid]['scores;flags'])) 			
+	    $stats_array[$fshid]['scores;flags'] = 1;
+         else	
+		 {
+		 $flags = $stats_array[$fshid]['scores;flags'];	 
+		 $stats_array[$fshid]['scores;flags'] = $flags+1; 	 
+		 }
 		echo "\n [flag] : ".$flag_guid."  ".$flag_player_name."";
          }
 		 }
@@ -32,8 +44,13 @@ if (strpos($parseline, ' CP;') !== false)
 	  if(!empty($flags_guid)){
 					$fsshid = trim($server_port.$flags_guid);	
 					$fsshid = dbGuid(4).(abs(hexdec(crc32($fsshid))));
-	    $player_skill_bonus[$fsshid]['saveflags'][] = $fsshid; 
-		$player_arrays[$fsshid]['saveflags'][] = $fsshid;
+		if (empty($stats_array[$fsshid]['scores;saveflags'])) 			
+	    $stats_array[$fsshid]['scores;saveflags'] = 1;
+         else	
+		 {
+		 $saveflags = $stats_array[$fsshid]['scores;saveflags'];	 
+		 $stats_array[$fsshid]['scores;saveflags'] = $saveflags+1; 	 
+		 }
 		echo "\n [saveflag] : ".$flags_guid."  ".$flags_player_name."";
          }
 		 }	
@@ -54,8 +71,13 @@ if (strpos($parseline, ' CP;') !== false)
 					$fsshid = trim($server_port.$bguid);	
 					$fsshid = dbGuid(4).(abs(hexdec(crc32($fsshid))));
 			
-	    $player_skill_bonus[$fsshid][''.$bplayer_funct.''][] = $fsshid; 
-		$player_arrays[$fsshid][''.$bplayer_funct.''][] = $fsshid;
+		if (empty($stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''])) 			
+	    $stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''] = 1;
+         else	
+		 {
+		 $bonus = $stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''];	 
+		 $stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''] = $bonus+1; 	 
+		 }
 		echo "\n [$bplayer_funct] : ".$bguid."  ".$bplayer_name."";
          
 }}

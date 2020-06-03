@@ -239,7 +239,7 @@ foreach ($flooddata as $guidxid => $f)
           
           try
           {
-           if (empty($Msql_support))
+           if (empty(SqlDataBase))
            {
             $sb = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
            }

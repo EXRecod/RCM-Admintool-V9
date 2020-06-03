@@ -9,14 +9,14 @@ list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
        ++$x_numb1;
        if ($x_numb1 == 1) {
         try {
-         if (empty($Msql_support)) {
+         if (empty(SqlDataBase)) {
           $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
           $db4 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db4.sqlite');
           }
          else {
-          $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+          $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
           $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false, ];
-          if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt);
+          if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt);
           $db = $msqlconnect;
           $db2 = $db;
           $db4 = $db; 
@@ -374,7 +374,7 @@ if (empty($guids)) {
               }
             
    
-             if ($stopforumspam == 1) {
+             if (stopforumspam == 1) {
               $sql = "SELECT * FROM x_db_admins WHERE s_group='".$stats_array[$conisq]['ip_adress']."' and s_group='0' or s_group='2' LIMIT 1";
               $stat = $db->query($sql)->fetchColumn();
               if ($stat > 0) {

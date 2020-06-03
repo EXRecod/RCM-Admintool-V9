@@ -12,7 +12,7 @@ if(typeparser($parseline) == 'parser')
     list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
   if (empty($guid))
     $guid = '0';
-  echo '-' . $guid . '-' . $idk . '-' . $nickname;
+  //echo '-' . $guid . '-' . $idk . '-' . $nickname;
   
  $x_date  = date('Y-m-d H:i:s');
 
@@ -21,11 +21,11 @@ if(typeparser($parseline) == 'parser')
  try {
  	
      
-     if($Msql_support == 1)
+     if(SqlDataBase == 1)
         {
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
    
-	if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); 
+	if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); 
 	$db4 = $msqlconnect;
 		}
      else

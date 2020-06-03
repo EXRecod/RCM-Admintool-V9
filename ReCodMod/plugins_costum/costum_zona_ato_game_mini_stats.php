@@ -40,9 +40,9 @@ if (strpos($line, "skill_id") !== false){
 if (strpos($line, "kills_id") !== false){
 	 
 	try {
-       $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+       $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
        if (empty($msqlconnect))		   
-         $msqlconnect = new PDO($dsn, $db_user, $db_pass); 
+         $msqlconnect = new PDO($dsn, db_user, db_pass); 
   $db3 = $msqlconnect; 
   
                 ///////////////////////////  ВАЖНО! ИНДEНТИФИКАТОР ИГРОКА  ////////////////////////////////////	   

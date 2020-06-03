@@ -10,7 +10,6 @@ if (strpos($parseline, "J;") !== false)
     list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
   if (empty($guid))
     $guid = '0';
-  echo '-' . $guid . '-' . $idk . '-' . $nickname;
   
   $nickname = htmlentities($nickname);
 
@@ -44,7 +43,7 @@ foreach($gq as $const => $stringq)
 	if (strpos($const, 'message') !== false)
 	 {	
     $stringq = str_replace("{PLAYERNAME}", htmlentities($nickname), $stringq);
-	$stringq = str_replace("{CMD_STRING}", htmlentities($ixz), $stringq);
+	$stringq = str_replace("{CMD_STRING}", htmlentities(ixz), $stringq);
 	
 	//
       xcon($c.' '.$idk.' '.$stringq.'', ''); 

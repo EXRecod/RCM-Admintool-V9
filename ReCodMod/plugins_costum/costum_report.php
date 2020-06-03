@@ -1,5 +1,5 @@
 <?php
-if (strpos($msgr, $ixz.'report') !== false) {
+if (strpos($msgr, ixz.'report') !== false) {
 	$rotxv = 0;
 		$cron_time = filemtime($cpath . "ReCodMod/cache/x_crontime/cron_time_alba_" . $server_ip . "_" . $server_port);
 		  $stime        = time();
@@ -7,9 +7,9 @@ if (strpos($msgr, $ixz.'report') !== false) {
 
 				$nickname = htmlentities($nickr);
 
-				if (strpos($msgr, $ixz.'report') !== false)
+				if (strpos($msgr, ixz.'report') !== false)
 					
-				$msgrxd = str_replace($ixz.'report', '', $msgr);
+				$msgrxd = str_replace(ixz.'report', '', $msgr);
 				$msgrxd = trim($msgrxd);
 				 
 				if (!empty($msgrxd)) {
@@ -56,7 +56,7 @@ if (strpos($msgr, $ixz.'report') !== false) {
 
 						$msg = 'Nickname: ' . clearSymbols($nickname) . ' Message: ' . $msgrxd . ' GUID: ' . $guidn . ' ServerIp: ' . clearSymbols($servernamex) . ':' . $server_ip . "_" . $server_port;
 
-						if (!empty($webhookurl)) {
+						if (!empty(webhookurl_enable)) {
 								 
 
 										$data =  array(  
@@ -93,13 +93,13 @@ if (strpos($msgr, $ixz.'report') !== false) {
 										//$options = ['http' => ['method' => 'POST', 'header' => 'Content-Type: application/json', 'content' => json_encode($data) ]];
 
 										 //$context = stream_context_create($options);
-										 //$result = @file_get_contents($webhookurl, true, $context);
+										 //$result = @file_get_contents(webhookurl, true, $context);
 										 
 										 
                                                           $json_data = $data;
 															$make_json = json_encode($json_data);
 															 
-															if ($ch = curl_init($webhookurl))
+															if ($ch = curl_init(webhookurl))
 																{
 																curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // ---
 																curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // ---

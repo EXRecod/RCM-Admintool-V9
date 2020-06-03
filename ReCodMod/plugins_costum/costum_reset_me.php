@@ -1,6 +1,6 @@
 <?php
 
-if ((strpos($msgr, $ixz.'reset me') !== false)||(strpos($msgr, $ixz.'rm') !== false))
+if ((strpos($msgr, ixz.'reset me') !== false)||(strpos($msgr, ixz.'rm') !== false))
     { 
 
 
@@ -15,7 +15,7 @@ $nothnkjdk = dbGuid(4).(abs(hexdec(crc32($shidx))));
   	  
 try
   {  
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 
  $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
@@ -24,9 +24,9 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=".$host_adress.";dbname=".$db_name.";charset=".$charset_db."";
+	$dsn = "mysql:host=".".host_adress.".";dbname=".".db_name.".";charset=".$charset_db."";
  
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db3 = $msqlconnect;
 	
    }
    
@@ -135,7 +135,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 
 
 
-if ((strpos($msgr, $ixz.'data') !== false)||(strpos($msgr, $ixz.'b2b') !== false))
+if ((strpos($msgr, ixz.'data') !== false)||(strpos($msgr, ixz.'b2b') !== false))
     { 
 
 
@@ -150,7 +150,7 @@ $nothnkjdk = dbGuid(4).(abs(hexdec(crc32($shidx))));
   	  
 try
   {  
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 
  $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
@@ -159,9 +159,9 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=".$host_adress.";dbname=".$db_name.";charset=".$charset_db."";
+	$dsn = "mysql:host=".".host_adress.".";dbname=".".db_name.".";charset=".$charset_db."";
  
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db3 = $msqlconnect;
 	
    }
    
@@ -272,7 +272,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 
 
 
-if ((strpos($msgr, $ixz.'afail') !== false)||(strpos($msgr, $ixz.'af') !== false))
+if ((strpos($msgr, ixz.'afail') !== false)||(strpos($msgr, ixz.'af') !== false))
     { 
  if (empty($x_stop_lp)) {
 if(!empty($guidn)){
@@ -282,7 +282,7 @@ $nothnkjdk = dbGuid(4).(abs(hexdec(crc32($shidx))));
   	  
 try
   {  
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 
  $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
@@ -290,8 +290,8 @@ if(empty($Msql_support))
 } 
 else
    {      
-	$dsn = "mysql:host=".$host_adress.";dbname=".$db_name.";charset=".$charset_db."";
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db3 = $msqlconnect;
+	$dsn = "mysql:host=".".host_adress.".";dbname=".".db_name.".";charset=".$charset_db."";
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db3 = $msqlconnect;
    }
    
    
@@ -384,7 +384,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 /*
 	
 	
-if (strpos($msgr, $ixz.'like') !== false)
+if (strpos($msgr, ixz.'like') !== false)
     { 
  if ($x_stop_lp == 0 ) {
 if(!empty($guidn)){
@@ -397,7 +397,7 @@ try
   
 
   
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 
  $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
@@ -406,9 +406,9 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
  
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db3 = $msqlconnect;
 	
    }
  

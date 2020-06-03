@@ -1,5 +1,5 @@
 <?php
-if (strpos($parseline, " ExitLevel:") !== false){if (!empty($Msql_support)) {if (strpos($mplogfile, 'ftp:') === false){	
+if (strpos($parseline, " ExitLevel:") !== false){if (!empty(SqlDataBase)) {if (strpos($mplogfile, 'ftp:') === false){	
 /*  """""""""""""""""            BD DUMP   $indays через сколько дней дамп       """""""""""""""""   */
                
  $indays = 30; 
@@ -16,7 +16,7 @@ if (strpos($parseline, " ExitLevel:") !== false){if (!empty($Msql_support)) {if 
    {   
   mkdir($cpath.'ReCodMod/databases/msql_dump/', 0777, true);
 	   $dumpbd = $dumpbd."archive_database.sql.gz";
-	        shell_exec("mysqldump -u $db_user -p $db_pass $db_name | gzip > $dumpbd");
+	        shell_exec("mysqldump -u db_user -p db_pass ".db_name." | gzip > $dumpbd");
    }}
 	 else
 	 {
@@ -35,7 +35,7 @@ array_multisort( array_map( 'filemtime', $files ), SORT_NUMERIC, SORT_DESC, $fil
       if ($now - filemtime($files[0]) >= 60*24*60*$indays){
   $datetimeNEW                        = date('Y_m_d_H_i_s');
   $dumpbd = $dumpbd.'archive_database_'.$datetimeNEW.'.sql.gz';		   
-  shell_exec("mysqldump -u $db_user -p $db_pass $db_name | gzip > $dumpbd");
+  shell_exec("mysqldump -u db_user -p db_pass ".db_name." | gzip > $dumpbd");
   
 }}}}}}}
 ?>

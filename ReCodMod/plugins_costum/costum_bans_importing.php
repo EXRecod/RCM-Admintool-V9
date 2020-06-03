@@ -1,5 +1,5 @@
 <?php
-if (strpos($msgr, $ixz . 'exbans') !== false) {
+if (strpos($msgr, ixz . 'exbans') !== false) {
   if (empty($stqztx)) {
     if (strpos($commands, 'exbans') !== false) {
       $srhbandat = $mplogfile;

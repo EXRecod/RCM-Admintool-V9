@@ -44,12 +44,12 @@ if (strpos($parseline, "J;") !== false) {
                                         $newguidport = trim($server_port . $toguid);
                                         $newguid_uid = dbGuid(4) . (abs(hexdec(crc32($newguidport))));
                                         try {
-                                            if (empty($Msql_support)) {
+                                            if (empty(SqlDataBase)) {
                                                 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                                             } else {
-                                                $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+                                                $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
                                                 if (empty($msqlconnect))
-                                                    $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+                                                    $msqlconnect = new PDO($dsn, db_user, db_pass);
                                                 $db3 = $msqlconnect;
                                             }
                                             $sql  = "select * FROM db_stats_0 where s_pg='" . $oldguid_uid . "' limit 1";

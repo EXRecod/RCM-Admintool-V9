@@ -46,7 +46,7 @@ Example:
 list($noon, $guid, $cod4xgeo, $cod4xip,  $cod4xping, $cod4xfps, $cod4xprestige, $idk, $nickname) = explode(';', $parseline);
 
 		
-if((empty($guid)) && (empty($reg_guid_stats)))		
+if((empty($guid)) && (empty(reg_guid_stats)))		
 		     $qx_close = 20;
 		  
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ if (empty($stats_array[$conisq]['ip_adress']))
 ////////////////////////////////////////////////////////////////////////////////////						  
 try{
 	 	 
-    $dbc = new PDO('sqlite:' . $chatdb);
+    $dbc = new PDO('sqlite:' . chatdb);
  
              //if(preg_match("/[\d]+[\d]{14,22}/",$guid)) 
 				 if(!empty($guid))
@@ -172,7 +172,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 		
     try {
  	
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 		$db3  = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/db3.sqlite');
 		$db4  = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/db4.sqlite'); 
@@ -182,10 +182,10 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
    
    if(empty($msqlconnect)) 
-	   $msqlconnect = new PDO($dsn, $db_user, $db_pass); 
+	   $msqlconnect = new PDO($dsn, db_user, db_pass); 
    
     $db3 = $msqlconnect;
     $db4 = $msqlconnect;
@@ -210,7 +210,7 @@ else
 /*			
 	echo '-183';
 	 
- if(!empty($Msql_support))
+ if(!empty(SqlDataBase))
 {		
      
 	if($db4->query("UPDATE x_db_players SET x_db_date='".$x_date."', x_db_ip='".$cod4xip."', x_db_name = '".$x4vvv."' WHERE x_db_guid='".$guid."'"))
@@ -236,7 +236,7 @@ echo '-186';
 	
 	
 	usleep(20000);
- if(!empty($Msql_support))
+ if(!empty(SqlDataBase))
 {	
 	if($db3->query("UPDATE db_stats_2 SET w_ip='".$cod4xip."' WHERE s_pg='".$shid."'"))
 	{
