@@ -38,8 +38,6 @@ if (is_dir($dircache)) {
   }
 }
 echo "\n";
-if (empty($chatdbsize)) $chatdbsize = 50; // 50.MB
-if (empty($chatdb)) $chatdb = $cpath . 'ReCodMod/databases/chatdb.sqlite';
 ini_set("log_errors", "1");
 if (preg_match('/ftp:/', $mplogfile, $u)) $spps = 470000;
 else $spps = 80000;
@@ -62,13 +60,7 @@ if (!empty($serverxmap)) echo "\n Map: " . $serverxmap = sevenofff($serverxmap);
 if (!empty($plyr_cnt)) echo "\n Players: " . $plyr_cnt . "\n";
 echo "\n Pre loading system - OK! ";
 require $cpath . 'ReCodMod/functions/funcx/_game_log_cleaner.php';
-require $cpath . 'ReCodMod/functions/funcx/player_cnt_sleep_limiters.php';
-$player_arrays[][][] = array();
-$player_demos[] = array();
 $emaprun = '';
-$stats_cikl = 0;
-$x_dmn = 0;
-$x_dmnc = 0;
 if (PHP_SAPI != 'cli') {
   sleep(5);
   exit('<h1>This software cannot be run on a webspace!</h1>');
@@ -77,7 +69,6 @@ echo "\033[38;5;205m";
 echo "\n\n /.> PHP version: ", phpversion();
 $resumeposftp = 0;
 $sizeftp = 0;
-$ixzsafe = $ixz;
 echo "\n \033[38;5;240m";
 echo "\n ***** |||||||||    ///     /// ";
 echo "\n ***** |||           ///   ///";
@@ -88,31 +79,30 @@ echo "\n ***** |||          ///      ///   *ReCodMod V.9 [2011-2020]";
 echo "\n ***** |||||||||   ///        ///   skype: larocca2012";
 echo "\n\n \033[38;5;9m     /-/ " . $z_set . " /-/ ready to work /-/ \n \033[38;5;11m";
 echo "   Game Server:   ", $servernamex = trim(meessagee($servername)) , " / ", $game_patch, "\n";
-if (empty($odin_ip_u_vseh_serverov)) {
+if (empty(multi_ip_servers)) {
   if (strpos($server_ip, '.') !== false) {
     $pipip = explode(".", $server_ip);
     $svipport = abs(hexdec(crc32($pipip[2] . $pipip[3]))) . $server_port;
   }
   else $svipport = abs(hexdec(crc32($server_ip))) . $server_port;
   echo " \033[38;5;255m Unique server id = crc32(ip)&port: ", $svipport;
-  echo "\n \033[38;5;255m Unique server id = ", 'odin_ip_u_vseh_serverov = 0;';
+  echo "\n \033[38;5;255m Unique server id = ", 'multi_ip_servers = 0;';
 }
 else {
   $svipport = $server_port;
   echo " \033[38;5;255m Unique server id = port: ", $svipport;
-  echo "\n \033[38;5;255m Unique server id = ", 'odin_ip_u_vseh_serverov = 1;';
+  echo "\n \033[38;5;255m Unique server id = ", 'multi_ip_servers = 1;';
 }
 echo "\n";
 //if (empty($settizones))
 //   $settizones = setTimezone("k");
 if (!empty($settizones)) echo $settizones;
 echo " \n \033[38;5;46m";
+if (!empty(multi_ip_servers)) $svipport = $server_port;
 //*************************************************************************************
 //*************************************************************************************
 //*************************************************************************************
-while (true) {
-  //usleep(200000);
-  if (!empty($odin_ip_u_vseh_serverov)) $svipport = $server_port;
+while (true) {  
   $allplugs = getDirContents($cpath . 'ReCodMod/functions/funcx/start/');
   foreach ($allplugs AS $va) {
     if (strpos($va, '.php') !== false) require $va;
@@ -123,30 +113,17 @@ while (true) {
   }
   else if ($parseline == $mplogfile) $goto = 1;
   if ($goto == 0) {
-    ///////////////////////////////////////////////////////////////////////////
     if ($x_stop_lp == 0) {
-      require $cpath . 'ReCodMod/functions/funcx/_9_sleep_time_auto_players.php';
-      if ($spps != 5321000) {
+      require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php';
         $datetime = date('Y.m.d H:i:s');
         $dtx2 = date('Y-m-d H:i:s');
         require $cpath . 'ReCodMod/functions/funcx/db_delete_day_stats.php';
         require $cpath . 'ReCodMod/functions/funcx/cfg_rules_schedule.php';
         if ($mplogfile) {
           if (((!empty($parseline)) && (preg_match('/;/', $parseline, $z))) || ((!empty($parseline)) && (preg_match('/ExitLevel: executed/', $parseline, $z))) || ((!empty($parseline)) && (preg_match('/ShutdownGame:/', $parseline, $z))) || ((!empty($parseline)) && (preg_match('/InitGame:/', $parseline, $z)))) {
-            if ($x_stop_lp == 0) {
-              $xnone = 'QUICKMESSAGE';
-              if (strpos($game_patch, 'cod1_1.1') !== false) $kill = 'K;';
-              else $kill = 'K;0;';
-              if (strpos($game_patch, 'cod1_1.1') !== false) $death = 'D;';
-              else $death = 'D;0;';
-              $xnonev = strpos($parseline, $xnone);
-              $deathv = strpos($parseline, $death);
-              $killv = strpos($parseline, $kill);
-              $pos = strpos($parseline, '');
               //%%%%%%%%%%%%%%%%%%%%%%%%  CHAT  %%%%%%%%%%%%%%%%%%%%%%%%
               if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseline, $xm)) || (preg_match('/tell;/', $parseline, $xm))) {
-                require $cpath . 'cfg/_settings.php';
-                require $cpath . 'ReCodMod/functions/funcx/_chat.php';
+                require $cpath . 'ReCodMod/plugins_parser/chat.php';
                 require $cpath . 'ReCodMod/functions/null_db_connection.php';
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  JOIN  %%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,6 +137,7 @@ while (true) {
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  KILL  %%%%%%%%%%%%%%%%%%%%%%%%
               else if (strpos($parseline, 'K;') !== false) {
+				
                 require $cpath . 'ReCodMod/plugins_parser/stats.php';
                 require $cpath . 'ReCodMod/functions/null_db_connection.php';
               }
@@ -188,7 +166,6 @@ while (true) {
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  START  %%%%%%%%%%%%%%%%%%%%%%%%
               else if (preg_match('/InitGame:/', $parseline, $u)) {
-                /////NEXT MAP   !nextmap fix
                 require $cpath . 'ReCodMod/plugins_parser/initgame_gametype_map_save.php';
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  ANOTHER PLUGINS  %%%%%%%%%%%%%%%%%%%%%%%%
@@ -214,10 +191,8 @@ while (true) {
                 }
                 //%%%%%%%%%%%%%%%%%%%%%%%%  END PLUGINS LOAD  %%%%%%%%%%%%%%%%%%%%%%%%
               }
-            }
           }
         }
-      }
     }
   }
 }
