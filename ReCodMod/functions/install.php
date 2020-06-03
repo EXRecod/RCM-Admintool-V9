@@ -24,10 +24,10 @@ $gmlobame = basename($ftp_exp_url);
 
 
 if((!file_exists($cpath . 'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos.txt'))
-||((empty($Msql_support))&&(!file_exists($cpath . 'ReCodMod/databases/db1.sqlite')))
-||((empty($Msql_support))&&(!file_exists($cpath . 'ReCodMod/databases/db2.sqlite')))
-||((empty($Msql_support))&&(!file_exists($cpath . 'ReCodMod/databases/db3.sqlite')))
-||((empty($Msql_support))&&(!file_exists($cpath . 'ReCodMod/databases/db4.sqlite')))){
+||((empty(SqlDataBase))&&(!file_exists($cpath . 'ReCodMod/databases/db1.sqlite')))
+||((empty(SqlDataBase))&&(!file_exists($cpath . 'ReCodMod/databases/db2.sqlite')))
+||((empty(SqlDataBase))&&(!file_exists($cpath . 'ReCodMod/databases/db3.sqlite')))
+||((empty(SqlDataBase))&&(!file_exists($cpath . 'ReCodMod/databases/db4.sqlite')))){
 
 echo "\n RCM FIRST INSTALL......\n";
 sleep (1);	
@@ -195,10 +195,10 @@ if(!file_exists($statscronx))
                 mkdir($cpath.'ReCodMod/cache/stats_register/'.$server_ip.'_'.$server_port, 0777, true);	
 
 
-if(empty($Msql_support)){
+if(empty(SqlDataBase)){
 	
 	
-	ECHO ' Msql_support is 0 - SQLITE 3 ';
+	ECHO ' SqlDataBase is 0 - SQLITE 3 ';
 	
 	
 if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok')){
@@ -235,33 +235,29 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 //////////////////////                                        ////////////////////// 
 ////////////////////////////////////////////////////////////////////////////////////			
 ////////////////////////////////////////////////////////////////////////////////////
-if(empty($chatdb))
-  $chatdb = $cpath . 'ReCodMod/databases/chatdb.sqlite';
-
-
- if(!file_exists(dirname($chatdb)))
+ 
+ if(!file_exists(dirname(chatdb)))
 {
-	echo "\n\n\033[38;5;1m ERROR: \n cfg/_settings.php  \n ".dirname($chatdb)."  \n is false FOLDER \033[38;5;255m";
-    require $cpath.'cfg/_settings.php';	
+	echo "\n\n\033[38;5;1m ERROR: \n cfg/_settings.ini  \n ".dirname(chatdb)."  \n is false FOLDER \033[38;5;255m";
 	sleep(20);
 	exit;
 }
 
-if (!file_exists($chatdb)){
+if (!file_exists(chatdb)){
 try
 {   
-         if(empty($Msql_support))
-    $dbc = new PDO('sqlite:' . $chatdb);
+         if(empty(SqlDataBase))
+    $dbc = new PDO('sqlite:' . chatdb);
       else
    {      
-    $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+    $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
  
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $dbc = $msqlconnect;        
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $dbc = $msqlconnect;        
    }
 	$dbc->exec('CREATE table chat(
 			id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -287,9 +283,9 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 	}
     catch(PDOException $e){die($e->getMessage());}
 	
-$pravanadbchat = substr(sprintf('%o', fileperms($chatdb)), -4);
+$pravanadbchat = substr(sprintf('%o', fileperms(chatdb)), -4);
 if($pravanadbchat != '0666')
-chmod($chatdb, 0666);	
+chmod(chatdb, 0666);	
 	
 	}	
 ////////////////////////////////////////////////////////////////////////////////////				   
@@ -945,7 +941,7 @@ $dir = $cpath."ReCodMod/cache/x_logs/backup";
 if(!is_dir($dir)) mkdir($dir, 0777, true) ;
 chmod($cpath."ReCodMod/cache/x_logs/backup", 0777);
 
-if(empty($Msql_support)){
+if(empty(SqlDataBase)){
 if(!file_exists($cpath . 'ReCodMod/databases/translate.sqlite')){
 	  
 echo " Install - SQL3 Database.\n";
@@ -977,18 +973,15 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 
  
 
-
-require $cpath.'cfg/_settings.php';
-global $Msql_support;
-
-if(!empty($Msql_support)){
+ 
+if(!empty(SqlDataBase)){
 if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok')){
 $cllect = 0; 
 try
 {    	  
-    $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+    $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $dbc = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $dbc = $msqlconnect;
   
   
   $query = file_get_contents($cpath . "ReCodMod/functions/adminmod_install_msql.sql");
@@ -1053,7 +1046,7 @@ $wprg = str_replace($vow, "_", $wprg);
 	 $dbc->exec($query);
 if($dbc)
 {
-print("Created $db_name Table.\n");
+print("Created ".db_name." Table.\n");
 $cllect = 24;
 touch($cpath . 'ReCodMod/cache/x_cache/msqlinstallok');	
 }
@@ -1070,10 +1063,10 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 }
 
 
-if (!file_exists($chatdb)){
+if (!file_exists(chatdb)){
 try
 {   
-    $dbc = new PDO('sqlite:' . $chatdb);
+    $dbc = new PDO('sqlite:' . chatdb);
 	
 	$dbc->exec('CREATE table chat(
 			id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,

@@ -1,5 +1,5 @@
 <?php
- 
+$charset_db   = 'utf8';
 $dircache = $cpath . "win_cache_ms/";
 if (is_dir($dircache)) {
 	$dircache = $cpath . "php/php.ini";
@@ -314,6 +314,7 @@ function infod($string) {
 	$string = preg_replace(' ', '', $string);
 	return $string . "";
 }
+$ixz = ixz;
 function rconcmommnd($fgf) {
 	global $ixz;
 	$fgf = str_replace(array(
@@ -358,18 +359,18 @@ if (empty($cpath)) {
 	$cpath = hx(__FILE__);
 }
 function cleart($string) {
-	global $cpath, $language, $ixz, $website, $z_ver;
+	global $cpath, $z_ver;
 	//$x_dmn = 1;
-	//	if(empty($ixz))
+	//	if(empty(ixz))
 	//require $cpath . 'ReCodMod/functions/_c.php';
-	if ($language == 'en') require $cpath . 'cfg/languages/en.lng.php';
-	else if ($language == 'ru') require $cpath . 'cfg/languages/ru.lng.php';
-	else if ($language == 'de') require $cpath . 'cfg/languages/de.lng.php';
-	else if ($language == 'pl') require $cpath . 'cfg/languages/pl.lng.php';
-	else if ($language == 'it') require $cpath . 'cfg/languages/it.lng.php';
-	else if ($language == 'br') require $cpath . 'cfg/languages/br.lng.php';
-	else if ($language == 'fr') require $cpath . 'cfg/languages/fr.lng.php';
-	else if ($language == 'nl') require $cpath . 'cfg/languages/nl.lng.php';
+	if (language == 'en') require $cpath . 'cfg/languages/en.lng.php';
+	else if (language == 'ru') require $cpath . 'cfg/languages/ru.lng.php';
+	else if (language == 'de') require $cpath . 'cfg/languages/de.lng.php';
+	else if (language == 'pl') require $cpath . 'cfg/languages/pl.lng.php';
+	else if (language == 'it') require $cpath . 'cfg/languages/it.lng.php';
+	else if (language == 'br') require $cpath . 'cfg/languages/br.lng.php';
+	else if (language == 'fr') require $cpath . 'cfg/languages/fr.lng.php';
+	else if (language == 'nl') require $cpath . 'cfg/languages/nl.lng.php';
 	else require $cpath . 'cfg/languages/en.lng.php';
 	global $xwyears, $xwmonths, $xwdays, $xwhours, $swminutes;
 	$string = str_replace("0 years 00 months 00 days 00 h.", "", $string);
@@ -1121,21 +1122,31 @@ function stringrpos($haystack, $needle, $offset = NULL) {
 	return strlen($haystack) - strpos(strrev($haystack) , strrev($needle) , $offset) - strlen($needle);
 }
 $local_dir = $cpath . 'ReCodMod/cache/x_logs/';
+$ftp_root=ftp_root;
+$ftp_root_getss=ftp_root_getss;
+$local_dir_getss=local_dir_getss;
+$ftp_root_databases=ftp_root_databases;
+$ftp_root_databases2=ftp_root_databases2;
+$local_dir_databases=local_dir_databases;
+$local_dir_databases2=local_dir_databases2;
+ 
+
 function do_upload($dir       = 'upload') {
 	global $conn_id, $ftp_root, $transfer_mode, $local_dir;
 	$ftp_dir   = preg_replace('~^' . $local_dir . '\/?~', '', $dir);
-	if ($ftp_dir != '') echo 'Folder ' . $ftp_dir . ((ftp_mkdir($conn_id, $ftp_root . $ftp_dir)) ? ' создана' : ' не создана') . "\n";
+	if ($ftp_dir != '') echo 'Folder ' . $ftp_dir . ((ftp_mkdir($conn_id, ftp_root . $ftp_dir)) ? ' создана' : ' не создана') . "\n";
 	$filelist = glob(($dir != '') ? $dir . '/*' : '*');
 	if ($filelist == array()) return 0;
 	foreach ($filelist as $file) {
 		if (is_file($file)) {
 			$transfer_mode = (preg_match('~\.(htX|log)$~', $file)) ? FTP_BINARY : FTP_ASCII;
-			echo 'File ' . $file . ((ftp_put($conn_id, $ftp_root . preg_replace('~^' . $local_dir . '\/~', '', $file) , $file, $transfer_mode)) ? ' загружен' : ' не загружен') . "\n";
+			echo 'File ' . $file . ((ftp_put($conn_id, ftp_root . preg_replace('~^' . $local_dir . '\/~', '', $file) , $file, $transfer_mode)) ? ' загружен' : ' не загружен') . "\n";
 		}
 		else do_upload($file);
 	}
 	return 0;
 }
+
 function do_upload_getss($dir     = 'upload') {
 	global $conn_id, $ftp_root_getss, $transfer_mode, $local_dir_getss;
 	$ftp_dir = preg_replace('~^' . $local_dir_getss . '\/?~', '', $dir);
@@ -1145,7 +1156,7 @@ function do_upload_getss($dir     = 'upload') {
 	foreach ($filelist as $file) {
 		if (is_file($file)) {
 			$transfer_mode = (preg_match('~\.(gif|jpg|png)$~', $file)) ? FTP_BINARY : FTP_ASCII;
-			echo 'File ' . $file . ((ftp_put($conn_id, $ftp_root_getss . preg_replace('~^' . $local_dir_getss . '\/~', '', $file) , $file, $transfer_mode)) ? unlink("$file") . ' загружен' : ' не загружен') . "\n";
+			echo 'File ' . $file . ((ftp_put($conn_id, ftp_root_getss . preg_replace('~^' . $local_dir_getss . '\/~', '', $file) , $file, $transfer_mode)) ? unlink("$file") . ' загружен' : ' не загружен') . "\n";
 		}
 		else do_upload_getss($file);
 	}
@@ -1153,14 +1164,14 @@ function do_upload_getss($dir     = 'upload') {
 }
 function do_upload_databases($dir     = 'upload') {
 	global $conn_id, $ftp_root_databases, $transfer_mode, $local_dir_databases;
-	$ftp_dir = preg_replace('~^' . $local_dir_databases . '\/?~', '', $dir);
+	$ftp_dir = preg_replace('~^' . local_dir_databases . '\/?~', '', $dir);
 	if ($ftp_dir != '') echo 'Folder ' . $ftp_dir . ((ftp_mkdir($conn_id, $ftp_root_databases . $ftp_dir)) ? ' создана' : ' не создана') . "\n";
 	$filelist = glob(($dir != '') ? $dir . '/*' : '*');
 	if ($filelist == array()) return 0;
 	foreach ($filelist as $file) {
 		if (is_file($file)) {
 			$transfer_mode = (preg_match('~\.(sqlite|db|database)$~', $file)) ? FTP_BINARY : FTP_ASCII;
-			//echo 'File ' . $file . ((ftp_put($conn_id, $ftp_root_databases . preg_replace('~^'.$local_dir_databases.'\/~', '', $file), $file, $transfer_mode)) ? unlink("$file").' загружен' : ' не загружен')."\n";
+			//echo 'File ' . $file . ((ftp_put($conn_id, ftp_root_databases . preg_replace('~^'.$$local_dir_databases.'\/~', '', $file), $file, $transfer_mode)) ? unlink("$file").' загружен' : ' не загружен')."\n";
 			echo 'File ' . $file . ((ftp_put($conn_id, $ftp_root_databases . preg_replace('~^' . $local_dir_databases . '\/~', '', $file) , $file, $transfer_mode)) ? ' загружен' : ' не загружен') . "\n";
 		}
 		else do_upload_databases($file);
@@ -1169,14 +1180,14 @@ function do_upload_databases($dir     = 'upload') {
 }
 function do_upload_databases2($dir     = 'upload') {
 	global $conn_id, $ftp_root_databases2, $transfer_mode, $local_dir_databases2;
-	$ftp_dir = preg_replace('~^' . $local_dir_databases2 . '\/?~', '', $dir);
+	$ftp_dir = preg_replace('~^' . local_dir_databases2 . '\/?~', '', $dir);
 	if ($ftp_dir != '') echo 'Folder ' . $ftp_dir . ((ftp_mkdir($conn_id, $ftp_root_databases2 . $ftp_dir)) ? ' создана' : ' не создана') . "\n";
 	$filelist = glob(($dir != '') ? $dir . '/*' : '*');
 	if ($filelist == array()) return 0;
 	foreach ($filelist as $file) {
 		if (is_file($file)) {
 			$transfer_mode = (preg_match('~\.(sqlite|db|database)$~', $file)) ? FTP_BINARY : FTP_ASCII;
-			//echo 'File ' . $file . ((ftp_put($conn_id, $ftp_root_databases2 . preg_replace('~^'.$local_dir_databases2.'\/~', '', $file), $file, $transfer_mode)) ? unlink("$file").' загружен' : ' не загружен')."\n";
+			//echo 'File ' . $file . ((ftp_put($conn_id, ftp_root_databases2 . preg_replace('~^'.$local_dir_databases2.'\/~', '', $file), $file, $transfer_mode)) ? unlink("$file").' загружен' : ' не загружен')."\n";
 			echo 'File ' . $file . ((ftp_put($conn_id, $ftp_root_databases2 . preg_replace('~^' . $local_dir_databases2 . '\/~', '', $file) , $file, $transfer_mode)) ? ' загружен' : ' не загружен') . "\n";
 		}
 		else do_upload_databases2($file);
@@ -1567,9 +1578,10 @@ function typeparser($low) {
 	}
 	return $low;
 }
+$multi_ip_servers = multi_ip_servers;
 function dbGuid($uid = '') {
-	global $server_ip, $uid, $odin_ip_u_vseh_serverov;
-	if (!empty($odin_ip_u_vseh_serverov)) {
+	global $server_ip, $uid, $multi_ip_servers;
+	if (!empty($multi_ip_servers)) {
 		$uid = '';
 		return $uid;
 	}
@@ -1768,6 +1780,60 @@ function findKey($array, $keySearch) {
 	return false;
 }
 /////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
+/////////////////////////////////////////###############//////////////////////////////////////////
 /////////////////////////////////////////#     RCM     #//////////////////////////////////////////
 //#################################         version 9         ##################################//
 /////////////////////////////////////////#     ARRAY   #//////////////////////////////////////////
@@ -1800,6 +1866,9 @@ function userStatus($name) {
 		case 555:
 			echo "moderator";
 		break;
+		case 999:
+			echo "guest";
+		break;
 		case 'administrator':
 			echo "101";
 		break;		
@@ -1824,6 +1893,9 @@ function userStatus($name) {
 		case 'developer':
 			echo "111";
 		break;
+		case 'guest':
+			echo "999";
+		break;		
 		case 'moderator':
 			echo "555";
 		break;
@@ -1887,10 +1959,14 @@ echo "\n -----------------------------";
 		if (trim($i_guid)== trim($guidin)) {
 			$gi      = geoip_open($cpath . "ReCodMod/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
 			$record  = geoip_record_by_addr($gi, $i_ip);
-			if (!empty($record)) 
-				$xxccode = ($record->country_code);
-			else $xxccode = '?';
-			return $i_ping . ';' . $i_ip . ';' . $i_name . ';' . $i_guid . ';' . $xxccode;
+			if (!empty($record))
+			{				
+				      $cccode = $record->country_code;
+                      $city   = $record->city;
+                      $contry = $record->country_name;				
+			}
+			else{ $cccode = 'n/a'; $city = 'n/a'; $country = 'n/a';} 
+			return $i_ping . ';' . $i_ip . ';' . $i_name . ';' . $i_guid . ';' . $cccode.';'.$city.';'.$country;
 		}
 	}
 	if (empty($i_ip)) return '0;0;0;0;0';
@@ -2074,7 +2150,7 @@ function SKILLcalculation($killer_player_name, $attacker_uid, $attacker_skillc, 
 	$new_attacker_skill = $attacker_skillc + $new_delta;
 	if ($new_attacker_skill <= 101) $new_attacker_skill = 100;
 	if ($new_attacker_skill >= 2750) $new_attacker_skill = 2750;
-	if (!empty($skill_log)) {
+	if (!empty(skill_log)) {
 		$skillog            = $cpath . 'ReCodMod/cache/x_logs/' . $server_ip . '_' . $server_port . '_players_skill.log';
 		if (!file_exists($skillog)) touch($skillog);
 		if (empty($egtxrun)) $egtxrun    = '';
@@ -2096,16 +2172,21 @@ function STATS_name_replace($p) {
 	$p = str_replace('`', '', $p);
 	return $p;
 }
+$SqlDataBase = SqlDataBase;
+$host_adress   = host_adress;
+$db_name       = db_name;
+$db_user       = db_user;
+$db_pass       = db_pass;
 function get_skill_from_database($playeruniqueuid) {
-	global $Msql_support, $db3, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass;
+	global $SqlDataBase, $db3, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass;
 	$e_skill     = '';
 	try {
-		if (empty($Msql_support)) {
+		if (empty($SqlDataBase)) {
 			if (empty($db3)) $db3         = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 			$sqlup       = "SELECT * FROM db_stats_2 WHERE s_pg='$playeruniqueuid' LIMIT 1";
 		}
 		else {
-			$dsn         = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+			$dsn         = "mysql:host=".$host_adress.";dbname=".$db_name.";charset=$charset_db";
 			if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass);
 			$db3         = $msqlconnect;
 			$sqlup       = "SELECT s_pg,w_skill FROM db_stats_2 WHERE s_pg='$playeruniqueuid' LIMIT 1";

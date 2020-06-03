@@ -1,4 +1,5 @@
 <?php
+$charset_db   = 'utf8';
 $dircache = $cpath."win_cache_ms/"; 
 if(is_dir($dircache))
 {
@@ -296,7 +297,7 @@ require $cpath . 'ReCodMod/functions/install.php';
 
 
 
-if(!empty($Msql_support)){
+if(!empty(SqlDataBase)){
 if((!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok')))
 {
 if($installok<2)
@@ -338,7 +339,7 @@ $login_result = ftp_login($conn_id,$user,$pass);
  
  
 if (!$conn_id || !$login_result)
-//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу $ftp_server!");
+//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
 trigger_error("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $web !", E_USER_ERROR);  
  
 if(!empty($conn_id)){
@@ -349,8 +350,7 @@ if(!empty($conn_id)){
     ftp_pasv($conn_id, false);
         }
 }
- 
-$ftp_server = $ftp_exp_ip;
+  
  $ftp_user_name = $ftp_exp_user;
  $ftp_user_pass = $ftp_exp_password;
  
@@ -466,7 +466,7 @@ echo "\n\n Your use wrong rcon password -> ($server_rconpass = )
 	//if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;
 	}
 	else{
-if(!empty($aqrcon))
+if(!empty(aqrcon))
 {
 xcon('sets _'.$z_set.'', '');	
 usleep(9000);
@@ -524,7 +524,7 @@ echo "\n   TRY ADD in mplogfile line ([cfg/servers.cfg]): ".$mplogfiler = seveno
 //sleep(7000); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;
 }
 else{
-if(!empty($aqrcon))
+if(!empty(aqrcon))
 {
 xcon('sets _'.$z_set.'', '');	
 usleep(9000);
@@ -549,7 +549,7 @@ if((!file_exists($mplogfilexl)) && (!preg_match('/ftp:/', $mplogfilexl, $xnon)))
 \n PLEASE ADD CORRECT GAME LOGFILE FOLDER ADRESS! 
 \n OR TRY RESTART RCM ADMIN TOOL!";
 echo "\n   TRY ADD THIS in mplogfile line ([cfg/servers.cfg]): ".$mplogfiler = sevenofff($mplogfilenew)." \n \n";
-if(!empty($aqrcon))
+if(!empty(aqrcon))
 {
 xcon('sets _'.$z_set.'', '');	
 usleep(9000);
@@ -583,7 +583,7 @@ fclose($hu);
 $_SESSION[$server_port] = 0;							
 ////AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> LogFile game_mp.log starting auto reset! </font> "); 
 AddToLog1clear ("[".$datetime."] Server : LogFile game_mp.log starting auto reset! "); 
-if(!empty($aqrcon))
+if(!empty(aqrcon))
 {
 xcon('sets _'.$z_set.'', '');	
 usleep(9000);

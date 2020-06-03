@@ -1,5 +1,11 @@
 <?php
-
+//.main cfg _settings.ini LOADER
+ $config_data = parse_ini_file($cpath . "cfg/_settings.ini", true);
+ foreach($config_data as $section => $r)   
+ {   foreach($r as $string => $value){
+		if(!defined($string))
+		define($string, $value);    	
+ }}
 if (empty($_SERVER['OS']))
      $_SERVER['OS'] = '';
 if (strpos($_SERVER['OS'], 'Win') !== false){
@@ -81,7 +87,7 @@ return $string;
 }
 
 
-require $cpath.'cfg/_settings.php';
+
 
  $mplogfilexl = hxlog($mplogfile);
 
@@ -93,7 +99,7 @@ require $cpath.'cfg/_settings.php';
 
  function readloglines($infologtxt) {
 global $cpath, $server_ip, $server_port, $server_rconpass, $mplogfile, $out_root, $cur_seek_pos_end;
-require $cpath.'cfg/_settings.php';
+
 
  $filepath = hxlog($mplogfile);
  $handlePos =  fopen($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos.txt', 'r+');//открываем файл с последним положением
@@ -166,7 +172,7 @@ $gmlobame = basename($ftp_exp_url);
 
  function newreadloglines($infologtxt) {
 global $cpath, $server_ip, $server_port, $server_rconpass, $mplogfile;
-require $cpath.'cfg/_settings.php';
+
  $filepath = hxlog($mplogfile);
  
  
@@ -225,7 +231,7 @@ if (($bufferh = fgets($handlePosh, 10)) !== false)
 function readloglinercx($inlogtxtc) {
 global $cpath, $server_ip, $server_port, $server_rconpass, $mplogfile;
 //require $cpath.'cfg/_connection.php';
-require $cpath.'cfg/_settings.php';
+
  $filepathf = $cpath."ReCodMod/cache/x_logs/parsed_code_".$server_ip."_".$server_port.".log";
  $handlePosh = @fopen($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos2.txt', 'r+');//открываем файл с последним положением
     if (($bufferh = fgets($handlePosh, 10)) !== false) {

@@ -7,7 +7,7 @@ $xbld   = "";
 $dtx   = "";
 
 $etop = 'kills';
-
+$charset_db   = 'utf8';
 
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -143,8 +143,13 @@ require_once $cpath.'ReCodMod/functions/getinfo/COD4xServerStatus.php';
 //global $server_ip, $server_port, $server_rconpass, $mplogfile;
 //require $cpath.'cfg/_connection.php';
 
- 
-require $cpath . 'cfg/_settings.php';
+//.main cfg _settings.ini LOADER
+ $config_data = parse_ini_file($cpath . "cfg/_settings.ini", true);
+ foreach($config_data as $section => $r)   
+ {   foreach($r as $string => $value){
+		if(!defined($string))
+		define($string, $value);    	
+ }}
 require $cpath . 'cfg/messages.cfg.php';
 
 
@@ -170,25 +175,21 @@ else if($etop == 'ratio')
 else
     $etopx = 's_ratio';
 
-
-if(empty($language))
-$language = 'en';
-
-if ($language == 'en')
+if (language == 'en')
 require $cpath . 'cfg/languages/en.lng.php';
-else if ($language == 'ru')
+else if (language == 'ru')
 require $cpath . 'cfg/languages/ru.lng.php';
-else if ($language == 'de')
+else if (language == 'de')
 require $cpath . 'cfg/languages/de.lng.php';
-else if ($language == 'pl')
+else if (language == 'pl')
 require $cpath . 'cfg/languages/pl.lng.php';
-else if ($language == 'it')
+else if (language == 'it')
 require $cpath . 'cfg/languages/it.lng.php';
-else if ($language == 'br')
+else if (language == 'br')
 require $cpath . 'cfg/languages/br.lng.php';
-else if ($language == 'fr')
+else if (language == 'fr')
 require $cpath . 'cfg/languages/fr.lng.php';
-else if ($language == 'nl')
+else if (language == 'nl')
 require $cpath . 'cfg/languages/nl.lng.php';
 else
 require $cpath . 'cfg/languages/en.lng.php';
@@ -246,19 +247,19 @@ if(file_exists($cpath . 'ReCodMod/databases/db1.sqlite')
 try
  {
  
-if(empty($Msql_support))  
+if(empty(SqlDataBase))  
 $db4    = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db4.sqlite');
   else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db4 = $msqlconnect; 
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db4 = $msqlconnect; 
 	
    }  
   
@@ -278,13 +279,13 @@ catch (PDOException $e)
   $msql_test = 1;
  }
  
-if(empty($Msql_support))  
+if(empty(SqlDataBase))  
 $msql_test = 0; 
 
 
 if($msql_test == 1)
 {
-	echo "\n\033[38;5;9m  cfg/_settings.php  Msql_support = 1; ,ERROR CONNECT TO MSQL DATABASE \n";
+	echo "\n\033[38;5;9m  cfg/_settings.ini  SqlDataBase = 1; ,ERROR CONNECT TO MSQL DATABASE \n";
 	sleep(2);
 	exit;
 }
@@ -293,7 +294,7 @@ try
  {
   
   
-  if(empty($Msql_support)){
+  if(empty(SqlDataBase)){
   if (empty($bannlist))
     $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
   else
@@ -301,14 +302,14 @@ try
   }else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect; 
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect; 
 	
    }
 
@@ -333,7 +334,7 @@ if (strpos($server_ip,'.') !== false)
 	else $svipport = abs(hexdec(crc32($server_ip)));
 	
 	 
-if(!empty($odin_ip_u_vseh_serverov))
+if(!empty(multi_ip_servers))
 {
 if (strpos($server_ip,'.') !== false)
 $svipport = $server_port;
@@ -342,19 +343,19 @@ $svipport = $server_port;
 try
  {
 	  
-if(empty($Msql_support))
+if(empty(SqlDataBase))
    $db3    = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
       else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect; 
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect; 
 	
    }	 
 	  
@@ -461,9 +462,6 @@ $string = str_replace("gg", "gg", $string);
 return $string;
 }
  
- 
-if (empty($kicknotingrp))
-  $kicknotingrp = 1; 
 if (empty($game_patch))
  {
   
@@ -522,7 +520,7 @@ if (empty($game_patch))
 	$game_patch = trim($game_patch);   
    }
  }
- if(empty($Msql_support)){
+ if(empty(SqlDataBase)){
 if(!empty($db)){
 $db = NULL;
 echo ' db null ';}
