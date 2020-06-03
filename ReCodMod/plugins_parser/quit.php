@@ -8,7 +8,6 @@ if (strpos($parseline, " Q;") !== false) {
    if ($counttdot == 2) list($noon, $idk, $nickname) = explode(';', $parseline);
    else list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
    if (empty($guid)) $guid = '0';
-   echo '-' . $guid . '-' . $idk . '-' . $nickname;
      
 	 
 $nicknametrim = trim(clearnamex($nickname));
@@ -31,5 +30,6 @@ if(!empty($keylokX))
                                unset($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))))]['user_status']);
 						  if (!empty($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))))]['layerNUM'])) 
                                unset($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))))]['layerNUM']);						   
+		  echo "\n [Q;] guid:" , $guid , ' num:' , $idk , ' time: ' , $tfinishh = (microtime(true) - $start);
 }
 ?>

@@ -17,7 +17,7 @@ if (!empty($stats_array)) {
   $whileoptx = 0;
   $whileopt = 0;
   try {
-    if (empty($Msql_support)) {
+    if (empty(SqlDataBase)) {
       $db4 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db4.sqlite');
       $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
       $dbw3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/dbw3.sqlite');
@@ -26,8 +26,8 @@ if (!empty($stats_array)) {
       $dbm3day->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     else {
-      $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
-      if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+      $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
+      if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass);
       $db3 = $msqlconnect;
       $dbw3 = $msqlconnect;
       $dbm3day = $msqlconnect;
@@ -70,6 +70,10 @@ if (!empty($stats_array)) {
           $damage = '';
           $city = '';
           $ping = '';
+		  //special
+		  $flags = 0;
+		  $saveflags = 0;
+		  $camps = 0;
           foreach ($v as $g => $o) {
             if (strpos($g, 'guid') !== false) $guid = $o;
             else if (strpos($g, 'nickname') !== false) $nickname = $o;
@@ -77,6 +81,11 @@ if (!empty($stats_array)) {
             else if (strpos($g, 'scores;kills') !== false) $kills = $o;
             else if (strpos($g, 'scores;deaths') !== false) $deaths = $o;
             else if (strpos($g, 'scores;suicides') !== false) $suicides = $o;
+			//special start
+			else if (strpos($g, 'scores;camps') !== false) $camps = $o;
+			else if (strpos($g, 'scores;flags') !== false) $flags = $o;
+			else if (strpos($g, 'scores;saveflags') !== false) $flags = $o;
+			//special end			
             else if ($g == 'scores;kill_series') $kill_series = $o;
             else if (strpos($g, 'scores;kill_series_db') !== false) $kill_series_db = $o;
             else if (strpos($g, 'scores;kill_series_minute_db') !== false) $kill_series_minute_db = $o;
@@ -394,7 +403,7 @@ ON DUPLICATE KEY
                   }
                   $skillog = $cpath . 'ReCodMod/cache/x_logs/' . $server_ip . '_' . $server_port . '_players_skill.log';
                   if (!file_exists($skillog)) touch($skillog);
-                  if (!empty($skill_log)) {
+                  if (!empty(skill_log)) {
                     if (file_exists($skillog)) {
                       $fpl = fopen($skillog, 'a');
                       fwrite($fpl, "=== SKILL update #1: " . $skill . "%" . $player_server_uid . " === \n\n");
@@ -490,6 +499,9 @@ ON DUPLICATE KEY
                 unset($stats_array[$player_server_uid]['scores;kills']);
                 unset($stats_array[$player_server_uid]['scores;deaths']);
                 unset($stats_array[$player_server_uid]['scores;suicides']);
+				unset($stats_array[$player_server_uid]['scores;camp']);
+				unset($stats_array[$player_server_uid]['scores;flags']);
+				unset($stats_array[$player_server_uid]['scores;saveflags']);
                 //unset($stats_array[$player_server_uid]['scores;kill_series_db']);
                 //unset($stats_array[$player_server_uid]['scores;kill_series_minute_db']);
                 //unset($stats_array[$player_server_uid]['scores;kill_series_head_db']);

@@ -7,7 +7,6 @@
 /////////////////////////////////////////###############////////////////////////////////////////// 
 */
 if ($x_stop_lp == 0) {
-    require $cpath . 'cfg/_settings.php';
     if (!file_exists($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/')) {
         if (!file_exists($cpath . 'ReCodMod/databases/stats_register/')) mkdir($cpath . 'ReCodMod/databases/stats_register/', 0777, true);
         mkdir($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/', 0777, true);
@@ -53,18 +52,18 @@ if ($x_stop_lp == 0) {
             ///STATS SYSTEM - ADD BOTS IN STATS
             // 0 - OFF(DO NOT ADD)
             // 1 - ON(ADD BOTS IN STATISTICS SYSTEM for all servers)
-            // example: $reg_guid_stats = "28960/28962/28964" servers without 0 guid adding in stats,
+            // example: reg_guid_stats = "28960/28962/28964" servers without 0 guid adding in stats,
             // another servers wits bots going in stats
-            if (empty($reg_guid_stats)) {
+            if (empty(reg_guid_stats)) {
                 if (empty($death_player_guid)) $x_stop_lp = 20;
                 if (empty($player_killer_guid)) $x_stop_lp = 20;
-            } else if ((!empty($reg_guid_stats)) && (strpos($reg_guid_stats, $server_port) !== false)) {
+            } else if ((!empty(reg_guid_stats)) && (strpos(reg_guid_stats, $server_port) !== false)) {
                 if (empty($death_player_guid)) $x_stop_lp = 20;
                 if (empty($player_killer_guid)) $x_stop_lp = 20;
-            } else if ((!empty($reg_guid_stats)) && (strpos($reg_guid_stats, $server_port) === false)) {
+            } else if ((!empty(reg_guid_stats)) && (strpos(reg_guid_stats, $server_port) === false)) {
                 if (empty($death_player_guid)) $x_stop_lp = 0;
                 if (empty($player_killer_guid)) $x_stop_lp = 0;
-            } else if ($reg_guid_stats == 1) {
+            } else if (reg_guid_stats == 1) {
                 if (empty($death_player_guid)) $x_stop_lp = 0;
                 if (empty($player_killer_guid)) $x_stop_lp = 0;
             }
@@ -92,7 +91,7 @@ if ($x_stop_lp == 0) {
                 /////////////////////////////////////////////////
 				
 if (empty($stats_array[$shid]['ip_adress'])) {
-    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode) = explode(';', (rconExplode($player_killer_guid)));
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($player_killer_guid)));
 	    $stats_array[$shid]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$shid]['city'])) 
 	    $stats_array[$shid]['city'] = $xxccode;  
@@ -101,7 +100,7 @@ if (empty($stats_array[$shid]['ip_adress'])) {
 }		     	  
 					
 if (empty($stats_array[$shiddeath]['ip_adress'])) {
-    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode) = explode(';', (rconExplode($death_player_guid)));
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($death_player_guid)));
 	    $stats_array[$shiddeath]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$shiddeath]['city'])) 
 	    $stats_array[$shiddeath]['city'] = $xxccode;  
@@ -188,7 +187,22 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 				 if(!empty($m[0]))
                 $keyhm = str_replace(":", "", $m[0], $keyhm);
 			    $keyhm = (int)$keyhm;
-			
+				// players activaties in server
+				if (empty($server_array))
+				    $server_array['KILLStimer'][$keyhm] = 1;
+			    else
+				{	
+$server_array(['KILLStimer'] as $g => $f){
+	
+		if($g!=$keyhm)
+			unset($server_array['KILLStimer']);
+		else
+		{
+		$server_array['KILLStimer'][$keyhm] = ($server_array['KILLStimer'][$keyhm])+1;  
+		}
+         } 	
+		 }
+// players activaties in server		 
                 //kill series minute
                 $kill_series_minute_time = search_values($shiddeath, 'scores', 'kill_series_minute_time', $stats_array);
                 if (empty($kill_series_minute_time)) $stats_array[$shiddeath]['scores;kill_series_minute_time'] = $keyhm;
@@ -326,14 +340,14 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                 //Обновление статистики *Начало
                 $statscronx = $cpath . 'ReCodMod/databases/' . $server_ip . '_' . $server_port . '_statstimer.log';
                 if (!file_exists($statscronx)) touch($statscronx);
-                //if(empty($stats_cron_database))
-                $stats_cron_database = rand(1, 4); //5
-                if (!empty($stats_cron_database)) {
+                //if(empty(stats_cron_database))
+                stats_cron_database = rand(1, 4); //5
+                if (!empty(stats_cron_database)) {
                     if (!empty($statscronx)) {
                         //$rand = rand(5, 15);
                         $ci = filemtime($statscronx);
-                        //if (time() - $ci >= (int)$stats_cron_database+(int)$rand)
-                        if (time() - $ci >= (int)$stats_cron_database) {
+                        //if (time() - $ci >= (int)stats_cron_database+(int)$rand)
+                        if (time() - $ci >= (int)stats_cron_database) {
                             echo "\n ~~~~~~~~~~~~~~~~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~~~~~~~~~~~~~~~~~";
                             if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
                             $string = str_replace(".", "_", $server_ip);
