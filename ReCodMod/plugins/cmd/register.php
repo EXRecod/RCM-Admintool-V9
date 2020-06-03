@@ -3,6 +3,9 @@ if ((strpos($msgr, ixz.'register') !== false)||(strpos($msgr, ixz.'reg') !== fal
 
  if ((empty($stats_array[$conisq]['user_status']))|| $stats_array[$conisq]['user_status'] == 'guest'){ 
  $stats_array[$conisq]['user_status'] = 'registered';
+
+ if (strpos($stats_array[$conisq]['user_status'], 'registered') !== false)	
+    config_ini_set("_groups_database", 'registered','all_'.$guidn,$guidn);
   
 usleep($sleep_rcon*2);
       try {
