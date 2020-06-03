@@ -1,9 +1,9 @@
 <?php
-	if ((preg_match("/^".$ixz."xget /i", $msgr)) || (preg_match("/^".$ixz."xgetss /i", $msgr)))
+	if ((preg_match("/^".ixz."xget /i", $msgr)) || (preg_match("/^".ixz."xgetss /i", $msgr)))
 	{	if ($game_patch != 'cod1_1.1')
 		{
 		$cron_timeq = filemtime($cpath . "ReCodMod/cache/x_cron/cron_gts_".$server_ip."_".$server_port);
-		if (time() - $cron_timeq >= 60 * $players_access_xget)
+		if (time() - $cron_timeq >= 60 * players_access_xget)
 			{
 
 				list($cmv, $numm) = explode(' ', $msgr);

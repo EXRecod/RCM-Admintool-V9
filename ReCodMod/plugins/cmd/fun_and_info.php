@@ -147,7 +147,7 @@ if ($x_stop_lp == 0) {
             '^3Bye, Bye friend! ',
             '^3Bye, bye and goodluck! ',
             '^3Bye, bye and back again! ;) ',
-            '^3Bye, bye and visit our website ^2htp:^2/^2/' . $website . '/ ;) ',
+            '^3Bye, bye and visit our website ^2htp:^2/^2/' . website . '/ ;) ',
             '^3BB ;) ',
             '^3Bye, bye gamer!'
         );
@@ -188,7 +188,7 @@ if ($x_stop_lp == 0) {
         $words  = array(
             '^3Hi, ',
             '^3Hey;) ',
-            '^3Welcome @ ^2' . $website . ',^7 ',
+            '^3Welcome @ ^2' . website . ',^7 ',
             '^3Hello, ',
             '^3Hi there ^73;^1)  ',
             '^3Hi friend, ',
@@ -335,7 +335,7 @@ if ($x_stop_lp == 0) {
         rcon('say    ^7_|  /|_');
         /////AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='orange'> ".$wordl ." </font> ");  	    
         ++$x_number;
-    } else if ((strpos($ixz . 'shit', $msgr) !== false) && ($x_number != 1)) {
+    } else if ((strpos(ixz . 'shit', $msgr) !== false) && ($x_number != 1)) {
         
         rcon("say \r\r ^7)");
         
@@ -462,26 +462,26 @@ if ($x_stop_lp == 0) {
         ++$x_number;
     }
 	 
-	if (strpos($msgr, $ixz . 'cmd') !== false) {
+	if (strpos($msgr, ixz . 'cmd') !== false) {
 		
 						if (strpos($game_patch, 'cod1_') !== false)
                         {    
 						 if(!empty($commands0)) 
 						 {							 
 						   
-							rcon('say (^1'.$ixz.'^7)' . $commands0 . '', '');
+							rcon('say (^1'.ixz.'^7)' . $commands0 . '', '');
 						 }
 						 if(!empty($commands1)) 
 						 {
 							
-							rcon('say (^2'.$ixz.'^7)' . $commands1 . '', '');
+							rcon('say (^2'.ixz.'^7)' . $commands1 . '', '');
 						 }
 						 if(!empty($commands_costum)) 
 						 {
 							
-							rcon('say (^3'.$ixz.'^7)' . $commands_costum . '', '');
+							rcon('say (^3'.ixz.'^7)' . $commands_costum . '', '');
 							
-							rcon('say ^6'.$ixz.'fun', '');
+							rcon('say ^6'.ixz.'fun', '');
 						}	
 						}
                         else
@@ -489,26 +489,26 @@ if ($x_stop_lp == 0) {
                         if(!empty($commands0)) 
 						 {							 
 						   
-							rcon('tell ' . $idnum . ' (^1'.$ixz.'^7)' . $commands0 . '', '');
+							rcon('tell ' . $idnum . ' (^1'.ixz.'^7)' . $commands0 . '', '');
 						 }
 						 if(!empty($commands1)) 
 						 {
 							
-							rcon('tell ' . $idnum . ' (^2'.$ixz.'^7)' . $commands1 . '', '');
+							rcon('tell ' . $idnum . ' (^2'.ixz.'^7)' . $commands1 . '', '');
 						 }
 						 if(!empty($commands_costum)) 
 						 {
 							
-							rcon('tell ' . $idnum . ' (^3'.$ixz.'^7)' . $commands_costum . '', '');
+							rcon('tell ' . $idnum . ' (^3'.ixz.'^7)' . $commands_costum . '', '');
 							
-							rcon('tell ' . $idnum . ' '.$ixz.'fun', '');
+							rcon('tell ' . $idnum . ' '.ixz.'fun', '');
 						 }
 						}
    ++$x_stop_lp;    //return;
 	}
  
 		/* ------------------>  !cmd fun   <------------------- */
-    else if ((strpos($msgr, $ixz . 'fun') !== false) && ($x_number != 1)) {
+    else if ((strpos($msgr, ixz . 'fun') !== false) && ($x_number != 1)) {
 		   ++$x_stop_lp;    //return;
         
         rcon('say ' . $commands2 . '', '');
@@ -519,7 +519,7 @@ if ($x_stop_lp == 0) {
        }
      
     /* ------------------>  !info  <------------------- */
-    if ((strpos($msgr, $ixz . 'info') !== false) && ($x_number != 1)) {
+    if ((strpos($msgr, ixz . 'info') !== false) && ($x_number != 1)) {
         
         //rcon('say ^7Watching us ^3RCM '.$z_ver.' , ^5the best admin tool for cracked servers [recod.ru] ^7scripted by: ^1LA', '');
         rcon('say ^6^7__^1***^7_________^1*** ^3Admintool xxxreal.ru', '');

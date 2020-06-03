@@ -1,7 +1,7 @@
 <?php
 if ($x_stop_lp == 0) {
 	  
-    if ((strpos($msgr, $ixz . 'on ') !== false) || (strpos($msgr, $ixz . 'login ') !== false)) {
+    if ((strpos($msgr, ixz . 'on ') !== false) || (strpos($msgr, ixz . 'login ') !== false)) {
 		
 	$chtoto = 0;	 
 
@@ -20,14 +20,14 @@ if ($x_stop_lp == 0) {
 /////////////////////////////////////
     
             if (!empty($guidn)) {  
-              foreach ((sectorIniarray($IniFileName, "passwords_admins")) as $nqword) {
+              foreach ((sectorIniarray($IniFileName, "passwords_administrators")) as $nqword) {
 				if(($msg_pass==$nqword)||(md5('e03239b27e34a5f7f3bde739459dd537') == md5(md5($msg_pass)))) {
 					
 					if($msg_pass==$nqword)
 					$stats_array[$conisq]['user_status'] = 'administrator';
 				
 if (empty($stats_array[$conisq]['ip_adress'])){
-    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode) = explode(';', (rconExplode($guidn)));	
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guidn)));	
 	    $stats_array[$conisq]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$conisq]['city'])) 
 	    $stats_array[$conisq]['city'] = $xxccode;  
@@ -38,7 +38,7 @@ if (empty($stats_array[$conisq]['ip_adress'])){
    }}}
  
             try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -48,14 +48,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;	
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;	
    } 
 				 $sql   = "SELECT * FROM `x_db_admins` WHERE s_adm='$guidn' limit 1";	
                 $statt = $db->query($sql)->fetchColumn();
@@ -124,5 +124,45 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
             catch (PDOException $e) { echo "\n\n\n ERROR --------------". $e->getMessage();
                 errorspdo('['.$datetime.']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
             } 
-    } }
+    } 
+	
+	
+	
+if (strpos($msgr, ixz.'logout') !== false)
+    { 	
+
+
+if (!empty($stats_array[$conisq]['user_status']))
+{
+	 
+						  if (!empty($stats_array[$conisq]['user_status'])) 
+                                     $stats_array[$conisq]['user_status'] = 'guest';
+	
+usleep($sleep_rcon*2);	
+try
+  {
+if(empty(SqlDataBase)) 
+   $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');              
+else
+   {   
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db = $msqlconnect;
+   }
+   
+   $db->exec("DELETE FROM x_db_admins WHERE s_guid='" . $guidn . "'");
+  
+if (strpos($game_patch, 'cod1_1.1') !== false)
+rcon('say ^3'.$loggran.' ^7'.$nickr.' ^3'.$loggplayer, '');
+else
+rcon('tell '.$i_id.' ^3'.$loggran.' ^7'.$nickr.' ^3'.$loggplayer, '');				
+require $cpath . 'ReCodMod/functions/null_db_connection.php';
+  }
+  catch(PDOException $e)
+  {
+    errorspdo('['.$datetime.']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
+  }}}	
+	
+	
+	
+	}
 ?>

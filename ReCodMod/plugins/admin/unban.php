@@ -1,5 +1,5 @@
 <?php 
-if (preg_match("/^".$ixz."unban /i", $msgr)) {	
+if (preg_match("/^".ixz."unban /i", $msgr)) {	
 ////////////////////////////////////////////////////////////////////NEW DOWN AT THE LIST   
  
  list($x_cmd, $x_nickid) = explode(' ', $msgr); // !unban nick
@@ -9,7 +9,7 @@ if (preg_match("/^".$ixz."unban /i", $msgr)) {
 	
 try
   {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {  
                 $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
 				$db0 = new PDO('sqlite:'.$cpath . 'ReCodMod/databases/db0.sqlite');
@@ -17,9 +17,9 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db2 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db2 = $msqlconnect;
 	$db = $db2; 
    } 
 ++$knownplayr;

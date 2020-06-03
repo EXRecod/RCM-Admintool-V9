@@ -5,7 +5,7 @@
 if ($x_stop_lp == 0) {
  
 		
-		if (preg_match("/^".$ixz."ban /i", $msgr)) {
+		if (preg_match("/^".ixz."ban /i", $msgr)) {
         //$knownplayr = 0;
         echo "\n[ADB] : [", $datetime, "] : " . $nickr . " : " . $msgr;
         $r_ch = trim($chistx);
@@ -22,7 +22,7 @@ if ($x_stop_lp == 0) {
 				
 	
 				
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -38,14 +38,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect; 
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect; 
 	$db2 = $db;
    }				
 				
@@ -174,7 +174,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 	
 	
 	
-    if (strpos($msgr, $ixz . 'dumpbanlist') !== false) {
+    if (strpos($msgr, ixz . 'dumpbanlist') !== false) {
         //$knownplayr = 0;
         echo "\n[ADB] : [", $datetime, "] : " . $nickr . " : " . $msgr;
         $r_ch = trim($chistx);
@@ -184,7 +184,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
             $ipt = (array_search($i1p . '.' . $i2p . '.' . $i3p, $r_admi, true) !== false);
         } else if (($web_con == '1') && ($x_stop_lp == 0)) {
             try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -195,14 +195,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
 	//$db = $db2; 
    }
                        if(empty($guids))
@@ -287,7 +287,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 
 if ($x_stop_lp == 0) {
     ///ban ip range naprimer 111.222    iz    111.222.333.444   +++++  !range 111.222 WH
-    if (strpos($msgr, $ixz . 'range ') !== false) {
+    if (strpos($msgr, ixz . 'range ') !== false) {
         //$knownplayr = 0;
         echo "\n[ADB] : [", $datetime, "] : " . $nickr . " : " . $msgr;
         $r_ch = trim($chistx);
@@ -303,7 +303,7 @@ if ($x_stop_lp == 0) {
             $tk      = $i_id . ' / ' . $i_namex . ' / ' . $i_ip . ' / ' . $i_ping;
             $kski    = explode(" / ", $tk);
             try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -318,14 +318,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect;
 	$db = $db2; 
    }
                        if(empty($guids))
@@ -460,7 +460,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 if (!empty($guids))
 {
 	$ie = 0;
-if (trim($msgr) == $ixz . 'banlist') {
+if (trim($msgr) == ixz . 'banlist') {
 
 
         $newid   = $idnum;
@@ -468,7 +468,7 @@ if (trim($msgr) == $ixz . 'banlist') {
 
 try {
 	
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
   
@@ -476,7 +476,7 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -484,7 +484,7 @@ else
     ];
 	 
     if(empty($msqlconnect)) 
-	$msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); 
+	$msqlconnect = new PDO($dsn, db_user, db_pass, $opt); 
 	$db = $msqlconnect;
 	$db2 = $db; 
    }
@@ -504,7 +504,7 @@ $jjj = ((array_search(strtolower($i_ip), $adminIP, true) !== false) || (trim($i_
   if(!empty($jjjnw)) $jjj = $jjjnw;
  if($jjj){
 		
-		if(empty($Msql_support))
+		if(empty(SqlDataBase))
               $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
   
                  $gi      = geoip_open($cpath . "ReCodMod/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
@@ -525,7 +525,7 @@ $jjj = ((array_search(strtolower($i_ip), $adminIP, true) !== false) || (trim($i_
 					usleep(round($sleep_rcon/4));	 
 					
                     $record = geoip_record_by_addr($gi, $ipadrr);
-                    if ($geox == 1)
+                    if (geox == 1)
                         $xxcity = ($record->country_name . ", " . $record->city . "");
                     else
                         $xxcity = ($record->country_name);
@@ -569,8 +569,8 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 else
 {
  
-//if (trim($msgr) == $ixz . 'banlist') {
-if (preg_match("/^".$ixz."banlist/i", $msgr)) {
+//if (trim($msgr) == ixz . 'banlist') {
+if (preg_match("/^".ixz."banlist/i", $msgr)) {
 	
     $nickr = clearnamex($i_name);
     $x_nickx = clearnamex($nickr);
@@ -593,7 +593,7 @@ if (preg_match("/^".$ixz."banlist/i", $msgr)) {
         if (strpos(chatrr($nickr), $kski[1]) !== false)
             $unkwnplyersx = $i_id;
         try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -604,7 +604,7 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -612,7 +612,7 @@ else
     ];
 	 
     if(empty($msqlconnect)) 
-	$msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); 
+	$msqlconnect = new PDO($dsn, db_user, db_pass, $opt); 
 	$db = $msqlconnect;
 	//$db = $db2; 
    }
@@ -655,7 +655,7 @@ else
                 Continue;
             ////////////////////////////////////////////////////////////////////////////////////////////////////
             try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
  
                 if (empty($bannlist))
@@ -667,14 +667,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect;
 	//$db = $db2; 
    }
                  $gi      = geoip_open($cpath . "ReCodMod/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
@@ -693,7 +693,7 @@ else
                     
 					
                     $record = geoip_record_by_addr($gi, $ipadrr);
-                    if ($geox == 1)
+                    if (geox == 1)
                         $xxcity = ($record->country_name . ", " . $record->city . "");
                     else
                         $xxcity = ($record->country_name);
@@ -730,7 +730,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
-if (strpos($msgr, $ixz . 'rlist ') !== false) {
+if (strpos($msgr, ixz . 'rlist ') !== false) {
     if ($x_number != 1) {
         // list($nickr, $msgr) = explode(' % ', $parselinetxt);  
         $nickr = clearnamex($i_name);
@@ -746,7 +746,7 @@ if (strpos($msgr, $ixz . 'rlist ') !== false) {
             $tk      = $i_id . ' / ' . $i_namex . ' / ' . $i_ip . ' / ' . $i_ping;
             $kski    = explode(" / ", $tk);
             try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -761,14 +761,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect;
 	$db = $db2; 
    }             if(empty($guids))
                 $result = $db->query("SELECT * FROM x_db_admins WHERE s_adm='$i_ip' LIMIT 1");
@@ -842,7 +842,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
         }
     }
 }
-if (strpos($msgr, $ixz . 'rlist') !== false) {
+if (strpos($msgr, ixz . 'rlist') !== false) {
     $nickr = clearnamex($i_name);
     $x_nickx = clearnamex($nickr);
     $mmm     = trim($x_nickx);
@@ -857,7 +857,7 @@ if (strpos($msgr, $ixz . 'rlist') !== false) {
         if (strpos(chatrr($nickr), $kski[1]) !== false)
             $unkwnplyersx = $i_id;
         try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -868,14 +868,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
    }
                    if(empty($guids))
                 $result = $db->query("SELECT * FROM x_db_admins WHERE s_adm='$i_ip' LIMIT 1");
@@ -912,7 +912,7 @@ else
                 Continue;
             ////////////////////////////////////////////////////////////////////////////////////////////////////
             try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
  
                 if (empty($bannlist))
@@ -924,14 +924,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect;
    }	
    
                 $result = $db2->query("SELECT * FROM x_ranges WHERE id>=1 ORDER BY (id+0) DESC LIMIT 10");
@@ -974,7 +974,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 if ($x_stop_lp == 0) {
-    if (strpos($msgr, $ixz . 'find ') !== false) {
+    if (strpos($msgr, ixz . 'find ') !== false) {
 		
 		
         $nickr = clearnamex($i_name);
@@ -1020,7 +1020,7 @@ $jjj = ((array_search(strtolower($i_ip), $adminIP, true) !== false) || (trim($i_
  
  
  try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($bannlist))
                     $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
@@ -1031,14 +1031,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect;
    }
    
 $sql = 'SELECT * FROM bans WHERE playername LIKE :keyword ORDER BY (id+0) DESC LIMIT 10'; 
@@ -1086,7 +1086,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 if ($x_stop_lp == 0) {
-    if (strpos($msgr, '' . $ixz . 'ulist') !== false) {
+    if (strpos($msgr, '' . ixz . 'ulist') !== false) {
         $nickr = clearnamex($i_name);
         $x_nickx = clearnamex($nickr);
         $mmm     = trim($x_nickx);
@@ -1099,7 +1099,7 @@ if ($x_stop_lp == 0) {
             $newid   = $i_id;
             $newip2  = $i_ip;
             try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -1109,14 +1109,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
    }	
    
                        if(empty($guids))
@@ -1170,7 +1170,7 @@ $jjj = ((array_search(strtolower($i_ip), $adminIP, true) !== false) || (trim($i_
                     Continue;
                 ////////////////////////////////////////////////////////////////////////////////////////////////////
                 try {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($bannlist))
                     $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
@@ -1181,14 +1181,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect;
    }
    
   $newid = $idnum;
@@ -1229,7 +1229,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 if ($x_stop_lp == 0) {
-    if (strpos($msgr, $ixz . 'tban ') !== false) {
+    if (strpos($msgr, ixz . 'tban ') !== false) {
         echo "\n[ADB] : [", $datetime, "] : " . $nickr . " : " . $msgr;
         $r_ch = trim($chistx);
         //$vipt = (array_search($r_ch, $r_adm, true) !== false);
@@ -1245,7 +1245,7 @@ if ($x_stop_lp == 0) {
 				
 				
 				
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -1260,14 +1260,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
     $db2 = $db;	
    }				
 				
@@ -1348,7 +1348,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 
 if ($x_stop_lp == 0)
   {
-    if (strpos($msgr, $ixz . 'bw ') !== false)
+    if (strpos($msgr, ixz . 'bw ') !== false)
       {
         echo "\n[ADB] : [", $datetime, "] : " . $nickr . " : " . $msgr;
         $r_ch = trim($chistx);
@@ -1363,7 +1363,7 @@ if ($x_stop_lp == 0)
               {
  
 			 	
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -1378,14 +1378,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
     $db2 = $db;	
    }				
 				
@@ -1480,7 +1480,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
               }
           }
       }
-    else if (strpos($msgr, $ixz . 'bw') !== false)
+    else if (strpos($msgr, ixz . 'bw') !== false)
       {
         $nickr = clearnamex($i_name);
         $x_nickx = clearnamex($nickr);
@@ -1498,7 +1498,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
             try
               {
                 
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($bannlist))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -1509,14 +1509,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect; 
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect; 
    }					
 				
 				
@@ -1561,7 +1561,7 @@ else
                 try
                   {
 
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($bannlist))
                     $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
@@ -1572,14 +1572,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect; 
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect; 
    }					
 					
 					
@@ -1673,7 +1673,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
  
 	
 	
-if (strpos($msgr, $ixz.'lastban') !== false)
+if (strpos($msgr, ixz.'lastban') !== false)
     { 
 
  $nickr = clearnamex($i_name);
@@ -1718,7 +1718,7 @@ $colora=$i%2>0? '^7':'^7';
 
 try
   {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
 
                 if (empty($bannlist))
@@ -1730,14 +1730,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect;	
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect;	
    }
     $result = $db2->query("SELECT * FROM bans WHERE id>=1 and patch = '$game_patch' ORDER BY (id+0) DESC LIMIT 1");
 
@@ -1757,7 +1757,7 @@ else
                                             
                                     
 
-                                if ($geox == 1)
+                                if (geox == 1)
                                                 $xxcity = ($record->country_name . ", " . $record->city . "");
                                             else
                                                 $xxcity = ($record->country_name);

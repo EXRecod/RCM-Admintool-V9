@@ -1,9 +1,9 @@
 <?php
-if (strpos($msgr, $ixz.'sys') !== false)
+if (strpos($msgr, ixz.'sys') !== false)
     { 	
 	if (!empty($stats_array[$conisq]['user_status']))
 	{ 
-if(userStatus($stats_array[$conisq]['user_status']!=3))
+if(userStatus($stats_array[$conisq]['user_status'])!=3)
 { 
  if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')
  {

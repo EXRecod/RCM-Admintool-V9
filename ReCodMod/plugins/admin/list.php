@@ -1,7 +1,7 @@
 <?php
 if ($x_stop_lp == 0 ) {
  
-   if (strpos($msgr, $ixz.'list') !== false)
+   if (strpos($msgr, ixz.'list') !== false)
     { 	
     	 	
 require $cpath.'ReCodMod/functions/inc_functions2.php';

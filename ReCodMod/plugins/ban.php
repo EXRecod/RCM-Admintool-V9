@@ -27,10 +27,10 @@ if (time()-$cron_timeq>=60*10) {
 
 	$flmbx = $cpath . "ReCodMod/cache/x_logs/".$server_ip."_".$server_port."_chat.html";
 	
-if (filesize($flmbx) > ($cht_archive * 1000000))
+if (filesize($flmbx) > (cht_archive * 1000000))
   {
 
-//AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> Chat log $cht_archive mb auto reset! </font> "); 
+//AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> Chat log cht_archive mb auto reset! </font> "); 
 echo "OK ...";
  
  if(file_exists($cpath . 'ReCodMod/cache/x_logs/'.$server_ip.'_'.$server_port.'_chat.log')){
@@ -58,7 +58,7 @@ fwrite($handlePos, "1");
  
  
 $cron_timeq=filemtime($cpath."ReCodMod/cache/x_cron/cron_dbx_".$server_ip."_".$server_port);        
-if (time()-$cron_timeq>=60*60*$cht_databases) {              
+if (time()-$cron_timeq>=60*60*cht_databases) {              
     file_put_contents($cpath."ReCodMod/cache/x_cron/cron_dbx_".$server_ip."_".$server_port,"");    
 
 	
@@ -115,7 +115,7 @@ if (!copy($file, $newfile."_".$datetime.".db4.sqlite")) {
  
 try
   {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -125,14 +125,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
    }
 $sql = "SELECT * FROM x_db_admins WHERE s_adm='$i_ip' LIMIT 1";
 $result = $db->query($sql);
@@ -182,7 +182,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 try
   {
 	  
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
 
                 if (empty($bannlist))
@@ -195,14 +195,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db2 = $msqlconnect; 
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db2 = $msqlconnect; 
    }
 	
 if (empty($i_ip))

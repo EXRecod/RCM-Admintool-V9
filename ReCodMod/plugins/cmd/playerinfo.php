@@ -2,10 +2,10 @@
 if (empty($x_return)) {
 	$ext = 1;
 ++$x_number;
-if (strpos($msgr, $ixz.'geo') !== false)
+if (strpos($msgr, ixz.'geo') !== false)
     { 
 echo '-GEO';
-if (strpos($msgr, $ixz.'geo ') !== false)
+if (strpos($msgr, ixz.'geo ') !== false)
  list($x_cmd, $x_idn) = explode(' ', $msgr); // !s 5 ( 5 = id)
 else 
  $x_idn = '';
@@ -13,7 +13,7 @@ else
 if ($x_idn=='')
 {
  if (empty($stats_array[$conisq]['ip_adress'])){
-    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode) = explode(';', (rconExplode($guidn)));	
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guidn)));	
 	    $stats_array[$conisq]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$conisq]['city'])) 
 	    $stats_array[$conisq]['city'] = $xxccode;  
@@ -48,11 +48,11 @@ echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
    ++$x_stop_lp;    //return;
 	}}
  ///////////////////////////////////////////////////////////////////////////////////////////
-if (strpos($msgr, $ixz.'guid') !== false)
+if (strpos($msgr, ixz.'guid') !== false)
     { 
  
 
-if (strpos($msgr, $ixz.'guid ') !== false)
+if (strpos($msgr, ixz.'guid ') !== false)
  list($x_cmd, $x_idn) = explode(' ', $msgr); // !s 5 ( 5 = id)
 else 
  $x_idn = '';
@@ -90,7 +90,7 @@ echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
     }}
 	
  
-    if (strpos($msgr, $ixz . 'ip') !== false) {
+    if (strpos($msgr, ixz . 'ip') !== false) {
             
             if ((($game_patch == 'cod2') || ($game_patch == 'cod4') || ($game_patch == 'cod5')) && (!empty($guidn)))
                 rcon('tell ' . $i_id . ' ^2My IP:^3 ' . $stats_array[$conisq]['ip_adress'] . ' ^2My GUID:^3 ' . $guidn, '');
@@ -106,7 +106,7 @@ echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
 
 
 
-if ((strpos($msgr, $ixz . 'next') !== false) && ($x_number != 1)) {
+if ((strpos($msgr, ixz . 'next') !== false) && ($x_number != 1)) {
 	   ++$x_stop_lp;    //return;
  
 
@@ -148,11 +148,11 @@ rcon('say '.$infoomnxtt.' ^7'.$emaprunl.'', '');
 		   
     }
 ////////////////////////////////////////////////////////////////////////////////////////////
- if ((strpos($msgr, $ixz . 'time') !== false) && ($x_number != 1)) {
+ if ((strpos($msgr, ixz . 'time') !== false) && ($x_number != 1)) {
 	    
         if (strpos($nickr, $x_nickx) !== false) {
  if (empty($stats_array[$conisq]['ip_adress'])){
-    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode) = explode(';', (rconExplode($guid)));	
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guid)));	
 	    $stats_array[$conisq]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$conisq]['city'])) 
 	    $stats_array[$conisq]['city'] = $xxccode;  

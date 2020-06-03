@@ -1,5 +1,5 @@
 <?php
-if (strpos($msgr, $ixz . 'map ') !== false) {
+if (strpos($msgr, ixz . 'map ') !== false) {
     ////////////////////////////////////Change map
     list($x_cmd, $x_mapname) = explode(' ', $msgr); // !map carentan
     $x_mpt = mpt($x_mapname);
@@ -10,7 +10,7 @@ if (strpos($msgr, $ixz . 'map ') !== false) {
     sleep(1);
     xcon('map  ' . $x_mpt . '', '');
 }
-else if ((trim($msgr) == $ixz . 'map')) {
+else if ((trim($msgr) == ixz . 'map')) {
     ////////////////////////////////////Change list
     usleep($sleep_rcon * 2);
     require $cpath . 'ReCodMod/functions/getinfo/sv_mapRotation.php';
@@ -21,7 +21,7 @@ else if ((trim($msgr) == $ixz . 'map')) {
     ////////////////////////////////////Change list
     
 }
-else if (strpos($msgr, $ixz . 'maplist') !== false) {
+else if (strpos($msgr, ixz . 'maplist') !== false) {
     
     require $cpath . 'ReCodMod/functions/getinfo/sv_mapRotation.php';
     fclose($connx);
@@ -47,7 +47,7 @@ else if (strpos($msgr, $ixz . 'maplist') !== false) {
     rcon('say ' . $infoomnxtt . ' ^7' . $emaprunl . '', '');
     if (is_resource($connect)) fclose($connect);
 }
-else if (strpos($msgr, $ixz.'restart') !== false){
+else if (strpos($msgr, ixz.'restart') !== false){
     
     rcon('say ^3'.$infoorell.'', '');
 	sleep(1);

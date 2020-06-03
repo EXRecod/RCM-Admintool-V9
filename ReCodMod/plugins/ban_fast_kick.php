@@ -4,7 +4,7 @@ $datetime = date('Y.m.d H:i:s');
 
 try
   {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -21,14 +21,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    $db2 = new PDO($dsn, $db_user, $db_pass, $opt);
+    $db2 = new PDO($dsn, db_user, db_pass, $opt);
 	$db = $db2;
     $db5 = $db2;	
    }

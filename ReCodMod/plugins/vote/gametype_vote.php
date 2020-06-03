@@ -1,12 +1,12 @@
 <?php	
 if ($x_stop_lp == 0 ) {
-if ((strpos($msgr, $ixz.'gtx ') !== false) || ($msgr == $cmdyes_gt) || ($msgr == $cmdyes_gt.$cmdyes_gt))
+if ((strpos($msgr, ixz.'gtx ') !== false) || ($msgr == $cmdyes_gt) || ($msgr == $cmdyes_gt.$cmdyes_gt))
 {
   echo "\n[cmk-x] : [",$datetime, "] : ".$nickr." : ".$msgr;   	
 	$xtee = date("dmYHis");
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
         if (empty($adminlists))
@@ -18,14 +18,14 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db1 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db1 = $msqlconnect;
     $db2 = $db1;
 	$db3 = $db1;
 	$db4 = $db1;
@@ -88,7 +88,7 @@ if ((! $valid_id) || (! $valid_ping)) Continue;
 /////////////////////////////////////////////////////////////////////////////////RESTART
 $nickr = trim(clearnamex($i_name));
 $x_nickx = trim(clearnamex($nickr));
-$findgi3   = $ixz.'xgt ';
+$findgi3   = ixz.'xgt ';
 $posvok3 = strpos($msgr, $findgi3);
 if (($posvok3 !== false) || ($msgr == $cmdyes_gt) || ($msgr == $cmdyes_gt.$cmdyes_gt)) { 
    $xtee = date("dmYHis");
@@ -188,14 +188,14 @@ $plggx = 8;
 else if($player_cnt >= 16)
 $plggx = round($player_cnt/2);
 
-if(($razn < $v_time_gtx) && (strpos($msgr,$ixz.'xgt ') !== false)) 
+if(($razn < $v_time_gtx) && (strpos($msgr,ixz.'xgt ') !== false)) 
   {  
   
   $xcnnn = 0;	
   $xtee = date("dmYHis");
          $db1->exec("UPDATE x_cmd_kck SET z_counts='{$xcnnn}',z_time='{$xtee}'");
   
-  rcon('say '. $votm . ' "^2Vote reset. Dont use '.$ixz.'xgt command in vote time!', ''); 
+  rcon('say '. $votm . ' "^2Vote reset. Dont use '.ixz.'xgt command in vote time!', ''); 
 VoteCashresetGT("".$nickr.""); 
 
 $fh=fopen($log_cash."/".$server_ip."_".$server_port."_temp_gametype_vote.txt" ,"w+");
@@ -211,7 +211,7 @@ fclose($fh);
   
 
  if (($msgr == $cmdyes_gt) || ($msgr == "++") || ($msgr == "+++")){
-  rcon('say ^2Vote time is over, get starting vote with ^7'.$ixz.'xgt ^2command!', '');
+  rcon('say ^2Vote time is over, get starting vote with ^7'.ixz.'xgt ^2command!', '');
  }else{
   rcon('say '. $votm . '"'.$x_newgt.'" - ^1Gametype^3 Dosnt Exist!!!', '');	
 }
@@ -258,7 +258,7 @@ fclose($fh);
   $xtee = date("dmYHis");
   $db1->exec("UPDATE x_cmd_kck SET z_counts='{$xcnnn}',z_time='{$xtee}'");
   
-  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.$ixz.'xgt '.$idgz.'"^1<- Vote with ^7"'.$cmdyes_gt.'"^2 or ^7'.$cmdnoo.' ^2for change to ^3'.$idgz.'', ''); 
+  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.ixz.'xgt '.$idgz.'"^1<- Vote with ^7"'.$cmdyes_gt.'"^2 or ^7'.$cmdnoo.' ^2for change to ^3'.$idgz.'', ''); 
 VoteCashresetGT("".$nickr.""); //VoteCashreset("".$nickr."");
 }
 }

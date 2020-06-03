@@ -1,14 +1,14 @@
 <?php
      
 if (empty($x_stop_lp)) { 
-        if (strpos($msgr, $ixz . 'sk') !== false)  {
+        if (strpos($msgr, ixz . 'sk') !== false)  {
  
  $skill = txt_db($server_ip,$server_port,$guidn,'score','skill',0);
 if(!empty($skill))
 {
  		
 	  try {
-                        if (empty($Msql_support)) {
+                        if (empty(SqlDataBase)) {
                             $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                         
 						
@@ -59,9 +59,9 @@ if(!empty($skill))
 						
 						
 						} else {
-                            $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+                            $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
                             if (empty($msqlconnect))
-                                $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+                                $msqlconnect = new PDO($dsn, db_user, db_pass);
                             $db3 = $msqlconnect;		
 			 
                                     $result = $db3->query("SELECT sort, w_skill
@@ -157,7 +157,7 @@ WHERE sub1.s_pg = $conisq");
  
  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (strpos($msgr, $ixz . "stats") !== false) { 
+            if (strpos($msgr, ixz . "stats") !== false) { 
 								$skill = txt_db($server_ip,$server_port,$guidn,'score','skill',0);
                                 echo '='.$kills = txt_db($server_ip,$server_port,$guidn,'score','kills',0);
                                echo '='.$deaths = txt_db($server_ip,$server_port,$guidn,'score','deaths',0);	
@@ -172,12 +172,12 @@ WHERE sub1.s_pg = $conisq");
 				$ratiokd = 0;
   				
             if (strpos($game_patch, 'cod1_1.1') !== false)
-				 //rcon("say ^1" . $infootop . ":^2" . $place_ontop . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . substr(($kills/$deaths), 0, 8) . " ^6" . $website, "");
-			     //rcon("tell " . $idnum . " ^1" . $infootop . ":^2" . $place_ontop . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . substr(($kills/$deaths), 0, 8) . " ^6" . $website, "");
+				 //rcon("say ^1" . $infootop . ":^2" . $place_ontop . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . substr(($kills/$deaths), 0, 8) . " ^6" . website, "");
+			     //rcon("tell " . $idnum . " ^1" . $infootop . ":^2" . $place_ontop . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . substr(($kills/$deaths), 0, 8) . " ^6" . website, "");
 				 
-				 rcon("say ^1 " . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . $ratiokd . " ^6" . $website, "");
+				 rcon("say ^1 " . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . $ratiokd . " ^6" . website, "");
             else
-			     rcon("tell " . $idnum . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " .$ratiokd . " ^6" . $website, "");
+			     rcon("tell " . $idnum . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " .$ratiokd . " ^6" . website, "");
           
             }
              else{ if (strpos($game_patch, 'cod1_1.1') !== false)
@@ -231,7 +231,7 @@ $rules_msgg_cmd = true;	 ////////
  if ($x_stop_lp == 0 ) {
 	
 $rules_msgg_cmd = true;	 ////////
- if ((strpos($msgr, $ixz.'n ') !== false) && ($x_number != 1))
+ if ((strpos($msgr, ixz.'n ') !== false) && ($x_number != 1))
     { 
 
 $x_nickx = clearnamex($nickr);
@@ -245,7 +245,7 @@ $i_namex = clearSymbols($i_name);
 
  try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -253,23 +253,18 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
-   
-   
-   
-	if($guids==1)
+    
 	$result = $db3->query("SELECT * FROM db_stats_1 WHERE s_pg='$conisq'  LIMIT 1");	
-	else
-    $result = $db3->query("SELECT * FROM db_stats WHERE s_player='{$i_namex}' and s_port='$svipport' LIMIT 1");
  $number = 0;
     foreach($result as $row)
     {	 	
@@ -314,7 +309,7 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 }
 
 $rules_msgg_cmd = true;	 ////////
- if ((strpos($msgr, $ixz.'rank') !== false) && ($x_number != 1))
+ if ((strpos($msgr, ixz.'rank') !== false) && ($x_number != 1))
     {
 
 echo '===========================';
@@ -333,7 +328,7 @@ $na2 = trim($x_nickx);
 
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -341,23 +336,19 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
- 
- 
- 	if($guids==1)
+  
 	$result = $db3->query("SELECT * FROM db_stats_2 WHERE s_pg='$conisq'  LIMIT 1");	
-	else
-    $result = $db3->query("SELECT * FROM db_stats WHERE s_player='{$i_namex}' and s_port='$svipport'  LIMIT 1");
-
+	 
  	$number = 0;		
     foreach($result as $row)
     {	
@@ -412,11 +403,11 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 
 
 
-if ( ($msgr == ''.$ixz.'top')&& ($x_number == 0) || ($msgr == ''.$ixz.'TOP')&& ($x_number == 0))
+if ( ($msgr == ''.ixz.'top')&& ($x_number == 0) || ($msgr == ''.ixz.'TOP')&& ($x_number == 0))
 {
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
  
@@ -428,14 +419,14 @@ INNER JOIN db_stats_0 ON db_stats_1.s_pg = db_stats_0.s_pg where db_stats_0.s_po
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
    
    // $result = $db3->query("SELECT * FROM db_stats_1 WHERE s_kills>=$limm and s_port='$svipport' ORDER BY ($etopx+0) DESC LIMIT 3");
  		
@@ -505,7 +496,7 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 	
 	
 	
-if ((strpos($msgr, $ixz.'top ') !== false) || (strpos($msgr, ''.$ixz.'TOP ') !== false) && ($x_number == 0))
+if ((strpos($msgr, ixz.'top ') !== false) || (strpos($msgr, ''.ixz.'TOP ') !== false) && ($x_number == 0))
 {
 list($x_cmd, $x_nameee) = explode(' ', $msgr); // 
 $x_namjj= clearnamex2($x_nameee);	
@@ -513,7 +504,7 @@ $x_namjj= clearnamex2($x_nameee);
 
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -521,14 +512,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
     $result = $db3->query("SELECT * FROM db_stats_2 WHERE w_place='{$x_namjj}' and s_port='$svipport' LIMIT 1");
@@ -624,11 +615,11 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 
 
 
-if ((strpos($msgr, $ixz.'grenade') !== false) || (strpos($msgr, $ixz.'nade') !== false) && ($x_nmbrf == 0))
+if ((strpos($msgr, ixz.'grenade') !== false) || (strpos($msgr, ixz.'nade') !== false) && ($x_nmbrf == 0))
 {
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -636,14 +627,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
    
@@ -698,11 +689,11 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 
 
 
-if ( ($msgr == ''.$ixz.'head')&& ($x_number == 0) || ($msgr == ''.$ixz.'heads')&& ($x_number == 0))
+if ( ($msgr == ''.ixz.'head')&& ($x_number == 0) || ($msgr == ''.ixz.'heads')&& ($x_number == 0))
 {
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -710,14 +701,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
    
@@ -794,14 +785,14 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 
 
 
-if ((strpos($msgr, $ixz.'kills') !== false) || (strpos($msgr, ''.$ixz.'kills ') !== false) && ($x_nmbrf == 0))
+if ((strpos($msgr, ixz.'kills') !== false) || (strpos($msgr, ''.ixz.'kills ') !== false) && ($x_nmbrf == 0))
 {
  
    
    
  try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -809,14 +800,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
     
@@ -867,13 +858,13 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 
 
 
-if ( ($msgr == ''.$ixz.'suicid')&& ($x_number == 0) || ($msgr == $ixz.'suicides')&& ($x_number == 0))
+if ( ($msgr == ''.ixz.'suicid')&& ($x_number == 0) || ($msgr == ixz.'suicides')&& ($x_number == 0))
 
 {
  
  try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -881,14 +872,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
    
@@ -937,12 +928,12 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 
 	
 
-if (($msgr == ''.$ixz.'bash')&& ($x_number == 0) || ($msgr == ''.$ixz.'mellee')&& ($x_number == 0))
+if (($msgr == ''.ixz.'bash')&& ($x_number == 0) || ($msgr == ''.ixz.'mellee')&& ($x_number == 0))
 {
  
  try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -950,14 +941,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
 
@@ -1007,13 +998,13 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 
 	
 	
-if ( ($msgr == ''.$ixz.'toprank')&& ($x_number == 0) || ($msgr == ''.$ixz.'TOPRANK')&& ($x_number == 0))
+if ( ($msgr == ''.ixz.'toprank')&& ($x_number == 0) || ($msgr == ''.ixz.'TOPRANK')&& ($x_number == 0))
 {
       
 	  
  try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -1021,14 +1012,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
    
@@ -1505,12 +1496,12 @@ echo '    '.$tfinishh = (microtime(true) - $start);
 	}
 }
 
-if ((strpos($msgr, $ixz.'worst') !== false) && ($x_number != 1))
+if ((strpos($msgr, ixz.'worst') !== false) && ($x_number != 1))
     { 
 
  try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
 $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
                  
@@ -1518,14 +1509,14 @@ $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
  

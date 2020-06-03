@@ -1,6 +1,6 @@
 <?php
 if ($x_stop_lp == 0) {
-    if (strpos($msgr, $ixz . 'num') !== false) {
+    if (strpos($msgr, ixz . 'num') !== false) {
         
         require $cpath . 'ReCodMod/functions/inc_functions2.php';
         $i = 0;
@@ -37,7 +37,7 @@ if ($x_stop_lp == 0) {
         //	                }
         
     }
-    if (strpos($msgr, $ixz . 'pl') !== false) {
+    if (strpos($msgr, ixz . 'pl') !== false) {
         
         require $cpath . 'ReCodMod/functions/inc_functions2.php';
         $i = 0;
@@ -58,7 +58,7 @@ if ($x_stop_lp == 0) {
         echo '  ' . substr($tfinishh = (microtime(true) - $start) , 0, 7);
         ++$x_stop_lp;
     }
-    if (strpos($msgr, $ixz . 'all') !== false) {
+    if (strpos($msgr, ixz . 'all') !== false) {
         
         require $cpath . 'ReCodMod/functions/inc_functions2.php';
         $i = 0;

@@ -1,6 +1,6 @@
 <?php
 if ($x_stop_lp == 0 ) {	
-if (strpos($msgr, $ixz.'b ') !== false)////////////////////////////////////////////////////////////////////////////////////////////////
+if (strpos($msgr, ixz.'b ') !== false)////////////////////////////////////////////////////////////////////////////////////////////////
 {
     echo "\n[cmb] : [",$datetime, "] : ".$nickr." : ".$msgr;
 $fd = fopen($rules_log_vote, "r");
@@ -49,7 +49,7 @@ $x_nickx = clearnamex($nickr);
 
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
         if (empty($adminlists))
@@ -61,14 +61,14 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db1 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db1 = $msqlconnect;
  
    }
     $result = $db1->query("SELECT * FROM x_cmd_kck");
@@ -131,7 +131,7 @@ if(($raznicaa < 50) && ($xSQL < $playC)) /////////////////////////////////
 $db1->exec("UPDATE x_cmd_kck SET z_counts=z_counts +1");
 
   
-  rcon('say '. $vote_cg . ' "^2Vote: ^7'.$ixz.'b '.$x_idn.'"^1Ban^5 '.$i_namex.' ^8Seconds Left:^3 '.$raznicaa2.'', '');	 
+  rcon('say '. $vote_cg . ' "^2Vote: ^7'.ixz.'b '.$x_idn.'"^1Ban^5 '.$i_namex.' ^8Seconds Left:^3 '.$raznicaa2.'', '');	 
   VoteCash("".$nickr."");
   }
       else if(($raznicaa < 50) && ($xSQL >= $playC))   ///////////////////////////////////
@@ -158,7 +158,7 @@ $db1->exec("UPDATE x_cmd_kck SET z_counts=z_counts +1");
   $xtimer = date("dmYHis");
   $db1->exec("UPDATE x_cmd_kck SET z_counts='{$xc_vote}',z_time='{$xtimer}'");
   
-  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.$ixz.'b '.$x_idn.'"^1<- Vote: to Ban^5 '.$i_namex.'', ''); 
+  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.ixz.'b '.$x_idn.'"^1<- Vote: to Ban^5 '.$i_namex.'', ''); 
  VoteCashreset("".$nickr."");
  } 
 	}

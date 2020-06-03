@@ -1,6 +1,6 @@
 <?php	
 if ($x_stop_lp == 0 ) {
-if ((strpos($msgr, $ixz.'mpx ') !== false) || ($msgr == $cmdyes) || ($msgr == $cmdyes.$cmdyes))
+if ((strpos($msgr, ixz.'mpx ') !== false) || ($msgr == $cmdyes) || ($msgr == $cmdyes.$cmdyes))
 {
   echo "\n[cmk-x] : [",$datetime, "] : ".$nickr." : ".$msgr;   
 //*//	
@@ -14,7 +14,7 @@ if ((strpos($msgr, $ixz.'mpx ') !== false) || ($msgr == $cmdyes) || ($msgr == $c
  
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
         if (empty($adminlists))
@@ -26,14 +26,14 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db1 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db1 = $msqlconnect;
  
    }
     $result = $db1->query("SELECT * FROM x_cmd_kck");
@@ -108,7 +108,7 @@ if ((! $valid_id) || (! $valid_ping)) Continue;
 /////////////////////////////////////////////////////////////////////////////////RESTART
 $nickr = trim(clearnamex($i_name));
 $x_nickx = trim(clearnamex($nickr));
-$findgi3   = $ixz.'xmap ';
+$findgi3   = ixz.'xmap ';
 $posvok3 = strpos($msgr, $findgi3);
 if (($posvok3 !== false) || ($msgr == $cmdyes) || ($msgr == $cmdyes.$cmdyes)) { 
    $xtee = date("dmYHis");
@@ -221,14 +221,14 @@ $plggx = 8;
 else if($player_cnt >= 16)
 $plggx = round($player_cnt/3);
 
-if(($razn < $v_time_map) && (strpos($msgr,$ixz.'xmap ') !== false)) 
+if(($razn < $v_time_map) && (strpos($msgr,ixz.'xmap ') !== false)) 
   {  
   
   $xcnnn = 0;	
   $xtee = date("dmYHis");
   $db1->exec("UPDATE x_cmd_kck SET z_counts='$xcnnn',z_time='$xtee'");
   
-  rcon('say '. $votm . ' "^2Vote reset. Dont use '.$ixz.'xmap command in vote time!', '');
+  rcon('say '. $votm . ' "^2Vote reset. Dont use '.ixz.'xmap command in vote time!', '');
 
 $fh=fopen($log_cash."/".$server_ip."_".$server_port."_temp_mapvote.txt" ,"w+");
 $hg12 = '----.';
@@ -244,7 +244,7 @@ VoteCashresetMap("null");
   
 
  if (($msgr == $cmdyes) || ($msgr == "++") || ($msgr == "+++")){
-  rcon('say ^2Vote time is over, get starting vote with ^7'.$ixz.'xmap ^2command!', '');
+  rcon('say ^2Vote time is over, get starting vote with ^7'.ixz.'xmap ^2command!', '');
  }else{
   //rcon('say '. $votm . '"'.$x_newmapz.'" - ^1Map^3 Dosnt Exist!!!', '');	
 }
@@ -295,7 +295,7 @@ fclose($fh);
   $xtee = date("dmYHis");
  $db1->exec("UPDATE x_cmd_kck SET z_counts='$xcnnn',z_time='$xtee'");
   
-  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.$ixz.'xmap '.$idgz.'"^1<- Vote with ^7"'.$cmdyes.'"^2 or ^7'.$cmdnoo.' ^2for change to ^3'.$idgz.'', '');
+  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.ixz.'xmap '.$idgz.'"^1<- Vote with ^7"'.$cmdyes.'"^2 or ^7'.$cmdnoo.' ^2for change to ^3'.$idgz.'', '');
 
 if(1 == $plggx) 
   {

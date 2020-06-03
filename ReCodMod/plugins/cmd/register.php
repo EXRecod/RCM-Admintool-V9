@@ -1,16 +1,16 @@
 <?php
-if ((strpos($msgr, $ixz.'register') !== false)||(strpos($msgr, $ixz.'reg') !== false)){ 	
+if ((strpos($msgr, ixz.'register') !== false)||(strpos($msgr, ixz.'reg') !== false)){ 	
 
  if ((empty($stats_array[$conisq]['user_status']))|| $stats_array[$conisq]['user_status'] == 'guest'){ 
  $stats_array[$conisq]['user_status'] = 'registered';
   
 usleep($sleep_rcon*2);
       try {
-      if (empty($Msql_support)) 
+      if (empty(SqlDataBase)) 
        $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
       else {
-       $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
-       if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+       $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
+       if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass);
        $db = $msqlconnect;
 	  }   
      $statt = 0;
@@ -22,12 +22,15 @@ usleep($sleep_rcon*2);
        } 
        if ($statt > 0)
 	   {
-        rcon('tell ' . $idk . ' ^6Rbot => ^1['.userStatus($stats_array[$conisq]['user_status']).'] ^3' . html_entity_decode($nickname) , '');
+		   if ($game_patch != 'cod1_1.1')
+        rcon('tell ' . $idnum . ' ^6Status => ^1['.$stats_array[$conisq]['user_status'].'] ^3' . html_entity_decode($nickr) , '');
+	else
+		rcon('say ^6Status => ^1['.$stats_array[$conisq]['user_status'].'] ^3' . html_entity_decode($nickr) , '');
 		$db->query("UPDATE x_db_admins SET s_group='".userStatus($stats_array[$conisq]['user_status'])."' WHERE s_guid='" . $guidn . "'");   
 	   }		
        else {  
 if (empty($stats_array[$conisq]['ip_adress'])){
-    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode) = explode(';', (rconExplode($guidn)));	
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guidn)));	
 	    $stats_array[$conisq]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$conisq]['city'])) 
 	    $stats_array[$conisq]['city'] = $xxccode;  
@@ -35,12 +38,12 @@ if (empty($stats_array[$conisq]['ip_adress'])){
 	    $stats_array[$conisq]['ping'] = $i_ping; 
 } 
 if ($game_patch != 'cod1_1.1')
-    rcon('tell '.$i_id.' ^3'.$loggistopk. ' => ^1['.$stats_array[$conisq]['user_status'].'] ^3' . html_entity_decode($nickname) , '');
+    rcon('tell '.$i_id.' ^3'.$loggistopk. ' => ^1['.$stats_array[$conisq]['user_status'].'] ^3' . html_entity_decode($nickr) , '');
 else
 	rcon('say ^3'.$loggistopk. ' => ^1['.$stats_array[$conisq]['user_status'].']', '');	   
 	 	 
          $date = date('Y-m-d H:i:s'); 
-         if ($db->query("INSERT INTO x_db_admins (s_adm, s_dat, s_group, s_guid) VALUES ('" . $stats_array[$conisq]['ip_adress'] . "', '" . $date . "', '".userStatus($stats_array[$conisq]['user_status'])."', '" . $guidn . "')") > 0) {
+         if ($db->query("INSERT INTO x_db_admins (s_adm, s_dat, s_group, s_guid) VALUES ('" . $stats_array[$conisq]['ip_adress'] . "', '" . $date . "', '".(int)(userStatus($stats_array[$conisq]['user_status']))."', '" . $guidn . "')") > 0) {
           echo "Created IN DATABASE." . "\n";
  
         } 
@@ -51,37 +54,5 @@ else
       errorspdo('[' . $datetime . '] 2752  ' . __FILE__ . '  Exception : ' . $e->getMessage());
  }}}	
  
-if (strpos($msgr, $ixz.'logout') !== false)
-    { 	
-
-
-if (!empty($stats_array[$conisq]['user_status']))
-{
-	 
-						  if (!empty($stats_array[$conisq]['user_status'])) 
-                                     $stats_array[$conisq]['user_status'] = 'guest';
-	
-usleep($sleep_rcon*2);	
-try
-  {
-if(empty($Msql_support)) 
-   $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');              
-else
-   {   
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db = $msqlconnect;
-   }
-   
-   $db->exec("DELETE FROM x_db_admins WHERE s_guid='" . $guidn . "'");
-  
-if (strpos($game_patch, 'cod1_1.1') !== false)
-rcon('say ^3'.$loggran.' ^7'.$chistx.' ^3'.$loggplayer, '');
-else
-rcon('tell '.$i_id.' ^3'.$loggran.' ^7'.$chistx.' ^3'.$loggplayer, '');				
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
-  }
-  catch(PDOException $e)
-  {
-    errorspdo('['.$datetime.']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
-  }}}
+ 
 ?>

@@ -1,8 +1,8 @@
  <?php
-if ((strpos($msgr, $ixz . 'elist') !== false) || ($acceptplugin > 0))
+if ((strpos($msgr, ixz . 'elist') !== false) || ($acceptplugin > 0))
   {
 	$server_info_messages = trim($server_info_messages);
-	   if (strpos($msgr, $ixz . 'elist') !== false){
+	   if (strpos($msgr, ixz . 'elist') !== false){
 		   
 		$timeoout = 59910;   
 		   
@@ -15,7 +15,7 @@ if ((strpos($msgr, $ixz . 'elist') !== false) || ($acceptplugin > 0))
   
   
   
-     if (strpos($msgr, $ixz . 'elist') !== false)
+     if (strpos($msgr, ixz . 'elist') !== false)
       {
   
  ///
@@ -33,7 +33,7 @@ usleep($sleep_rcon*3);
 	  
  try
   {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
 {
                 if (empty($adminlists))
                     $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -44,14 +44,14 @@ if(empty($Msql_support))
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
  	
    }
 
@@ -107,7 +107,6 @@ else
                         $playername[4] = '';
                         $cmdx0         = '';
                         $mapvote       = '';
-                        $website       = '';
                         $db_players    = '';
                       }
                     require $cpath . 'cfg/messages.cfg.php';

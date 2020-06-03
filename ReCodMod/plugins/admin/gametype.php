@@ -1,5 +1,5 @@
 <?php
-if (strpos($msgr, $ixz.'gt ') !== false){
+if (strpos($msgr, ixz.'gt ') !== false){
 ////////////////////////////////////Change gametype 
  list($x_cmd, $x_gametype) = explode(' ', $msgr);   // !gt sd 
 $x_gt = gtt($x_gametype);

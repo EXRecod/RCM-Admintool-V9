@@ -2,26 +2,26 @@
 
 if ($x_stop_lp == 0) {
 /////SUPPORT ONLY WITH PB OR COD4X LIBRARY CLIENT!
-if (strpos($msgr, $ixz.'getss ') !== false)
+if (strpos($msgr, ixz.'getss ') !== false)
     { 
 
  
  try
   {
  
-if(empty($Msql_support))
+if(empty(SqlDataBase))
  $db0 = new PDO('sqlite:'.$cpath . 'ReCodMod/databases/db0.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    $db0 = new PDO($dsn, $db_user, $db_pass, $opt);
+    $db0 = new PDO($dsn, db_user, db_pass, $opt);
    }
 	$date = date('Y-m-d H:i:s');
 
@@ -65,7 +65,7 @@ require $cpath . 'ReCodMod/functions/null_db_connection.php';
 
 
 	
-else if (strpos($msgr, $ixz.'getss') !== false)
+else if (strpos($msgr, ixz.'getss') !== false)
     { 
  
  
@@ -109,21 +109,21 @@ echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
 	
 	
 	
-else if (strpos($msgr, $ixz.'lastgetss') !== false)
+else if (strpos($msgr, ixz.'lastgetss') !== false)
     { 
 
  
 try
   {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
       $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
  
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db = $msqlconnect;
 	//$db = $db2; 
    }
 

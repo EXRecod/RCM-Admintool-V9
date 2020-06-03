@@ -1,14 +1,14 @@
 <?php	
 if ($x_stop_lp == 0 ) {
 
-if (strpos($msgr, $ixz.'k ') !== false)
+if (strpos($msgr, ixz.'k ') !== false)
 {
   echo "\n[cmk] : [",$datetime, "] : ".$nickr." : ".$msgr;   
 //*//	
 	$xtee = date("dmYHis");
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
         if (empty($adminlists))
@@ -20,14 +20,14 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db1 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db1 = $msqlconnect;
  
    }
     $result = $db1->query("SELECT * FROM x_cmd_kck");
@@ -86,7 +86,7 @@ if ((! $valid_id) || (! $valid_ping)) Continue;
 /////////////////////////////////////////////////////////////////////////////////KICK
 $nickr = trim(clearnamex($i_name));
 $x_nickx = trim(clearnamex($nickr));
-$findgi3   = $ixz.'k ';
+$findgi3   = ixz.'k ';
 $posvok3 = strpos($msgr, $findgi3);
 if ($posvok3 !== false) { 
    $xtee = date("dmYHis");
@@ -130,7 +130,7 @@ if(($razn < 50) && ($xbb < $plgg))
   $razn2 = (50 - $razn); 
   $db1->exec("UPDATE x_cmd_kck SET z_counts=z_counts +1");
   
-  rcon('say '. $votm . ' "^2Vote: ^7'.$ixz.'k '.$idgz.'"^1Kick^5 '.$inamex.' ^8Seconds Left:^3 '.$razn2.'', '');	 
+  rcon('say '. $votm . ' "^2Vote: ^7'.ixz.'k '.$idgz.'"^1Kick^5 '.$inamex.' ^8Seconds Left:^3 '.$razn2.'', '');	 
 VoteCash("".$nickr."");	
   }
       else if(($razn < 50) && ($xbb >= $plgg))   
@@ -150,7 +150,7 @@ VoteCashreset("".$nickr."");
   $xtee = date("dmYHis");
   $db1->exec("UPDATE x_cmd_kck SET z_counts='{$xcnnn}',z_time='{$xtee}'");
 
-  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.$ixz.'k '.$idgz.'"^1<- Vote: to Kick^5 '.$inamex.'', ''); 
+  rcon('say '. $votm . ' "^2Vote Activated!: ^7'.ixz.'k '.$idgz.'"^1<- Vote: to Kick^5 '.$inamex.'', ''); 
 VoteCashreset("".$nickr."");
   } 
 	}

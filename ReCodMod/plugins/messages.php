@@ -239,7 +239,7 @@ else if (strpos($message, 'top_week') !== false)
 	
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
 		$dbw3  = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/dbw3.sqlite');
@@ -248,9 +248,9 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $dbw3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $dbw3 = $msqlconnect;
  
   
    
@@ -313,7 +313,7 @@ else if (strpos($message, 'top_day') !== false)
 	
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
 		$dbm3  = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/dbm3.sqlite');
@@ -322,9 +322,9 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $dbm3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $dbm3 = $msqlconnect;
  
    }
     
@@ -389,7 +389,7 @@ else if (strpos($message, 'top_skill') !== false)
 	
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
 		$db3  = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/db3.sqlite');
@@ -398,9 +398,9 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db3 = $msqlconnect;
  
    }
 
@@ -468,7 +468,7 @@ else if (strpos($message, 'today') !== false)
 	
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
 		$db3  = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/db3.sqlite');
@@ -477,9 +477,9 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db3 = $msqlconnect;
  
    }
     
@@ -530,7 +530,7 @@ else if (strpos($message, 'top_total') !== false)
 	
 try
   {
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {
  
 		$db3  = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/db3.sqlite');
@@ -539,14 +539,14 @@ try
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db3 = $msqlconnect;
  
    }
     
@@ -697,7 +697,7 @@ if(!empty($message)){
 	rcon('say ^7'.$message, '');
 	
               $cron_time = filemtime($cpath . "ReCodMod/cache/x_cron/cron_time_msg_".$server_ip."_".$server_port);
-              if ($stime - $cron_time >= $msg_pause*50)
+              if ($stime - $cron_time >= message_pause*50)
                {
                 file_put_contents($cpath . "ReCodMod/cache/x_cron/cron_time_msg_".$server_ip."_".$server_port, "");	
 //AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='red'>" .meessagee($message)."</font>");

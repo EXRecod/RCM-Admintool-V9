@@ -1,5 +1,5 @@
 <?php
-if (strpos($msgr,$ixz.'status') !== false){ 
+if (strpos($msgr,ixz.'status') !== false){ 
  if (empty($stats_array[$conisq]['user_status'])) $stats_array[$conisq]['user_status'] = 'guest';  
   if (!empty($stats_array[$conisq]['user_status'])){ 		
 

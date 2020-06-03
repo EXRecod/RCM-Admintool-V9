@@ -1,24 +1,24 @@
 <?php
-if (strpos($msgr, ''.$ixz.'delete ') !== false)
+if (strpos($msgr, ''.ixz.'delete ') !== false)
     { 
   
 		  
 try
   {
-if(empty($Msql_support))
+if(empty(SqlDataBase))
  
                     $db = new PDO('sqlite:' . $adminlists);
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass, $opt); $db = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt); $db = $msqlconnect;
 	
    }
  
@@ -79,7 +79,7 @@ else if (trim($numm) == 'alladmins')
 else if (trim($numm) == 'allstats')
 {
 	
- if(empty($Msql_support))
+ if(empty(SqlDataBase))
 {	
 	
 	$db3  = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
@@ -87,9 +87,9 @@ else if (trim($numm) == 'allstats')
 else
    {      
     
-	$dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+	$dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
 	 
-    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); $dbm3 = $msqlconnect;
+    if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $dbm3 = $msqlconnect;
  
    }	
 	
