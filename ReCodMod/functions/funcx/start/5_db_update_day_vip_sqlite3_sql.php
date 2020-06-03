@@ -1,5 +1,5 @@
 <?php
-  if (empty($Msql_support)){
+  if (empty(SqlDataBase)){
 if(file_exists($cpath . 'ReCodMod/databases/dbm3.sqlite')){
 	$now   = time();
 	$weekcday = $cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_weekcday.log'; 
@@ -63,8 +63,8 @@ else
 		
 try
   {
- $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";	 
- if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); 
+ $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";	 
+ if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); 
  $db3 = $msqlconnect;
  
  $db3->query("TRUNCATE TABLE db_stats_day");

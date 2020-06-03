@@ -135,7 +135,7 @@ if ($mplogfile) {
                 }
             }
         }
-        if (!empty($debugmodx)) echo "\n" . $parseline;
+        if (!empty(debugmodx)) echo "\n" . $parseline;
         ////////////////////////////////////////////////////////////////////
         $cron_time = filemtime($cpath . "ReCodMod/cache/x_cron/cron_time_top_" . $server_ip . "_" . $server_port);
         if ($stime - $cron_time >= 180) {

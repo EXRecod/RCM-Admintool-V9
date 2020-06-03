@@ -39,18 +39,22 @@ if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseli
   foreach ($array as $value) {
     if (!empty($value)) {
       $value = trim($value);
-      if (strpos($msgr, $ixz . $value) !== false) {
+      if (strpos($msgr, ixz . $value) !== false) {
         $validCommand = 1;
         $vcs = 1;
       }
     }
   }
   $ini_array = parse_ini_file($cpath . 'cfg/' . $IniFileName0 . '.ini');
-  $u = str_replace($ixz, "", $msgr);
+  $u = str_replace(ixz, "", $msgr);
   foreach ($ini_array as $section => $coms) {
     if (!empty($coms)) {
       if (strpos(trim($coms) , trim($u)) !== false) $vcs = 1;
     }
   }
+
+
+
+
 }
 ?>

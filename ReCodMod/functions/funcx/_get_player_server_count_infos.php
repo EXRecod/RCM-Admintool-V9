@@ -1,6 +1,6 @@
 <?php
 
-if(!empty($aqrcon))
+if(!empty(aqrcon))
 {	
 xcon('sets _'.$z_set.'', '');	
 usleep(9000);

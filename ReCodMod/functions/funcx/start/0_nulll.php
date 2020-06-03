@@ -43,9 +43,7 @@
   $i_id = '';
   $i_ip = '';
   $i_guid = '';
-  $ixz = $ixzsafe;
   $jjj = '';
   $jjjnw = '';
   $msgr = '';
-  require $cpath.'cfg/_settings.php';
  

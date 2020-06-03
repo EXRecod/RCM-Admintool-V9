@@ -2,7 +2,7 @@
             $db1x = $cpath . 'ReCodMod/databases/db1.sqlite';
           $db2x = $cpath . 'ReCodMod/databases/db2.sqlite';
  
- if(empty($Msql_support)){
+ if(empty(SqlDataBase)){
               if (!file_exists($db1x)){echo "\n DO NOT FIND $db1x"; 
 			  require $cpath . 'ReCodMod/functions/install.php';
 			  sleep (5); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}		
@@ -21,9 +21,9 @@ if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok'))
 	sleep(3);
 }
  
- if(!file_exists($chatdb))
+ if(!file_exists(chatdb))
 {
-	echo "\n cfg/_settings.php chatdb is false";
+	echo "\n cfg/_settings.ini chatdb is false";
 	sleep(20);
 	exit;
 }

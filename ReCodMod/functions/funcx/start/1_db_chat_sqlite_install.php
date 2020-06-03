@@ -1,12 +1,12 @@
 <?php
-if (file_exists($chatdb)){
-if(filesize($chatdb)< 2000)
+if (file_exists(chatdb)){
+if(filesize(chatdb)< 2000)
 {
-unlink($chatdb);
+unlink(chatdb);
 try
 {   
 	
-$dbc = new PDO('sqlite:'.$chatdb);
+$dbc = new PDO('sqlite:'.chatdb);
 $dbc->exec('CREATE table chat(
 			id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
 			servername varchar(90)  NOT NULL,

@@ -1,6 +1,6 @@
 <?php
   /////////////////////////////////////////////////WEEK STATS  
-if (!empty($Msql_support)){
+if (!empty(SqlDataBase)){
 
  
 //////////////////   WEEK MSQL	 //////////////////////////
@@ -29,8 +29,8 @@ touch($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_weekcronn.l
 	  
 try
   {
- $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";	 
- if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass); 
+ $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";	 
+ if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); 
  $bdd = $msqlconnect;
  
  

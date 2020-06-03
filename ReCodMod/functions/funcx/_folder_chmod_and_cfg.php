@@ -1,5 +1,14 @@
 <?php
-
+//.main cfg _settings.ini LOADER
+ $config_data = parse_ini_file($cpath . "cfg/_settings.ini", true);
+ foreach($config_data as $section => $r)   
+ {   foreach($r as $string => $value){
+		if(!defined($string))
+		define($string, $value);    	
+ }}
+ //.main cfg _settings.ini LOADER
+ 
+ 
 /*
 	   if(@chmod($cpath . "ReCodMod/cache/", 0777))
 	   {

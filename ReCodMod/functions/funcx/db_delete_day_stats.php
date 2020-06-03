@@ -13,18 +13,18 @@ if (isset($rule_clear_day_stats))
            {
 try
 {   
-         if(empty($Msql_support))
+         if(empty(SqlDataBase))
     $dbm3day = new PDO('sqlite:' . $cpath .  'ReCodMod/databases/dbm3.sqlite');	
       else
    {      
-    $dsn = "mysql:host=$host_adress;dbname=$db_name;charset=$charset_db";
+    $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
     ];
  
-    $dbm3day = new PDO($dsn, $db_user, $db_pass, $opt);        
+    $dbm3day = new PDO($dsn, db_user, db_pass, $opt);        
    }
      
 	$dbm3day->exec("DELETE from `db_stats_month` WHERE `id` BETWEEN 0 AND 70000");  
