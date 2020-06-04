@@ -2182,7 +2182,7 @@ function get_skill_from_database($playeruniqueuid) {
 	$e_skill     = '';
 	try {
 		if (empty($SqlDataBase)) {
-			if (empty($db3)) $db3         = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
+			$db3         = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
 			$sqlup       = "SELECT * FROM db_stats_2 WHERE s_pg='$playeruniqueuid' LIMIT 1";
 		}
 		else {
@@ -2209,6 +2209,50 @@ function get_skill_from_database($playeruniqueuid) {
 		errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
 	}
 	return $e_skill;
+}
+ function dbSelectArray($SQLiteDatabase,$query) {
+	$xresult = '';
+	global $cpath, $SqlDataBase, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass;
+	try {
+		if (empty($SqlDataBase)) {
+			$db         = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/'.$SQLiteDatabase.'.sqlite');
+		}
+		else {
+			$dsn         = "mysql:host=".$host_adress.";dbname=".$db_name.";charset=$charset_db";
+			if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+			$db         = $msqlconnect;
+		}
+		$result      = $db->query($query);//->fetch(PDO::FETCH_LAZY);
+		if (!empty($result))
+			$xresult = $result;
+	require $cpath . 'ReCodMod/functions/null_db_connection.php';  			
+	}
+	catch(PDOException $e) { 
+		errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function dbSelect / : ' . $e->getMessage());
+	}
+	return $xresult;
+}
+ function dbInsert($SQLiteDatabase,$query) {
+	$xresult = '';
+	global $cpath, $SqlDataBase, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass;
+	try {
+		if (empty($SqlDataBase)) {
+			$db         = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/'.$SQLiteDatabase.'.sqlite');
+		}
+		else {
+			$dsn         = "mysql:host=".$host_adress.";dbname=".$db_name.";charset=$charset_db";
+			if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+			$db         = $msqlconnect;
+		}
+		$result      = $db->query($query);//->fetch(PDO::FETCH_LAZY);
+		if (!empty($result))
+			$xresult = $result;
+	require $cpath . 'ReCodMod/functions/null_db_connection.php';  			
+	}
+	catch(PDOException $e) { 
+		errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function dbSelect / : ' . $e->getMessage());
+	}
+	return $xresult;
 }
 function txt_db($server_ip, $server_port, $guid, $name, $value, $status) {
 	if (!empty($guid)) {
