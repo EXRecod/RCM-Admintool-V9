@@ -1,9 +1,10 @@
 <?php
 if (strpos($msgr, ixz . 'k') !== false) {
+if(!empty(vote_kick_enable)){
 if(!empty($kickvote_voteTime))
 {	
 	 $df = ((date("dmYHis")) - $kickvote_voteTime);
-    if ($df >= 60) {
+    if ($df >= vote_kick_time) {
       $kickvote_guid = '';
       $kickvote_msgrID = '';
       unset($kickvote_votedPlayer);
@@ -36,7 +37,7 @@ if(!empty($kickvote_voteTime))
   }
   else {
     $df = ((date("dmYHis")) - $kickvote_voteTime);
-    if ($df >= 60) {
+    if ($df >= vote_kick_time) {
       $kickvote_guid = '';
       $kickvote_msgrID = '';
       unset($kickvote_votedPlayer);
@@ -44,7 +45,7 @@ if(!empty($kickvote_voteTime))
     }
     else {
       if (!empty($kickvote_guid)){
-		  $left = 60 - $df;
+		  $left = vote_kick_time - $df;
       if ($kickvote_votedPlayer[$guidn] != $guidn) {
         //more 70%
         $kickvote_votes = $kickvote_votes + 1;
@@ -59,5 +60,5 @@ if(!empty($kickvote_voteTime))
       }
     }
   }
-}
+}}
 ?>

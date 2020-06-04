@@ -1,9 +1,10 @@
 <?php
 if (strpos($msgr, ixz . 'b') !== false) {
+	if(!empty(vote_ban_enable)){
 if(!empty($banvote_voteTime))
 {	
 	 $df = ((date("dmYHis")) - $banvote_voteTime);
-    if ($df >= 60) {
+    if ($df >= vote_ban_time) {
       $banvote_guid = '';
       $banvote_msgrID = '';
       unset($banvote_votedPlayer);
@@ -36,7 +37,7 @@ if(!empty($banvote_voteTime))
   }
   else {
     $df = ((date("dmYHis")) - $banvote_voteTime);
-    if ($df >= 60) {
+    if ($df >= vote_ban_time) {
       $banvote_guid = '';
       $banvote_msgrID = '';
       unset($banvote_votedPlayer);
@@ -44,7 +45,7 @@ if(!empty($banvote_voteTime))
     }
     else {
       if (!empty($banvote_guid)){
-		  $left = 60 - $df;
+		  $left = vote_ban_time - $df;
       if ($banvote_votedPlayer[$guidn] != $guidn) {
         //more 70%
         $banvote_votes = $banvote_votes + 1;
@@ -61,5 +62,6 @@ if(!empty($banvote_voteTime))
       }
     }
   }
+}
 }
 ?>
