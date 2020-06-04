@@ -65,7 +65,7 @@ echo UNZIP %~dp0 php\php-7.3.0-Win32-vc15-x86.zip IN %~dp0 php\ FOLDER
 IF not EXIST %~dp0\php\bin\ (
 MD %~dp0\php\bin\
 echo php\bin\ - folder first install
-%~dp0\php\php.exe -r "copy('%~dp0\ReCodMod\functions\php.ini', '%~dp0\php\php.ini');"
+%~dp0\php\php.exe -r "copy('%~dp0\ReCodMod\functions\install\php.ini', '%~dp0\php\php.ini');"
 )
  
 
