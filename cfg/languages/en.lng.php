@@ -11,8 +11,8 @@ $week_top = 'WEEK TOP';
  
 
 //ftp_alloc
-$sentft = 'The link to the FTP server $ftp_server';
-$senterror = 'Unable to establish a connection with the FTP server! Trying to connect to the server $ftp_server!';
+$sentft = 'The link to the FTP server ftp_server';
+$senterror = 'Unable to establish a connection with the FTP server! Trying to connect to the server ftp_server!';
 $sentokkk = 'The files have been sent!';
 
 /// Delete
@@ -42,8 +42,8 @@ $loggithx = 'group, ^3thanks for login!';
 $loggistop = 'You already in RCM system, dont need do that again!';
 $loggistopk = 'You already registered in RCM system!';
 $loggistopkk = 'you in ^1GUID ADMIN ^3group, ^3thanks for login!';
-$loggmemb = 'you in ^2Member group, ^3thanks for registering!';
-$loggplayer = 'you in ^2Player group, ^3thanks for quit!';
+$loggmemb = 'you in ^2Registered group, ^3thanks for registering!';
+$loggplayer = 'you in ^2Guest group, ^3thanks for quit!';
 
 //info
 $xwyears = "years";
@@ -130,14 +130,14 @@ $merrycrr = 'Merry Christmas ^1*^7<(^5:^7{^1D';
 $nyyycrr = 'Happy New Year ^1*^7<(^5:^7{^1O';
 $afffk = 'Away from keyboard!';
 
-$pppanix = 'Do not panic, sent ^7'.$ixz.'report ^1with your problem message!';
-$adminppp = 'Sent ^7'.$ixz.'support ^1with your question & in message add your e-mail!';
+$pppanix = 'Do not panic, sent ^7'.ixz.'report ^1with your problem message!';
+$adminppp = 'Sent ^7'.ixz.'support ^1with your question & in message add your e-mail!';
 $reppport = 'Message has been sent to Admin!';
 
 //another
-$ban_name = "^3You Banned by Admins ^2".$website."";
+$ban_name = "^3You Banned by Admins ^2".website."";
 $ban_name_all = "^1Banned ";
-$ban_ip = "^3You Banned by Admins ^2".$website."";
+$ban_ip = "^3You Banned by Admins ^2".website."";
 $ban_ip_all = "^1Banned ";
 $c_unban = "^2UnBanned ";
 $rules_bad_name_msg = "^6||| ^3Rename - you're breaking the rules";

@@ -170,7 +170,7 @@ while (true) {
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  ANOTHER PLUGINS  %%%%%%%%%%%%%%%%%%%%%%%%
               if ((!empty($parseline)) && (preg_match('/;/', $parseline, $jn))) {
-                require $cpath . 'ReCodMod/plugins/messages_rotation.php';
+                require $cpath . 'ReCodMod/plugins/messages/banner_messages_rotations.php';
                 require $cpath . 'ReCodMod/functions/funcx/commands_array.php';
 				//COSTUM LOG PREFIX USES FC; GEO; and another
 				require $cpath . 'ReCodMod/functions/costum_commands_access/access.php';

@@ -12,8 +12,8 @@ $week_top = 'WEEK TOP';
  
 
 //ftp_alloc
-$sentft = 'Der Link zum FTP server $ftp_server';
-$senterror = 'Es konnte keine Verbindung zu FTP server aufgebaut werden! Probiere zum Server zu verbinden $ftp_server!';
+$sentft = 'Der Link zum FTP server ftp_server';
+$senterror = 'Es konnte keine Verbindung zu FTP server aufgebaut werden! Probiere zum Server zu verbinden ftp_server!';
 $sentokkk = 'Die Daten wurden gesendet!';
 
 /// Delete
@@ -43,8 +43,8 @@ $loggithx = 'Gruppe, ^3danke für den Login!';
 $loggistop = 'Du bist bereits im RCM System und brauchst dich nicht erneut registrieren!';
 $loggistopk = 'Du bist bereits im RCM System!';
 $loggistopkk = 'Du bist in der ^1GUID ADMIN ^3Gruppe, ^3danke für den Login!';
-$loggmemb = 'Du bist in der ^2Member Gruppe, ^3danke für die Registrierung!';
-$loggplayer = 'Du bist in der ^2Spieler Gruppe, ^3danke fürs verlassen!';
+$loggmemb = 'Du bist in der ^2Registered Gruppe, ^3danke für die Registrierung!';
+$loggplayer = 'Du bist in der ^2Guest Gruppe, ^3danke fürs verlassen!';
 
 //info
 $xwyears = "Jahre";
@@ -131,14 +131,14 @@ $merrycrr = 'Frohe Weihnachten ^1*^7<(^5:^7{^1D';
 $nyyycrr = 'Frohes neues Jahr ^1*^7<(^5:^7{^1O';
 $afffk = 'Nicht am Computer!';
 
-$pppanix = 'Keine Panik, sende ^7'.$ixz.'report ^1mit deiner problem Nachricht!';
-$adminppp = 'Sende ^7'.$ixz.'support ^1mit deiner Frage & deiner E-Mail Adresse!';
+$pppanix = 'Keine Panik, sende ^7'.ixz.'report ^1mit deiner problem Nachricht!';
+$adminppp = 'Sende ^7'.ixz.'support ^1mit deiner Frage & deiner E-Mail Adresse!';
 $reppport = 'Nachricht wurde an den Admin gesendet!';
 
 //another
-$ban_name = "^6 ^3Du wurdest gesperrt von den Admins ^2".$website."";
+$ban_name = "^6 ^3Du wurdest gesperrt von den Admins ^2".website."";
 $ban_name_all = "^6 ^1gesperrt ^7|| ^3RCM ".$z_ver." bantool";
-$ban_ip = "^6 ^3Du wurdest gesperrt von den Admins ^2".$website."";
+$ban_ip = "^6 ^3Du wurdest gesperrt von den Admins ^2".website."";
 $ban_ip_all = "^6 ^1gesperrt";
 $c_unban = "^6 ^2entsperrt";
 $rules_bad_name_msg = "^6 ^6||| ^3Änder deinen Namen - du brichst die Regeln";
