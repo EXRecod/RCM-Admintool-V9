@@ -125,7 +125,8 @@ if (empty($stats_array[$conisq]['ip_adress'])){
         ++$x_stop_lpjk; 
      $adminguidctl = 1;
      }}} 
-  if (empty($stats_array[$conisq]['user_status']))
+ 
+ if ((empty($stats_array[$conisq]['user_status']))||($stats_array[$conisq]['user_status']=='guest'))
   {
 /////////////////////////////////////
    $IniFileName = '_groups_database';
@@ -133,9 +134,15 @@ if (empty($stats_array[$conisq]['ip_adress'])){
 $config_data = parse_ini_file($cpath . "cfg/" . $IniFileName . ".ini", true);
  foreach($config_data as $allgroups => $n)
  {	
-if((costum_group_ini($IniFileName, $server_port, $allgroups, $guid))==$guid)
+ foreach($n as $guidyou => $n)
+ { 
+ 
+if(($guidyou == 'all_'.$guid)||($guidyou == $server_port.'_'.$guid))
 { 					
 $stats_array[$conisq]['user_status'] = $allgroups;	
+
+ echo "\n===> ",$allgroups;
+
 if (empty($stats_array[$conisq]['ip_adress'])){
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guid)));	
 	    $stats_array[$conisq]['ip_adress'] = $i_ip;
@@ -145,11 +152,13 @@ if (empty($stats_array[$conisq]['ip_adress'])){
 	    $stats_array[$conisq]['ping'] = $i_ping; 
 }}}
         ++$x_stop_lpjk; 
-        }	  
+        }	
+  }	
 //////////
+ 
+
  if ((empty($stats_array[$conisq]['user_status']))||($adminguidctl == 1))
- { 
-	        usleep($sleep_rcon); 
+ {  
      try {
       if (empty(SqlDataBase)) 
        $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
@@ -189,7 +198,12 @@ if (empty($stats_array[$conisq]['ip_adress'])){
      }
      catch(PDOException $e) {
       errorspdo('[' . $datetime . '] 2752  ' . __FILE__ . '  Exception : ' . $e->getMessage());
- }}}
+ }}
+ 
+ 
+ 
+ 
+ }
     if (empty($stats_array[$conisq]['user_status'])) 	
 	          $stats_array[$conisq]['user_status'] = 'guest'; 
 		  echo "\n [J;] guid:" , $guid , ' num:' , $idk , ' time: ' , $tfinishh = (microtime(true) - $start);

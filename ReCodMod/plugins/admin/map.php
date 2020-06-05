@@ -5,7 +5,7 @@ if (strpos($msgr, ixz . 'map ') !== false) {
     $x_mpt = mpt($x_mapname);
     if ($x_mpt == 'wawa_3dAim') {
         
-        xcon('set g_gametype ' . $mapfix . '', '');
+        xcon('set g_gametype dm', '');
     }
     sleep(1);
     xcon('map  ' . $x_mpt . '', '');

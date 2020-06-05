@@ -52,7 +52,7 @@ if ($mplogfile) {
                             $servername = $serverStatus['sv_hostname'];
                             $serverxmap = $serverStatus['mapname'];
                             $mpgamenname = $serverStatus['gamename'];
-                            $mmn = $serverStatus['shortversion'];
+                            $mpshortver = $serverStatus['shortversion'];
                             $plyr_cnt = sizeof($players);
                         }
                         if (empty($mpgamenname)) {
@@ -60,8 +60,8 @@ if ($mplogfile) {
                             echo 'GAME SERVER OFFLINE!?';
                             exit;
                         }
-                        if (trim($mpgamenname) && (trim($mmn) == 'main')) $game_patch = 'cod1_1.1';
-                        else if (trim($mpgamenname) && (trim($mmn) == '1.1')) $game_patch = 'cod1_1.1';
+                        if (trim($mpgamenname) && (trim($mpshortver) == 'main')) $game_patch = 'cod1_1.1';
+                        else if (trim($mpgamenname) && (trim($mpshortver) == '1.1')) $game_patch = 'cod1_1.1';
                     }
                     //if (strpos($parseline, ' cod1_') !== false)
                     switch ($i) {
@@ -90,8 +90,7 @@ if ($mplogfile) {
                     }
                 }
             }
-            if ($game_patch == 'codxxx') $game_patch = '';
-            else if (strpos($mpgamenname, 'Call of Duty 5') !== false) $game_patch = 'cod5';
+             if (strpos($mpgamenname, 'Call of Duty 5') !== false) $game_patch = 'cod5';
             else if (strpos($mpgamenname, 'Call of Duty 4') !== false) $game_patch = 'cod4';
             else if (strpos($mpgamenname, 'Call of Duty 2') !== false) $game_patch = 'cod2';
             else if (strpos($mpgamenname, 'Call of Duty') !== false) $game_patch = 'cod1'; //cod1 or uo

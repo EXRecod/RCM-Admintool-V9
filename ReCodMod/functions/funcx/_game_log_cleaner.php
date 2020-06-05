@@ -1,7 +1,7 @@
 <?php
    
  	 $cron_time=filemtime($cpath."ReCodMod/cache/x_cron/cron_time_".$server_ip."_".$server_port);        //получаем время последнего изменения файла
-if (time()-$cron_time>=200+$randxsumm) {             //сравниваем с текущим временем - 10 минут
+if (time()-$cron_time>=200) {             //сравниваем с текущим временем - 10 минут
     file_put_contents($cpath."ReCodMod/cache/x_cron/cron_time_".$server_ip."_".$server_port,"");    //перезаписываем файл cron_time
  
 //////////////////////////////////////////////////////////////////////////////////////////+ LOG CLEANER

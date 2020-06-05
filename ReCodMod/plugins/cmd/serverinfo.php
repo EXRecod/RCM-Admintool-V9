@@ -1,5 +1,5 @@
  <?php
-if ((strpos($msgr, ixz . 'elist') !== false) || ($acceptplugin > 0))
+if ((strpos($msgr, ixz . 'elist') !== false))
   {
 	$server_info_messages = trim($server_info_messages);
 	   if (strpos($msgr, ixz . 'elist') !== false){

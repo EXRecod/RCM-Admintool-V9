@@ -39,7 +39,7 @@ if(file_exists($XMLDoc))
   	else if($name == 'sv_hostname')
 	   $servername = $vl; 
   	else if($name == 'shortversion')
-	   $mmn = $vl;    
+	   $mpshortver = $vl;    
   	else if($name == 'fs_game')
 	   $fs_game = $vl;  
    }}
@@ -67,7 +67,7 @@ require_once $cpath.'ReCodMod/functions/getinfo/COD4xServerStatus.php';
          $servername = $serverStatus['sv_hostname']; 
 	     $serverxmap = $serverStatus['mapname']; 
 	     $mpgamenname = $serverStatus['gamename']; 
-		 $mmn = $serverStatus['shortversion'];  
+		 $mpshortver = $serverStatus['shortversion'];  
 		 $plyr_cnt = sizeof($players);        
 	}		
 	
@@ -96,7 +96,7 @@ if( $curl = curl_init() ) {
          $servername = $serverStatus['sv_hostname']; 
 	     $serverxmap = $serverStatus['mapname']; 
 	     $mpgamenname = $serverStatus['gamename']; 
-		 $mmn = $serverStatus['shortversion'];  
+		 $mpshortver = $serverStatus['shortversion'];  
 		 $plyr_cnt = sizeof($players);        
 	}  
 
@@ -121,12 +121,7 @@ else
 	$servernamegui = 'Servername is empty AND';
 
 echo "\n".$servernamegui." rcon gamename IS EMPTY, CLEAR.PHP  getstatus ERROR!"; sleep(20); return;}
-    if(!empty($servername))
-Prservv($servername);
-    if((!empty($mpgamenname))&&(!stat($cpath . 'ReCodMod/cache/x_logs/g_gamename_' . $server_ip . '_' . $server_port . '.log')))	  
-Prgamename($mpgamenname);
-	if((!empty($mmn))&&(!stat($cpath . 'ReCodMod/cache/x_logs/g_shortversion_' . $server_ip . '_' . $server_port . '.log')))  
-Prshortver($mmn);
+    
 
    if(empty($servername))
 	    $servername = '';

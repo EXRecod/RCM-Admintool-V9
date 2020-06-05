@@ -16,7 +16,6 @@
   $x_admin      = 0;
   $x_admin1     = 0;
   $x_admin2     = 0;
-  $acceptplugin = 0;
   $x_kik        = 0;
   $x_loops      = 0;
   $x_loopsv     = 0;

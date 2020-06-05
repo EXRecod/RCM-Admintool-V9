@@ -14,9 +14,12 @@ if(!empty($banvote_voteTime))
   if (strpos($msgr, ixz . 'b ') !== false) list($x_cmd, $banvote_msgrID) = explode(' ', $msgr);
   if (empty($banvote_Playercount)) {
     require $cpath . 'ReCodMod/functions/inc_functions2.php';
-    $cntply = count($rconarray);
+    //$cntply = count($rconarray);
+	$cntply = 0;
     foreach ($rconarray as $j => $e) {
       $i_id = $e["num"];
+	  		if(!empty($e["guid"]))
+			++$cntply;
       if (trim($banvote_msgrID) == trim($i_id)) {
         $banvote_ping = $e["ping"];
         $banvote_ip = $e["ip"];
@@ -32,7 +35,10 @@ if(!empty($banvote_voteTime))
     
     $banvote_votedPlayer[$guidn] = $guidn;
     rcon('say ' . $votm . ' "^2Vote Activated!: ^7' . ixz . 'b  for num ' . $banvote_msgrID . '"^1<- Vote: to Ban^5 ' . $i_name . ' guid:' . $i_guid, '');
-                 }
+                 }				 else
+				 {
+				rcon('say ^1Need more 2 players for vote!', '');	 
+				 }
 	}else rcon('say Error! Try again!', '');
   }
   else {
@@ -49,7 +55,7 @@ if(!empty($banvote_voteTime))
       if ($banvote_votedPlayer[$guidn] != $guidn) {
         //more 70%
         $banvote_votes = $banvote_votes + 1;
-        $PERCENTS = $banvote_votes / 100) * $banvote_Playercount;
+        $PERCENTS = ($banvote_votes / 100) * $banvote_Playercount;
         rcon('say ' . $vote_cg . ' "^2Vote: ^7' . ixz . 'b "^1Ban^5 ' . $banvote_name . ' ^8Seconds Left:^3 ' . $left . ' '.($PERCENTS+30).'/100 perc.', '');
         if ($PERCENTS >= 70) {
           if (!empty(bans_system)) dbInsert('db2', "INSERT INTO bans (playername,ip,guid,reason,time,whooo,patch) VALUES ('$banvote_name','$banvote_ip','$banvote_guid','voteban','$datetime','','0')");

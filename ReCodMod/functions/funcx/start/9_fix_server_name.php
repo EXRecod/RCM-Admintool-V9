@@ -13,7 +13,7 @@
          $servername = $serverStatus['sv_hostname']; 
 	     $serverxmap = $serverStatus['mapname']; 
 	     $mpgamenname = $serverStatus['gamename']; 
-		 $mmn = $serverStatus['shortversion'];  
+		 $mpshortver = $serverStatus['shortversion'];  
 		 $plyr_cnt = sizeof($players);        
 	}		 
 		 

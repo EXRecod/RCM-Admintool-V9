@@ -1,6 +1,35 @@
 <?php
+//.main cfg _settings.ini LOADER
+ $config_data = parse_ini_file($cpath . "cfg/_settings.ini", true);
+ foreach($config_data as $section => $r)   
+ {   foreach($r as $string => $value){
+		if(!defined($string))
+		define($string, $value);    	
+ }}
 $installok = 0;
+$dircachew = $cpath."cache_ms/"; 
+if(!is_dir($dircachew))
+{	
+$dircache = $cpath."php/"; 
+if(!is_dir($dircache))
+  mkdir($dircache, 0777, true);
 
+if(is_dir($dircache))
+{	
+if (!file_exists($cpath.'php/php.ini')) {	
+if (!copy($cpath.'ReCodMod/functions/install/php.ini', $cpath.'php/php.ini')) 
+	echo " \n \033[37;1;1m  <<< NO COPY ".$cpath."ReCodMod/functions/install/php.ini ... ! >>>   \n\n"; //red
+else
+	echo " \n \033[38;5;6m  <<< COPY SUCCESS TO ".$cpath."php/php.ini ... ! >>>   \n"; //	
+} }
+  $dircache = $cpath . "php/php.ini";
+  if (!file_exists($dircache)) {
+    echo "\033[38;5;1m Install failed!";
+    sleep(30);
+    exit;
+  } 
+ }
+ 
 if (strpos($mplogfile, 'ftp:') !== false)
 { 
 $mplogfilei = str_replace(array("ftp://"), '', $mplogfile);
@@ -31,67 +60,9 @@ if((!file_exists($cpath . 'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.
 
 echo "\n RCM FIRST INSTALL......\n";
 sleep (1);	
-
-$dircachew = $cpath."cache_ms/"; 
-if(!is_dir($dircachew))
-{	
-$dircache = $cpath."php/"; 
-if(!is_dir($dircache))
-  mkdir($dircache, 0777, true);
-
-if(is_dir($dircache))
-{		
-if (!copy($cpath.'ReCodMod/functions/install/php.ini', $cpath.'php/php.ini')) 
-	echo " \n \033[37;1;1m  <<< NO COPY ".$cpath."ReCodMod/functions/install/php.ini ... ! >>>   \n\n"; //red
-else
-	echo " \n \033[38;5;6m  <<< COPY SUCCESS TO ".$cpath."php/php.ini ... ! >>>   \n"; //	
- }}
-
-
-if(!file_exists($cpath.'ReCodMod/cache/x_crontime/'))
-  mkdir($cpath.'ReCodMod/cache/x_crontime/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/cache/x_errors/'))
-  mkdir($cpath.'ReCodMod/cache/x_errors/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/cache/x_logs/'))
-  mkdir($cpath.'ReCodMod/cache/x_logs/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/cache/x_logs/archive/chat/'))
-  mkdir($cpath.'ReCodMod/cache/x_logs/archive/chat/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/cache/x_cron/'))
-  mkdir($cpath.'ReCodMod/cache/x_cron/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/cache/x_update/'))
-  mkdir($cpath.'ReCodMod/cache/x_update/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/databases/'))
-  mkdir($cpath.'ReCodMod/databases/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/cache/x_cache/'))
-  mkdir($cpath.'ReCodMod/cache/x_cache/', 0777, true);
-if(!file_exists($cpath.'ReCodMod/cache/stats_register/'))
-  mkdir($cpath.'ReCodMod/cache/stats_register/', 0777, true);
-
-sleep (1);
-$dir = $cpath."ReCodMod/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ; 
-$dir = $cpath."ReCodMod/databases/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_crontime/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_errors/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_logs/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_logs/archive/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_logs/archive/chat/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_cron/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_update/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_cache/"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
-$dir = $cpath."ReCodMod/cache/x_logs/backup"; 
-if(!is_dir($dir)) mkdir($dir, 0777, true) ;
+ 
+require $cpath . 'ReCodMod/functions/install/folders.php';
+  
 sleep (1);
 chmod($cpath."ReCodMod/", 0777);
 chmod($cpath."ReCodMod/cache/x_logs/backup", 0777);
@@ -116,9 +87,7 @@ touch($cpath . 'ReCodMod/cache/x_logs/'.$server_ip.'_'.$server_port.'_chat.log')
 touch($cpath.'ReCodMod/cache/x_logs/g_log_'.$server_ip.'_'.$server_port.'.log');
 touch($cpath.'ReCodMod/cache/x_logs/archive/chat/none.log');
 touch($cpath.'ReCodMod/cache/x_logs/'.$server_ip.'_'.$server_port.'_chat.html');
-touch($cpath.'ReCodMod/cache/x_logs/g_gamename_'.$server_ip.'_'.$server_port.'.log');
-touch($cpath.'ReCodMod/cache/x_logs/g_shortversion_'.$server_ip.'_'.$server_port.'.log');
-touch($cpath.'ReCodMod/cache/x_logs/g_servername_'.$server_ip.'_'.$server_port.'.log');
+touch($cpath.'ReCodMod/cache/x_logs/g_serverinformation_'.$server_ip.'_'.$server_port.'.log');
 touch($cpath.'ReCodMod/cache/x_crontime/cron_time_'.$server_ip.'_'.$server_port);
 touch($cpath.'ReCodMod/cache/x_crontime/cron_time_alba_'.$server_ip.'_'.$server_port);
 touch($cpath.'ReCodMod/cache/x_crontime/cron_time_message_'.$server_ip.'_'.$server_port);
@@ -994,13 +963,6 @@ try
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////     
 /////////////////////////////////////////////////////////////////////////////////////////	 
   
    require $cpath . 'ReCodMod/functions/weapons/cod.php';  
@@ -1033,15 +995,7 @@ $wprg = str_replace($vow, "_", $wprg);
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////     
-/////////////////////////////////////////////////////////////////////////////////////////	 
+	 
 	sleep(1); 
 	 $dbc->exec($query);
 if($dbc)
@@ -1200,10 +1154,116 @@ else{
 
 }
 }
+if (!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_pos.txt')) {
+  echo "\033[38;5;1m Install failed!";
+  sleep(10);
+  exit;
+}
+$dircache = $cpath."win_cache_ms/"; 
+if(!is_dir($dircache))
+{
+$key = array_search('mbstring', get_loaded_extensions());
 
+if($key == 0){
+	sleep (5);
+	die("\n\r Please install mbString! [ sudo apt-get install php7.0-mbstring ]");
+}
+	 if(!empty(SQLite3::version())){
+      $version = SQLite3::version();
+	  $arr['description'] = 'SQLite 3';    
+      $arr['version'] = $version['versionString'];
+	  
+	      if(empty($arr['version'])){
+			sleep (5);  
+		  die("\n\r Please install SQLITE3! [ sudo apt-get install php7.0-sqlite ]");
+		  }
+	  
+	  	  if(empty($arr['version'])){
+			  sleep (5);
+		  die("\n\r Please install SQLITE3! [ sudo apt-get install php7.0-sqlite3 ]");
+		  }
+     }
+       if (stripos(curl_version()['version'], "version") !== false) { 
+       if (!curl_version()['features'] & CURL_VERSION_KERBEROS4) {
+		   sleep (5);
+          die("\n\r CURL is not available!. [ sudo apt-get install php7.0-curl ] ");	
+                     }}	
 
+ if(ini_get("register_argc_argv")) {
+    echo "";
+  } else {
+	  sleep (5);
+    die ("\n\r It isn't set!  register_argc_argv  in php.ini");
+    usleep(9999999);
+  }
+}$dircache = $cpath."win_cache_ms/"; 
+if(!is_dir($dircache))
+{
+$key = array_search('mbstring', get_loaded_extensions());
 
+if($key == 0){
+	sleep (5);
+	die("\n\r Please install mbString! [ sudo apt-get install php7.0-mbstring ]");
+}
+	 if(!empty(SQLite3::version())){
+      $version = SQLite3::version();
+	  $arr['description'] = 'SQLite 3';    
+      $arr['version'] = $version['versionString'];
+	  
+	      if(empty($arr['version'])){
+			sleep (5);  
+		  die("\n\r Please install SQLITE3! [ sudo apt-get install php7.0-sqlite ]");
+		  }
+	  
+	  	  if(empty($arr['version'])){
+			  sleep (5);
+		  die("\n\r Please install SQLITE3! [ sudo apt-get install php7.0-sqlite3 ]");
+		  }
+     }
+       if (stripos(curl_version()['version'], "version") !== false) { 
+       if (!curl_version()['features'] & CURL_VERSION_KERBEROS4) {
+		   sleep (5);
+          die("\n\r CURL is not available!. [ sudo apt-get install php7.0-curl ] ");	
+                     }}	
 
+ if(ini_get("register_argc_argv")) {
+    echo "";
+  } else {
+	  sleep (5);
+    die ("\n\r It isn't set!  register_argc_argv  in php.ini");
+    usleep(9999999);
+  }
+}	
+$dircache = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat";
+$geoudir = 'https://github.com/EXRecod/RCM-Admintool-V5/raw/master/RCM/ReCodMod/geoip_bases/MaxMD/GeoLiteCity.dat';
+$geoudirtwo = 'http://xxxreal.ru/GeoLiteCity.dat';
 
- 	
+if (!file_exists($dircache)) {
+    echo " \n \033[38;5;23m Try to download: GeoLiteCity.dat";
+    if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+        echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
+    } else {echo " \n \033[38;5;1m Do not downloaded: GeoLiteCity.dat";
+	echo " \n \033[38;5;3m Try another server with download: GeoLiteCity.dat";
+	if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
+        echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
+    }}
+}  
+
+ if ((filesize($dircache)) != 20539238) {
+    echo " \n \033[0;38;5;27m Try to reupload: GeoLiteCity.dat";
+    if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+        echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
+    } else{echo " \n \033[38;5;1m Do not downloaded: GeoLiteCity.dat";
+	echo " \n \033[38;5;3m Try another server with download: GeoLiteCity.dat";
+	if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
+        echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
+    }}}
+
+if(!file_exists($dircache))
+{
+	echo "\033[37;1;1m Failed Download or install GeoLiteCity.dat !";
+	slowscript("SLEEP 30: Failed Download or install GeoLiteCity.dat!");
+	sleep(30);
+	exit;
+} 
 ?>

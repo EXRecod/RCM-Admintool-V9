@@ -441,14 +441,14 @@ else
 	
 	
 	  
-	  rcon("say  ^3[ ^6TOP 3 ^7by ^1".$etop." ^7& ^2Played^3]", "");			
+	  rcon("say  ^3[ ^6TOP 3 ^7by ^1kills ^7& ^2Played^3]", "");			
 		
 		
 		
     foreach($result as $row)
     {
         $playername = 	$row['s_player'];
-	      $ipm = 			$row[$etopx];
+	      $ipm = 			$row['s_kills'];
                 $k  = 	$row['s_lasttime'];	
                 $r  = 	$row['s_time'];
 

@@ -5,7 +5,7 @@ $server_addr = "udp://" . $server_ip;
 if (!$connect) { die('Can\'t connect to COD gameserver.'); }
 
 if (strpos($game_patch, 'cod1_1.1') !== false)	
-  socket_set_timeout ($connect, 0, 57000);  // bylo2
+  socket_set_timeout ($connect, 0, 67000);  // bylo2
 else
   stream_set_timeout ($connect, 0, 36000); //1e5
  

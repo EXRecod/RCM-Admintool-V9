@@ -9,10 +9,7 @@ function hx($sc) {
 }
 $x_ff = 0;
 $cpath = hx(__FILE__);
-//phpinfo();
-require_once $cpath . 'ReCodMod/functions/install/php_modules_geo_install.php';
-$randxsumm = rand(300, 1500);
-$spps = 221000;
+
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 mb_http_input('UTF-8');
@@ -20,31 +17,15 @@ mb_regex_encoding('UTF-8');
 require $cpath . 'ReCodMod/functions/_c.php';
 require $cpath . 'ReCodMod/functions/inc_functions.php';
 include ($cpath . "ReCodMod/functions/functions.php");
-include ($cpath . "ReCodMod/functions/geoip_bases/MaxMD/geoipcity.inc");
-include ($cpath . "ReCodMod/functions/geoip_bases/MaxMD/timezone/timezone.php");
-if (!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_pos.txt')) require $cpath . 'ReCodMod/functions/install/install.php';
-if (!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_pos.txt')) {
-  echo "\033[38;5;1m Install failed!";
-  sleep(10);
-  exit;
-}
-$dircache = $cpath . "win_cache_ms/";
-if (is_dir($dircache)) {
-  $dircache = $cpath . "php/php.ini";
-  if (!file_exists($dircache)) {
-    echo "\033[38;5;1m Install failed!";
-    sleep(30);
-    exit;
-  }
-}
-echo "\n";
 ini_set("log_errors", "1");
-if (preg_match('/ftp:/', $mplogfile, $u)) $spps = 470000;
-else $spps = 80000;
 $xerrrors = ($cpath . "ReCodMod/cache/x_errors/$filename");
 ini_set("error_log", $xerrrors);
 $logging = new log($xerrrors);
 set_error_handler("error_handler");
+include ($cpath . "ReCodMod/functions/geoip_bases/MaxMD/geoipcity.inc");
+include ($cpath . "ReCodMod/functions/geoip_bases/MaxMD/timezone/timezone.php");
+require $cpath . 'ReCodMod/functions/install/install.php';
+echo "\n";
 require $cpath . 'ReCodMod/functions/funcx/_folder_chmod_and_cfg.php';
 require $cpath . 'ReCodMod/functions/funcx/check_sqlite3_db_install.php';
 require $cpath . 'ReCodMod/functions/funcx/_get_player_server_count_infos.php';
@@ -55,7 +36,7 @@ echo "\n\033[38;5;14m";
 if (!empty($servername)) echo "\n Server Name: " . $servername;
 else $servername = '';
 if (!empty($mpgamenname)) echo "\n Game: " . $mpgamenname = sevenofff($mpgamenname);
-if (!empty($mmn)) echo "\n Patch: " . $mmn = sevenofff($mmn);
+if (!empty($mpshortver)) echo "\n Patch: " . $mpshortver = sevenofff($mpshortver);
 if (!empty($serverxmap)) echo "\n Map: " . $serverxmap = sevenofff($serverxmap);
 if (!empty($plyr_cnt)) echo "\n Players: " . $plyr_cnt . "\n";
 echo "\n Pre loading system - OK! ";

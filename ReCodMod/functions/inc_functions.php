@@ -1,54 +1,9 @@
 <?php
 $charset_db   = 'utf8';
-$dircache = $cpath . "win_cache_ms/";
-if (is_dir($dircache)) {
-	$dircache = $cpath . "php/php.ini";
-	if (!file_exists($dircache)) {
-		if (!copy($cpath . 'ReCodMod/functions/install/php.ini', $cpath . 'php/php.ini')) echo " \n \033[37;1;41m  <<< NO COPY " . $cpath . "ReCodMod/functions/install/php.ini ... ! >>>   \n\n"; //red
-		else echo " \n \033[38;5;15m  <<< COPY SUCCESS TO " . $cpath . "php/php.ini ... ! >>>   \n"; //
-		
-	}
-}
-if (empty($game_patch)) {
-	function ghbfff($string) {
-		$string = str_replace(array(
-			"/^7"
-		) , '', $string);
-		$string = str_replace(array(
-			"^7"
-		) , '', $string);
-		return $string . "";
-		$game_patch                           = 'cod5';
-	}
-	if (file_exists($cpath . 'ReCodMod/cache/x_logs/g_gamename_' . $server_ip . '_' . $server_port . '.log')) {
-		$fyf                                  = file($cpath . 'ReCodMod/cache/x_logs/g_gamename_' . $server_ip . '_' . $server_port . '.log');
-		foreach ($fyf as $ryhfd) {
-			$mpgamenname                          = ghbfff($ryhfd);
-			if (file_exists($cpath . 'ReCodMod/cache/x_logs/g_shortversion_' . $server_ip . '_' . $server_port . '.log')) {
-				$fyfx                                 = file($cpath . 'ReCodMod/cache/x_logs/g_shortversion_' . $server_ip . '_' . $server_port . '.log');
-				foreach ($fyfx as $ryhfdv) {
-					$mpshortver                           = ghbfff($ryhfdv);
-					if (strpos($mpgamenname, '5') !== false) {
-						$game_patch                           = 'cod5';
-					}
-					else if (strpos($mpgamenname, '4') !== false) {
-						$game_patch                           = 'cod4';
-					}
-					else if (strpos($mpgamenname, '2') !== false) {
-						$game_patch                           = 'cod2';
-					}
-					else if (strpos($mpgamenname, 'Call of Duty') !== false) {
-						$game_patch                           = 'cod1_' . $mpshortver . '';
-					}
-					else {
-						$game_patch                           = 'cod1_1.41';
-					}
-				}
-			}
-		}
-	}
-}
-if (empty($game_patch)) $game_patch                           = 'codxxx';
+require $cpath . 'ReCodMod/functions/install/install.php';
+
+
+if (empty($game_patch)) $game_patch                           = '';
 $r_admi                               = false;
 $ipt                                  = 0;
 $rules_time_announce                  = array(
@@ -182,53 +137,7 @@ function clearnamex($string) {
 	$string = preg_replace('/[^\p{L}\p{N}\s]/u', '', $string);
 	return $string;
 }
-if (empty($game_patch)) {
-	$servex3x = $outxy;
-	$portx3x  = $server_port;
-	$status   = new COD4xServerStatus($servex3x, $portx3x);
-	if ($status->getServerStatus()) {
-		$status->parseServerData();
-		$serverStatus = $status->returnServerData();
-		$players      = $status->returnPlayers();
-		$servername   = $serverStatus['sv_hostname'];
-		$serverxmap   = $serverStatus['mapname'];
-		$mpgamenname  = $serverStatus['gamename'];
-		$mmn          = $serverStatus['shortversion'];
-		$plyr_cnt     = sizeof($players);
-	}
-	if (file_exists($cpath . 'ReCodMod/cache/x_logs/g_gamename_' . $server_ip . '_' . $server_port . '.log')) {
-		$fyf          = file($cpath . 'ReCodMod/cache/x_logs/g_gamename_' . $server_ip . '_' . $server_port . '.log');
-		foreach ($fyf as $ryhfd) {
-			$mpgamenname  = ghbfffm($ryhfd);
-			if (file_exists($cpath . 'ReCodMod/cache/x_logs/g_shortversion_' . $server_ip . '_' . $server_port . '.log')) {
-				$fyfx         = file($cpath . 'ReCodMod/cache/x_logs/g_shortversion_' . $server_ip . '_' . $server_port . '.log');
-				foreach ($fyfx as $ryhfdv) {
-					$mpshortver   = ghbfffm($ryhfdv);
-					if (strpos($mpgamenname, '5') !== false) {
-						$game_patch   = 'cod5';
-					}
-					else if (strpos($mpgamenname, 'Call of Duty 4') !== false) {
-						$game_patch   = 'cod4';
-					}
-					else if (strpos($mpgamenname, 'Call of Duty 2') !== false) {
-						$game_patch   = 'cod2';
-					}
-					else if (strpos($mpgamenname, 'Call of Duty') !== false) {
-						$game_patch   = 'cod1_' . $mpshortver . '';
-					}
-					else if (strpos($mpgamenname, 'main') !== false) {
-						$game_patch   = 'cod1_' . $mpshortver . '';
-					}
-					else {
-						//$game_patch = 'cod1_1.41';
-						$game_patch   = 'cod4';
-					}
-				}
-			}
-		}
-		if (!empty($game_patch)) $game_patch   = trim($game_patch);
-	}
-}
+ 
 function fakeguid($string) {
 	global $game_patch;
 	if (strpos($game_patch, 'cod1_1.1') !== false) {
@@ -360,9 +269,6 @@ if (empty($cpath)) {
 }
 function cleart($string) {
 	global $cpath, $z_ver;
-	//$x_dmn = 1;
-	//	if(empty(ixz))
-	//require $cpath . 'ReCodMod/functions/_c.php';
 	if (language == 'en') require $cpath . 'cfg/languages/en.lng.php';
 	else if (language == 'ru') require $cpath . 'cfg/languages/ru.lng.php';
 	else if (language == 'de') require $cpath . 'cfg/languages/de.lng.php';
@@ -950,24 +856,13 @@ function AddToparsser($s) {
 	fclose($fp);
 }
 /////////
-function Prgamename($s) {
+function Prg_serverinformation($s) {
 	global $ggname_file;
 	$fp = fopen($ggname_file, 'w+');
 	fwrite($fp, $s . "\n");
 	fclose($fp);
 }
-function Prshortver($s) {
-	global $gshortver_file;
-	$fp = fopen($gshortver_file, 'w+');
-	fwrite($fp, $s . "\n");
-	fclose($fp);
-}
-function Prservv($s) {
-	global $servv_file;
-	$fp = fopen($servv_file, 'w+');
-	fwrite($fp, $s . "\n");
-	fclose($fp);
-}
+ 
 //////////
 function AddTopsdpp($s) {
 	global $stime_file;
@@ -1944,7 +1839,7 @@ function rconExplodeIdnum($num) {
 function rconExplode($guidin) {
 	global $cpath,$server_ip,$server_port,$server_rconpass,$game_patch;
 	if (strpos($game_patch, 'cod1') !== false)
-	usleep(645000);
+	usleep(45000);
 	include $cpath . 'ReCodMod/functions/inc_functions2.php';
 /*	
 echo "\n -----------------------------\n ";
@@ -2388,13 +2283,14 @@ return	$array = array(1,2,3);
 function costum_group_ini($config_file, $server_ip, $groupname, $guid) {
 	global $cpath; $null = 'nothing.';
 	if (file_exists($cpath . "cfg/" . $config_file . ".ini")) {
-    $config_data = parse_ini_file($cpath . "cfg/" . $config_file . ".ini", true);
+    $config_data = parse_ini_file($cpath . "cfg/" . $config_file . ".ini", true); 
 	if(!empty($config_data[$groupname][$server_ip."_".$guid]))
 return $config_data[$groupname][$server_ip."_".$guid];
 else
 	return $null;
 	}
 }
+ 
  
  
 function config_ini_set($config_file, $section, $key, $value) {
@@ -2413,6 +2309,7 @@ function config_ini_set($config_file, $section, $key, $value) {
     file_put_contents($cpath . "cfg/" . $config_file . ".ini", $new_content);
 	}
 }
+ 
 
 function config_ini_del($config_file, $section, $key, $value) {
 	global $cpath;

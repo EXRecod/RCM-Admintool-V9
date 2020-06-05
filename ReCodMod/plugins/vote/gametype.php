@@ -30,7 +30,12 @@ $gametypevote_rconlist = '';
   
   if (empty($gametypevote_Playercount)) {
     require $cpath . 'ReCodMod/functions/inc_functions2.php';
-    $cntply = count($rconarray);
+    //$cntply = count($rconarray);
+	$cntply = 0;
+    foreach ($rconarray as $j => $e) {
+      $i_id = $e["num"];
+	  		if(!empty($e["guid"]))
+	++$cntply;}
     
 	if (!empty($gametypevote_rconlist)){
     if ($cntply > 2) {
@@ -40,7 +45,10 @@ $gametypevote_rconlist = '';
     
     $gametypevote_votedPlayer[$guidn] = $guidn;
     rcon('say ' . $votm . ' "^2Vote Activated!: ^7' . ixz . 'gv "^1<- Vote: change to ^5 ' . $x_mapname . ' ^7map', '');
-                 }
+                 } else
+				 {
+				rcon('say ^1Need more 2 players for vote!', '');	 
+				 }
 	}else rcon('say Error! Try again!', '');
   }
   else {
@@ -56,7 +64,7 @@ $gametypevote_rconlist = '';
       if ($gametypevote_votedPlayer[$guidn] != $guidn) {
         //more 70%
         $gametypevote_votes = $gametypevote_votes + 1;
-        $PERCENTS = $gametypevote_votes / 100) * $gametypevote_Playercount;
+        $PERCENTS = ($gametypevote_votes / 100) * $gametypevote_Playercount;
         rcon('say ' . $vote_cg . ' ^2Vote: ^7' . ixz . 'gv ^1MAP^5 ' . $x_mapname . ' ^8Seconds Left:^3 ' . $left . ' '.($PERCENTS+30).'/100 perc.', '');
         if ($PERCENTS >= 70) {
     rcon('say ^3Vote completed! Players changed map to '.$x_mapname, '');    

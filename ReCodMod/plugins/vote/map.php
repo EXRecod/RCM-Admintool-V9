@@ -17,20 +17,35 @@ if(!empty($mapvote_voteTime))
 if(empty($mapvote_rconlist))
 {
 require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
-$mapvote_rconlist = $mapslisst;
+echo '======='.$mapvote_rconlist = $mapslisst;
 
-if (strpos($mapvote_rconlist,$x_mapname) === false)
+if (strpos($mapvote_rconlist,trim($x_mapname)) === false)
 {
 rcon('say  ^6NOT CORECT MAP NAME!!', '');
 $mapvote_rconlist = '';	
 }
 
-}    
+}
+
+if(!empty($mapvote_rconlist))
+{
+
+if (strpos($mapvote_rconlist,trim($x_mapname)) === false)
+{
+rcon('say  ^6NOT CORECT MAP NAME!!', '');
+$mapvote_rconlist = '';	
+}}
+    
   
   if (empty($mapvote_Playercount)) {
     require $cpath . 'ReCodMod/functions/inc_functions2.php';
-    $cntply = count($rconarray);
-    
+    //$cntply = count($rconarray);
+	$cntply = 0;
+    foreach ($rconarray as $j => $e) {
+      $i_id = $e["num"];
+	  		if(!empty($e["guid"]))
+			++$cntply;
+	}
 	if (!empty($mapvote_rconlist)){
     if ($cntply > 2) {
       $mapvote_Playercount = $cntply;
@@ -40,6 +55,11 @@ $mapvote_rconlist = '';
     $mapvote_votedPlayer[$guidn] = $guidn;
     rcon('say ' . $votm . ' "^2Vote Activated!: ^7' . ixz . 'mv "^1<- Vote: change to ^5 ' . $x_mapname . ' ^7map', '');
                  }
+				 else
+				 {
+				rcon('say ^1Need more 2 players for vote!', '');	 
+				 }
+				 
 	}else rcon('say Error! Try again!', '');
   }
   else {
@@ -55,7 +75,7 @@ $mapvote_rconlist = '';
       if ($mapvote_votedPlayer[$guidn] != $guidn) {
         //more 70%
         $mapvote_votes = $mapvote_votes + 1;
-        $PERCENTS = $mapvote_votes / 100) * $mapvote_Playercount;
+        $PERCENTS = ($mapvote_votes / 100) * $mapvote_Playercount;
         rcon('say ' . $vote_cg . ' ^2Vote: ^7' . ixz . 'mv ^1MAP^5 ' . $x_mapname . ' ^8Seconds Left:^3 ' . $left . ' '.($PERCENTS+30).'/100 perc.', '');
         if ($PERCENTS >= 70) {
     rcon('say ^3Vote completed! Players changed map to '.$x_mapname, '');    
