@@ -13,8 +13,7 @@ $x_admin = 0;
 if(!file_exists($cpath . 'ReCodMod/cache/x_cron/cron_q_'.$server_ip.'_'.$server_port)){
 touch($cpath.'ReCodMod/cache/x_cron/cron_q_'.$server_ip.'_'.$server_port);
 touch($cpath.'ReCodMod/cache/x_cron/cron_gts_'.$server_ip.'_'.$server_port);
-touch($cpath.'ReCodMod/cache/x_cron/cron_idk_'.$server_ip.'_'.$server_port);	
-touch($cpath.'ReCodMod/cache/x_cron/cron_y_'.$server_ip.'_'.$server_port);
+touch($cpath.'ReCodMod/cache/x_cron/cron_idk_'.$server_ip.'_'.$server_port);
 touch($cpath.'ReCodMod/cache/x_cron/cron_dbx_'.$server_ip.'_'.$server_port);
 $dir = $cpath."ReCodMod/cache/x_logs/backup"; 
 if(!is_dir($dir)) mkdir($dir, 0777, true) ;

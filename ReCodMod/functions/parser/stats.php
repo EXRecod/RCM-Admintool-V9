@@ -50,15 +50,13 @@ if ($x_stop_lp == 0) {
             if (empty(reg_guid_stats)) {
                 if (empty($death_player_guid)) $x_stop_lp = 20;
                 if (empty($player_killer_guid)) $x_stop_lp = 20;
-            } else if ((!empty(reg_guid_stats)) && (strpos(reg_guid_stats, $server_port) !== false)) {
-                if (empty($death_player_guid)) $x_stop_lp = 20;
-                if (empty($player_killer_guid)) $x_stop_lp = 20;
-            } else if ((!empty(reg_guid_stats)) && (strpos(reg_guid_stats, $server_port) === false)) {
-                if (empty($death_player_guid)) $x_stop_lp = 0;
-                if (empty($player_killer_guid)) $x_stop_lp = 0;
+				if(strpos($player_killer_guid, 'bot') !== false) $x_stop_lp = 20;
+	           	if(strpos($death_player_guid, 'bot') !== false) $x_stop_lp = 20;           
             } else if (reg_guid_stats == 1) {
                 if (empty($death_player_guid)) $x_stop_lp = 0;
                 if (empty($player_killer_guid)) $x_stop_lp = 0;
+				 $player_killer_guid = $killer_player_name;
+                 $death_player_guid = $death_player_name;
             }
             if ($x_stop_lp == 0) {
                 if (!empty($ggtype)) {
@@ -185,7 +183,7 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 				    $server_array['KILLStimer'][$keyhm] = 1;
 			    else
 				{	
-$server_array(['KILLStimer'] as $g => $f){
+foreach($server_array['KILLStimer'] as $g => $f){
 	
 		if($g!=$keyhm)
 			unset($server_array['KILLStimer']);

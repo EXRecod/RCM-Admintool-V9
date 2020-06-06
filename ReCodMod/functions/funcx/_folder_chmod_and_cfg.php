@@ -137,4 +137,22 @@ echo "\n\033[38;5;100m################################################\n\n\n";
 
 $cur_seek_pos_end = 2;
 
+//$glogfix = $cpath.'ReCodMod/cache/x_cron/cron_y_'.$server_ip.'_'.$server_port.'.cron';	
+if($gj==0)
+{	
+if(!empty(aqrcon))
+{
+	echo "\n set ",$z_set;
+xcon('sets _'.$z_set.'', '');	
+usleep(9000);
+xcon('set g_logsync 2');
+usleep(9000);
+xcon('set logfile 1');
+usleep(9000);
+xcon('set sv_log_damage 1');
+usleep(9000);
+xcon('set g_antilag 1');
+//touch($glogfix);
+}
+}
 ?>

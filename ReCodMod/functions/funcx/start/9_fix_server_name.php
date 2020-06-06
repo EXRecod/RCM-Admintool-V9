@@ -51,7 +51,9 @@ echo $sv_hostname = $outxxx[0];
 //cod4 "fs_homepath" is: "/home/larocca/.callofduty4" default: "/home/larocca/.callofduty4" info: "Game home path"
 
 if(empty($sv_hostname))
-{    echo "\n \033[38;5;135m [RCON] [ \033[38;5;189m CAN'T CONNECT TO GAME SERVER!!! \033[38;5;135m]";  
+{    
+echo "\n \033[38;5;135m [RCON] [ \033[38;5;189m CAN'T CONNECT TO GAME SERVER!!! \033[38;5;135m]";  
+require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
 	 sleep(20);
 	 die("\n [RCON] CAN'T CONNECT TO GAME SERVER!");
 }

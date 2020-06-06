@@ -805,15 +805,21 @@ function charset_x_win($s) {
 	return $s;
 }
 function rcon($sz, $zreplace    = '') {
-	global $connect, $server_rconpass, $server_ip, $server_port, $sleep_rcon;
-		usleep($sleep_rcon);	
+	global $connect, $server_rconpass, $server_ip, $server_port, $sleep_rcon, $game_patch;
+	//echo "\n -> ",$game_patch;
+		if(strpos($game_patch,'cod1') !== false)
+			$f = 100;
+		else
+			$f = 20;	
+		usleep(10000*($f/2));		
 	if ((strpos($sz, 'tell') !== false) || (strpos($sz, 'say') !== false)) {
 		if (!is_resource($connect)) {	
 			$server_addr = "udp://" . $server_ip;
 			@$connect     = fsockopen($server_addr, $server_port, $re, $errstr, 30);
 		}
 		$sz          = charset_x_win($sz);
-		stream_set_timeout($connect, 0, 36000); //1e5
+
+		stream_set_timeout($connect, 0, 10000*$f); //1e5
 		fwrite($connect, "\xff\xff\xff\xff" . 'rcon "' . $server_rconpass . '" ' . strtr($sz, array(
 			'%s'        => $zreplace
 		)));
@@ -1852,6 +1858,9 @@ echo "\n -----------------------------";
 		$i_name  = $e["name"];
 	    $i_guid  = $e["guid"];
 		if (trim($i_guid)== trim($guidin)) {
+			
+			//echo    "\n > ".$i_guid  = $e["guid"];
+			
 			$gi      = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
 			$record  = geoip_record_by_addr($gi, $i_ip);
 			if (!empty($record))
@@ -1864,7 +1873,7 @@ echo "\n -----------------------------";
 			return $i_ping . ';' . $i_ip . ';' . $i_name . ';' . $i_guid . ';' . $cccode.';'.$city.';'.$country;
 		}
 	}
-	if (empty($i_ip)) return '0;0;0;0;0';
+	if (empty($i_ip)) return '0;0;0;0;0;0;0';
 }
 function inix($IniFileName, $enabler) {
 	global $cpath;

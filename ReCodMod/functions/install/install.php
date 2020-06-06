@@ -98,7 +98,7 @@ touch($cpath.'ReCodMod/cache/x_cron/');
 sleep (1);
 touch($cpath.'ReCodMod/cache/x_cron/cron_q_'.$server_ip.'_'.$server_port);
 touch($cpath.'ReCodMod/cache/x_cron/cron_dbx_'.$server_ip.'_'.$server_port);
-touch($cpath.'ReCodMod/cache/x_cron/cron_y_'.$server_ip.'_'.$server_port);
+touch($cpath.'ReCodMod/cache/x_cron/cron_y_'.$server_ip.'_'.$server_port.'.cron');
 touch($cpath.'ReCodMod/cache/x_cron/cron_autoban_'.$server_ip.'_'.$server_port);
 touch($cpath.'ReCodMod/cache/x_cron/cron_gts_'.$server_ip.'_'.$server_port);
 touch($cpath.'ReCodMod/cache/x_cron/cron_idk_'.$server_ip.'_'.$server_port);

@@ -14,7 +14,7 @@ mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 mb_http_input('UTF-8');
 mb_regex_encoding('UTF-8');
-require $cpath . 'ReCodMod/functions/_c.php';
+require_once $cpath . 'ReCodMod/functions/_c.php';
 require $cpath . 'ReCodMod/functions/inc_functions.php';
 include ($cpath . "ReCodMod/functions/functions.php");
 ini_set("log_errors", "1");
@@ -83,7 +83,8 @@ if (!empty(multi_ip_servers)) $svipport = $server_port;
 //*************************************************************************************
 //*************************************************************************************
 //*************************************************************************************
-while (true) {  
+while (true) { 
+  $zetx = 1; 
   $allplugs = getDirContents($cpath . 'ReCodMod/functions/funcx/start/');
   foreach ($allplugs AS $va) {
     if (strpos($va, '.php') !== false) require $va;
@@ -94,15 +95,13 @@ while (true) {
   }
   else if ($parseline == $mplogfile) $goto = 1;
   if ($goto == 0) {
-    if ($x_stop_lp == 0) {
+	  //echo "\n".$parseline;
       require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php';
         $datetime = date('Y.m.d H:i:s');
         $dtx2 = date('Y-m-d H:i:s');
         require $cpath . 'ReCodMod/functions/funcx/db_delete_day_stats.php';
         require $cpath . 'ReCodMod/functions/funcx/cfg_rules_schedule.php';
-        if ($mplogfile) {
-          if (((!empty($parseline)) && (preg_match('/;/', $parseline, $z))) || ((!empty($parseline)) && (preg_match('/ExitLevel: executed/', $parseline, $z))) || ((!empty($parseline)) && (preg_match('/ShutdownGame:/', $parseline, $z))) || ((!empty($parseline)) && (preg_match('/InitGame:/', $parseline, $z)))) {
-              //%%%%%%%%%%%%%%%%%%%%%%%%  CHAT  %%%%%%%%%%%%%%%%%%%%%%%%
+             //%%%%%%%%%%%%%%%%%%%%%%%%  CHAT  %%%%%%%%%%%%%%%%%%%%%%%%
               if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseline, $xm)) || (preg_match('/tell;/', $parseline, $xm))) {
                 require $cpath . 'ReCodMod/functions/parser/chat.php';
                 require $cpath . 'ReCodMod/functions/null_db_connection.php';
@@ -130,7 +129,7 @@ while (true) {
               //%%%%%%%%%%%%%%%%%%%%%%%%  END  %%%%%%%%%%%%%%%%%%%%%%%%
               else if ((strpos($parseline, 'W;END;GAME;') !== false) && (strlen($parseline) < 45))
               //// level notify ( "game_ended" ); logPrint("W;END;GAME; \n");
-              {
+              { 
                 rcon('say ^3Rbot ^6=> ^3Chat commands frozen now!', '');
                 require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
                 exit;
@@ -172,9 +171,6 @@ while (true) {
                 }
                 //%%%%%%%%%%%%%%%%%%%%%%%%  END PLUGINS LOAD  %%%%%%%%%%%%%%%%%%%%%%%%
               }
-          }
-        }
-    }
+          } 
   }
-}
 ?>

@@ -473,12 +473,25 @@ if ($x_stop_lp == 0) {
 						 }
 						 if(!empty($commands1)) 
 						 {
-							
-							rcon('say (^2'.ixz.'^7)' . $commands1 . '', '');
+							 
+							 
+							 
+if(strlen($commands1) > 125){
+$keywords = str_replace(";", ",", $commands1); 
+$keyword = preg_split("/,/", $keywords);
+$keyword = array_chunk($keyword, 18,true);
+for ($i = 0; $i <= 10; $i++){if(!empty($keyword[$i])){ rcon('say (^2'.ixz.'^7) '.(implode(",", $keyword[$i])) . '', '');}}}
+						 else rcon('say (^2'.ixz.'^7)' . $commands1 . '', '');							 
+							  
 						 }
 						 if(!empty($commands_costum)) 
 						 {
-							
+if(strlen($commands_costum) > 125){
+$keywords = str_replace(";", ",", $commands_costum); 
+$keyword = preg_split("/,/", $keywords);
+$keyword = array_chunk($keyword, 18,true);
+for ($i = 0; $i <= 10; $i++){if(!empty($keyword[$i])){ rcon('say (^2'.ixz.'^7) '.(implode(",", $keyword[$i])) . '', '');}}}
+						 else
 							rcon('say (^3'.ixz.'^7)' . $commands_costum . '', '');
 							
 							rcon('say ^6'.ixz.'fun', '');
@@ -489,11 +502,21 @@ if ($x_stop_lp == 0) {
                         if(!empty($commands0)) 
 						 {							 
 						   
-							rcon('tell ' . $idnum . ' (^1'.ixz.'^7)' . $commands0 . '', '');
+if(strlen($commands0) > 125){
+$keywords = str_replace(";", ",", $commands0); 
+$keyword = preg_split("/,/", $keywords);
+$keyword = array_chunk($keyword, 18,true);
+for ($i = 0; $i <= 10; $i++){if(!empty($keyword[$i])){ rcon('say (^2'.ixz.'^7) '.(implode(",", $keyword[$i])) . '', '');}}}
+						 else							rcon('tell ' . $idnum . ' (^1'.ixz.'^7)' . $commands0 . '', '');
 						 }
 						 if(!empty($commands1)) 
 						 {
-							
+if(strlen($commands1) > 125){
+$keywords = str_replace(";", ",", $commands1); 
+$keyword = preg_split("/,/", $keywords);
+$keyword = array_chunk($keyword, 18,true);
+for ($i = 0; $i <= 10; $i++){if(!empty($keyword[$i])){ rcon('say (^2'.ixz.'^7) '.(implode(",", $keyword[$i])) . '', '');}}}
+						 else
 							rcon('tell ' . $idnum . ' (^2'.ixz.'^7)' . $commands1 . '', '');
 						 }
 						 if(!empty($commands_costum)) 

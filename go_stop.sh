@@ -30,7 +30,7 @@ if (echo "$IPPORTW" | grep -E -q "^?[0-9]+$"); then
 
 pkill -f go_$IPPORTW.sh 
 pkill -f go_$IPPORTW.php
-pkill -f cleaner_$IPPORTW.php
+### pkill -f cleaner_$IPPORTW.php
 
 echo "Killed go_$IPPORTW \n"
 

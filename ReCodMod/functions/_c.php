@@ -1,8 +1,9 @@
 <?php
+  $mpgamenname = '';
   $startc        = microtime(true);
   $stimec       = time();
 //////////////////////////////////////////////////
-$z_rcm = "RCM[v.9]";
+$z_rcm = "RCM[v.9.0.8]";
 $charset_db   = 'utf8';
 
 error_reporting(E_ALL);
@@ -98,10 +99,12 @@ if(empty($msgr))
 	$msgr = 'none';
 
  
-$sleep_rcon     = 529000; ///Rcon get pause time   
+$sleep_rcon     = 59000; ///Rcon get pause time   
  
-//***********************************************\ dont change it before\***********************************************
- 
+                 $i = 0;
+                for ($i = 1;$i <= 50;$i++) {
+                    if (!empty($mpgamenname)) $i = 50;
+ $gj = 0;
  $getinf = 'serverinfo';
 require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php'; 
 		foreach ($outxxx as $nm ) {
@@ -115,7 +118,7 @@ require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
 					$parts[3] = '';
 				if(empty($parts[4]))
 					$parts[4] = '';					
-	$cvarstring = $parts[1].' '.$parts[2].' '.$parts[3].' '.$parts[4];			
+$cvarstring = $parts[1].' '.$parts[2].' '.$parts[3].' '.$parts[4];			
 				
 switch ($parts[0]) {
     case 'gamename':
@@ -128,21 +131,17 @@ switch ($parts[0]) {
         $servername = $cvarstring;
         break;
     case 'g_gametype':
-        echo $cvarstring;
+        $gametypename = $cvarstring;
         break;
     case 'mapname':
         $serverxmap = $cvarstring;
-        break;			
-}}}
- 
-
-if(empty($mpgamenname))
-{echo "\n Game server is offline or not correct ip_adress:port or rcon password!";
-sleep(3);	
-exit;
-}	
- 
- 
+        break;
+	 
+	 if (strpos($cvarstring, trim($z_rcm)) !== false)
+$gj = 1;
+		
+				}}}}
+  
 if (empty($game_patch))
  { 
           if (strpos($mpgamenname, '5') !== false)

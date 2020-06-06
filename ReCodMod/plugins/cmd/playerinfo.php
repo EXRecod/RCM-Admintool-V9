@@ -41,7 +41,7 @@ else
     list($num,$i_ping,$i_ip,$i_name,$i_guid,$xxccode) = explode(';', (rconExplodeIdnum($x_idn))); 	
 	
 	rcon('say   ^3'.$i_name. ' "^2from:^3 '.$xxccode.'"', '');
-	AddToLogInfo("[".$datetime."] GEO: " . $i_ip . " (" . $x_name . ") (" . $msgr . ") reason: G+id");    
+	AddToLogInfo("[".$datetime."] GEO: " . $i_ip . " (" . $nickr . ") (" . $msgr . ") reason: G+id");    
 	++$x_number;
 	
 echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);

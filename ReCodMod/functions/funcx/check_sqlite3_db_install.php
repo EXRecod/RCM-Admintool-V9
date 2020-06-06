@@ -176,19 +176,13 @@ $datenz = date('Y-m-d');
 
  
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		 
  		
 if (empty($db_players))
   $db_players = '0';
 		if (empty($etop_player_name))
   $etop_player_name = '['.$rfnonply.']';
 if (empty($xtotal_bans))
-  $xtotal_bans = '0';		
+  $xtotal_bans = '0';	
+
+?>	

@@ -30,9 +30,9 @@ $cpath = hx(__FILE__);
 
  
 
-$x_ff = 1; 
-require $cpath . 'ReCodMod/functions/_c.php';
-echo  "\n         Welcome to ".$z_set." (c) http://xxxreal.ru/ \n";
+$x_ff = 1;  
+ 
+require $cpath . 'ReCodMod/functions/_c.php'; 
 /* - Load functions - */
 include($cpath . "ReCodMod/functions/functions.php");		
         $datetime = date('Y.m.d H:i:s'); 
@@ -175,7 +175,7 @@ require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
 
 //    if(!empty($servername))
 //function Prg_serverinformation($s)
-          
+/*          
 echo "\n Server Name: ".$servername;
     if(!empty($mpgamenname))
 echo "\n Game: ".$mpgamenname = sevenofff($mpgamenname);
@@ -186,14 +186,8 @@ echo "\n Map: ".$serverxmap = sevenofff($serverxmap);
  if(!empty($plyr_cnt))
 echo "\n Players: ".$plyr_cnt."\n";
 echo "\n Pre loading system - OK! ";
-	  		
-	
-
-
-
-
-
-
+*/
+ 
 
 require $cpath . 'ReCodMod/functions/install/install.php';
 
@@ -348,11 +342,7 @@ $fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_positio
 fputs($fp, "0");
 fclose($fp);
 
-if(file_exists($log_folder.'/g_log_'.$server_ip.'_'.$server_port.'.log')){											
-$fy = file($log_folder.'/g_log_'.$server_ip.'_'.$server_port.'.log');
-foreach ($fy as $parseglog) { $mplogfiler = $parseglog; }}
-
-
+ 
 
 $getinf = 'rconpassword';
 require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
@@ -376,41 +366,7 @@ if (preg_match("/No rconpassword/i", $rconpassss)){
 echo "\n\n No rconpassword set on your game server!\n EXAMPLE:  set rcon_password YOURPASSWORD in game server \n";
 	sleep (17000);
 	if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}	
-	
-	
-if(!empty(aqrcon))
-{
-xcon('sets _'.$z_set.'', '');	
-usleep(9000);
-xcon('set g_logsync 2');
-usleep(9000);
-xcon('set logfile 1');
-usleep(9000);
-xcon('set sv_log_damage 1');
-usleep(9000);
-xcon('set g_antilag 1');
-}
-
-
-	
-$getinf = 'g_log';
-usleep (100000);
-include $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
-fclose($connx);
-      list($vv9cl, $vv12nl, $xxkl, $xxkml) = explode('"', $gloggs);
- echo '============='.$gloggs;
- $mplogfiler = sevenofff($mplogfilenew);
-AddToparsser($mplogfiler);
-
-             
- usleep($sleep_rcon);
-$getinf = 'fs_game';
-require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
-  fclose($connx);
-       list($onee, $twoo, $threee, $fourr) = explode('"', $fssgame);          
-
-
-
+ 
 if((!file_exists($mplogfilexl)) && (!preg_match('/ftp:/', $mplogfilexl, $xnon)))
 {echo "\n error! 
 \n DO NOT STARTING! 
@@ -479,7 +435,7 @@ $handlePos=fopen($cpath . "ReCodMod/cache/x_cache/".$server_ip."_".$server_port.
 fwrite($handlePos, "1");
 fclose($handlePos);
 
-echo "\n          YOUR (games_mp.log) possible log file path is: \n          ".$mplogfiler = sevenofff($mplogfilenew)." \n \n";
+//echo "\n          YOUR (games_mp.log) possible log file path is: \n          ".$mplogfiler = sevenofff($mplogfilenew)." \n \n";
 
 	
 	

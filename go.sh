@@ -109,7 +109,8 @@ echo "$IPPORTW \n"
 if (echo "$IPPORTW" | grep -E -q "^?[0-9]+$"); then 
 
 ##########RESET   /////////////////////RESET ON START                       fopen($mplogfile, "w");
-
+###  php -q -f $CURDIR/cache_ms/functions/cleaner_'$IPPORTW'.php '$port' '$rcon' '$log' 
+###  sleep 1
 
   if [ -f $CURDIR/go_$IPPORTW.sh ]; then 
    echo ""
@@ -120,8 +121,6 @@ DIRFILE=`readlink -e "$0"`
 CURFILE=`basename "$DIRFILE"`
 CURDIR=`dirname "$DIRFILE"`
 
-  php -q -f $CURDIR/cache_ms/functions/cleaner_'$IPPORTW'.php '$port' '$rcon' '$log' 
-sleep 1
 setterm -term linux -back black
 while (true) 
 do

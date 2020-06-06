@@ -1,5 +1,14 @@
 <?php
 if (!empty($stats_array)) {
+	
+                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
+                            $string = str_replace(".", "_", $server_ip);
+                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/', 0777, true);
+                            //$statscronx = $cpath.'ReCodMod/cache/loader_opt/fast_up_'.$string.'_'.$server_port.'/';
+                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/', 0777, true);
+                            if (!file_exists($cpath . 'ReCodMod/cache/stats_register/')) mkdir($cpath . 'ReCodMod/cache/stats_register/', 0777, true);
+                            if (!file_exists($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port)) mkdir($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port, 0777, true);
+                            	
   ////////////////////////лимит нагрузок
   if (empty($activate_opt)) {
     $geoonqx = 90;

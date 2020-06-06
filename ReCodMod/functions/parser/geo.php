@@ -14,8 +14,12 @@ $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
 if ((empty($stats_array[$conisq]['guid']))||(!file_exists($reg))||(time() - filemtime($reg) >= 900))
 { 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guid)));
-$chistx = $i_name; 
+$rconExplode = rconExplode($guid);
+if(!empty($rconExplode))
+{
+list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', $rconExplode);
+$chistx = $i_name;
+} else {$i_ping='';$i_ip='';$i_name='';$i_guid='';$xxccode='';$city='';$country='';}
         
   if ((empty($i_ip)) || (strpos($i_ip, '192.168') !== false) || (strpos($i_ip, '255.255') !== false) || (strpos($i_ip, 'localhost') !== false) || (strpos($i_ip, '127.0.0.1') !== false)) $i_ip = '37.120.56.200';
             

@@ -76,15 +76,9 @@ RD /s %~dp0\win_cache_ms\
 echo win_cache_ms - ok 
 ) ELSE (
 MD %~dp0\win_cache_ms\
-echo win_cache_ms\functions\ - first install
+echo win_cache_ms\ - first install
 )
-
-IF EXIST %~dp0\win_cache_ms\functions\ (
-echo win_cache_ms\functions\ - ok 
-) ELSE (
-MD %~dp0\win_cache_ms\functions\
-echo win_cache_ms\functions\ - first install
-)
+ 
  
 @echo.
 setlocal enableDelayedExpansion
@@ -112,8 +106,7 @@ echo go_%%A_%%B.bat - ok
 @echo ******** INSTALL go_%%A_%%B.bat ********
 @echo ^@echo off >> %~dp0\go_%%A_%%B.bat
 @echo ^color 0A >> %~dp0\go_%%A_%%B.bat
-@echo ^ title RCM V.6.2 ^[SERVER %%A:%%B^]>> %~dp0\go_%%A_%%B.bat 
-@echo ^ .\php\php.exe -f win_cache_ms\functions\cleaner_%%A_%%B.php >> %~dp0\go_%%A_%%B.bat 
+@echo ^ title RCM V.9 ^[SERVER %%A:%%B^]>> %~dp0\go_%%A_%%B.bat  
 @echo ^ :1 >> %~dp0\go_%%A_%%B.bat 
 @echo ^ .\php\php.exe -f win_cache_ms\go_%%A_%%B.php >> %~dp0\go_%%A_%%B.bat 
 @echo ^ goto 1 >> %~dp0\go_%%A_%%B.bat
@@ -143,31 +136,7 @@ echo win_cache_ms\go_%%A_%%B.php - ok
 
 
 @echo.
-
-IF EXIST %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php (
-echo win_cache_ms\functions\cleaner_%%A_%%B.php - ok 
-) ELSE (
-@echo ******** INSTALL win_cache_ms\functions\cleaner_%%A_%%B.php ********
  
-@echo ^<^?php >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-
-@echo ^function hxhn^($sc^) >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php  
-@echo ^{ >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-@echo ^$sc ^= str_replace^("win_cache_ms/functions/cleaner_%%A_%%B.php^", ^"^", $sc^); >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php
-@echo ^$sc ^= str_replace^("win_cache_ms\functions\cleaner_%%A_%%B.php^", ^"^", $sc^); >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-@echo ^$sc ^= str_replace^("win_cache_ms//functions//cleaner_%%A_%%B.php", ^"^", $sc^); >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-@echo ^$sc ^= str_replace^("win_cache_ms\\functions\\cleaner_%%A_%%B.php", ^"^", $sc^); >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-@echo ^  return $sc . ^"^"; >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-@echo ^} >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-@echo ^$cpath = hxhn^(__FILE__^); >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php 
-@echo header^(^"Content-Type: text/html; charset^=UTF-8^"^); >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php
-@echo error_reporting^(E_ALL^);  >> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php
-@echo ini_set^(^"ignore_repeated_errors^", TRUE^); ini_set^(^"display_errors^", TRUE^); ini_set^(^"log_errors^", TRUE^); ini_set^(^"error_log^", $cpath.^"ReCodMod/php-all-errors.log^"^);>> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php
-@echo $server_ip ^= "%%A"; $server_port ^= "%%B"^; $server_rconpass = "%%C"; $mplogfile ^= "%%D"^; $server_port ^= trim^(^$server_port^)^;>> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php
-@echo ^echo ^" ^======^> %%A_%%B cleaner.php loaded successfully \n^";>> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php
-@echo ^require $cpath . ^"ReCodMod/functions/cleaner.php^";>> %~dp0\win_cache_ms\functions\cleaner_%%A_%%B.php
-)
-
 
 start %~dp0\go_%%A_%%B.bat
 
