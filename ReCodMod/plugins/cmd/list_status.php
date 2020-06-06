@@ -2,7 +2,7 @@
 if ($x_stop_lp == 0) {
     if (strpos($msgr, ixz . 'num') !== false) {
         
-        require $cpath . 'ReCodMod/functions/inc_functions2.php';
+        require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
         $i = 0;
         foreach ($rconarray as $j => $e) {
             $colorb = $i % 2 > 0 ? '^6' : '^3';
@@ -39,7 +39,7 @@ if ($x_stop_lp == 0) {
     }
     if (strpos($msgr, ixz . 'pl') !== false) {
         
-        require $cpath . 'ReCodMod/functions/inc_functions2.php';
+        require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
         $i = 0;
         unset($lrkon);
         foreach ($rconarray as $j => $e) {
@@ -60,7 +60,7 @@ if ($x_stop_lp == 0) {
     }
     if (strpos($msgr, ixz . 'all') !== false) {
         
-        require $cpath . 'ReCodMod/functions/inc_functions2.php';
+        require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
         $i = 0;
         foreach ($rconarray as $j => $e) {
             //require $cpath  .  'ReCodMod/functions/inc_functions3.php';

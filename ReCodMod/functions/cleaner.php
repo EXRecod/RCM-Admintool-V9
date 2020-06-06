@@ -38,11 +38,7 @@ include($cpath . "ReCodMod/functions/functions.php");
         $datetime = date('Y.m.d H:i:s'); 
         $dtx2     = date('Y-m-d H:i:s');
 		
-		 
-/* - Load functions - */
-require $cpath . 'ReCodMod/functions/inc_functions.php'; 
  
-
 $beforeC = current(explode('.callofduty4/main', $mplogfile));
 
 

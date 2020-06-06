@@ -291,12 +291,11 @@ if ($kl <= 0 || $dth <= 0){  }else{
 $skil_x = round((pow($kl,0.2)*($kl/$dth)*10));
 $ratio_x = ($kl/$dth);
 
-require $cpath . 'ReCodMod/functions/inc_functions2.php';
+require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
                             foreach ($rconarray as $oneline => $e) {
                                 //require $cpath . 'ReCodMod/functions/inc_functions3.php'; 
  $i_id = $e["num"]; $i_ping = $e["ping"]; $i_ip = $e["ip"]; $i_name = $e["name"]; $i_guid = $e["guid"]; $chistx = $i_name; 
-                                if ((!$valid_id) || (!$valid_ping))
-                                    Continue;	
+                                	
   
   rcon("say  ^3".$ply." ^1".$infootop.": ^2".$yhu." ^1".$infoorrnk.":^2  ".$skil_x." ^1 ".$infoofrag.":^2 ".$kl." ^1".$infoortio.":^2 ".substr($ratio_x, 0,5)."  ", "");	
 	++$x_number;	
@@ -371,7 +370,7 @@ require_once $cpath.'ReCodMod/functions/ranks.php';
 /////////// HERE SQL FOR DB-5 RANK LEVELS
 
 
-require $cpath . 'ReCodMod/functions/inc_functions2.php';
+require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
                             foreach ($rconarray as $oneline => $e) {
                                 //require $cpath . 'ReCodMod/functions/inc_functions3.php'; 
  $i_id = $e["num"]; $i_ping = $e["ping"]; $i_ip = $e["ip"]; $i_name = $e["name"]; $i_guid = $e["guid"]; $chistx = $i_name; 

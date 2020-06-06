@@ -24,8 +24,7 @@ $_SESSION[$server_port] = 0;
 
 $handlePos=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_pos.txt" ,"w+");
 fwrite($handlePos, "1");
-fclose($handlePos);
-$datetime = date('Y.m.d H:i:s');
+fclose($handlePos); 
 //AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> LogFile game_mp.log 30MB auto reset! </font> "); 
 echo "OK ...";
 

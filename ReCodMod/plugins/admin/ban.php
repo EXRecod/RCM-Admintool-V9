@@ -492,7 +492,7 @@ else
     }
     if ($x_number > 0) {
         
-        require $cpath . 'ReCodMod/functions/inc_functions2.php';
+        require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
         foreach ($rconarray as $j => $e) {
             $colorb = $i % 2 > 0 ? '^6' : '^3';
             $colora = $i % 2 > 0 ? '^7' : '^7';
@@ -575,7 +575,7 @@ if ($x_stop_lp == 0) {
         //if ($x_number > 0) {
 			if ($x_stop_lp == 0) {
             
-            require $cpath . 'ReCodMod/functions/inc_functions2.php';
+            require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
             foreach ($rconarray as $j => $e) {
 				
 				if ($x_stop_lp == 0) {
@@ -718,7 +718,7 @@ else
 		 
  
             
-            require $cpath . 'ReCodMod/functions/inc_functions2.php';
+            require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
             foreach ($rconarray as $j => $e) {
                 $colorb = $i % 2 > 0 ? '^6' : '^2';
                 $colora = $i % 2 > 0 ? '^7' : '^7';
@@ -1107,7 +1107,7 @@ else
         if ($x_number > 0)
           {
             
-            require $cpath . 'ReCodMod/functions/inc_functions2.php';
+            require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
             foreach ($rconarray as $j => $e)
               {
                 $colorb = $i % 2 > 0 ? '^6' : '^3';
@@ -1261,7 +1261,7 @@ $i_namex = clearSymbols($i_name);
 	
 if ($x_number > 0){
 		 	
-require $cpath.'ReCodMod/functions/inc_functions2.php';
+require $cpath.'ReCodMod/functions/core/cod_rcon.php';
 foreach ($rconarray as $j => $e)
 	{	
 $colorb=$i%2>0? '^6':'^3';

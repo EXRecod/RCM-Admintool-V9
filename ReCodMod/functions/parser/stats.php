@@ -31,7 +31,7 @@ if ($x_stop_lp == 0) {
                     $stats_array[$shyd]['guid'] = $death_player_guid;
                     $stats_array[$shyd]['nickname'] = $death_player_name;
                 }
-                $datetime = date('Y-m-d H:i:s');
+                 
             }
         } 
         //////////#############///////#############///////#############/////////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ if ($x_stop_lp == 0) {
             // 4:58    K;0                  ;31;      ;bot31 ;2310346615720138741;30;    ;TyK TyK..  ?;c4_mp;  98; MOD_GRENADE_SPLASH;none
             // 2304:11 K;2310346615980522343;25;allies;XXXXXX;2310346617077157795;32;axis;Deep sadness;ak47_mp;84; MOD_RIFLE_BULLET;torso_lower
             list($vv1, $death_player_guid, $idnumb, $vv4, $death_player_name, $player_killer_guid, $idkill, $vv8, $killer_player_name, $byweapon, $vv11, $modkll, $hitlock) = explode(';', $parselinetxt);
-            if (strpos($parseline, 'K;') !== false) echo "\n\r \033[38;5;198m[kill]\033[38;5;46m : [", $datetime, "] : [", $killer_player_name, " -> ", $death_player_name, "]  [", $hitlock, "]";
+            if (strpos($parseline, 'K;') !== false) echo "\n\r \033[38;5;198m[kill]\033[38;5;46m : [", $dtx2, "] : [", $killer_player_name, " -> ", $death_player_name, "]  [", $hitlock, "]";
             ///STATS SYSTEM - ADD BOTS IN STATS
             // 0 - OFF(DO NOT ADD)
             // 1 - ON(ADD BOTS IN STATISTICS SYSTEM for all servers)
@@ -110,14 +110,19 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                 $stats_array = data_values_input($shid, 'hitzones', $hitlock, $stats_array);
 
 							if(!empty($wp)) unset($wp);
-                            require $cpath . 'ReCodMod/functions/weapons/cod.php';                
+                            require $cpath . 'ReCodMod/functions/costum_array/weapons/cod.php'; 
+ if(empty($wp[$byweapon]))
+ {
+ $wp = array_chunk($wp, 23,true);							
  $of = 0;
- foreach ($wp as $j => $l){if($j == $byweapon)$of = 1;}	 
+ foreach ($wp as $j => $l){foreach ($l as $wprg  => $wpnm) {if($wprg == $byweapon)$of = 1;}} 
 				if($of == 0){	
 				if(strpos($byweapon,'_mp') !== false){
 				     $m = preg_split('/_[a-z0-9]{1,3}\_mp/', $byweapon);
 	                 if(!empty($m[0]))
                      $byweapon = $m[0].'_mp';}}  
+			  echo "\n----------------> ",$byweapon;
+ }			  
 			  
                 $stats_array = data_values_input($shid, 'weapons', $byweapon, $stats_array);
                 $stats_array = data_values_input($shid, 'mod', $modkll, $stats_array);

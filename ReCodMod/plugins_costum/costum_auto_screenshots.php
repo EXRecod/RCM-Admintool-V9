@@ -18,8 +18,7 @@ if ((strpos($parseline, ' K;') !== false) || (strpos($parseline, ' D;') !== fals
         if (time() - $cron_timeq >= 60 * auto_getss_time * $adminornot) {
           xcon('getss ' . $idkill, '');
           file_put_contents($player_cron_getss, "");
-          $datetime = date('Y-m-d H:i:s');
-          $player_auto_sc[$player_killer_guid]['' . $datetime . ''][$idkill] = $player_killer_guid;
+          $player_auto_sc[$player_killer_guid]['' . $dtx2 . ''][$idkill] = $player_killer_guid;
         }
       }
     }
@@ -35,8 +34,7 @@ if ((strpos($parseline, ' K;') !== false) || (strpos($parseline, ' D;') !== fals
         if (time() - $cron_timeq >= 60 * auto_getss_time * $adminornot) {
           xcon('getss ' . $idnumb, '');
           file_put_contents($player_cron_getss, "");
-          $datetime = date('Y-m-d H:i:s');
-          $player_auto_sc[$death_player_guid]['' . $datetime . ''][$idnumb] = $death_player_guid;
+          $player_auto_sc[$death_player_guid]['' . $dtx2 . ''][$idnumb] = $death_player_guid;
         }
       }
     }

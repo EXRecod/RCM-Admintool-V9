@@ -13,7 +13,7 @@ if(!empty($kickvote_voteTime))
 }
   if (strpos($msgr, ixz . 'k ') !== false) list($x_cmd, $kickvote_msgrID) = explode(' ', $msgr);
   if (empty($kickvote_Playercount)) {
-    require $cpath . 'ReCodMod/functions/inc_functions2.php';
+    require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
     //$cntply = count($rconarray);
 	$cntply = 0;
     foreach ($rconarray as $j => $e) {

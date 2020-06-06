@@ -22,7 +22,7 @@ if ((strpos($msgr, ixz . 'elist') !== false))
   //if(is_resource($connect))
    //                 fclose($connect);
 usleep($sleep_rcon*3);
-       require $cpath . 'ReCodMod/functions/inc_functions2.php';
+       require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
        foreach ($rconarray as $j => $e)
         {
          //require $cpath . 'ReCodMod/functions/inc_functions3.php'; 

@@ -14,7 +14,7 @@ echo '  bb  '.substr($tfinishh = (microtime(true) - $start),0,7);
  
 /////////////////////////////////////////////////////////
 if (strpos($msgr, ixz.'kickall') !== false){  
- require $cpath  .  'ReCodMod/functions/inc_functions2.php'; 
+ require $cpath  .  'ReCodMod/functions/core/cod_rcon.php'; 
  foreach ($rconarray as $j => $e)
 	{ 
  $i_id = $e["num"]; $i_ping = $e["ping"]; $i_ip = $e["ip"]; $i_name = $e["name"]; $i_guid = $e["guid"]; $chistx = $i_name;  

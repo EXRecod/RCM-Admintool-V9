@@ -164,7 +164,7 @@ if (!empty($stats_array)) {
                 ////////////////////###   STOCK COD1 - COD5 WEAPONS INSERT   ###/////////////////////////
                 // $wp = ''; $wps = ''; $wprg = ''; $wpnm = ''; $table_insert = ''; $wweapons = '';
                 if (!empty($wp)) unset($wp);
-                require $cpath . 'ReCodMod/functions/weapons/cod.php';
+                require $cpath . 'ReCodMod/functions/costum_array/weapons/cod.php';
                 $table_insert = stock_weapons($wp);
                 for ($i = 1;$i <= 20;$i++) {
                   if (!empty($table_insert[$i])) {

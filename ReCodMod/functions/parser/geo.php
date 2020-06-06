@@ -59,10 +59,10 @@ if (translater == 1)
                          require $cpath .  'cfg/languages/de.lng.php';
                     else require $cpath . 'cfg/languages/en.lng.php';
 
-rcon('say ^3' . $welcome_x . ' ^7' . html_entity_decode($nickname) . ' ^3' . $infoofrom . ' ^6[^2' . $xxxnw . '^6]', '');
+rcon('say ^3' . $welcome_x . ' ^7' . html_entity_decode($nickname) . ' ^3' . $infoofrom . ' ^6[^2' . $country . '^6]', '');
 }	
 else
-rcon('say ^3' . $welcome_x2 . ' ^7' . html_entity_decode($nickname) . ' ^3' . $infoofrom . ' ^6[^2' . $xxxnw . '^6] ^1id#' . $idcc . ' ^1visit#' . $x_db_conn . ' ^7' . website . '', '');
+rcon('say ^3' . $welcome_x2 . ' ^7' . html_entity_decode($nickname) . ' ^3' . $infoofrom . ' ^6[^2' . $country . '^6] ^1id#' . $idcc . ' ^1visit#' . $x_db_conn . ' ^7' . website . '', '');
  }										
       /////////////////////// nickname;nickname';
 	 if (empty($stats_array[$conisq]['nickname'])) 

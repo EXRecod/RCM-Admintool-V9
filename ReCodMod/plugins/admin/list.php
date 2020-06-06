@@ -4,7 +4,7 @@ if ($x_stop_lp == 0 ) {
    if (strpos($msgr, ixz.'list') !== false)
     { 	
     	 	
-require $cpath.'ReCodMod/functions/inc_functions2.php';
+require $cpath.'ReCodMod/functions/core/cod_rcon.php';
 $i = 0;
 foreach ($rconarray as $j => $e)
 	{	

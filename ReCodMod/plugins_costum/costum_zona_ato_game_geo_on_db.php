@@ -28,7 +28,7 @@ Example:
 */
  
   if ((strpos($parseline, ' GEO;') !== false)&&(strpos($parseline, '<=>') !== false)) {
-	 $datetime = date('Y-m-d H:i:s'); 
+	 $datetime = $dtx2; 
 	usleep(190555);  
 	 
 	$cod4xprestigex = ''; 

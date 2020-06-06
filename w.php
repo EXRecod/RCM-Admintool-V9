@@ -14,14 +14,17 @@ mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 mb_http_input('UTF-8');
 mb_regex_encoding('UTF-8');
-require_once $cpath . 'ReCodMod/functions/_c.php';
-require $cpath . 'ReCodMod/functions/inc_functions.php';
+require_once $cpath . 'ReCodMod/functions/_c.php'; 
 include ($cpath . "ReCodMod/functions/functions.php");
 ini_set("log_errors", "1");
 $xerrrors = ($cpath . "ReCodMod/cache/x_errors/$filename");
 ini_set("error_log", $xerrrors);
 $logging = new log($xerrrors);
 set_error_handler("error_handler");
+if (PHP_SAPI != 'cli') {
+  sleep(5);
+  exit('<h1>This software cannot be run on a webspace!</h1>');
+}
 include ($cpath . "ReCodMod/functions/geoip_bases/MaxMD/geoipcity.inc");
 include ($cpath . "ReCodMod/functions/geoip_bases/MaxMD/timezone/timezone.php");
 require $cpath . 'ReCodMod/functions/install/install.php';
@@ -39,13 +42,8 @@ if (!empty($mpgamenname)) echo "\n Game: " . $mpgamenname = sevenofff($mpgamenna
 if (!empty($mpshortver)) echo "\n Patch: " . $mpshortver = sevenofff($mpshortver);
 if (!empty($serverxmap)) echo "\n Map: " . $serverxmap = sevenofff($serverxmap);
 if (!empty($plyr_cnt)) echo "\n Players: " . $plyr_cnt . "\n";
-echo "\n Pre loading system - OK! ";
 require $cpath . 'ReCodMod/functions/funcx/_game_log_cleaner.php';
 $emaprun = '';
-if (PHP_SAPI != 'cli') {
-  sleep(5);
-  exit('<h1>This software cannot be run on a webspace!</h1>');
-}
 echo "\033[38;5;205m";
 echo "\n\n /.> PHP version: ", phpversion();
 $resumeposftp = 0;
@@ -172,5 +170,6 @@ while (true) {
                 //%%%%%%%%%%%%%%%%%%%%%%%%  END PLUGINS LOAD  %%%%%%%%%%%%%%%%%%%%%%%%
               }
           } 
+		  //break;
   }
 ?>

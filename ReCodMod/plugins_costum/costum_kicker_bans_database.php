@@ -20,8 +20,7 @@ list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
           $db = $msqlconnect;
           $db2 = $db;
           $db4 = $db; 
-         }
-         $datetime = date('Y.m.d H:i:s');
+         } 
          if ($guids == 0) {
           $result = $db2->query("SELECT * FROM bans WHERE reason like 'Flood'  LIMIT 1");
           foreach ($result as $row) {
