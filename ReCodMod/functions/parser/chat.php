@@ -87,6 +87,9 @@ if ($x_stop_lp == 0) {
       }
     }
   }
+  
+     require $cpath . 'ReCodMod/plugins/messages/chat_antiflood.php';
+  
   if (strpos($msgr, 'QUICKMESSAGE_') === false) {
     if (!empty($guidn)) {
       try {
@@ -182,7 +185,7 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
           $dbx = null;
           $msqlcc = null;
         }
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         if (empty($msgOclear)) $msgOclear = '';
       }
       catch(PDOException $e) {
@@ -258,7 +261,7 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
                   $dbc = null;
                   $st = null;
                   $result = null;
-                  require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                  require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
                 }
                 catch(PDOException $e) {
                   errorspdo('[' . $datetime . '] 1504  ' . __FILE__ . '  Exception : ' . $e->getMessage());

@@ -61,7 +61,7 @@ if (strpos($parseline, " J;") !== false) {
                                         }	
 		}}}	 	
                         }
-                        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
                     }
                     catch (PDOException $e) {
                         die($e->getMessage());

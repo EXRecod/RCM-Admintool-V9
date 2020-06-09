@@ -61,10 +61,8 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
   chmod($cpath . "ReCodMod/cache/x_cron/", 0777);
   chmod($cpath . "ReCodMod/cache/x_update/", 0777);
   chmod($cpath . "ReCodMod/cache/x_cache/", 0777);
-  // require_once $cpath."ReCodMod/functions/core/classes/zip.php";
-  // $zip = new Zip();
-  // $zip->unzip_file($cpath."ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.zip");
-  // $zip->unzip_to($cpath."ReCodMod/functions/geoip_bases/MaxMD/");
+
+
   echo " Install - Folders and cache files.\n";
   sleep(1);
   touch($cpath . 'ReCodMod/cache/x_logs/' . $server_ip . '_' . $server_port . '_chat.log');
@@ -110,9 +108,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
   fclose($handlePos);
   touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp.txt');
   touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp_day.txt');
-  touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp_week.txt');
-  touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp_gametype_vote.txt');
-  touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp_mapvote.txt');
+  touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp_week.txt'); 
   touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp0.txt');
   touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp3.txt');
   touch($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_temp5.txt');
@@ -146,7 +142,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
   status1days mediumint(6) NOT NULL,
   status2 varchar(24) NOT NULL,
   status2days mediumint(6) NOT NULL)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -193,7 +189,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			x varchar(10)  NOT NULL,
 			c varchar(10)  NOT NULL
 	)');
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           die($e->getMessage());
@@ -215,7 +211,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
           $db0->exec("CREATE TABLE configs (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, admin varchar(100), guid varchar(32), ip int(50), uid int(50), password int(50), cfg int(50), serverip int(50), serverport int(50), time int(50))");
           $db0->exec("CREATE TABLE getss (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, e_admin varchar(100), e_guid varchar(32), e_nick int(50), e_ip varchar(16), e_uid int(50), e_geo int(50), e_counts(5), e_time int(50))");
           $db0->exec("INSERT INTO getss ( e_admin, e_guid, e_nick, e_ip, e_uid, e_geo, e_counts, e_time ) VALUES ('GODlevel999', 'u6fguhwystaywduf76drcvb', 'imhacker', '111.222.333.444','78035820','Island','7','2016.09.30');");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -240,7 +236,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
           $stat = $db->query('SELECT COUNT(id) FROM x_db_admins')
             ->fetchColumn();
           //echo '  -----------   '.$stat;
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -271,7 +267,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
             //echo "\n ".$row['playername']." ";
             
           }
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -293,7 +289,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			s_player varchar(80)  NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -310,7 +306,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			s_fall int(8)  NOT NULL,			
 			s_melle int(8) NOT NULL,
 			s_dmg int(8) NOT NULL)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -335,7 +331,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			n_heads int(5) NOT NULL,
 			n_kills_min int(2) NOT NULL,
 			n_deaths_min int(2) NOT NULL)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -366,7 +362,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			rcxd_destroyed mediumint(6) NOT NULL,
 			turret_destroyed mediumint(6) NOT NULL,
 			sam_kill mediumint(6) NOT NULL)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -404,7 +400,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			dragunov_ int(8) NOT NULL,
 			skorpion_ int(8) NOT NULL
 			)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -428,7 +424,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			helicopter_ int(8) NOT NULL,
 			radar_ int(8) NOT NULL
 			)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -470,7 +466,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
               $sth = null;
             }
           }
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -515,7 +511,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
   right_hand mediumint(7) NOT NULL,
   left_leg_lower mediumint(7) NOT NULL
   )");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -542,7 +538,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			s_heads int(8) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -564,7 +560,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
 			s_heads int(8) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -624,7 +620,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
     s_avia int(8),
     s_maps int(8), 	
 	s_melle varchar(10))");
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -644,7 +640,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
             $db5->exec("CREATE TABLE playerlist (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, servername varchar(160), s_port varchar(32), idnum varchar(10), name varchar(250), ip int(40), ping varchar(4))");
             $db5->exec("INSERT INTO playerlist ( servername, s_port, idnum, name, ip, ping ) VALUES ('0', '0', '0', 'anotherjam', '111.222.333.444', '666');");
           }
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -658,7 +654,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
           $dtranslate->exec("CREATE TABLE tranlslate (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, servername varchar(160), s_port varchar(32)), idnum varchar(10), name varchar(250), ip varchar(16), activate int(40), iso_country int(40), country int(40), guid varchar(32), google int(40), yandex int(40), word varchar(100))");
           $dtranslate->exec("CREATE TABLE xactivator (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, servername varchar(160), s_port varchar(32), idnum varchar(10), name varchar(250), ip varchar(16), chat int(40), geo int(40), actone int(50), acttwo int(50), actthree int(50), screen int(40), cguid varchar(32), cgoogle int(40), cyandex int(40), cword varchar(100))");
           $dtranslate = NULL;
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -694,7 +690,7 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
           $dtranslate->exec("CREATE TABLE tranlslate (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, servername varchar(160), s_port varchar(32), idnum varchar(10), name varchar(250), ip varchar(16), activate int(40), iso_country int(40), country int(40), guid varchar(32), google int(40), yandex int(40), word varchar(100))");
           $dtranslate->exec("CREATE TABLE xactivator (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, servername varchar(160), s_port varchar(32), idnum varchar(10), name varchar(250), ip varchar(16), chat int(40), geo int(40), actone int(50), acttwo int(50), actthree int(50), screen int(40), cguid varchar(32), cgoogle int(40), cyandex int(40), cword varchar(100))");
           $dtranslate = NULL;
-          require $cpath . 'ReCodMod/functions/null_db_connection.php';
+          require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
           errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -710,7 +706,7 @@ if (!empty(SqlDataBase)) {
       $dsn = "mysql:host=" . host_adress . ";dbname=" . db_name . ";charset=$charset_db";
       if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass);
       $dbc = $msqlconnect;
-      $query = file_get_contents($cpath . "ReCodMod/functions/sql/adminmod_install_msql.sql");
+      $query = file_get_contents($cpath . "ReCodMod/functions/install/sql/adminmod_install_msql.sql");
       /////////////////////////////////////////////////////////////////////////////////////////
       /////////////////////////////////////////////////////////////////////////////////////////
       /////////////////////////////////////////////////////////////////////////////////////////
@@ -762,7 +758,7 @@ if (!empty(SqlDataBase)) {
         print ("Not created main Table.\n");
         sleep(1);
       }
-      require $cpath . 'ReCodMod/functions/null_db_connection.php';
+      require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
     }
     catch(PDOException $e) {
       echo $e->getMessage(); //Remove or change message in production code
@@ -790,7 +786,7 @@ if (!empty(SqlDataBase)) {
 			t varchar(10)  NOT NULL,
 			x varchar(10)  NOT NULL,
 			c varchar(10)  NOT NULL)');
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
       }
       catch(PDOException $e) {
         die($e->getMessage());
@@ -814,7 +810,7 @@ if (!empty(SqlDataBase)) {
 			s_heads varchar(8) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
       }
       catch(PDOException $e) {
         errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -836,7 +832,7 @@ if (!empty(SqlDataBase)) {
 			s_heads int(8) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
       }
       catch(PDOException $e) {
         errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -855,7 +851,7 @@ if (!empty(SqlDataBase)) {
   status1days mediumint(6) NOT NULL,
   status2 varchar(24) NOT NULL,
   status2days mediumint(6) NOT NULL)");
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
       }
       catch(PDOException $e) {
         errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());

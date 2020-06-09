@@ -32,7 +32,7 @@ if(typeparser($parseline) == 'parser')
    		$db4 = new PDO('sqlite:'. $cpath . 'ReCodMod/databases/db4.sqlite'); 
 		  
 $db4->query("UPDATE x_db_players SET x_db_date='".$x_date."',stat = '0' WHERE x_db_guid='".$guid."'");	  
-require $cpath . 'ReCodMod/functions/null_db_connection.php';		  
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';		  
 }catch(PDOException $e){die($e->getMessage());}			  
 		
 

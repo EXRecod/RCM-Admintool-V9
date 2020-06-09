@@ -38,7 +38,7 @@ try
 			s_heads int(8) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");  
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -69,7 +69,7 @@ try
  
  $db3->query("TRUNCATE TABLE db_stats_day");
  $db3 = null;
-require $cpath . 'ReCodMod/functions/null_db_connection.php';   
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';   
   
   }
   catch(PDOException $e)

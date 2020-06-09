@@ -291,7 +291,6 @@ function cleart($string) {
 }
 // Colorize Function
 function colorize($string) {
-  $string = substr($string, 0, 777);
   $string = str_replace("^^00", "</font><font color=\"gray\">", $string);
   $string = str_replace("^^11", "</font><font color=\"red\">", $string);
   $string = str_replace("^^22", "</font><font color=\"lime\">", $string);
@@ -791,7 +790,7 @@ function rcon($sz, $zreplace = '') {
   if (strpos($game_patch, 'cod1') !== false) $f = 100;
   else $f = 20;
   usleep(10000 * ($f / 2));
-  if ((strpos($sz, 'tell') !== false) || (strpos($sz, 'say') !== false)) {
+  //if ((strpos($sz, 'tell') !== false) || (strpos($sz, 'say') !== false)) {
     if (!is_resource($connect)) {
       $server_addr = "udp://" . $server_ip;
       @$connect = fsockopen($server_addr, $server_port, $re, $errstr, 30);
@@ -805,8 +804,9 @@ function rcon($sz, $zreplace = '') {
     //usleep(500*1000);
     //usleep(200);
     //echo 'DEBUG => ' . $output . "\n";
+	fclose($connect);
     return $output;
-  }
+  //}
 }
 function xcon($sz, $zreplace = '') {
   global $connect, $server_rconpass, $server_ip, $server_port, $sleep_rcon;
@@ -823,7 +823,8 @@ function xcon($sz, $zreplace = '') {
   $output = fread($connect, 1); //512
   //usleep(500*1000);
   //usleep(200);
-  //echo 'DEBUG => '.$output."\n";
+  //echo 'DEBUG => '.$output."\n";\
+  fclose($connect);
   return $output;
 }
 // var_dump(rcon('pb_sv_ver'));
@@ -1544,29 +1545,7 @@ function findKey($array, $keySearch) {
   }
   return false;
 }
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
-/////////////////////////////////////////###############//////////////////////////////////////////
+
 /////////////////////////////////////////###############//////////////////////////////////////////
 /////////////////////////////////////////###############//////////////////////////////////////////
 /////////////////////////////////////////###############//////////////////////////////////////////
@@ -1990,7 +1969,7 @@ function dbSelectArray($SQLiteDatabase, $query) {
     }
     $result = $db->query($query); //->fetch(PDO::FETCH_LAZY);
     if (!empty($result)) $xresult = $result;
-    require $cpath . 'ReCodMod/functions/null_db_connection.php';
+    require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e) {
     errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function dbSelect / : ' . $e->getMessage());
@@ -2011,7 +1990,7 @@ function dbInsert($SQLiteDatabase, $query) {
     }
     $result = $db->query($query); //->fetch(PDO::FETCH_LAZY);
     if (!empty($result)) $xresult = $result;
-    require $cpath . 'ReCodMod/functions/null_db_connection.php';
+    require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e) {
     errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function dbSelect / : ' . $e->getMessage());
@@ -2339,73 +2318,8 @@ function readloglines($infologtxt) {
   }
   return $infologtxt;
 }
-function newreadloglines($infologtxt) {
-  global $cpath, $server_ip, $server_port, $server_rconpass, $mplogfile;
-  $filepath = hxlog($mplogfile);
-  if (empty(($_SESSION[$server_port]))) {
-    $handlePosh = @fopen($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_position.txt', 'r+'); //открываем файл с последним положением
-    if (($bufferh = fgets($handlePosh, 10)) !== false) $_SESSION[$server_port] = (int)$bufferh;
-    else $_SESSION[$server_port] = 0;
-  }
-  if (empty(($newPos))) $newPos = - 1;
-  if (!empty(($_SESSION[$server_port]))) {
-    $session_port = $_SESSION[$server_port];
-    global $session_port;
-  }
-  if ($_SESSION[$server_port] != $newPos) {
-    $startPos = $_SESSION[$server_port];
-    if ($startPos < 0) $startPos = 0;
-    $handle = @fopen($filepath, 'rb');
-    if ($handle) {
-      $buffer = '';
-      $newPos = $startPos;
-      fseek($handle, $startPos, SEEK_SET); //указатель в положение
-      if (($buffer = fgets($handle, 5000)) !== false) //попытка чтения строки
-      {
-        //echo "\n read line: \n",$buffer,"\n\n";//прочитали строку
-        $infologtxt = $buffer;
-        $newPos = ftell($handle); //оказались в позиции
-        
-      }
-      fclose($handle);
-      if ($newPos != $startPos) {
-        $_SESSION[$server_port] = $newPos;
-      }
-    }
-  }
-  return $infologtxt;
-}
-function readloglinercx($inlogtxtc) {
-  global $cpath, $server_ip, $server_port, $server_rconpass, $mplogfile;
-  //require $cpath.'cfg/_connection.php';
-  $filepathf = $cpath . "ReCodMod/cache/x_logs/parsed_code_" . $server_ip . "_" . $server_port . ".log";
-  $handlePosh = @fopen($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_pos2.txt', 'r+'); //открываем файл с последним положением
-  if (($bufferh = fgets($handlePosh, 10)) !== false) {
-    $startPos = (int)$bufferh;
-    if ($startPos < 0) $startPos = 0;
-    $handleh = @fopen($filepathf, 'rb');
-    if ($handleh) {
-      $bufferh = '';
-      $newPosh = $startPos;
-      fseek($handleh, $startPos, SEEK_SET); //указатель в положение
-      if (($bufferh = fgets($handleh, 5000)) !== false) { //попытка чтения строки
-        //echo "\n read line: \n",$bufferh,"\n\n";//прочитали строку
-        $inlogtxtc = $bufferh;
-        $newPosh = ftell($handleh); //оказались в позиции
-        
-      }
-      fclose($handleh);
-      if ($newPosh != $startPos) {
-        rewind($handlePosh);
-        fwrite($handlePosh, sprintf('%09d', $newPosh)); //записываем позицию, на которой остановились
-        
-      }
-    }
-    fclose($handlePosh);
-  }
-  return $inlogtxtc;
-}
-//Funktionen
+ 
+ //Funktionen
 function makeuptime($time) //Generiert aus Minuten Tage, Stunden und Minuten
 {
   $minuten = $time % 60;
@@ -2414,14 +2328,7 @@ function makeuptime($time) //Generiert aus Minuten Tage, Stunden und Minuten
   $tage = ($weiter - $stunden) / 24;
   return sprintf("%dD %02d:%02d", (int)$tage, (int)$stunden, (int)$minuten);
 }
-function makeuptime2($time) //Generiert aus Sekunden Stunden, Minuten und Sekunden
-{
-  $sekunden = $time % 60;
-  $weiter = ($time - $sekunden) / 60;
-  $minuten = $weiter % 60;
-  $stunden = ($weiter - $minuten) / 60;
-  return sprintf("%02d:%02d:%02d", (int)$stunden, (int)$minuten, (int)$sekunden);
-}
+ 
 function error_handler($errno, $errstr, $errfile, $errline) {
   global $logging, $server_port, $server_ip;
   if (error_reporting() == 0) return;
@@ -2473,19 +2380,7 @@ function get_time() {
   //	return $diff->format('^7HA4AJIO 4EPE3: ^1%d  ^7DHEU  ^1%h  ^74ACOB  ^1%i  ^7MUHYT ^1%s  ^7CEKYHD.');
   return $diff->format('^7THE BEGINNING IN: ^1%d  ^7DAYS  ^1%h  ^7HOURS  ^1%i  ^7MIN.  AND ^1%s  ^7SEC.');
 }
-function chatrr($string) {
-  $string = str_replace("^0", "", $string);
-  $string = str_replace("^1", "", $string);
-  $string = str_replace("^2", "", $string);
-  $string = str_replace("^3", "", $string);
-  $string = str_replace("^4", "", $string);
-  $string = str_replace("^5", "", $string);
-  $string = str_replace("^6", "", $string);
-  $string = str_replace("^7", "", $string);
-  $string = str_replace("^8", "", $string);
-  $string = str_replace("^9", "", $string);
-  return $string;
-}
+ 
 // !"sv_mapRotation" is:"gametype ^5sd map mp_harbor gametype ^5sd map mp_harbor map mp_pavlov map mp_carentan map mp_powcamp map mp_railyard map mp_depot map mp_dawnville map mp_logging_mill map mp_brecourt map mp_rocket^7" default:"^7"
 function sv_rotation($string) {
   $string = str_replace(" default:", "", $string);

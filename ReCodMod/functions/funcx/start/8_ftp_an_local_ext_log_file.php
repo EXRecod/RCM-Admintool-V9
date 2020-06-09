@@ -96,7 +96,7 @@ if ($mplogfile) {
             else if (strpos($mpgamenname, 'Call of Duty') !== false) $game_patch = 'cod1'; //cod1 or uo
             else if ($mpgamenname == 'main') $game_patch = 'cod1_1.1';
 			if (strpos($game_patch, 'cod1_1.1') !== false)
-            require $cpath . 'ReCodMod/functions/game/cod1_1_1.php';
+            require $cpath . 'ReCodMod/functions/funcx/game/cod1_1_1.php';
             clearstatcache();
             $dya = filemtime($mplogfile);
             if (time() - $dya >= 300) {

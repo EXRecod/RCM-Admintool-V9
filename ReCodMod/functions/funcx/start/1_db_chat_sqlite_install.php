@@ -35,6 +35,6 @@ $dbc->exec('CREATE table chat(
     $result = null;
 */	
 	$dbc = null;
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
 }
 catch(PDOException $e){errorspdo('['.$datetime.'] 472 ' . __FILE__ . '  Exception : ' . $e->getMessage());} exit;}}

@@ -495,7 +495,7 @@ foreach ($flooddata as $guidxid => $f)
            $stmt    = null;
            $steamid = null;
           
-           require $cpath . 'ReCodMod/functions/null_db_connection.php';
+           require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
           }
           catch (PDOException $e)
           {

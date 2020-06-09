@@ -123,7 +123,7 @@ WHERE sub1.s_pg = $conisq");
                             echo '    ' . $tfinishh = (microtime(true) - $start);
                             ++$x_stop_lp; //return;
                        
-                        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
                     }
                     catch (PDOException $e) {
                         errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -274,7 +274,7 @@ else
 		$yhu = $row['s_place'];
 	}	
 	
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -355,7 +355,7 @@ else
 		$skilll = $row['w_skill'];
 	}
 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -476,7 +476,7 @@ else
 	
 	}
 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -603,7 +603,7 @@ rcon("say ^7".$ply." ^1".$infootop.":^2".$pla." ^1".$infoorank.":^2 ".$skil_x." 
 echo ' ----   '.$tfinishh = (microtime(true) - $start);	  
 ++$x_stop_lp;    //return;
 }}}
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -661,7 +661,7 @@ else
 	
 	}
 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -754,7 +754,7 @@ $time = $vv9g.'-'.$vv8g.'-'.$vv7g.' '.$vv9g1.':'.$vv8g1;
 	  rcon("say  ^3    [^6 " . ++$number . " ^3] ^7 ".$playername."^1 ".$infoohddd.": ^2 ".$ipm." ^3[^5TOP5^3]", "");
 	}
 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -837,7 +837,7 @@ else
 	++$x_nmbrf;
 	//}	
 }		
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -909,7 +909,7 @@ else
 	++$x_nmbrf;
 	//}	
 }		
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -978,7 +978,7 @@ else
 	++$x_nmbrf;
 	//}	
 }		
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -1479,7 +1479,7 @@ $xhcv = $skilll;
 	++$x_number;	
 	}
 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -1549,7 +1549,7 @@ echo '    '.$tfinishh = $tfinishh = (microtime(true) - $start);
 ++$x_number;
 ++$x_return;
 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {

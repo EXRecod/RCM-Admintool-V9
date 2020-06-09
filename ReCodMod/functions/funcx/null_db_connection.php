@@ -70,3 +70,9 @@
 			if (is_resource($conn_id)){
            ftp_close($conn_id); 
 	}}
+	
+  		if (!empty($conn_idq)){
+			if (is_resource($conn_idq)){
+           ftp_close($conn_idq); 
+	}}	
+ 

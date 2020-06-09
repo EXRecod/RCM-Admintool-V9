@@ -344,7 +344,7 @@ foreach($server_array['KILLStimer'] as $g => $f){
                         $ci = filemtime($statscronx);
                         //if (time() - $ci >= (int)stats_cron_database+(int)$rand)
                         if (time() - $ci >= (int)$stats_cron_database) {
-                            echo "\n ~~~~~~~~~~~~~~~~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~~~~~~~~~~~~~~~~~";
+                            echo "\n ~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~";
                             if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
                             $string = str_replace(".", "_", $server_ip);
                             if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/', 0777, true);
@@ -364,7 +364,7 @@ foreach($server_array['KILLStimer'] as $g => $f){
             echo "\033[38;5;46m";
             $x_stop_lp = 56800;
         }
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
     }
 }
 ?>

@@ -50,7 +50,7 @@ $db0->exec("INSERT INTO getss (e_admin,e_guid,e_nick,e_ip,e_uid,e_geo,e_counts,e
 
 ++$x_stop_lp;
 echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -169,7 +169,7 @@ echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
 	                       }
 	 
 	 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {

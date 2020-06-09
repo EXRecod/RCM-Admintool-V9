@@ -1,5 +1,4 @@
 <?php
-
 $dir = $cpath."ReCodMod/"; 
 if(!is_dir($dir)) mkdir($dir, 0777, true) ;
 $dir = $cpath."ReCodMod/databases/"; 
@@ -24,3 +23,4 @@ $dir = $cpath."ReCodMod/cache/x_cache/";
 if(!is_dir($dir)) mkdir($dir, 0777, true) ;
 $dir = $cpath."ReCodMod/cache/x_logs/backup"; 
 if(!is_dir($dir)) mkdir($dir, 0777, true) ;
+?>

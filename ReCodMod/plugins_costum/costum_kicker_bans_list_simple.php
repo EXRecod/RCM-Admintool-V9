@@ -26,9 +26,9 @@ list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
                     if ($rules_kick_ip_super_range) {
                      echo '3kicked';
                      
-                     rcon('clientkick ' . $idk . ' IP RANGE BAN!', '');
+                     xcon('clientkick ' . $idk . ' IP RANGE BAN!', '');
                      
-                     rcon('clientkick ' . $idk, '');
+                     xcon('clientkick ' . $idk, '');
                      AddToLog("[" . $datetime . "] SUPER I.R. KICK: (" . $idk . ") (" . $stats_array[$conisq]['ip_adress'] . ") (" . $nickname . ")");
                      ++$x_loopsv; //continue;
                       
@@ -45,9 +45,9 @@ list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
             if (!empty($guid)) {  
               if(!empty(groupsIni($IniFileName,'kick_guids',$guid))){ 
                
-               rcon('clientkick ' . $idk . ' BAN!', '');
+               xcon('clientkick ' . $idk . ' BAN!', '');
                
-               rcon('clientkick ' . $idk, '');
+               xcon('clientkick ' . $idk, '');
                AddToLog("[" . $datetime . "] MANUAL GUIDS KICK: (" . $idk . ") (" . $stats_array[$conisq]['ip_adress'] . ") (" . $nickname . ")");
 			   }
               } 
@@ -56,9 +56,9 @@ list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
              if (!empty($guid)) { 
               if(!empty(groupsIni($IniFileName,'bl_kick_bad_named',trim(clearSymbols($nickname))))){  
                
-               rcon('clientkick ' . $idk . ' PROHIBITED NICKNAME!', '');
+               xcon('clientkick ' . $idk . ' PROHIBITED NICKNAME!', '');
                
-               rcon('clientkick ' . $idk, '');
+               xcon('clientkick ' . $idk, '');
                AddToLog("[" . $datetime . "] MANUAL NICKNAMES KICK: (" . $idk . ") (" . $stats_array[$conisq]['ip_adress'] . ") (" . $nickname . ")");
               } 
         }    

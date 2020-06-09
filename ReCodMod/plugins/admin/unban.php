@@ -78,7 +78,7 @@ $db2->exec("INSERT INTO amnistia (playername1,ip1,guid1,reason1,time1,whooo1,pat
 ++$x_return;	
 
 //}
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {

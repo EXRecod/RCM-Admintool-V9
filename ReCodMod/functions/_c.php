@@ -3,7 +3,7 @@
   $startc        = microtime(true);
   $stimec       = time();
 //////////////////////////////////////////////////
-$z_rcm = "RCM[v.9.0.8]";
+$z_rcm = "RCM[v.9.0.9]";
 $charset_db   = 'utf8';
 
 error_reporting(E_ALL);
@@ -73,7 +73,15 @@ foreach ($config_data as $section => $r) {
   }
 }
 //.chat_banner_messages_rotation.ini LOADER
- 
+
+//.chat_simple_antiflood.ini LOADER
+$config_data = parse_ini_file($cpath . "cfg/chat_simple_antiflood.ini", true);
+foreach ($config_data as $section => $r) {
+  foreach ($r as $string => $value) {
+    if (!defined($string)) define($string, $value);
+  }
+}
+//.chat_simple_antiflood.ini LOADER 
 
 if (language == 'en')
 require $cpath . 'cfg/languages/en.lng.php';
@@ -174,7 +182,7 @@ if (empty($game_patch))
 	$game_patch = trim($game_patch);   
    }
   
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
  
 
 ?>

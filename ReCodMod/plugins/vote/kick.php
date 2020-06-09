@@ -60,7 +60,7 @@ if(!empty($kickvote_voteTime))
         rcon('say ' . $vote_cg . ' "^2Vote: ^7' . ixz . 'k "^1kick^5 ' . $kickvote_name . ' ^8Seconds Left:^3 ' . $left . ' '.($PERCENTS+30).'/100 perc.', '');
         if ($PERCENTS >= 70) {
           rcon('say  ' . $chistx . ' ' . $ban_ip_all . ' "^7Reason:^1 Vote kick"', '');
-          rcon('clientkick ' . $kickvote_msgrID, '');
+          xcon('clientkick ' . $kickvote_msgrID, '');
           AddToLog("[" . $datetime . "] kick VOTE: " . $kickvote_ip . " (" . $kickvote_name . ") (" . $kickvote_id . ") BY: (" . $nickr . ")  R ");
         }
 		}

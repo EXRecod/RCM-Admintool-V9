@@ -102,12 +102,12 @@ while (true) {
              //%%%%%%%%%%%%%%%%%%%%%%%%  CHAT  %%%%%%%%%%%%%%%%%%%%%%%%
               if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseline, $xm)) || (preg_match('/tell;/', $parseline, $xm))) {
                 require $cpath . 'ReCodMod/functions/parser/chat.php';
-                require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  JOIN  %%%%%%%%%%%%%%%%%%%%%%%%
               else if (preg_match('/J;/', $parseline, $u)) {
                 require $cpath . 'ReCodMod/functions/parser/geo.php';
-                require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  QUIT  %%%%%%%%%%%%%%%%%%%%%%%%
               else if (preg_match('/Q;/', $parseline, $u)) {
@@ -117,12 +117,12 @@ while (true) {
               else if (strpos($parseline, 'K;') !== false) {
 				
                 require $cpath . 'ReCodMod/functions/parser/stats.php';
-                require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  DAMAGE  %%%%%%%%%%%%%%%%%%%%%%%%
               else if (strpos($parseline, 'D;') !== false) {
                 require $cpath . 'ReCodMod/functions/parser/stats.php';
-                require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  END  %%%%%%%%%%%%%%%%%%%%%%%%
               else if ((strpos($parseline, 'W;END;GAME;') !== false) && (strlen($parseline) < 45))
@@ -165,7 +165,7 @@ while (true) {
                       require $va;
                     }
                   }
-                  require $cpath . 'ReCodMod/functions/null_db_connection.php';
+                  require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
                 }
                 //%%%%%%%%%%%%%%%%%%%%%%%%  END PLUGINS LOAD  %%%%%%%%%%%%%%%%%%%%%%%%
               }

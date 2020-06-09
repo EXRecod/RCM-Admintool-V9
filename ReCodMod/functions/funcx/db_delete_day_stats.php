@@ -28,7 +28,7 @@ try
    }
      
 	$dbm3day->exec("DELETE from `db_stats_month` WHERE `id` BETWEEN 0 AND 70000");  
-require $cpath . 'ReCodMod/functions/null_db_connection.php';  
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';  
 	}
     catch(PDOException $e){die($e->getMessage());}
 	echo $c;

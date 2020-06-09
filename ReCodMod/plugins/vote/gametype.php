@@ -68,18 +68,13 @@ $gametypevote_rconlist = '';
         rcon('say ' . $vote_cg . ' ^2Vote: ^7' . ixz . 'gv ^1MAP^5 ' . $x_mapname . ' ^8Seconds Left:^3 ' . $left . ' '.($PERCENTS+30).'/100 perc.', '');
         if ($PERCENTS >= 70) {
     rcon('say ^3Vote completed! Players changed map to '.$x_mapname, '');    
+	
+for ($i = 5; $i >= 1; $i--)
+{ 
 	usleep($sleep_rcon);
-	rcon('say ^35', '');
-	usleep($sleep_rcon);
-	rcon('say ^34', '');
-    usleep($sleep_rcon);	
-	rcon('say ^33', '');
-    usleep($sleep_rcon);	
-	rcon('say ^32', '');
-	usleep($sleep_rcon);
-	rcon('say ^31', '');
-	usleep($sleep_rcon);
-	rcon('say ^30', '');
+	rcon('say ^'.$i.''.$i, '');
+}	
+	
     sleep(1);	
     rcon('g_gametype '.$x_mapname, '');
 	rcon('map_restart');

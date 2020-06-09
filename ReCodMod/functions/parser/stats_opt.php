@@ -524,6 +524,17 @@ ON DUPLICATE KEY
                 unset($stats_array[$player_server_uid]['damage;damage']);
                 //unset($stats_array[$player_server_uid]['weapons;']);
                 //unset($stats_array[$player_server_uid]['hitzones;']);
+			 
+		if($geoonqx > 10)
+		{	
+       if(!empty($chat_flooder_time[$player_server_uid]))
+	   {		   
+		  unset($chat_flooder_time[$player_server_uid]);
+          unset($chat_flooder_warns[$player_server_uid]);
+          unset($chat_flooder_msg[$player_server_uid]);
+        }
+		}		
+			 	
                 
               } //if gui not empty
               
@@ -588,7 +599,7 @@ ON DUPLICATE KEY
     $dbw3 = null;
     $dbm3day = null;
     $msqlconnect = null;
-    require $cpath . 'ReCodMod/functions/null_db_connection.php';
+    require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e) {
     echo "\n\n\n ERROR -----=--=--=--=--=-", $e->getMessage();

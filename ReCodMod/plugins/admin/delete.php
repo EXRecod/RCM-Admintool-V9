@@ -126,7 +126,7 @@ else
 echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
                     					
 	
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {

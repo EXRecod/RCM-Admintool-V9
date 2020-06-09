@@ -59,7 +59,7 @@ if (preg_match('/PS;/', $parseline, $xnon))
               if (sizeof($result) == 0) {
                 echo 'Table created successfully' . "\n";
               }
-              require $cpath . 'ReCodMod/functions/null_db_connection.php';
+              require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
             }
             catch(PDOException $e) {
               errorspdo('[' . $datetime . '] 2140 ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -106,7 +106,7 @@ if (preg_match('/PS;/', $parseline, $xnon))
       if ($cccntx > 4) $dbc->query("UPDATE chat SET st1='$st1',st1days='$st1days', st2='$st2', st2='$st2days' WHERE guid='$pl_guid' and t='xl'");
       else $dbc->query("UPDATE chat SET st1='$st1',st1days='$st1days' WHERE guid='$pl_guid' and t='xl'");
     }
-    require $cpath . 'ReCodMod/functions/null_db_connection.php';
+    require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e) {
     errorspdo('[' . $datetime . '] 2237  ' . __FILE__ . '  Exception : ' . $e->getMessage());

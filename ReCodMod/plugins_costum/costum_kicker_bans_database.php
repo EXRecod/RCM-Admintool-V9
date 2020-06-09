@@ -274,10 +274,10 @@ if (empty($guids)) {
                          }
                         }
                        }
-                       if (is_numeric($reason)) rcon('clientkick ' . $idk . ' ^1TEMP BAN! ^7Left: ' . $minutez . ' minutes!', '');
-                       else rcon('clientkick ' . $idk . ' BAN!', '');
+                       if (is_numeric($reason)) xcon('clientkick ' . $idk . ' ^1TEMP BAN! ^7Left: ' . $minutez . ' minutes!', '');
+                       else xcon('clientkick ' . $idk . ' BAN!', '');
                        
-                       rcon('clientkick ' . $idk, '');
+                       xcon('clientkick ' . $idk, '');
                        AddToLog("[" . $datetime . "] GUID KICK: (" . $idk . ") (" . $pssiblegguid . ") (" . $reason . ")");
                        ++$x_loopsv;
                        ++$x_number;
@@ -306,10 +306,10 @@ if (empty($guids)) {
                 if ($x_number != 1) {
                  
                  $minutez = (int)(deltimedot($reason)) - (int)$datetimex;
-                 if (is_numeric($reason)) rcon('clientkick ' . $idk . ' ^1TEMP BAN! ^7Left: ' . $minutez . ' minutes!', '');
-                 else rcon('clientkick ' . $idk . ' BAN!', '');
+                 if (is_numeric($reason)) xcon('clientkick ' . $idk . ' ^1TEMP BAN! ^7Left: ' . $minutez . ' minutes!', '');
+                 else xcon('clientkick ' . $idk . ' BAN!', '');
                  
-                 rcon('clientkick ' . $idk, '');
+                 xcon('clientkick ' . $idk, '');
                  AddToLog("[" . $datetime . "] BANNED NICK KICK: (" . $idk . ") (" . $stats_array[$conisq]['ip_adress'] . ") (" . $i_name . ")");
                  ++$x_loopsv;
                  ++$x_number;
@@ -330,10 +330,10 @@ if (empty($guids)) {
                rcon('say  ^7' . $playername1 . ' ' . $ban_ip_all . ' ^7' . $infooreas . ':^1 ' . $reason . '', '');
                
                $minutez = (int)(deltimedot($reason)) - (int)$datetimex;
-               if (is_numeric($reason)) rcon('clientkick ' . $idk . ' ^1TEMP BAN! ^7Left: ' . $minutez . ' minutes!', '');
-               else rcon('clientkick ' . $idk . ' BAN!', '');
+               if (is_numeric($reason)) xcon('clientkick ' . $idk . ' ^1TEMP BAN! ^7Left: ' . $minutez . ' minutes!', '');
+               else xcon('clientkick ' . $idk . ' BAN!', '');
                
-               rcon('clientkick ' . $idk, '');
+               xcon('clientkick ' . $idk, '');
                AddToLog("[" . $datetime . "] BANNED IP KICK: (" . $idk . ") (" . $stats_array[$conisq]['ip_adress'] . ") (" . $i_name . ")");
                ++$x_loopsv;
                ++$x_number;
@@ -349,14 +349,14 @@ if (empty($guids)) {
                 
                 if ($game_ac == '0') {
                  
-                 if (($game_patch == 'cod2') || ($game_patch == 'cod4') || ($game_patch == 'cod5')) rcon('clientkick ' . $idk . ' Bad name!', '');
-                 else rcon('clientkick ' . $idk, '');
+                 if (($game_patch == 'cod2') || ($game_patch == 'cod4') || ($game_patch == 'cod5')) xcon('clientkick ' . $idk . ' Bad name!', '');
+                 else xcon('clientkick ' . $idk, '');
                 }
                 else {
                  rcon('tell ' . $idk . ' "' . $rules_bad_name_msg . '"', '');
                  
                  rcon('akick ' . $idk . ' " ^6[^7BAD NAME^6]"', '');
-                 rcon('clientkick ' . $idk, '');
+                 xcon('clientkick ' . $idk, '');
                 }
                 AddToLog("[" . $datetime . "] BANNED NICK KICK: (" . $stats_array[$conisq]['ip_adress'] . ") (" . $i_name . ")");
                 ++$x_loopsv; //echo $namez[0];
@@ -394,9 +394,9 @@ if (empty($guids)) {
                  usleep($sleep_rcon * 4);
                  rcon('say ^7' . $chistx . ' ^3' . $proxyxn . ' ^6[^1RCM^3bot^6]', '');
                  
-                 rcon('clientkick ' . $idk . " BlackListed!", '');
+                 xcon('clientkick ' . $idk . " BlackListed!", '');
                  
-                 rcon('clientkick ' . $idk, '');
+                 xcon('clientkick ' . $idk, '');
                  AddToLog("[" . $datetime . "] STOP SPAM FORUM KICK: (" . $stats_array[$conisq]['ip_adress'] . ") (" . $i_name . ")");
                  ++$x_loopsv;
                 }
@@ -420,7 +420,7 @@ if (empty($guids)) {
          ///////////////////////////////////////////////////////////////////////////////////////
          ///////////////////////////////////////////////////////////////////////////////////////
          ///////////////////////////////////////////////////////////////////////////////////////
-         //////require $cpath . 'ReCodMod/functions/null_db_connection.php';
+         //////require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
         }
         catch(PDOException $e) {
          errorspdo('[' . $datetime . '] 643  ' . __FILE__ . '  Exception : ' . $e->getMessage());

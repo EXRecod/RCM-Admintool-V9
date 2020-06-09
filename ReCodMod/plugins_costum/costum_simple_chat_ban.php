@@ -503,7 +503,7 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
            $stmt    = null;
            $steamid = null;
           
-           require $cpath . 'ReCodMod/functions/null_db_connection.php';
+           require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
           }
           catch (PDOException $e)
           {
@@ -727,7 +727,7 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
         $steamid = null;
 		$msqlconnectx = null;
         
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
        }
        catch (PDOException $e)
        {

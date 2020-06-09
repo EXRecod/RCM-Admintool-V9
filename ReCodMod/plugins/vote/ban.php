@@ -61,7 +61,7 @@ if(!empty($banvote_voteTime))
           if (!empty(bans_system)) dbInsert('db2', "INSERT INTO bans (playername,ip,guid,reason,time,whooo,patch) VALUES ('$banvote_name','$banvote_ip','$banvote_guid','voteban','$datetime','','0')");
           xcon('banUser ' . $guid . ' ^1Vote Ban!', '');
           rcon('say  ' . $chistx . ' ' . $ban_ip_all . ' "^7Reason:^1 Vote Ban"', '');
-          rcon('clientkick ' . $banvote_msgrID, '');
+          xcon('clientkick ' . $banvote_msgrID, '');
           AddToLog("[" . $datetime . "] ban VOTE: " . $banvote_ip . " (" . $banvote_name . ") (" . $banvote_id . ") BY: (" . $nickr . ")  R ");
         }
 		}

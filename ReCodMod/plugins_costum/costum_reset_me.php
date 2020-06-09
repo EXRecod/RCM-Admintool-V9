@@ -121,7 +121,7 @@ foreach ($result as $key => $value)
 echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
                     					
 unset($arguidn);   
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -257,7 +257,7 @@ foreach ($result as $key => $value)
 echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
                     					
 unset($arguidn);   
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -371,7 +371,7 @@ foreach ($result as $key => $value)
      
 ++$x_stop_lp;
 echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {

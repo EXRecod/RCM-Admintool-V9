@@ -157,7 +157,7 @@ $dbc->query("UPDATE chat SET geo='".$cod4xgeo."', ip='".$cod4xip."',x='1' WHERE 
 				
 				}
 $dbc = null;				
-require $cpath . 'ReCodMod/functions/null_db_connection.php'; 			
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php'; 			
 }catch(PDOException $e){die($e->getMessage());}						  
 ////////////////////////////////////////////////////////////////////////////////////				   
 ////////////////////////////////////////////////////////////////////////////////////
@@ -526,7 +526,7 @@ $db4->query("UPDATE x_db_players SET x_db_date='{$x_date}',x_db_conn = x_db_conn
 /* ############################################################################################ */	
 /* ############################################################################################ */		
 /* ############################################################################################ */	
-require $cpath . 'ReCodMod/functions/null_db_connection.php';	
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';	
 }catch(PDOException $e){die($e->getMessage());}			 
 	 
 	 

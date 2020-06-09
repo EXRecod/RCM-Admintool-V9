@@ -119,7 +119,7 @@ else
                     }
 			 
                 
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
             }
             catch (PDOException $e) { echo "\n\n\n ERROR --------------". $e->getMessage();
                 errorspdo('['.$datetime.']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -155,7 +155,7 @@ if (strpos($game_patch, 'cod1_1.1') !== false)
 rcon('say ^3'.$loggran.' ^7'.$nickr.' ^3'.$loggplayer, '');
 else
 rcon('tell '.$i_id.' ^3'.$loggran.' ^7'.$nickr.' ^3'.$loggplayer, '');				
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {

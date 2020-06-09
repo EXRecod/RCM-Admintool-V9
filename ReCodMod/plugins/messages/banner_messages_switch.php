@@ -53,7 +53,7 @@ switch ($command) {
       $number_of_rows = $reponse->fetchColumn();
       $number = 0;
       rcon("say  ^3[ ^6" . $ntodayz . " ^7" . $number_of_rows . " ^3]", "");
-      require $cpath . 'ReCodMod/functions/null_db_connection.php';
+      require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
     }
     catch(PDOException $e) {
       errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());

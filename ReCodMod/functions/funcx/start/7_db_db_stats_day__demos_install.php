@@ -16,7 +16,7 @@ try
 			s_heads int(8) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");  
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -42,7 +42,7 @@ try
 			s_heads MEDIUMINT(6) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");  
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {
@@ -73,7 +73,7 @@ try
 			s_heads int(8) NOT NULL,
             s_time datetime NOT NULL,			
 			s_lasttime datetime NOT NULL)");  
-require $cpath . 'ReCodMod/functions/null_db_connection.php';
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }
   catch(PDOException $e)
   {

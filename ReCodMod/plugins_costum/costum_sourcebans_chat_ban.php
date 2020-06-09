@@ -1,5 +1,5 @@
 <?php
-if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !== false))
+if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !== false)|| (strpos($parseline, "tell;") !== false))
 {
  if(!empty($guidn))
  {  
@@ -503,7 +503,7 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
            $stmt    = null;
            $steamid = null;
           
-           require $cpath . 'ReCodMod/functions/null_db_connection.php';
+           require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
           }
           catch (PDOException $e)
           {
@@ -722,7 +722,7 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
         $steamid = null;
 		$msqlconnectx = null;
         
-        require $cpath . 'ReCodMod/functions/null_db_connection.php';
+        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
        }
        catch (PDOException $e)
        {

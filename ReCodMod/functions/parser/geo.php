@@ -198,7 +198,7 @@ if (empty($stats_array[$conisq]['ip_adress'])){
         ++$x_stop_lpjk;
 	 } } 
       ++$x_stop_lpjk;
-      require $cpath . 'ReCodMod/functions/null_db_connection.php';
+      require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
      }
      catch(PDOException $e) {
       errorspdo('[' . $datetime . '] 2752  ' . __FILE__ . '  Exception : ' . $e->getMessage());

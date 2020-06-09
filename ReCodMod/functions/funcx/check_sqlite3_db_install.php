@@ -61,7 +61,7 @@ $db4    = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db4.sqlite');
   $queryv = null;
   $db4 = null;
   $rowx = null;
-require $cpath . 'ReCodMod/functions/null_db_connection.php';  
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';  
  }
 catch (PDOException $e)
  {
@@ -107,7 +107,7 @@ try
   $qc->setFetchMode(PDO::FETCH_ASSOC);
   $ryy     = $qc->fetch();
   $xtotal_bans = $ryy['count'];
-require $cpath . 'ReCodMod/functions/null_db_connection.php'; 
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php'; 
  }
 catch (PDOException $e)
  {
@@ -163,7 +163,7 @@ if(empty(SqlDataBase))
    {
     $etop_player_name = $row['s_player'];
    }
-require $cpath . 'ReCodMod/functions/null_db_connection.php';   
+require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';   
  }
 catch (PDOException $e)
  {
