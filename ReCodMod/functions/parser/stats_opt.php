@@ -41,6 +41,7 @@ if (!empty($stats_array)) {
       $dbw3 = $msqlconnect;
       $dbm3day = $msqlconnect;
       $db4 = $msqlconnect;
+	  $dbmaps = $msqlconnect;
     }
     foreach ($stats_array as $player_server_uid => $v) {
       $g = '';
@@ -134,7 +135,10 @@ if (!empty($stats_array)) {
             if ($counter == $czr) {
               if (!empty($guid)) {
                 if (empty($ip)) list($ping, $ip, $i_name, $i_guid, $city) = explode(';', (rconExplode($guid)));
-                ////// save in      ReCodMod/databases/players_score_db/     data
+               
+ /*
+
+			   ////// save in      ReCodMod/databases/players_score_db/     data
                 if (!empty($skill)) txt_db($server_ip, $server_port, $guid, $nickname, 'skill', $skill, 1);
                 if (!empty($kills)) txt_db($server_ip, $server_port, $guid, $nickname, 'kills', $kills, 1);
                 if (!empty($deaths)) txt_db($server_ip, $server_port, $guid, $nickname, 'deaths', $deaths, 1);
@@ -158,7 +162,10 @@ if (!empty($stats_array)) {
                 if (!empty($death_series_minute_db)) txt_db($server_ip, $server_port, $guid, 'death_series_minute_db', $death_series_minute_db, 1);
                 if (!empty($death_series_head_db)) txt_db($server_ip, $server_port, $guid, 'death_series_head_db', $death_series_head_db, 1);
                 if (!empty($death_series_minute_head_db)) txt_db($server_ip, $server_port, $guid, 'death_series_minute_head_db', $death_series_minute_head_db, 1);
-                //foreach ----------
+*/
+				
+				
+				//foreach ----------
                 if ((strpos($g, 'scores;skill') === false) || ($g != 'scores;kill_series') || ($g != 'scores;death_series') || ($g != 'scores;death_series_head') || ($g != 'scores;kill_series_head') || ($g != 'scores;kill_series_minute') || ($g != 'scores;death_series_minute') || ($g != 'scores;death_series_head')) unset($stats_array[$player_server_uid][$g]);
                 ////////////////////############################################/////////////////////////
                 ////////////////////###   STOCK COD1 - COD5 WEAPONS INSERT   ###/////////////////////////
@@ -172,7 +179,7 @@ if (!empty($stats_array)) {
                     foreach ($table_insert[$i] as $wweapons => $value) {
                       $valueSets[] = "'0'"; //'' . $value . '';
                       $weaponSets[] = $wweapons;
-                      txt_db($server_ip, $server_port, $guid, 'weapons;' . $wweapons, $value, 1);
+                      //txt_db($server_ip, $server_port, $guid, 'weapons;' . $wweapons, $value, 1);
                     }
                     $join_values = join(",", $valueSets);
                     $join_weapon = join(",", $weaponSets);
@@ -436,7 +443,7 @@ ON DUPLICATE KEY
                   $valueSets = array();
                   foreach ($table_hits as $key => $value) {
                     $valueSets[] = $key . " =  " . $key . " + " . $value . "";
-                    txt_db($server_ip, $server_port, $guid, 'hitzones;' . $key, $value, 1);
+                    //txt_db($server_ip, $server_port, $guid, 'hitzones;' . $key, $value, 1);
                   }
                   $joi = join(",", $valueSets);
                   if (!empty($joi)) {
@@ -455,7 +462,7 @@ ON DUPLICATE KEY
                     $valueSets = array();
                     foreach ($table_update[$i] as $key => $value) {
                       $valueSets[] = $key . " =  " . $key . " + " . $value . "";
-                      txt_db($server_ip, $server_port, $guid, 'weapons;' . $key, $value, 1);
+                      //txt_db($server_ip, $server_port, $guid, 'weapons;' . $key, $value, 1);
                     }
                     $join = join(",", $valueSets);
                     if (!empty($join)) {

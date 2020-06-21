@@ -149,7 +149,7 @@ else
     if(empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass); $db = $msqlconnect;
    }
    
-   $db->exec("DELETE FROM x_db_admins WHERE s_guid='" . $guidn . "'");
+   $db->query("DELETE FROM x_db_admins WHERE s_guid='" . $guidn . "'");
   
 if (strpos($game_patch, 'cod1_1.1') !== false)
 rcon('say ^3'.$loggran.' ^7'.$nickr.' ^3'.$loggplayer, '');

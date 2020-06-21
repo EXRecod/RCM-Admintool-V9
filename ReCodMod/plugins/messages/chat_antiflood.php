@@ -14,6 +14,7 @@ if (!empty($stats_array[$conisq]['user_status'])) {
         if ((empty($chat_flooder_time[$conisq][$c])) && ($stk == 0)) {
           $stk = 1;
           $chat_flooder_time[$conisq][$c] = $keyhm;
+		 // echo " \n messagE: ",allclearsymb($msgr);
           $chat_flooder_msg[$conisq][$c] = allclearsymb($msgr);
         }
         if ((!empty($chat_flooder_time[$conisq][$c])) && (!empty($chat_flooder_time[$conisq][$c + 1]))) {

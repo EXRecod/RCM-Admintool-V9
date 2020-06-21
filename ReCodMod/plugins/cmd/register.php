@@ -8,17 +8,10 @@ if ((strpos($msgr, ixz.'register') !== false)||(strpos($msgr, ixz.'reg') !== fal
     config_ini_set("_groups_database", 'registered','all_'.$guidn,$guidn);
   
 usleep($sleep_rcon*2);
-      try {
-      if (empty(SqlDataBase)) 
-       $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
-      else {
-       $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
-       if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass);
-       $db = $msqlconnect;
-	  }   
-     $statt = 0;
-       $result = $db->query("SELECT * FROM x_db_admins WHERE s_guid='" . $guidn . "' LIMIT 1");
-       foreach ($result as $row) {
+    
+    $dbSelArray = dbSelectArray('db1', "SELECT * FROM x_db_admins WHERE s_guid='" . $guidn . "' LIMIT 1");
+    if (is_array($dbSelArray)) {$statt = 0;
+      foreach ($dbSelArray as $row) { 
         $adm_ip = $row['s_adm'];
         $a_grp = $row['s_group']; 
 		$statt = 1; 
@@ -52,10 +45,8 @@ else
         } 
 	 }   
       require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
-     }
-     catch(PDOException $e) {
-      errorspdo('[' . $datetime . '] 2752  ' . __FILE__ . '  Exception : ' . $e->getMessage());
- }}}	
+    
+}}}	
  
  
 ?>

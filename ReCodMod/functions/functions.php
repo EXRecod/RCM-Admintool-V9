@@ -1976,6 +1976,22 @@ function dbSelectArray($SQLiteDatabase, $query) {
   }
   return $xresult;
 }
+ 
+function SqliteAllx($SQLiteDatabase, $query) {
+  $xresult = '';
+  global $cpath;
+  try { 
+    $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/' . $SQLiteDatabase . '.sqlite');
+    $result = $db->query($query); //->fetch(PDO::FETCH_LAZY);
+    if (!empty($result)) $xresult = $result;
+    require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
+  }
+  catch(PDOException $e) {
+    errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function SqliteAllx / : ' . $e->getMessage());
+  }
+  return $xresult;
+}
+
 function dbInsert($SQLiteDatabase, $query) {
   $xresult = '';
   global $cpath, $SqlDataBase, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass;
@@ -1997,6 +2013,8 @@ function dbInsert($SQLiteDatabase, $query) {
   }
   return $xresult;
 }
+ 
+
 function txt_db($server_ip, $server_port, $guid, $name, $value, $status) {
   if (!empty($guid)) {
     global $cpath;
@@ -2024,7 +2042,9 @@ function txt_db($server_ip, $server_port, $guid, $name, $value, $status) {
       else if (strpos($line, $name) !== false) {
         //////////////////////////////////////////////////////////////
         preg_match('/' . $name . ';\d+(?:\.\d+)?%/', $line, $m);
-        $expll = $m[0];
+        if(!empty($m[0]))
+		{
+		$expll = $m[0];
         list($fnaame, $fvalue) = explode(';', $expll);
         $inff = str_replace('%', '', $fvalue);
         //////////////////////////////////////////////////////////////
@@ -2060,6 +2080,7 @@ function txt_db($server_ip, $server_port, $guid, $name, $value, $status) {
           }
           if ($status == 0) return $j;
         }
+	  }
       }
     }
     if ($g == 0) {
@@ -2072,6 +2093,22 @@ function txt_db($server_ip, $server_port, $guid, $name, $value, $status) {
     fclose($fp);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function groupsIni($IniFileName, $groupname, $guid) { //rcm global path
   global $cpath;
   if (file_exists($cpath . "cfg/" . $IniFileName . ".ini")) {

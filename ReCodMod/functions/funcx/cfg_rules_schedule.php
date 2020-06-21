@@ -15,27 +15,13 @@
             $cron_time = filemtime($cpath . "ReCodMod/cache/x_cron/cron_time_exec1z_".$server_ip."_".$server_port);
             if (time() - $cron_time >= 60)
              {
-              file_put_contents($cpath . "ReCodMod/cache/x_cron/cron_time_exec1z_".$server_ip."_".$server_port, "");
-              
-                
+              file_put_contents($cpath . "ReCodMod/cache/x_cron/cron_time_exec1z_".$server_ip."_".$server_port, "");               
                 rcon($c);
-                AddToLog("[" . $datetime . "] MAP ROTATION AUTO CHANGE (configs.php)");
+                AddToLog("[" . $datetime . "] rules_schedule $shx $c ");
                
              }
            }
          }
-        else
-         {
-          $cron_time = filemtime($cpath . "ReCodMod/cache/x_cron/cron_time_exec1z_".$server_ip."_".$server_port);
-          if (time() - $cron_time >= 60)
-           {
-            file_put_contents($cpath . "ReCodMod/cache/x_cron/cron_time_exec1z_".$server_ip."_".$server_port, "");
-           
-              
-              rcon(rules_schedule[$shx]);
-              AddToLog("[" . $datetime . "] MAP ROTATION AUTO CHANGE (configs.php)");
-             
-           }
-         }
        }
      }
+?>
