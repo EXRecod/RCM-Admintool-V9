@@ -1,6 +1,5 @@
 <?php
-if(empty($block_skill))
-{
+
 if ($x_stop_lp == 0) {
     if (!file_exists($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/')) {
         if (!file_exists($cpath . 'ReCodMod/databases/stats_register/')) mkdir($cpath . 'ReCodMod/databases/stats_register/', 0777, true);
@@ -284,7 +283,8 @@ foreach($server_array['KILLStimer'] as $g => $f){
                 //*************************************  SERIES in minute  *****************************************
                 //##########################################  SERIES  ##############################################
                 //##################################################################################################
-                $istatl = 0;
+               if(empty($block_skill)){ 
+				$istatl = 0;
                 $damaged_skill = search_values($shiddeath, 'scores', 'skill', $stats_array);
                 $attacker_skill = search_values($shid, 'scores', 'skill', $stats_array);
                 /////////////////////////////////////////// skill attacker    start  ////////////////////////////////////////////
@@ -325,6 +325,7 @@ foreach($server_array['KILLStimer'] as $g => $f){
                 list($new_attacker_skill, $new_damaged_skill) = explode(';', $explode_skill);
                 $stats_array[$shid]['scores;skill'] = (float)$new_attacker_skill;
                 $stats_array[$shiddeath]['scores;skill'] = (float)$new_damaged_skill;
+			   }	
                 /////////////////////////////////////////#     RCM     #//////////////////////////////////////////
                 //#################################         version 9         ##################################//
                 /////////////////////////////////////////#    SKILL    #//////////////////////////////////////////
@@ -369,5 +370,5 @@ foreach($server_array['KILLStimer'] as $g => $f){
         require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
     }
 }
-}
+
 ?>

@@ -65,6 +65,28 @@ $sql = "UPDATE db_stats_2 SET w_skill=" . $skill . " where s_pg='" . $shid . "'"
 $query2 = $db3->query($sql);
 $query2 = null;}
 $db3 = null;
+ 
+                $attacker_skill = search_values($shid, 'scores', 'skill', $stats_array);
+                /////////////////////////////////////////// skill attacker    start  ////////////////////////////////////////////
+                if (empty($attacker_skill)) {
+                    if (!empty($attacker_skill = get_skill_from_log($shid, $server_ip, $server_port))) $istatl = 1;
+                    else {
+                        if (empty(get_skill_from_log($shid, $server_ip, $server_port))) {
+                            $player_skill_reg = $cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/ID_SPG_' . $shid . '.log';
+                            if (!file_exists($player_skill_reg)) touch($player_skill_reg);
+                        }
+                    }
+                    if (empty($attacker_skill)) $attacker_skill = get_skill_from_database($shid);
+                    if (!empty($attacker_skill = get_skill_from_log($shid, $server_ip, $server_port))) $istatl = 1;
+                
+                    $stats_array[$shid]['scores;skill'] = 1000;
+                    $attacker_skill = 1000;				
+				}
+				
+                if (!empty($skill))
+               $stats_array[$shid]['scores;skill'] = $skill;  
+ 
+
      }
     catch(PDOException $e) {
      errorspdo('[' . $datetime . '] 38  ' . __FILE__ . '  Exception : ' . $e->getMessage());
