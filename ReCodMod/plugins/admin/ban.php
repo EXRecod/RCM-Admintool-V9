@@ -275,14 +275,7 @@ else if (strpos($msgr, ixz . 'find ') !== false) {
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 else if (strpos($msgr, ixz . 'ulist') !== false) {
-  try {
-    if (empty(SqlDataBase)) $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
-    else {
-      $dsn = "mysql:host=" . host_adress . ";dbname=" . db_name . ";charset=$charset_db";
-      $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false, ];
-      if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt);
-      $db = $msqlconnect;
-    }
+   
     try {
       if (empty(SqlDataBase)) {
         if (empty($bannlist)) $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
@@ -321,7 +314,7 @@ else if (strpos($msgr, ixz . 'ulist') !== false) {
     require $cpath . 'ReCodMod/functions/null.php';
     return;
   }
-}
+
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////

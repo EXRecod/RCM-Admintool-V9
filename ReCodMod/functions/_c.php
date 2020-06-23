@@ -110,14 +110,34 @@ if(empty($msgr))
 $sleep_rcon     = 59000; ///Rcon get pause time   
  
                  $i = 0;
-                for ($i = 1;$i <= 50;$i++) {
-                    if (!empty($mpgamenname)) $i = 50;
+                for ($i = 1;$i <= 30;$i++) {
+                    if (!empty($mpgamenname)) $i = 31;
  $gj = 0;
- $getinf = 'serverinfo';
-require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php'; 
+ 
+ 
+//////////////////////////////////   serverinfo   /////////////////////  
+      $zreplace = '';
+      $server_addr = "udp://" . $server_ip;
+      @$connect = fsockopen($server_addr, $server_port, $re, $errstr, 30);
+    $sz = 'serverinfo';
+    stream_set_timeout($connect, 0, 1e5); //1e5
+    fwrite($connect, "\xff\xff\xff\xff" . 'rcon "' . $server_rconpass . '" ' . strtr($sz, array(
+      '%s' => $zreplace
+    )));
+    $outxxx = fread($connect, 1024); //512
+	$outxxx = explode ("\xff\xff\xff\xffprint\n", $outxxx);
+    $outxxx = implode ('!', $outxxx);
+    $outxxx = explode ("\n",$outxxx);
+	fclose($connect);
+//////////////////////////////////   serverinfo   ///////////////////// 
+	 
+	if(is_array($outxxx))
+	{		
+		
 		foreach ($outxxx as $nm ) {
         //sv_maxRate          25000
-            $parts = preg_split('/\s+/', $nm);	 
+            $parts = preg_split('/\s+/', $nm);
+  
 		if(!empty($parts[0]))
 			{
 				if(empty($parts[2]))
@@ -148,7 +168,7 @@ switch ($parts[0]) {
 	 if (strpos($cvarstring, trim($z_rcm)) !== false)
 $gj = 1;
 		
-				}}}}
+				}}}}}
   
 if (empty($game_patch))
  { 

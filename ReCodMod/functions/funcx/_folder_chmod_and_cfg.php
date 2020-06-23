@@ -155,4 +155,25 @@ xcon('set g_antilag 1');
 //touch($glogfix);
 }
 }
+
+
+
+
+$getinf = 'rconpassword';
+require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
+ fclose($connx);
+ 
+
+if (preg_match("/Bad rcon/i", $rconpassss)){ 
+echo "\n\n Your use wrong rcon password -> ($server_rconpass = ) 
+\n GAME server rcon password need add in [cfg/servers.cfg], 
+\n FROM your game server config file,
+\n fix it for RCM working! 
+\n OR TRY RESTART go FILE! 
+\n  RCM NOT WORK \n\n";
+	 usleep (500000);
+	 exit;
+	}
+
+
 ?>
