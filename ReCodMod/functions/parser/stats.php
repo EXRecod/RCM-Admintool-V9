@@ -1,4 +1,6 @@
 <?php
+if(empty($block_skill))
+{
 if ($x_stop_lp == 0) {
     if (!file_exists($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/')) {
         if (!file_exists($cpath . 'ReCodMod/databases/stats_register/')) mkdir($cpath . 'ReCodMod/databases/stats_register/', 0777, true);
@@ -366,5 +368,6 @@ foreach($server_array['KILLStimer'] as $g => $f){
         }
         require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
     }
+}
 }
 ?>
