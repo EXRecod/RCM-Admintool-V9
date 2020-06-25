@@ -65,7 +65,10 @@ $sql = "UPDATE db_stats_2 SET w_skill=" . $skill . " where s_pg='" . $shid . "'"
 $query2 = $db3->query($sql);
 $query2 = null;}
 $db3 = null;
- 
+    if (!file_exists($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/')) {
+        if (!file_exists($cpath . 'ReCodMod/databases/stats_register/')) mkdir($cpath . 'ReCodMod/databases/stats_register/', 0777, true);
+        mkdir($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/', 0777, true);
+    } 
                 $attacker_skill = search_values($shid, 'scores', 'skill', $stats_array);
                 /////////////////////////////////////////// skill attacker    start  ////////////////////////////////////////////
                 if (empty($attacker_skill)) {

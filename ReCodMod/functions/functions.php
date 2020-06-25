@@ -1705,7 +1705,7 @@ function rconExplode($guidin) {
       if (!empty($record)) {
         $cccode = $record->country_code;
         $city = $record->city;
-        $contry = $record->country_name;
+        $country = $record->country_name;
       }
       else {
         $cccode = 'n/a';

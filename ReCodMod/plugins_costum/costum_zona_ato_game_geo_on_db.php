@@ -54,7 +54,7 @@ if((empty($guid)) && (empty(reg_guid_stats)))
   
    
 ////////////////////////////////////////////////////////////////////////////////////////////////		 
-		 
+	$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));	 
 if (empty($stats_array[$conisq]['ip_adress'])) { 
  $stats_array[$conisq]['ip_adress'] = $cod4xipu;
  

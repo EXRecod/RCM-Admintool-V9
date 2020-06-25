@@ -100,9 +100,11 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 	    $stats_array[$shiddeath]['ping'] = $i_ping; 
 }		
 
-    if (empty($stats_array[$conisq]['user_status'])) 	
-	          $stats_array[$conisq]['user_status'] = 'guest';	
-				 
+    if (empty($stats_array[$shiddeath]['user_status'])) 	
+	          $stats_array[$shiddeath]['user_status'] = 'guest';	
+    if (empty($stats_array[$shid]['user_status'])) 	
+	          $stats_array[$shid]['user_status'] = 'guest';	
+				 				 
                 if (empty($shid)) $shid = 'no_guid';
                 $killer_player_name = STATS_name_replace($killer_player_name);
                 $death_player_name = STATS_name_replace($death_player_name); 
