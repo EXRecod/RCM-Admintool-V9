@@ -34,7 +34,7 @@ $log_res = ftp_login($conn_idq,$ftp_q_user,$ftp_q_password);
 
 if (!$conn_idq || !$log_res)
 {
-//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
+//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу $ftp_server!");
 trigger_error("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !", E_USER_ERROR);
 sleep(20);
 exit; 
@@ -397,7 +397,7 @@ fclose($fp);
            
 }	
 else
-	//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
+	//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу $ftp_server!");
 trigger_error("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !", E_USER_ERROR);
 
 
