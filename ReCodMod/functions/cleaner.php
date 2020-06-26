@@ -397,16 +397,27 @@ AddToparsser($mplogfiler);
          //sleep(3000); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;                    
 }
 
+   if (strpos($mplogfile, 'ftp:') === false)
+	 {
+
 $vvvvv = @fopen($mplogfilexl, "w+");
 @ftruncate($mplogfilexl, 0);
 fclose($vvvvv);
-$handlePos=fopen($cpath . "ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_pos.txt" ,"w+");
-fwrite($handlePos, "1");
-fclose($handlePos);
+
+$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_pos.txt", "w+");
+fputs($fp, "0");
+fclose($fp);
 
 $hu = fopen($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos_ftp.txt', 'w+');
 fwrite($hu, "1");
 fclose($hu);
+
+
+$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_position.txt", "w+");
+fputs($fp, "0");
+fclose($fp);
+
+	 }
 
  							
 ////AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> LogFile game_mp.log starting auto reset! </font> "); 

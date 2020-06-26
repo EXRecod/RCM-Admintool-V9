@@ -83,21 +83,27 @@ if ($x_stop_lp == 0) {
                 /////////////////////////////////////////////////
 				
 if (empty($stats_array[$shid]['ip_adress'])) {
+if((!empty($death_player_guid))&&(strpos($death_player_guid, 'bot') === false))
+	{
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($player_killer_guid)));
 	    $stats_array[$shid]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$shid]['city'])) 
 	    $stats_array[$shid]['city'] = $xxccode;  
    	 if (empty($stats_array[$shid]['ping'])) 
-	    $stats_array[$shid]['ping'] = $i_ping; 
+	    $stats_array[$shid]['ping'] = $i_ping;
+	}	
 }		     	  
 					
 if (empty($stats_array[$shiddeath]['ip_adress'])) {
+	if((!empty($death_player_guid))&&(strpos($death_player_guid, 'bot') === false))
+	{
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($death_player_guid)));
 	    $stats_array[$shiddeath]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$shiddeath]['city'])) 
 	    $stats_array[$shiddeath]['city'] = $xxccode;  
    	 if (empty($stats_array[$shiddeath]['ping'])) 
 	    $stats_array[$shiddeath]['ping'] = $i_ping; 
+	}
 }		
 
     if (empty($stats_array[$shiddeath]['user_status'])) 	
