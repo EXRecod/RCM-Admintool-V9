@@ -29,14 +29,25 @@ if ($x_stop_lp == 0) {
     $iiiii = rus2translit($iiiii);
     $msgr = @iconv("windows-1251", "utf-8", $iiiii);
     require $cpath . 'ReCodMod/functions/funcx/commands_array.php';
-    if (strpos($game_patch, 'cod1_1.1') === false) {
+	
+    $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));	
+	 
+if (strpos($game_patch, 'cod1') !== false) usleep(45000);
+  include $cpath . 'ReCodMod/functions/core/cod_rcon.php';
+  foreach ($rconarray as $j => $e) 
+  {
+    $i_ip = $e["ip"]; 
+      if (empty($stats_array[$conisq]['ip_adress']))
+                $stats_array[$conisq]['ip_adress'] = $i_ip;	
+  }	
+   // if (strpos($game_patch, 'cod1_1.1') === false) {
       if (empty($stats_array[$conisq]['ip_adress'])) {
         list($i_ping, $i_ip, $i_name, $i_guid, $xxccode, $city, $country) = explode(';', (rconExplode($guidn)));
         $stats_array[$conisq]['ip_adress'] = $i_ip;
         if (empty($stats_array[$conisq]['city'])) $stats_array[$conisq]['city'] = $xxccode;
         if (empty($stats_array[$conisq]['ping'])) $stats_array[$conisq]['ping'] = $i_ping;
       }
-    }
+   //}
     if ($validCommand == 1) {
       echo "\n[" . $stats_array[$conisq]['user_status'] . "-CMD] : [", $datetime, "] : " . $nickr . " : " . $msgr;
       if ($stats_array[$conisq]['user_status'] != 'registered') {

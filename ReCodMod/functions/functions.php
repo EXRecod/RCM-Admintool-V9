@@ -1668,7 +1668,7 @@ function rconExplodeNickname($num) {
       return $c_id . ';' . $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $xxccode;
     }
   }
-  if (empty($i_ip)) return '0;0;0;0;0;0';
+  if (empty($c_ip)) return '0;0;0;0;0;0';
 }
 function rconExplodeIdnum($num) {
   global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
@@ -1709,6 +1709,7 @@ function rconExplode($guidin) {
     $i_ip = $e["ip"];
     $i_name = $e["name"];
     $i_guid = $e["guid"];
+	 
     if (trim($i_guid) == trim($guidin)) {
 	 
     $c_ping = $i_ping;
@@ -1737,7 +1738,7 @@ function rconExplode($guidin) {
       return $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $cccode . ';' . $city . ';' . $country;
     }
   }
-  if (empty($i_ip)) return '0;0;0;0;0;0;0';
+  if (empty($c_ip)) return '0;0;0;0;0;0;0';
 }
 function inix($IniFileName, $enabler) {
   global $cpath;
@@ -2157,7 +2158,8 @@ function groupsIni($IniFileName, $groupname, $guid) { //rcm global path
   }
 }
 function sectorIniarray($IniFileName, $groupname) {
-  global $cpath;
+  global $cpath; $y = 1;
+  $array = array(1);
   if (file_exists($cpath . "cfg/" . $IniFileName . ".ini")) {
     $ini_array = parse_ini_file($cpath . "cfg/" . $IniFileName . ".ini", true);
     foreach ($ini_array[$groupname] as $f => $r) {

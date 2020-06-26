@@ -1,5 +1,4 @@
 <?php
-
 if ($x_stop_lp == 0) {
     if (!file_exists($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/')) {
         if (!file_exists($cpath . 'ReCodMod/databases/stats_register/')) mkdir($cpath . 'ReCodMod/databases/stats_register/', 0777, true);
@@ -83,27 +82,21 @@ if ($x_stop_lp == 0) {
                 /////////////////////////////////////////////////
 				
 if (empty($stats_array[$shid]['ip_adress'])) {
-if((!empty($player_killer_guid))&&(strpos($player_killer_guid, 'bot') === false))
-	{
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($player_killer_guid)));
 	    $stats_array[$shid]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$shid]['city'])) 
 	    $stats_array[$shid]['city'] = $xxccode;  
    	 if (empty($stats_array[$shid]['ping'])) 
-	    $stats_array[$shid]['ping'] = $i_ping;
-	}	
+	    $stats_array[$shid]['ping'] = $i_ping; 
 }		     	  
 					
 if (empty($stats_array[$shiddeath]['ip_adress'])) {
-	if((!empty($death_player_guid))&&(strpos($death_player_guid, 'bot') === false))
-	{
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($death_player_guid)));
 	    $stats_array[$shiddeath]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$shiddeath]['city'])) 
 	    $stats_array[$shiddeath]['city'] = $xxccode;  
    	 if (empty($stats_array[$shiddeath]['ping'])) 
 	    $stats_array[$shiddeath]['ping'] = $i_ping; 
-	}
 }		
 
     if (empty($stats_array[$shiddeath]['user_status'])) 	
@@ -192,7 +185,7 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 				 if(!empty($m[0]))
                 $keyhm = str_replace(":", "", $m[0], $keyhm);
 			    $keyhm = (int)$keyhm;
-				// players activaties in server
+// players activaties in server
 				if (empty($server_array))
 				    $server_array['KILLStimer'][$keyhm] = 1;
 			    else

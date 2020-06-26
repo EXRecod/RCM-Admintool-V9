@@ -11,7 +11,7 @@ foreach($stats_array as $f => $y)
 {
 	if(!is_array($m))
 	{
-		if($m=='scores;kills')
+		if($m=='damage;damage')
 			++$counts;
 	}
 }}	  

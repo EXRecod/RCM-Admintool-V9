@@ -24,7 +24,10 @@ echo "\033[38;5;190m -ftp- \033[38;5;46m";
 list($ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url,$gmlobame) = explode('%', ftp2locallog($mplogfile));
  
 //connect
-if(empty($log_res))
+
+ 
+
+if((empty($log_res))||(!is_resource($conn_idq)))
 {
  
  echo "\033[38;5;1m [FTP LOGIN] \033[38;5;46m"; 

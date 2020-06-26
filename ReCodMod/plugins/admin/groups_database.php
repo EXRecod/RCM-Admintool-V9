@@ -28,7 +28,7 @@ if ((strpos($msgr, ixz . 'group+') !== false) || (strpos($msgr, ixz . 'group-') 
       }
     }
     else {
-      if (strpos($msgr, ixz . 'group+all') !== false) xcon('tell ' . $idnum . ' ^6ERROR! ^7' . $msgr . ' ^1!group+all group guidORnum', '');
+           if (strpos($msgr, ixz . 'group+all') !== false) xcon('tell ' . $idnum . ' ^6ERROR! ^7' . $msgr . ' ^1!group+all group guidORnum', '');
       else if (strpos($msgr, ixz . 'group+') !== false) xcon('tell ' . $idnum . ' ^6ERROR! ^7' . $msgr . ' ^1!group+ group guidORnum', '');
       else if (strpos($msgr, ixz . 'group-all') !== false) xcon('tell ' . $idnum . ' ^6ERROR! ^7' . $msgr . ' ^1!group-all group guidORnum', '');
       else if (strpos($msgr, ixz . 'group-') !== false) xcon('tell ' . $idnum . ' ^6ERROR! ^7' . $msgr . ' ^1!group- group guidORnum', '');
