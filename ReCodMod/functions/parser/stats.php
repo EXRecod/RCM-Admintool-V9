@@ -83,7 +83,7 @@ if ($x_stop_lp == 0) {
                 /////////////////////////////////////////////////
 				
 if (empty($stats_array[$shid]['ip_adress'])) {
-if((!empty($death_player_guid))&&(strpos($death_player_guid, 'bot') === false))
+if((!empty($player_killer_guid))&&(strpos($player_killer_guid, 'bot') === false))
 	{
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($player_killer_guid)));
 	    $stats_array[$shid]['ip_adress'] = $i_ip;
