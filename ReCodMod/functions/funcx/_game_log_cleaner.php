@@ -48,7 +48,7 @@ $login_result = ftp_login($conn_id,$ftp_exp_user,$ftp_exp_password);
  
 if (!$conn_id || !$login_result)
 //("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
-trigger_error("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_exp_ip !", E_USER_ERROR);  
+debuglog("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_exp_ip !");  
  
 if(!empty($conn_id)){
 // включение пассивного режима

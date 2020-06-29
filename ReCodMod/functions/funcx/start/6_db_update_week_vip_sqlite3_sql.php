@@ -45,7 +45,7 @@ try
       FROM db_stats_week P INNER JOIN db_stats_0 C 
 	     ON P.s_pg = C.s_pg WHERE P.w_port='".$svipport."' ORDER BY (s_kills+0) DESC LIMIT 3");
 		 
-errorzz("DEBUG: LINE: 722 SELECT P.servername,
+debuglog("DEBUG: LINE: 722 SELECT P.servername,
   P.s_pg,P.w_port,P.s_player,P.s_kills,
     P.s_deaths,P.s_heads,P.s_lasttime,C.s_guid
       FROM db_stats_week P INNER JOIN db_stats_0 C 
@@ -77,7 +77,7 @@ if($limitsw > 0)
 
 $xl = $bdd->query("SELECT guid,status1,status1days,time,timeh FROM player_status where guid = '".$guiduplimits."' LIMIT 1"); 
 
- errorzz("DEBUG: LINE: 754 SELECT guid,status1,status1days,time,timeh FROM player_status where guid = '".$guiduplimits."' LIMIT 1");  
+ debuglog("DEBUG: LINE: 754 SELECT guid,status1,status1days,time,timeh FROM player_status where guid = '".$guiduplimits."' LIMIT 1");  
    
 while ($jk = $xl->fetch())	
 {	
@@ -126,7 +126,7 @@ $bdd->query("UPDATE player_status SET time='".$dateend."', status1days='".$limit
  
 
 
- errorzz("DEBUG: LINE: 754   diff:$diff / mintq:$mintq / real_dateend:$real_dateend / dateend:$dateend /  limitqq:$limitqq /  UPDATE player_status SET time='".$dateend."', status1days=status1days+'".$limitsw."' WHERE guid = '".$guiduplimits."'");
+ debuglog("DEBUG: LINE: 754   diff:$diff / mintq:$mintq / real_dateend:$real_dateend / dateend:$dateend /  limitqq:$limitqq /  UPDATE player_status SET time='".$dateend."', status1days=status1days+'".$limitsw."' WHERE guid = '".$guiduplimits."'");
   
 } 
 } 
@@ -138,7 +138,7 @@ $dateend = date('Y-m-d', strtotime($date. ' + '.$limitsw.' days'));
 if(!empty($guiduplimits))
 $bdd->query("INSERT INTO player_status (guid,time,timeh,text,status1,status1days,status2,status2days)
  VALUES ('".$guiduplimits."','".$dateend."',CURRENT_TIME(),'0','".$statusw."','".$limitsw."','0','0')");	
-errorzz("DEBUG: LINE: 781 INSERT INTO player_status (guid,time,timeh,text,status1,status1days,status2,status2days)
+debuglog("DEBUG: LINE: 781 INSERT INTO player_status (guid,time,timeh,text,status1,status1days,status2,status2days)
  VALUES ('".$guiduplimits."','".$dateend."',CURRENT_TIME(),'0','".$statusw."','".$limitsw."','0','0')"); 
  }
 }

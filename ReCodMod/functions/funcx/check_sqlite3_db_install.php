@@ -17,7 +17,7 @@ if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok'))
 	require $cpath . 'ReCodMod/functions/install/install.php';
 if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok'))
 {
-	trigger_error("\n RCM Информация: ALARM! DATABASE NOT INSTALED!!! STOPED MOD WORKING!", E_USER_ERROR);
+	debuglog("\n RCM Информация: ALARM! DATABASE NOT INSTALED!!! STOPED MOD WORKING!");
 	sleep(3);
 }
  

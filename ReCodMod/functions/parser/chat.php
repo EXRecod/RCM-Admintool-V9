@@ -9,6 +9,9 @@ if ($x_stop_lp == 0) {
     list($f, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
     $guidnk = $guidn;
   }
+   
+  $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));	
+ 
   $msgOclear = '';
   if (empty($nickr)) $nickr = '';
   if (empty($msgr)) $msgr = '???';
@@ -29,23 +32,26 @@ if ($x_stop_lp == 0) {
     $iiiii = rus2translit($iiiii);
     $msgr = @iconv("windows-1251", "utf-8", $iiiii);
     require $cpath . 'ReCodMod/functions/funcx/commands_array.php';
-	
-    $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));	
-	 
+
+   // if (strpos($game_patch, 'cod1_1.1') === false) {
+      if (empty($stats_array[$conisq]['ip_adress'])) {
 if (strpos($game_patch, 'cod1') !== false) usleep(45000);
   include $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) 
   {
-    $i_ip = $e["ip"]; 
-      if (empty($stats_array[$conisq]['ip_adress']))
-                $stats_array[$conisq]['ip_adress'] = $i_ip;	
-  }	
-   // if (strpos($game_patch, 'cod1_1.1') === false) {
-      if (empty($stats_array[$conisq]['ip_adress'])) {
-        list($i_ping, $i_ip, $i_name, $i_guid, $xxccode, $city, $country) = explode(';', (rconExplode($guidn)));
-        $stats_array[$conisq]['ip_adress'] = $i_ip;
-        if (empty($stats_array[$conisq]['city'])) $stats_array[$conisq]['city'] = $xxccode;
-        if (empty($stats_array[$conisq]['ping'])) $stats_array[$conisq]['ping'] = $i_ping;
+    $i_ip = $e["ip"];
+    $i_guid = $e["guid"]; 	
+	$i_ping = $e["ping"];
+	
+if((!empty($i_guid))&&(strpos($i_guid, "bot") === false))
+{
+      if (empty($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ip_adress']))
+                $stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ip_adress'] = $i_ip;	
+      //if (empty($stats_array[$conisq]['city'])) $stats_array[$conisq]['city'] = $xxccode;
+      if (empty($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ping'])) $stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ping'] = $i_ping;	
+}
+		
+  }		 
       }
    //}
     if ($validCommand == 1) {

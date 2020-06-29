@@ -866,6 +866,12 @@ function errorspdo($s) {
   fwrite($fp, $s . "\n");
   fclose($fp);
 }
+function debuglog($s) {
+  global $cpath;
+  $fp = fopen($cpath . 'ReCodMod/cache/x_errors/debug.log', 'a');
+  fwrite($fp, $s . "\n");
+  fclose($fp);
+}
 function AddToLogfakerz($s) {
   global $info_log_fakers;
   $fp = fopen($info_log_fakers, 'a');

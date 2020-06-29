@@ -18,7 +18,7 @@
 	   else
 	   {
 		echo "NOT CHMOD 777 ".$cpath . "ReCodMod/cache/";
-        trigger_error("\n RCM DEBUG: [CHMOD 777] ERROR $cpath ReCodMod/cache/ !", E_USER_ERROR); 		
+        debuglog("\n RCM DEBUG: [CHMOD 777] ERROR $cpath ReCodMod/cache/ !"); 		
 	   }
 echo "\n"; 
 $dir = opendir($cpath . "ReCodMod/cache/");
@@ -30,7 +30,7 @@ while($file = readdir($dir)) {
 	   else
 	   {
 		echo " CHMOD 777 error ".$cpath . "ReCodMod/cache/".$file;
-        trigger_error("\n RCM DEBUG: [CHMOD 777] ERROR $cpath ReCodMod/cache/$file !", E_USER_ERROR); 		
+        debuglog("\n RCM DEBUG: [CHMOD 777] ERROR $cpath ReCodMod/cache/$file !"); 		
 	   }
 	   echo "\n"; 
    }
@@ -83,7 +83,7 @@ require_once $cpath . "ReCodMod/functions/core/classes/file_getImageColor.php";
 if(!extension_loaded('gd'))
 {
 echo"\n\033[38;5;1m ERROR: GD2 LIBRARY DO NOT exists! Look in logs ReCodMod/cache/x_errors/";
-	trigger_error("\n RCM DEBUG:  sudo apt-get install php-gd ", E_USER_ERROR);
+	debuglog("\n RCM DEBUG:  sudo apt-get install php-gd ");
 sleep(120);	
 exit;
 }

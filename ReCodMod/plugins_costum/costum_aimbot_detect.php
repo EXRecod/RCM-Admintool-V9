@@ -43,7 +43,7 @@ if ((strpos($parseline, ' K;') !== false) || (strpos($parseline, ' D;') !== fals
                           unset($antiaimarraydatatimer[$guidxid][$guid]['sec'][(int)$kx]['time'][(int)$time]['heads'][(int)$hx]);
                           if ((((int)$kx + ((time()) - (int)$time)) <= 8) and ((int)$hx == 10)) {
                             //xcon('tempban ' . $guid . ' 59min AimbotDetected', '');
-                            trigger_error("TEST *** CHEATER? $guid : [$datetime] [time:$time]/[heads:$hx] $server_ip:$server_port \n\n", E_USER_ERROR);
+                            debuglog("TEST *** CHEATER? $guid : [$datetime] [time:$time]/[heads:$hx] $server_ip:$server_port \n\n");
                           }
                           else if ((((int)$kx + ((time()) - (int)$time)) > 8) and ((int)$hx >= 0)) echo 'unset';
                           else $antiaimarraydatatimer[$guidxid][$guid]['sec'][(int)$kx + (time() - (int)$time) ]['time'][time() ]['heads'][(int)$hx + 1] = $guidxid;
@@ -91,7 +91,7 @@ if ((strpos($parseline, ' K;') !== false) || (strpos($parseline, ' D;') !== fals
                         if ($kx > 55) {
                           if (((($dx / $kx) * 100) > 60) && (($kx / $dx) > 2.8)) {
                             //xcon('permban ' . $guid . ' ^1AIMBOT CHEATER DETECTED!', '');
-                            trigger_error("TEST *** CHEATER? $guid : [$datetime] $cn/$kx/$dx $server_ip:$server_port \n\n", E_USER_ERROR);
+                            debuglog("TEST *** CHEATER? $guid : [$datetime] $cn/$kx/$dx $server_ip:$server_port \n\n");
                             unset($antiaimarraydata[$guidxid][$guid]);
                           }
                           //else
@@ -108,7 +108,7 @@ if ((strpos($parseline, ' K;') !== false) || (strpos($parseline, ' D;') !== fals
                         if ($kx > 99) {
                           if (($cn < 6) && (($kx / $dx) > 3.5)) {
                             //xcon('permban ' . $guid . ' ^1AIMBOT CHEATER DETECTED!', '');
-                            trigger_error("TEST *** CHEATER? $guid : [$datetime] $cn/$kx/$dx $server_ip:$server_port \n\n", E_USER_ERROR);
+                            debuglog("TEST *** CHEATER? $guid : [$datetime] $cn/$kx/$dx $server_ip:$server_port \n\n");
                             unset($antiaimarraydata[$guidxid][$guid]);
                           }
                           else unset($antiaimarraydata[$guidxid][$guid]);

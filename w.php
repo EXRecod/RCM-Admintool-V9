@@ -18,6 +18,7 @@ require_once $cpath . 'ReCodMod/functions/_c.php';
 include ($cpath . "ReCodMod/functions/functions.php");
 ini_set("log_errors", "1");
 $xerrrors = ($cpath . "ReCodMod/cache/x_errors/$filename");
+$xdebuger = ($cpath . "ReCodMod/cache/x_errors/debug.log");
 ini_set("error_log", $xerrrors);
 $logging = new log($xerrrors);
 set_error_handler("error_handler");

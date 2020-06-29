@@ -1,7 +1,6 @@
 <?php
    if (strpos($mplogfile, 'ftp:') !== false)
-	 {
-		 
+	 {		 
 if(!file_exists($cpath."ReCodMod/cache/server_empty_ftp_log.log"))
 {
 $file = hxlog($cpath."ReCodMod/cache/server_empty_ftp_log.log");
@@ -38,7 +37,7 @@ $log_res = ftp_login($conn_idq,$ftp_q_user,$ftp_q_password);
 if (!$conn_idq || !$log_res)
 {
 //("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу $ftp_server!");
-trigger_error("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !", E_USER_ERROR);
+debuglog("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !");
 sleep(20);
 exit; 
 }
@@ -88,15 +87,15 @@ if (time() - $dyq >= $xftp_time)
 {	
 
 if($ftp_fatality == 2)
-trigger_error("\n * Критическая ошибка /// RCM DEBUG: Статус ФТП=$ftp_fatality Не обновило за  $xftp_time секунд локальный FTP лог игры.", E_USER_ERROR);
+debuglog("\n * Критическая ошибка /// RCM DEBUG: Статус ФТП=$ftp_fatality Не обновило за  $xftp_time секунд локальный FTP лог игры.");
     else
-trigger_error("\n * RCM DEBUG: Статус ФТП=$ftp_fatality Обновило за  $xftp_time секунд локальный FTP лог игры.", E_USER_ERROR);	
+debuglog("\n * RCM DEBUG: Статус ФТП=$ftp_fatality Обновило за  $xftp_time секунд локальный FTP лог игры.");	
 	
 	
 //$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
 $file = $cpath."ReCodMod/cache/server_empty_ftp_log.log";
 if($ftp_fatality != 2)
-trigger_error("\n * RCM DEBUG:  Обнуление локального лога.", E_USER_ERROR);
+debuglog("\n * RCM DEBUG:  Обнуление локального лога.");
   
 if (@ftp_put($conn_idq, $ftp_q_url, $file, FTP_BINARY)) {
     echo "\n FILE $file UPLOADED \n";
@@ -120,12 +119,12 @@ fclose($fp);
  	
 	
 	if($ftp_fatality != 2)
-trigger_error("\n * RCM DEBUG:  Обнуление фтп лога.", E_USER_ERROR);
+debuglog("\n * RCM DEBUG:  Обнуление фтп лога.");
 
 if($ftp_fatality == 2)
 {
 	$ftp_fatality = 1;
-trigger_error("\n *  *** RCM DEBUG:  Обнуление фтп лога. Успех = Стабильная работа!", E_USER_ERROR);	
+debuglog("\n *  *** RCM DEBUG:  Обнуление фтп лога. Успех = Стабильная работа!");	
 }
 
 
@@ -134,7 +133,7 @@ trigger_error("\n *  *** RCM DEBUG:  Обнуление фтп лога. Усп�
 	echo $ftp_q_url."ERRRRRRRRROORRRRRRRRR FTP \n";
 	echo "ERRRRRRRRROORRRRRRRRR FTP \n";
 	 
-trigger_error("\n * Критическая ошибка:  Не обнулило фтп лог.", E_USER_ERROR); 
+debuglog("\n * Критическая ошибка:  Не обнулило фтп лог."); 
 
 
 @ftp_close($conn_idq); 
@@ -161,25 +160,25 @@ if(!empty($conn_idq)){
 if (ftp_rename($conn_idq, $ftp_q_url, $ftp_q_url.'recod')) {
  echo "Файл ".$ftp_q_url." переименован в ".$ftp_q_url."recod \n";
  if($ftp_fatality != 2)        
-trigger_error("\n * RCM DEBUG: FTP лог переименован в ".$ftp_q_url."recod.", E_USER_ERROR);
+debuglog("\n * RCM DEBUG: FTP лог переименован в ".$ftp_q_url."recod.");
  
 	    $hu = fopen($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame, 'w+');
         fwrite($hu, "0");
         fclose($hu);
         echo 'NULLED';
 if($ftp_fatality != 2)
-trigger_error("\n * RCM DEBUG:  Обнуление локального лога.", E_USER_ERROR);
+debuglog("\n * RCM DEBUG:  Обнуление локального лога.");
 
 
 if($ftp_fatality == 2)
 {
 	$ftp_fatality = 1;
-trigger_error("\n *  *** RCM DEBUG:  Обнуление фтп лога. Успех = Стаблиьная работа!", E_USER_ERROR);	
+debuglog("\n *  *** RCM DEBUG:  Обнуление фтп лога. Успех = Стаблиьная работа!");	
 }
  
  } else {
  echo "Не удалось переименовать ".$ftp_q_url." в ".$ftp_q_url."recod\n";
- trigger_error("\n * Критическая ошибка:  Не удалось переименовать фтп лог.", E_USER_ERROR);
+ debuglog("\n * Критическая ошибка:  Не удалось переименовать фтп лог.");
 
    $ftp_fatality = 2;
 }	
@@ -273,7 +272,7 @@ if($cur_activator > 100)
 $file = $cpath."ReCodMod/cache/server_empty_ftp_log.log";	 
 if (@ftp_put($conn_idq, $ftp_exp_url, $file, FTP_BINARY)) {
     echo "\n FILE $file UPLOADED \n";
-			 trigger_error("\n RCM DEBUG:  ПАМЯТЬ ОШИБОК ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $cur_activator ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !", E_USER_ERROR);
+			 debuglog("\n RCM DEBUG:  ПАМЯТЬ ОШИБОК ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $cur_activator ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !");
 			
 			$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
             $fp = fopen($file, 'w');
@@ -297,7 +296,7 @@ fclose($fp);
 			 require $cpath . 'ReCodMod/functions/null.php'; 		
 		
 } else {
-	trigger_error(" RCM DEBUGGER: [FTP USER]: $ftp_exp_user [FTP PASS]: ".md5($ftp_exp_password)." [FTP IP]: $ftp_exp_ip [FTP URL]: $ftp_exp_url [LOCAL FILE]: $gmlobame");
+	debuglog(" RCM DEBUGGER: [FTP USER]: $ftp_exp_user [FTP PASS]: ".md5($ftp_exp_password)." [FTP IP]: $ftp_exp_ip [FTP URL]: $ftp_exp_url [LOCAL FILE]: $gmlobame");
 }  			
 			
 
@@ -327,7 +326,7 @@ fclose($fp);
 		 
 	      if($il == 10)
 		   {
-			 trigger_error("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК ! => ОЖИДАНИЕ", E_USER_ERROR);
+			 debuglog("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК ! => ОЖИДАНИЕ");
            //конец файла
 		   if(empty($cur_seek_pos_end))
 			   $cur_seek_pos_end = 5;
@@ -341,7 +340,7 @@ fclose($fp);
 	 
 	       if($il == 50)
 		   {
-			 trigger_error("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ОЖИДАНИЕ !", E_USER_ERROR);
+			 debuglog("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ОЖИДАНИЕ !");
 		    //конец файла
 		     $cur_seek_pos_end = 1;
 			 
@@ -353,7 +352,7 @@ fclose($fp);
 	      if($il > 50000)
 		   {	 
 	 
-			 trigger_error("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !", E_USER_ERROR);
+			 debuglog("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !");
 			$cur_seek_pos_end = 3; 
 			/*
 			$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
@@ -379,7 +378,7 @@ fclose($fp);
  
 /*
  else {
-	trigger_error("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy а так же _pos_ftp.txt", E_USER_ERROR);
+	debuglog("\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy а так же _pos_ftp.txt");
     echo "Не удалось завершить операцию\n";
 	//require $cpath . 'ReCodMod/functions/null.php';
 } 
@@ -401,7 +400,7 @@ fclose($fp);
 }	
 else
 	//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу $ftp_server!");
-trigger_error("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !", E_USER_ERROR);
+debuglog("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !");
 
 
            //ftp_close($conn_idq); 
