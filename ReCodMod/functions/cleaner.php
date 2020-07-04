@@ -73,8 +73,7 @@ echo "\n FTP USER: ",$ftp_exp_user,
 "\n FTP URL: ",$ftp_exp_url,
 "\n LOG NAME: ",$gmlobame;
 echo " \n \033[38;5;46m \n";
-
-sleep(3);
+ 
 }
 else
 {
@@ -194,7 +193,7 @@ if(!empty(SqlDataBase)){
 if((!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok')))
 {
 if($installok<2)
-{echo 'not instaled databases!'; sleep(20); return;}
+{echo 'not instaled databases!'; sleep(10); return;}
 }
 }
 
@@ -245,7 +244,7 @@ $login_result = ftp_login($conn_id,$user,$pass);
  
 if (!$conn_id || !$login_result)
 //("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
-debuglog("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $web !");  
+debuglog((__FILE__)."\n RCM DEBUG: Не удалось установить соединение с FTP сервером $web !");  
  
 if(!empty($conn_id)){
 // включение пассивного режима

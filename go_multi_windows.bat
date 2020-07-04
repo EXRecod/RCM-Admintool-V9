@@ -49,17 +49,17 @@ echo If fileSystem.FileExists^(target^) Then fileSystem.DeleteFile target >> %~d
 echo adoStream.SaveToFile target                                        >> %~dp0\download.vbs
 echo adoStream.Close                                                    >> %~dp0\download.vbs
 echo.                                                                   >> %~dp0\download.vbs
-cscript //Nologo %~dp0\download.vbs https://windows.php.net/downloadS/releases/archives/php-7.3.0-Win32-vc15-x86.zip %~dp0\php\php-7.3.0-Win32-vc15-x86.zip
+cscript //Nologo %~dp0\download.vbs https://windows.php.net/downloadS/releases/archives/php-7.2.0-Win32-vc15-x86.zip %~dp0\php\php-7.2.0-Win32-vc15-x86.zip
 del %~dp0\download.vbs
 
-powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('%~dp0\php\php-7.3.0-Win32-vc15-x86.zip', '%~dp0\php\'); }"
-del %~dp0\php\php-7.3.0-Win32-vc15-x86.zip
+powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('%~dp0\php\php-7.2.0-Win32-vc15-x86.zip', '%~dp0\php\'); }"
+del %~dp0\php\php-7.2.0-Win32-vc15-x86.zip
 ) ELSE (
 echo php - ok
 )
 
 IF not EXIST %~dp0\php\php.exe (
-echo UNZIP %~dp0 php\php-7.3.0-Win32-vc15-x86.zip IN %~dp0 php\ FOLDER
+echo UNZIP %~dp0 php\php-7.2.0-Win32-vc15-x86.zip IN %~dp0 php\ FOLDER
 )
 
 
@@ -74,11 +74,14 @@ IF EXIST %~dp0\win_cache_ms\ (
 @echo.
 echo Deleting folder, reinstall / Удаляем папку, переустановка:
 RD /s %~dp0\win_cache_ms\
-echo win_cache_ms - ok 
+MD %~dp0\win_cache_ms\
+echo win_cache_ms\ - RE install
 ) ELSE (
 MD %~dp0\win_cache_ms\
 echo win_cache_ms\ - first install
 )
+
+ 
  
 @echo.
 setlocal enableDelayedExpansion

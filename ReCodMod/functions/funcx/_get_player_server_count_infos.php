@@ -103,7 +103,9 @@ if( $curl = curl_init() ) {
 	
 	
 if(empty($servername)){	
-echo 'x2 SERVERNAME IS EMPTY, CLEAR.PHP  getstatus ERROR!'; sleep(5); return;}	
+echo 'x2 SERVERNAME IS EMPTY, CLEAR.PHP  getstatus ERROR!'; sleep(2); 
+debuglog( (__FILE__)."x2 SERVERNAME IS EMPTY, CLEAR.PHP  getstatus ERROR!");
+return;}	
 	
 }
 
@@ -120,8 +122,12 @@ if(!empty($servername))
 else
 	$servernamegui = 'Servername is empty AND';
 
-echo "\n".$servernamegui." rcon gamename IS EMPTY, CLEAR.PHP  getstatus ERROR!"; sleep(20); return;}
+echo "\n".$servernamegui." rcon gamename IS EMPTY, CLEAR.PHP  getstatus ERROR!"; sleep(20); return;
+
+debuglog( (__FILE__)." SERVERNAME IS EMPTY, CLEAR.PHP  getstatus ERROR!");
+}
     
+
 
    if(empty($servername))
 	    $servername = '';

@@ -13,9 +13,10 @@ if(!file_exists($mplogfile))
 {
 echo "No exists ".$mplogfile;
 sleep(5);
+debuglog( (__FILE__)." No exists ".$mplogfile);
 }	
- 
-if (filesize($mplogfile) > 29457280)
+  
+if (filesize($mplogfile) > game_log_limits)
   {
 $ha0 = fopen($mplogfile, "w");
 fclose($ha0);
@@ -36,7 +37,7 @@ else
 list($ftp_exp_user,$ftp_exp_password,$ftp_exp_ip,$ftp_exp_url,$gmlobame) = explode('%', ftp2locallog($mplogfile));
  	
 $file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-if (filesize($file) > 229457280)
+if (filesize($file) > game_log_limits)
   {
  
 
@@ -48,7 +49,7 @@ $login_result = ftp_login($conn_id,$ftp_exp_user,$ftp_exp_password);
  
 if (!$conn_id || !$login_result)
 //("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
-debuglog("\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_exp_ip !");  
+debuglog((__FILE__)."\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_exp_ip !");  
  
 if(!empty($conn_id)){
 // включение пассивного режима

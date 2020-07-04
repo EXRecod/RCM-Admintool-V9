@@ -25,12 +25,12 @@ if ($mplogfile) {
                         fputs($fp, "0");
                         fclose($fp);
                         require $cpath . 'ReCodMod/functions/null.php';
-                        debuglog(" RCM DEBUGGER: RESET 50 MB AND RESTART [LOCAL FILE]: $gmlobame");
+                        debuglog((__FILE__)." RCM DEBUGGER: RESET 50 MB AND RESTART [LOCAL FILE]: $gmlobame");
                         echo "\n FILE $file UPLOADED \n";
                     }
                     else {
                         $cur_activator = 100;
-                        debuglog(" RCM DEBUGGER: [FTP USER]: $ftp_exp_user [FTP PASS]: " . md5($ftp_exp_password) . " [FTP IP]: $ftp_exp_ip [FTP URL]: $ftp_exp_url [LOCAL FILE]: $gmlobame");
+                        debuglog((__FILE__)." RCM DEBUGGER: [FTP USER]: $ftp_exp_user [FTP PASS]: " . md5($ftp_exp_password) . " [FTP IP]: $ftp_exp_ip [FTP URL]: $ftp_exp_url [LOCAL FILE]: $gmlobame");
                     }
                 }
             }
@@ -56,8 +56,9 @@ if ($mplogfile) {
                             $plyr_cnt = sizeof($players);
                         }
                         if (empty($mpgamenname)) {
-                            sleep(10);
-                            echo 'GAME SERVER OFFLINE!?';
+                            sleep(1);
+                            echo 'GAME SERVER OFFLINE!?';					
+	                      debuglog((__FILE__)." GAME SERVER OFFLINE!?");
                             exit;
                         }
                         if (trim($mpgamenname) && (trim($mpshortver) == 'main')) $game_patch = 'cod1_1.1';
@@ -100,7 +101,7 @@ if ($mplogfile) {
             clearstatcache();
             $dya = filemtime($mplogfile);
             if (time() - $dya >= 300) {
-                debuglog("\n RCM Информация: [Не обновлено] за 5 минут не обновило локальный лог игры, перезагрузка мода, обнуление локального лога и кеша.");
+                debuglog((__FILE__)."\n RCM Информация: [Не обновлено] за 5 минут не обновило локальный лог игры, перезагрузка мода, обнуление локального лога и кеша.");
                 $file = hxlog($mplogfile);
                 $fp = fopen($file, 'w');
                 fputs($fp, " ---\n");
@@ -171,6 +172,6 @@ if ($mplogfile) {
         }
         ////////////////////////////////////////////////////////////////////
         
-    }
-}
+    } 
+}	
 ?>

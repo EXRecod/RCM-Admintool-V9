@@ -54,7 +54,8 @@ if(empty($sv_hostname))
 {    
 echo "\n \033[38;5;135m [RCON] [ \033[38;5;189m CAN'T CONNECT TO GAME SERVER!!! \033[38;5;135m]";  
 require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
-	 sleep(20);
+	 sleep(2);
+	 debuglog( (__FILE__)." [RCON] CAN'T CONNECT TO GAME SERVER!");
 	 die("\n [RCON] CAN'T CONNECT TO GAME SERVER!");
 }
 
@@ -64,3 +65,4 @@ if (empty($servername))
 $servername = 'RCON STATUS ERROR';		 
 		 
 	 }
+	 ?>

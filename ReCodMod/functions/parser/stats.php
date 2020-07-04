@@ -184,23 +184,7 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 			   preg_match('/\d[0-9]{0,3}\:\d[0-9]{0,2}/', $parseline, $m);
 				 if(!empty($m[0]))
                 $keyhm = str_replace(":", "", $m[0], $keyhm);
-			    $keyhm = (int)$keyhm;
-// players activaties in server
-				if (empty($server_array))
-				    $server_array['KILLStimer'][$keyhm] = 1;
-			    else
-				{	
-foreach($server_array['KILLStimer'] as $g => $f){
-	
-		if($g!=$keyhm)
-			unset($server_array['KILLStimer']);
-		else
-		{
-		$server_array['KILLStimer'][$keyhm] = ($server_array['KILLStimer'][$keyhm])+1;  
-		}
-         } 	
-		 }
-// players activaties in server		 
+			    $keyhm = (int)$keyhm;	 
                 //kill series minute
                 $kill_series_minute_time = search_values($shiddeath, 'scores', 'kill_series_minute_time', $stats_array);
                 if (empty($kill_series_minute_time)) $stats_array[$shiddeath]['scores;kill_series_minute_time'] = $keyhm;
@@ -224,7 +208,9 @@ foreach($server_array['KILLStimer'] as $g => $f){
                         if (empty($stats_array[$shid]['scores;kill_series_minute_head'])) $stats_array[$shid]['scores;kill_series_minute_head'] = 0;
                         if ((($stats_array[$shid]['scores;death_series_minute_db']) <= ($stats_array[$shid]['scores;death_series_minute'])) && (($stats_array[$shid]['scores;kill_series_minute']) >= 0)) {
                             if (($death_T_summ >= 60) && ($death_T_summ < 65)) {
+								if(!empty($stats_array[$shid]['scores;death_series_minute_db']))
                                 $stats_array[$shid]['scores;death_series_minute_db'] = $stats_array[$shid]['scores;death_series_minute'];
+								if(!empty($stats_array[$shid]['scores;death_series_head_minute']))
                                 $stats_array[$shid]['scores;death_series_minute_head_db'] = $stats_array[$shid]['scores;death_series_head_minute'];
                                 $stats_array[$shid]['scores;kill_series_minute'] = 0;
                                 $stats_array[$shid]['scores;death_series_minute'] = 0;
@@ -341,6 +327,8 @@ foreach($server_array['KILLStimer'] as $g => $f){
                 $statscronx = $cpath . 'ReCodMod/databases/' . $server_ip . '_' . $server_port . '_statstimer.log';
                 if (!file_exists($statscronx)) touch($statscronx);
                 //if(empty(stats_cron_database))
+				if($spps != 1)
+				{
                 $stats_cron_database = rand(1, 4); //5
                 if (!empty($stats_cron_database)) {
                     if (!empty($statscronx)) {
@@ -364,6 +352,7 @@ foreach($server_array['KILLStimer'] as $g => $f){
                     }
                 }
             }
+			}
             echo "\033[38;5;202m ===> nd:", substr($tfinishh = (microtime(true) - $start), 0, 5);
             echo "\033[38;5;46m";
             $x_stop_lp = 56800;

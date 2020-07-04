@@ -558,7 +558,7 @@ function _geoip_seek_country_v6($gi, $ipnum) {
       $offset = $x[0];
     }
   }
-  debuglog("error traversing database - perhaps it is corrupt?");
+  debuglog((__FILE__)."error traversing database - perhaps it is corrupt?");
   return false;
 }
 
@@ -603,7 +603,7 @@ function _geoip_seek_country($gi, $ipnum) {
       $offset = $x[0];
     }
   }
-  debuglog("error traversing database - perhaps it is corrupt?");
+  debuglog((__FILE__)."error traversing database - perhaps it is corrupt?");
   return false;
 }
 

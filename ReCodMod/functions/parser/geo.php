@@ -182,7 +182,7 @@ if (empty($stats_array[$conisq]['ip_adress'])){
        } 
        if ($statt > 0) {
 		if(userStatus($stats_array[$conisq]['user_status']) != 3)  
-        rcon('tell ' . $idk . ' ^ => ^1['.userStatus($a_grp).'] ^3' . html_entity_decode($nickname) , '');
+        rcon('tell ' . $idk . ' ^ => ^1['.userStatus($a_grp).'] ^3' . html_entity_decode($nickname), '');
         ++$x_stop_lpjk; 
        }
        else { 

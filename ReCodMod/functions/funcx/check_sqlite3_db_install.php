@@ -5,8 +5,8 @@
  if(empty(SqlDataBase)){
               if (!file_exists($db1x)){echo "\n DO NOT FIND $db1x"; 
 			  require $cpath . 'ReCodMod/functions/install/install.php';
-			  sleep (5); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}		
-	      if (!file_exists($db2x)){echo "\n DO NOT FIND $db2x"; sleep (5); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}	
+			  sleep (2); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}		
+	      if (!file_exists($db2x)){echo "\n DO NOT FIND $db2x"; sleep (2); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}	
               if (!file_exists($cpath . 'ReCodMod/databases/db3.sqlite')){echo "\n DO NOT FIND ReCodMod/databases/db3.sqlite"; sleep (200); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}	
               if (!file_exists($cpath . 'ReCodMod/databases/db4.sqlite')){echo "\n DO NOT FIND ReCodMod/databases/db4.sqlite"; sleep (200); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}	
 	      if (!file_exists($cpath . 'ReCodMod/databases/db5.sqlite')){echo "\n DO NOT FIND ReCodMod/databases/db5.sqlite"; sleep (200); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;}
@@ -17,7 +17,7 @@ if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok'))
 	require $cpath . 'ReCodMod/functions/install/install.php';
 if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok'))
 {
-	debuglog("\n RCM Информация: ALARM! DATABASE NOT INSTALED!!! STOPED MOD WORKING!");
+	debuglog((__FILE__)."\n RCM Информация: ALARM! DATABASE NOT INSTALED!!! STOPED MOD WORKING!");
 	sleep(3);
 }
  

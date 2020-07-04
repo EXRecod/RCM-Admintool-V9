@@ -92,7 +92,7 @@ if (strpos($parseline, "J;") !== false) {
                                                 unset($valarrr);
                                                 $stat = null;
                                             }
-											usleep(100000);
+											usleep(50000);
                                             $sql  = "select * FROM db_stats_1 where s_pg='" . $oldguid_uid . "' limit 1";
                                             $stat = $db3->query($sql)->fetch(PDO::FETCH_LAZY);
                                             if (!empty($stat)) {
@@ -116,7 +116,7 @@ if (strpos($parseline, "J;") !== false) {
                                                 unset($valarrr);
                                                 $stat = null;
                                             }
-											usleep(100000);
+											usleep(40000);
                                             $sql  = "select * FROM db_stats_2 where s_pg='" . $oldguid_uid . "' limit 1";
                                             $stat = $db3->query($sql)->fetch(PDO::FETCH_LAZY);
                                             if (!empty($stat)) {
@@ -140,7 +140,7 @@ if (strpos($parseline, "J;") !== false) {
                                                 unset($valarrr);
                                                 $stat = null;
                                             }
-											usleep(100000);
+											usleep(50000);
                                             $sql  = "select * FROM db_stats_3 where s_pg='" . $oldguid_uid . "' limit 1";
                                             $stat = $db3->query($sql)->fetch(PDO::FETCH_LAZY);
                                             if (!empty($stat)) {

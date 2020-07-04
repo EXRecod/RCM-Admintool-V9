@@ -20,7 +20,13 @@ if ($x_idn=='')
    	 if (empty($stats_array[$conisq]['ping'])) 
 	    $stats_array[$conisq]['ping'] = $i_ping; 
 } 
- 
+  if (empty($stats_array[$conisq]['city'])){
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guidn)));
+   	 if (empty($stats_array[$conisq]['city'])) 
+	    $stats_array[$conisq]['city'] = $xxccode;  
+   	 if (empty($stats_array[$conisq]['ping'])) 
+	    $stats_array[$conisq]['ping'] = $i_ping; 
+}
 $i_name = $nickr;
 
 	

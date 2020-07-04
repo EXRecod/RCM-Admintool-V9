@@ -79,8 +79,7 @@ if (echo "$IPPORTW" | grep -E -q "^?[0-9]+$"); then
   echo "$port->$rcon->$log => \n"  
 
 pkill -f go_$IPPORTW.sh 
-pkill -f go_$IPPORTW.php
-pkill -f cleaner_$IPPORTW.php
+pkill -f go_$IPPORTW.php 
 
   echo "Killed go_$IPPORTW \n"
  fi
@@ -138,7 +137,7 @@ header("Content-Type: text/html; charset=UTF-8");
 function hxh($sc)
  {
   $sc = str_replace(array(
-    "cache_ms/go_'$IPPORTW'.php"
+    "cache_ms/go_'$IPPORTW'.php","cache_ms\go_'$IPPORTW'.php","cache_ms\\go_'$IPPORTW'.php"
   ), "", $sc);
   return $sc . "";
  }
@@ -161,54 +160,6 @@ require $cpath . "w.php";
 
 '> $CURDIR/cache_ms/go_$IPPORTW.php  
   fi   
-
-if [ -f $CURDIR/cache_ms/functions/cleaner_$IPPORTW.php ]; then 
-   echo ""
-else
-echo '#!/bin/php
-<?php
-header("Content-Type: text/html; charset=UTF-8");
-function hxhu($sc)
- {
-  $sc = str_replace(array(
-    "cache_ms/functions/cleaner_'$IPPORTW'.php"
-  ), "", $sc);
-  return $sc . "";
- }
-$cpath = hxhu(__FILE__);
-
-error_reporting(E_ALL); // Error engine - always TRUE!
-ini_set("ignore_repeated_errors", TRUE); // always TRUE
-ini_set("display_errors", TRUE); // Error display - FALSE only in production environment or real server
-ini_set("log_errors", TRUE); // Error logging engine
-ini_set("error_log", $cpath."ReCodMod/php-all-errors.log");
-
-//$localIP = getHostByName(getHostName());
-//$server_ip = $localIP;
-
-$server_ip = "'$ip'";
-$server_port = "'$port'";
-$server_rconpass = "'$rcon'";
-$mplogfile = "'$log'";
-
-$server_port = trim($server_port);
-
-echo " ======> '$port' cleaner.php loaded successfully \n";
-require $cpath . "ReCodMod/functions/cleaner.php";
-
-'> $CURDIR/cache_ms/functions/cleaner_$IPPORTW.php  
-  fi   
-
-echo '\n\n'  
-  echo "\n $port->$rcon->$log =>"   
-php -q -f $CURDIR/cache_ms/functions/cleaner_$IPPORTW.php $port $rcon $log  
-  
-#  if [ ! -x $CURDIR"/go_$port.sh" ]
-#then
-#   chmod a+x $CURDIR"/go_$port.sh" && echo "The file is now for all"
-#else
-# echo "The file is already for all" 
-#fi 
 
  if [ ! -x $CURDIR"/go_$IPPORTW.sh" ]; then
   #chown root:root $CURDIR"/go_$port.sh" && echo "The go_$port.sh is now chmod root"

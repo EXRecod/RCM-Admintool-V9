@@ -17,7 +17,7 @@ if (!empty($stats_array)) {
   }
   else {
     $geoonqx = 1;
-    $limitindb = 2;
+    $limitindb = 1;
     $timeap = 30;
   }
   echo "\n \033[38;5;202m OPT $limitindb USERS LIMIT / SYNC STATS update \033[38;5;46m";
@@ -480,9 +480,10 @@ ON DUPLICATE KEY
                 /////////////////////////////////////// update weapons db
                 /////////////////////////////////////////////////////////////////
                 ///////////////////////////  DAY AND WEEK STATS //////////////////////////////////////////////////
-                usleep(40000);
+                
                 if (!empty($nickname)) {
                   if (((int)$kills + (int)$deaths + (int)$heads) > 0) {
+					usleep(40000);  
                     if (empty($w_n)) $sql = "INSERT INTO db_stats_day (servername,s_pg,w_guid,w_port,s_player,s_kills,s_deaths,s_heads,s_time,s_lasttime)
 VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $date . "','" . $date . "') 
 ON DUPLICATE KEY
@@ -578,6 +579,7 @@ ON DUPLICATE KEY
                 UPDATE s_port='9531589043328961', name='mp_carentan', gametype='war', kills=4, deaths=0, rounds=0;
                 */
                 if ((int)$kills + (int)$deaths > 0) {
+					usleep(40000);
                   $sql = "INSERT INTO maps (s_port,name,gametype,kills,deaths,rounds)
 VALUES (" . $svipport . ",'" . $name . "','" . $gametype . ";" . $name . "'," . $kills . "," . $deaths . "," . $rounds . ") 
 ON DUPLICATE KEY

@@ -788,7 +788,7 @@ function rcon($sz, $zreplace = '') {
   global $connect, $server_rconpass, $server_ip, $server_port, $sleep_rcon, $game_patch;
   //echo "\n -> ",$game_patch;
   if (strpos($game_patch, 'cod1') !== false) $f = 100;
-  else $f = 20;
+  else $f = 10;
   usleep(10000 * ($f / 2));
   //if ((strpos($sz, 'tell') !== false) || (strpos($sz, 'say') !== false)) {
     if (!is_resource($connect)) {
@@ -868,8 +868,9 @@ function errorspdo($s) {
 }
 function debuglog($s) {
   global $cpath;
+   $s = str_replace(array("\r","\n"), '', $s);
   $fp = fopen($cpath . 'ReCodMod/cache/x_errors/debug.log', 'a');
-  fwrite($fp, $s . "\n");
+  fwrite($fp, " [".date('Y.m.d H:i:s')."] Debug : ".$s . "\n");
   fclose($fp);
 }
 function AddToLogfakerz($s) {
@@ -1668,7 +1669,7 @@ function rconExplodeNickname($num) {
     $c_name = $i_name;
     $c_guid = $i_guid;	
       $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
-      $record = geoip_record_by_addr($gi, $i_ip);
+      $record = geoip_record_by_addr($gi, $c_ip);
       if (!empty($record)) $xxccode = ($record->country_code);
       else $xxccode = '?';
       return $c_id . ';' . $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $xxccode;
@@ -1705,11 +1706,10 @@ function rconExplode($guidin) {
   global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
   if (strpos($game_patch, 'cod1') !== false) usleep(45000);
   include $cpath . 'ReCodMod/functions/core/cod_rcon.php';
-  /*
+  /*  */ 
   echo "\n -----------------------------\n ";
   var_dump($rconarray);
   echo "\n -----------------------------";
-  */
   foreach ($rconarray as $j => $e) {
     $i_ping = $e["ping"];
     $i_ip = $e["ip"];

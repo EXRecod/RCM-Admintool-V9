@@ -56,7 +56,7 @@ if((empty($guid)) && (empty(reg_guid_stats)))
 ////////////////////////////////////////////////////////////////////////////////////////////////		 
 	$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));	 
 if (empty($stats_array[$conisq]['ip_adress'])) { 
- $stats_array[$conisq]['ip_adress'] = $cod4xipu;
+  
  
 	 usleep(1555);
 
@@ -88,6 +88,13 @@ if (empty($stats_array[$conisq]['ip_adress']))
   $date  = date('Y-m-d H:i:s');
   $x_date  = date('Y-m-d H:i:s');
  
+ 
+ 
+ 
+ echo '-';
+ 
+ 
+ 
 ////////////////////////////////////////////////////////////////////////////////////				   
 ////////////////////////////////////////////////////////////////////////////////////
 //////////////////////                                        ////////////////////// 
@@ -117,39 +124,18 @@ try{
 				$xipadr = '0';
 			else
 $xipadr = '1';
-
-/*
-$data = [
-    'servername' => $servername,
-    's_port' => $server_port,
-    'guid' => $guid,
-	'nickname' => $nickname,
-	'time' => $datetime,
-	'timeh' => '0',
-	'text' => '0',
-	'st1' => '0',
-	'st1days' => '0',
-	'st2' => '0',
-	'st2days' => '0',
-    'ip' => $cod4xip,
-	'geo' => $cod4xgeo,
-	'z' => '1',
-	't' => '0',
-	'x' => $xipadr,
-	'c' => '0',
-];
-				
-$stmt= $dbc->prepare($sql);
-$stmt->execute($data);	 
-*/
+ 
 echo '-125';
+
+$stats_array[$conisq]['ip_adress'] = $cod4xipu;
+  
 	  
 $sql = "INSERT INTO chat (servername, s_port, guid, nickname, time, timeh, text, st1, st1days, st2, st2days, ip, geo, z, t, x, c) 
-					VALUES ('".$servername."', '".$svipport."', '".$guid."', '".$nickname."', '".$datetime."', '".$datetime."', '0', '0', '0', '0', '0', '".$cod4xip."', '".$cod4xgeo."', '1', '0', '$xipadr', '0')";	
+					VALUES ('".$servername."', '".$svipport."', '".$guid."', '".$nickname."', '".$datetime."', '".$datetime."', '0', '0', '0', '0', '0', '".$cod4xipu."', '".$cod4xgeo."', '1', '0', '$xipadr', '0')";	
 $dbc->query($sql);
       
 echo '-130';
-$dbc->query("UPDATE chat SET geo='".$cod4xgeo."', ip='".$cod4xip."',x='1' WHERE guid='".$guid."' and z='0'");
+$dbc->query("UPDATE chat SET geo='".$cod4xgeo."', ip='".$cod4xipu."',x='1' WHERE guid='".$guid."' and z='0'");
  				
 					
  					

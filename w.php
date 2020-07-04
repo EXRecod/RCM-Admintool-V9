@@ -82,7 +82,8 @@ if (!empty(multi_ip_servers)) $svipport = $server_port;
 //*************************************************************************************
 //*************************************************************************************
 //*************************************************************************************
-while (true) { 
+while (true) {    
+require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php'; 
   $zetx = 1; 
   $allplugs = getDirContents($cpath . 'ReCodMod/functions/funcx/start/');
   foreach ($allplugs AS $va) {
@@ -93,13 +94,17 @@ while (true) {
     if ($parseline == $mplogfilep) $goto = 1;
   }
   else if ($parseline == $mplogfile) $goto = 1;
+   
   if ($goto == 0) {
 	  //echo "\n".$parseline;
-      require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php';
+   
         $datetime = date('Y.m.d H:i:s');
         $dtx2 = date('Y-m-d H:i:s');
         require $cpath . 'ReCodMod/functions/funcx/db_delete_day_stats.php';
         require $cpath . 'ReCodMod/functions/funcx/cfg_rules_schedule.php';
+		
+		 
+		
              //%%%%%%%%%%%%%%%%%%%%%%%%  CHAT  %%%%%%%%%%%%%%%%%%%%%%%%
               if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseline, $xm)) || (preg_match('/tell;/', $parseline, $xm))) {
                 require $cpath . 'ReCodMod/functions/parser/chat.php';
@@ -159,7 +164,7 @@ while (true) {
                 }
                 if (((!empty($guidn)) && ($validCommand == 1)) || (!empty($guid)) || (!empty($specials))) {
                   /* COSTUM PLUGINS */
-                  if (!file_exists($cpath . 'ReCodMod/plugins_costum/')) mkdir($cpath . 'ReCodMod/plugins_costum/', 0777, true);
+                  //if (!file_exists($cpath . 'ReCodMod/plugins_costum/')) mkdir($cpath . 'ReCodMod/plugins_costum/', 0777, true);
                   $allplugs = getDirContents($cpath . 'ReCodMod/plugins_costum/');
                   foreach ($allplugs AS $va) {
                     if (strpos($va, '.php') !== false) {
@@ -169,7 +174,7 @@ while (true) {
                   require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
                 }
                 //%%%%%%%%%%%%%%%%%%%%%%%%  END PLUGINS LOAD  %%%%%%%%%%%%%%%%%%%%%%%%
-              }
+              } 
           } 
 		  //break;
   }

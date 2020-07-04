@@ -120,7 +120,7 @@ foreach ($flooddata as $guidxid => $f)
 								 {
 								$x_mat_detected = false;			  
 			   
-                              //debuglog("TEST *** flooder? $guid : [$datetime] [time:$time]/[msg:$hx] $server_ip:$server_port \n\n");							  
+                              //debuglog((__FILE__)."TEST *** flooder? $guid : [$datetime] [time:$time]/[msg:$hx] $server_ip:$server_port \n\n");							  
 								 }							  
 							else if ((((int)$kx + ((time()) - (int)$time)) > 10) && ((int)$hx >= 0))
 							{

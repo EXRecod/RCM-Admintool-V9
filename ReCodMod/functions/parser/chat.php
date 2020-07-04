@@ -45,10 +45,22 @@ if (strpos($game_patch, 'cod1') !== false) usleep(45000);
 	
 if((!empty($i_guid))&&(strpos($i_guid, "bot") === false))
 {
-      if (empty($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ip_adress']))
-                $stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ip_adress'] = $i_ip;	
-      //if (empty($stats_array[$conisq]['city'])) $stats_array[$conisq]['city'] = $xxccode;
-      if (empty($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ping'])) $stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))))]['ping'] = $i_ping;	
+	
+	
+if((trim($i_guid))==(trim($guidn)))
+{	 
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $i_ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '?';
+	  
+      if (empty($stats_array[$conisq]['ip_adress']))
+                $stats_array[$conisq]['ip_adress'] = $i_ip;	
+      if (empty($stats_array[$conisq]['citycode'])) $stats_array[$conisq]['citycode'] = $xxccode;
+      if (empty($stats_array[$conisq]['ping'])) $stats_array[$conisq]['ping'] = $i_ping;	
+}
+
+
 }
 		
   }		 
@@ -145,7 +157,7 @@ if((!empty($i_guid))&&(strpos($i_guid, "bot") === false))
               if (strpos($g, 'guid') !== false) $guid = $o;
               else if (strpos($g, 'nickname') !== false) $nickname = $o;
               else if (strpos($g, 'ip_adress') !== false) $ip = $o;
-              else if (strpos($g, 'city') !== false) $city = $o;
+              else if (strpos($g, 'citycode') !== false) $city = $o;
               ++$counter;
               if ($counter == $czr) {
                 if ($stoparr == 0) {
@@ -196,8 +208,14 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
                     $sql = "INSERT INTO `chat_opt_new` (`s_port`, `guid`, `nickname`, `time`, `text`, `ip`, `var`, `vartwo`)
                     VALUES ('".$svipport."', '".$guidn."', '".$dhgsj."', '".$datetime."', '".$msgOclear."', '".$stats_array[$conisq]['ip_adress']."', '0', '0')";
           */
+		  
+      if (empty($stats_array[$conisq]['ip_adress'])) 
+		  $i_adrr = ''; else $i_adrr = $stats_array[$conisq]['ip_adress'];
+      if (empty($stats_array[$conisq]['citycode'])) 
+          $citycode = ''; else $citycode = $stats_array[$conisq]['citycode'];		  
+		  
           $sql = "INSERT INTO `chat` (`servername`, `s_port`, `guid`, `nickname`, `time`, `timeh`, `text`, `st1`, `st1days`, `st2`, `st2days`, `ip`, `geo`, `z`, `t`, `x`, `c`) 
-VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgOclear . "', '0', '0', '0', '0', '" . $stats_array[$conisq]['ip_adress'] . "', '" . $xxccode . "', '0', 'xl', '0', '0')";
+VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgOclear . "', '0', '0', '0', '0', '" .$i_adrr. "', '" . $citycode . "', '0', 'xl', '0', '0')";
           $dbx->query($sql);
           $dbx = null;
           $msqlcc = null;
@@ -206,7 +224,7 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
         if (empty($msgOclear)) $msgOclear = '';
       }
       catch(PDOException $e) {
-        errorspdo('[' . $datetime . '] 391  VALUES (' . $svipport . ', ' . $guidn . ', ' . $nickr . ', ' . $datetime . ', ' . $msgOclear . ', ' . $stats_array[$conisq]['ip_adress'] . ', 0, 0)	 ' . __FILE__ . '  Exception : ' . $e->getMessage());
+        errorspdo('[' . $datetime . '] 391  VALUES (' . $svipport . ', ' . $guidn . ', ' . $nickr . ', ' . $datetime . ', ' . $msgOclear . ', ' . $i_adrr . ', 0, 0)	 ' . __FILE__ . '  Exception : ' . $e->getMessage());
       }
     }
   }
