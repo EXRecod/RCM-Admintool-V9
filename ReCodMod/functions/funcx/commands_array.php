@@ -48,7 +48,7 @@ if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseli
   $ini_array = parse_ini_file($cpath . 'cfg/' . $IniFileName0 . '.ini');
   $u = str_replace(ixz, "", $msgr);
   foreach ($ini_array as $section => $coms) {
-    if (!empty($coms)) {
+    if ((!empty($coms))&&(!empty($u))) {
       if (strpos(trim($coms) , trim($u)) !== false) $vcs = 1;
     }
   }

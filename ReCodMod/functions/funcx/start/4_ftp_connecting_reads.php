@@ -26,15 +26,18 @@ list($ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url,$gmlobame) = explode('%', 
 
  
 
-if((empty($log_res))||(!is_resource($conn_idq)))
+if((empty($log_res))||(!is_resource($conn_idqnew)))
 {
  
  echo "\033[38;5;1m [FTP LOGIN] \033[38;5;46m"; 
  
-$conn_idq = ftp_connect($ftp_q_ip);
-$log_res = ftp_login($conn_idq,$ftp_q_user,$ftp_q_password);
+$conn_idqnew = ftp_connect($ftp_q_ip);
 
-if (!$conn_idq || !$log_res)
+if($conn_idqnew){
+$log_res = ftp_login($conn_idqnew,$ftp_q_user,$ftp_q_password);
+}
+
+if (!$conn_idqnew || !$log_res)
 {
 //("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу $ftp_server!");
 debuglog((__FILE__)."\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !");
@@ -44,12 +47,12 @@ exit;
 
 
 
-if(!empty($conn_idq)){
+if(!empty($conn_idqnew)){
 // включение пассивного режима
- if (!ftp_pasv($conn_idq, true)) {
+ if (!ftp_pasv($conn_idqnew, true)) {
             $errmsg = "Passive mode not available at this server";
             //Passive mode not available
-    ftp_pasv($conn_idq, false);
+    ftp_pasv($conn_idqnew, false);
         }
 }
 
@@ -62,7 +65,7 @@ if(!empty($conn_idq)){
 if ($log_res)
 {
  
-if(!empty($conn_idq)){
+if(!empty($conn_idqnew)){
 
 
 if(!file_exists($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame))
@@ -97,7 +100,7 @@ $file = $cpath."ReCodMod/cache/server_empty_ftp_log.log";
 if($ftp_fatality != 2)
 debuglog((__FILE__)."\n * RCM DEBUG:  Обнуление локального лога.");
   
-if (@ftp_put($conn_idq, $ftp_q_url, $file, FTP_BINARY)) {
+if (@ftp_put($conn_idqnew, $ftp_q_url, $file, FTP_BINARY)) {
     echo "\n FILE $file UPLOADED \n";
 	
 $file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
@@ -136,18 +139,18 @@ debuglog((__FILE__)."\n *  *** RCM DEBUG:  Обнуление фтп лога. �
 debuglog((__FILE__)."\n * Критическая ошибка:  Не обнулило фтп лог."); 
 
 
-@ftp_close($conn_idq); 
+@ftp_close($conn_idqnew); 
 $log_res = '';
 echo "\033[38;5;1m [FTP LOGIN] \033[38;5;46m"; 
-$conn_idq = ftp_connect($ftp_q_ip);
-$log_res = ftp_login($conn_idq,$ftp_q_user,$ftp_q_password);
+$conn_idqnew = ftp_connect($ftp_q_ip);
+$log_res = ftp_login($conn_idqnew,$ftp_q_user,$ftp_q_password);
 
-if(!empty($conn_idq)){
+if(!empty($conn_idqnew)){
 // включение пассивного режима
- if (!ftp_pasv($conn_idq, true)) {
+ if (!ftp_pasv($conn_idqnew, true)) {
             $errmsg = "Passive mode not available at this server";
             //Passive mode not available
-    ftp_pasv($conn_idq, false);
+    ftp_pasv($conn_idqnew, false);
         }
 }
 
@@ -157,7 +160,7 @@ if(!empty($conn_idq)){
 
 /*	
 // попытка переименовать $olf_file в $new_file
-if (ftp_rename($conn_idq, $ftp_q_url, $ftp_q_url.'recod')) {
+if (ftp_rename($conn_idqnew, $ftp_q_url, $ftp_q_url.'recod')) {
  echo "Файл ".$ftp_q_url." переименован в ".$ftp_q_url."recod \n";
  if($ftp_fatality != 2)        
 debuglog((__FILE__)."\n * RCM DEBUG: FTP лог переименован в ".$ftp_q_url."recod.");
@@ -232,7 +235,7 @@ $opp = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame)
 
 	
 	
-	if($sizeftp = @ftp_size($conn_idq, $ftp_q_url))
+	if($sizeftp = @ftp_size($conn_idqnew, $ftp_q_url))
 	{
         if ($sizeftp == -1) {
             echo "\n File $ftp_q_url does not exist or server does not support SIZE";
@@ -251,8 +254,8 @@ $opp = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame)
  
  $chll = 0;
 // попытка скачать $ftp_q_url и сохранить в $local_file
-if (@ftp_get($conn_idq, $opp, $ftp_q_url, FTP_BINARY, $resumeposftpy)) {
-//if (ftp_get($conn_idq, $opp, $ftp_q_url, get_ftp_mode($ftp_q_url), $resumeposftpy)) {	
+if (@ftp_get($conn_idqnew, $opp, $ftp_q_url, FTP_BINARY, $resumeposftpy)) {
+//if (ftp_get($conn_idqnew, $opp, $ftp_q_url, get_ftp_mode($ftp_q_url), $resumeposftpy)) {	
     //echo "Произведена запись в $opp\n";
 
 $resumeposftp = filesize($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame);		
@@ -271,9 +274,9 @@ if($cur_activator > 100)
 {
 	
 $file = $cpath."ReCodMod/cache/server_empty_ftp_log.log";	 
-if (@ftp_put($conn_idq, $ftp_exp_url, $file, FTP_BINARY)) {
+if (@ftp_put($conn_idqnew, $ftp_exp_url, $file, FTP_BINARY)) {
     echo "\n FILE $file UPLOADED \n";
-			 debuglog((__FILE__)."\n RCM DEBUG:  ПАМЯТЬ ОШИБОК ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $cur_activator ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !");
+			 debuglog((__FILE__)."\n RCM DEBUG:  ПАМЯТЬ ОШИБОК ftp_get $conn_idqnew, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $cur_activator ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !");
 			
 			$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
             $fp = fopen($file, 'w');
@@ -312,8 +315,8 @@ fclose($fp);
 	 
 	 if($il == 5)
 	 {
-		 if (is_resource($conn_idq))
-	    ftp_close($conn_idq);
+		 if (is_resource($conn_idqnew))
+	    ftp_close($conn_idqnew);
      }		
 	 
    if(empty($il))
@@ -327,7 +330,7 @@ fclose($fp);
 		 
 	      if($il == 10)
 		   {
-			 debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК ! => ОЖИДАНИЕ");
+			 debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idqnew, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК ! => ОЖИДАНИЕ");
            //конец файла
 		   if(empty($cur_seek_pos_end))
 			   $cur_seek_pos_end = 5;
@@ -341,7 +344,7 @@ fclose($fp);
 	 
 	       if($il == 50)
 		   {
-			 debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ОЖИДАНИЕ !");
+			 debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idqnew, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ОЖИДАНИЕ !");
 		    //конец файла
 		     $cur_seek_pos_end = 1;
 			 
@@ -353,7 +356,7 @@ fclose($fp);
 	      if($il > 50000)
 		   {	 
 	 
-			 debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !");
+			 debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idqnew, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy ! $il ПОПЫТОК => ПЕРЕЗАГРУЗКА МОДА !");
 			$cur_seek_pos_end = 3; 
 			/*
 			$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
@@ -379,7 +382,7 @@ fclose($fp);
  
 /*
  else {
-	debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idq, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy а так же _pos_ftp.txt");
+	debuglog((__FILE__)."\n RCM DEBUG:  Не удалось завершить операцию ftp_get $conn_idqnew, $opp , $ftp_q_url , FTP_BINARY , $resumeposftpy а так же _pos_ftp.txt");
     echo "Не удалось завершить операцию\n";
 	//require $cpath . 'ReCodMod/functions/null.php';
 } 
@@ -393,7 +396,7 @@ fclose($fp);
 
 
 
-//ftp_close($conn_idq); 
+//ftp_close($conn_idqnew); 
 
  }
 
@@ -404,7 +407,7 @@ else
 debuglog((__FILE__)."\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_q_ip !");
 
 
-           //ftp_close($conn_idq); 
+           //ftp_close($conn_idqnew); 
 
 }
 }

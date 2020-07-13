@@ -50,7 +50,7 @@ else
 					"num" => $sb[1],
 					"score" => $sb[2],
 					"ping" => $sb[3],
-					"guid" => $sb[4],
+					"guid" => trim($sb[4]),
 					"name" => trim($sb[5]),
 					"lastmsg" => $sb[6],
 					"ip" => trim($sb[7]),

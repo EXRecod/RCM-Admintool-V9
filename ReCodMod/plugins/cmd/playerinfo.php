@@ -14,7 +14,7 @@ if ($x_idn=='')
 {
  if (empty($stats_array[$conisq]['ip_adress'])){
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guidn)));	
-	    $stats_array[$conisq]['ip_adress'] = $i_ip;
+	    $stats_array[$conisq]['ip_adress'] = ''.$i_ip.'';
    	 if (empty($stats_array[$conisq]['city'])) 
 	    $stats_array[$conisq]['city'] = $xxccode;  
    	 if (empty($stats_array[$conisq]['ping'])) 

@@ -11,14 +11,17 @@ if (!empty($stats_array)) {
                             	
   ////////////////////////лимит нагрузок
   if (empty($activate_opt)) {
-    $geoonqx = 90;
-    $limitindb = 90;
-    $timeap = 99999;
+    $geoonqx = 100;
+    $limitindb = 100;
+    $timeap = 1;
   }
   else {
     $geoonqx = 1;
     $limitindb = 1;
-    $timeap = 30;
+	if(!empty($rand))
+		$timeap = $rand + 30; 
+	else
+        $timeap = 30;
   }
   echo "\n \033[38;5;202m OPT $limitindb USERS LIMIT / SYNC STATS update \033[38;5;46m";
   if (empty($date)) $date = date('Y-m-d H:i:s');
@@ -33,6 +36,7 @@ if (!empty($stats_array)) {
       $dbm3day = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/dbm3.sqlite');
       $dbw3->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $dbm3day->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	  $dbmaps  = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/maps.sqlite');
     }
     else {
       $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
@@ -54,6 +58,18 @@ if (!empty($stats_array)) {
         $loadopt = $cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/' . $player_server_uid . '.log';
         if (!file_exists($loadopt)) touch($loadopt);
         $ciopt = filemtime($loadopt);
+		
+		
+	if((!empty($stats_array[$player_server_uid]['scores;kills']))&&(!empty($stats_array[$player_server_uid]['scores;deaths'])))
+	{
+	  if(($stats_array[$player_server_uid]['scores;kills']) > 4)
+		{
+			if (!empty($activate_opt)) 
+		           $ciopt = $ciopt * 20;
+		}	
+	}
+		
+		
         if (time() - $ciopt >= $timeap) {
           echo "\n ===> ", $player_server_uid;
           /////////////////// ОПТИМИЗАЦИЯ
@@ -62,6 +78,19 @@ if (!empty($stats_array)) {
           $counter = 0;
           $guid = '';
           $nickname = '';
+		  if(!empty($table_hits))
+			  unset($table_hits);
+		  if(!empty($table_insert))
+			  unset($table_insert);
+		  if(!empty($valueSets))
+			  unset($valueSets);
+		  if(!empty($valueSetsw))
+			  unset($valueSetsw);			
+		  if(!empty($valueSetsz))
+			  unset($valueSetsz); 
+		  if(!empty($weaponSets))
+			  unset($weaponSets);		  
+                      
           $ip = '';
           $skill = '';
           $kills = 0;
@@ -126,6 +155,7 @@ if (!empty($stats_array)) {
               unset($stats_array[$player_server_uid]['weapons;' . $weap]);
               ////////////////////############################################/////////////////////////
               ////////////////////###   STOCK COD1 - COD5 WEAPONS UPDATE   ###/////////////////////////
+			  if(empty($table_update))
               $table_update = stock_weapons($w);
               ////////////////////###   STOCK COD1 - COD5 WEAPONS UPDATE   ###/////////////////////////
               ////////////////////############################################/////////////////////////
@@ -175,14 +205,17 @@ if (!empty($stats_array)) {
                 $table_insert = stock_weapons($wp);
                 for ($i = 1;$i <= 20;$i++) {
                   if (!empty($table_insert[$i])) {
-                    $valueSets = array();
+                    $valueSetsz = array();
                     foreach ($table_insert[$i] as $wweapons => $value) {
-                      $valueSets[] = "'0'"; //'' . $value . '';
+                      $valueSetsz[] = "'0'"; //'' . $value . '';
                       $weaponSets[] = $wweapons;
                       //txt_db($server_ip, $server_port, $guid, 'weapons;' . $wweapons, $value, 1);
                     }
-                    $join_values = join(",", $valueSets);
+					
+                    $join_values = join(",", $valueSetsz);
+				   if(!empty($weaponSets))
                     $join_weapon = join(",", $weaponSets);
+					
                     if (!empty($join_weapon)) {
                       $reg = $cpath . 'ReCodMod/databases/player_insert/' . $server_ip . '_' . $server_port . '/TABLE_db_weapons_' . $i . '_GID_' . $player_server_uid . '_GUID_' . $guid . '.log';
                       if (!file_exists($reg)) {
@@ -203,7 +236,7 @@ if (!empty($stats_array)) {
                         echo "\n";
                       }
                     }
-                    unset($valueSets);
+                    unset($valueSetsz);
                     unset($weaponSets);
                   }
                 }
@@ -340,6 +373,7 @@ right_hand,left_leg_lower)%('$player_server_uid','0','0','0','0','0','0','0','0'
                           foreach ($c as $roundsx => $gametypex) {
                             $xzet = trim($svipport . $guid . $mapname . $gametypex);
                             $gt_map_shid = abs(hexdec(crc32($xzet)));
+							usleep(10000);
                             $sql = "INSERT INTO `playermaps` (`gt_map_shid`,`mapname`,`gametype`,`port`,`guid`,`kills`,`deaths`,`teamkills`,`teamdeaths`,`suicides`,`rounds`)
 VALUES ('" . $gt_map_shid . "', '" . $mapname . "', '" . $gametypex . "', '" . $svipport . "', '" . $guid . "', '" . $kills . "', '" . $deaths . "', '0','0', '" . $suicides . "','" . $roundsx . "') 
 ON DUPLICATE KEY
@@ -440,12 +474,13 @@ ON DUPLICATE KEY
                 /////////////////////////////////////// update user db
                 /////////////////////////////////////// update hit zones db
                 if (!empty($table_hits)) {
-                  $valueSets = array();
+                  $valueSetsw = array();
                   foreach ($table_hits as $key => $value) {
-                    $valueSets[] = $key . " =  " . $key . " + " . $value . "";
+                    $valueSetsw[] = $key . " =  " . $key . " + " . $value . "";
                     //txt_db($server_ip, $server_port, $guid, 'hitzones;' . $key, $value, 1);
                   }
-                  $joi = join(",", $valueSets);
+				  if(!empty($valueSetsw))
+                  $joi = join(",", $valueSetsw);
                   if (!empty($joi)) {
                     usleep(7000);
                     $query = $db3->prepare("UPDATE db_stats_hits SET " . $joi . "  WHERE s_pg=:s_pg");
@@ -464,6 +499,7 @@ ON DUPLICATE KEY
                       $valueSets[] = $key . " =  " . $key . " + " . $value . "";
                       //txt_db($server_ip, $server_port, $guid, 'weapons;' . $key, $value, 1);
                     }
+					if(!empty($valueSets))
                     $join = join(",", $valueSets);
                     if (!empty($join)) {
                       usleep(7000);
@@ -588,8 +624,6 @@ ON DUPLICATE KEY
                   //print $dbmaps->lastInsertId();
                   echo "\n  \033[38;5;178m MAP UPDATE \033[38;5;46m  # PORT $svipport # map - ", $name, " gametype - ", $gametype, " kills - ", $kills, " deaths - ", $deaths;
                   if ($ok) unset($maps_array['' . $name . ''][$kills][$deaths][$rounds]);
-                  $dbmaps = null;
-                  $ok = null;
                 }
               }
             }
@@ -607,6 +641,8 @@ ON DUPLICATE KEY
     $db3 = null;
     $dbw3 = null;
     $dbm3day = null;
+	$dbmaps = null;
+   $ok = null;
     $msqlconnect = null;
     require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
   }

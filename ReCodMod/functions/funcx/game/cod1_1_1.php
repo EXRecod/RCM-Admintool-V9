@@ -49,7 +49,7 @@ else if ((strpos($parseline, ' say;') !== false) || (strpos($parseline, ' saytea
         list($i_id, $i_ping, $i_ip, $i_name, $i_guid, $xxccode) = explode(';', (rconExplodeNickname($player_name)));
         $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))));
         if (empty($stats_array[$conisq]['ip_adress'])) {
-            $stats_array[$conisq]['ip_adress'] = $i_ip;
+            $stats_array[$conisq]['ip_adress'] = ''.$i_ip.'';
             if (empty($stats_array[$conisq]['city'])) $stats_array[$conisq]['city'] = $xxccode;
             if (empty($stats_array[$conisq]['ping'])) $stats_array[$conisq]['ping'] = $i_ping;
         }

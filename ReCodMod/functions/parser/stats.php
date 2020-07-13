@@ -83,18 +83,18 @@ if ($x_stop_lp == 0) {
 				
 if (empty($stats_array[$shid]['ip_adress'])) {
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($player_killer_guid)));
-	    $stats_array[$shid]['ip_adress'] = $i_ip;
+	    $stats_array[$shid]['ip_adress'] = ''.$i_ip.'';
    	 if (empty($stats_array[$shid]['city'])) 
-	    $stats_array[$shid]['city'] = $xxccode;  
+	    $stats_array[$shid]['city'] = ''.$xxccode.'';  
    	 if (empty($stats_array[$shid]['ping'])) 
 	    $stats_array[$shid]['ping'] = $i_ping; 
 }		     	  
 					
 if (empty($stats_array[$shiddeath]['ip_adress'])) {
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($death_player_guid)));
-	    $stats_array[$shiddeath]['ip_adress'] = $i_ip;
+	    $stats_array[$shiddeath]['ip_adress'] = ''.$i_ip.'';
    	 if (empty($stats_array[$shiddeath]['city'])) 
-	    $stats_array[$shiddeath]['city'] = $xxccode;  
+	    $stats_array[$shiddeath]['city'] = ''.$xxccode.'';  
    	 if (empty($stats_array[$shiddeath]['ping'])) 
 	    $stats_array[$shiddeath]['ping'] = $i_ping; 
 }		
@@ -244,7 +244,10 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                         if (empty($stats_array[$shiddeath]['scores;death_series_minute_head'])) $stats_array[$shiddeath]['scores;death_series_minute_head'] = 0;
                         if ((($stats_array[$shiddeath]['scores;kill_series_minute_db']) <= ($stats_array[$shiddeath]['scores;kill_series_minute'])) && (($stats_array[$shiddeath]['scores;death_series_minute']) >= 0)) {
                             if (($kill_T_summ >= 60) && ($kill_T_summ < 65)) {
+								
+								if(!empty($stats_array[$shiddeath]['scores;kill_series_minute']))
                                 $stats_array[$shiddeath]['scores;kill_series_minute_db'] = $stats_array[$shiddeath]['scores;kill_series_minute'];
+							    if(!empty($stats_array[$shiddeath]['scores;kill_series_minute_head_db']))
                                 $stats_array[$shiddeath]['scores;kill_series_minute_head_db'] = $stats_array[$shiddeath]['scores;kill_series_minute_head'];
                                 $stats_array[$shiddeath]['scores;kill_series_minute'] = 0;
                                 $stats_array[$shiddeath]['scores;death_series_minute'] = 0;
@@ -329,13 +332,13 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                 //if(empty(stats_cron_database))
 				if($spps != 1)
 				{
-                $stats_cron_database = rand(1, 4); //5
+                $stats_cron_database = 5; //5
                 if (!empty($stats_cron_database)) {
                     if (!empty($statscronx)) {
-                        //$rand = rand(5, 15);
+                        $rand = rand(1, 35);
                         $ci = filemtime($statscronx);
-                        //if (time() - $ci >= (int)stats_cron_database+(int)$rand)
-                        if (time() - $ci >= (int)$stats_cron_database) {
+                        if (time() - $ci >= (int)stats_cron_database+(int)$rand){
+                        //if (time() - $ci >= (int)$stats_cron_database){ 
                             echo "\n ~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~";
                             if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
                             $string = str_replace(".", "_", $server_ip);

@@ -80,7 +80,7 @@ list($cod4xip) = explode(':', $cod4xip);
  
   
 if (empty($stats_array[$conisq]['ip_adress'])) 
- $stats_array[$conisq]['ip_adress'] = $cod4xip;
+ $stats_array[$conisq]['ip_adress'] = ''.$cod4xip.'';
  
   
 
@@ -120,14 +120,14 @@ try{
 			
 			$nickname = clearSymbols($nickname);
  			
-			if(empty($i_ip))
+			if(empty($stats_array[$conisq]['ip_adress']))
 				$xipadr = '0';
 			else
 $xipadr = '1';
  
 echo '-125';
 
-$stats_array[$conisq]['ip_adress'] = $cod4xipu;
+$stats_array[$conisq]['ip_adress'] = ''.$cod4xipu.'';
   
 	  
 $sql = "INSERT INTO chat (servername, s_port, guid, nickname, time, timeh, text, st1, st1days, st2, st2days, ip, geo, z, t, x, c) 

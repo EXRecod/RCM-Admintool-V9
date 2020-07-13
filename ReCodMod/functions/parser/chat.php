@@ -33,8 +33,24 @@ if ($x_stop_lp == 0) {
     $msgr = @iconv("windows-1251", "utf-8", $iiiii);
     require $cpath . 'ReCodMod/functions/funcx/commands_array.php';
 
+if (!empty($stats_array[$conisq]['ip_adress']))
+{	
+      $geodata = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat";
+      $gi = geoip_open($geodata, GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $stats_array[$conisq]['ip_adress']);
+      if (!empty($record)) $xxccode = $record->country_name;
+      else $xxccode = '?';
+	  $stats_array[$conisq]['country'] = $xxccode;
+	        debuglog((__FILE__)."country: $xxccode guid: $guidn nickname: $nickr"); 		  
+	  if (!empty($record)) $xxccode = $record->city;
+      else $xxccode = '?';
+	  $stats_array[$conisq]['city'] = $xxccode;
+	        debuglog((__FILE__)."city: $xxccode guid: $guidn nickname: $nickr");  		
+}
+
+
    // if (strpos($game_patch, 'cod1_1.1') === false) {
-      if (empty($stats_array[$conisq]['ip_adress'])) {
+      if ((empty($stats_array[$conisq]['ip_adress']))) {
 if (strpos($game_patch, 'cod1') !== false) usleep(45000);
   include $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) 
@@ -49,14 +65,20 @@ if((!empty($i_guid))&&(strpos($i_guid, "bot") === false))
 	
 if((trim($i_guid))==(trim($guidn)))
 {	 
-      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+
+    $geodata = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat";
+
+     //if((substr(sprintf('%o', fileperms($geodata)), -4)) != '0755')
+     //          chmod($geodata, 0755);
+
+      $gi = geoip_open($geodata, GEOIP_STANDARD);
       $record = geoip_record_by_addr($gi, $i_ip);
-      if (!empty($record)) $xxccode = ($record->country_code);
+      if (!empty($record)) $xxccode = $record->country_name;
       else $xxccode = '?';
 	  
       if (empty($stats_array[$conisq]['ip_adress']))
-                $stats_array[$conisq]['ip_adress'] = $i_ip;	
-      if (empty($stats_array[$conisq]['citycode'])) $stats_array[$conisq]['citycode'] = $xxccode;
+                $stats_array[$conisq]['ip_adress'] = ''.$i_ip.'';	
+      if (empty($stats_array[$conisq]['country'])) $stats_array[$conisq]['country'] = $xxccode;
       if (empty($stats_array[$conisq]['ping'])) $stats_array[$conisq]['ping'] = $i_ping;	
 }
 
@@ -157,7 +179,7 @@ if((trim($i_guid))==(trim($guidn)))
               if (strpos($g, 'guid') !== false) $guid = $o;
               else if (strpos($g, 'nickname') !== false) $nickname = $o;
               else if (strpos($g, 'ip_adress') !== false) $ip = $o;
-              else if (strpos($g, 'citycode') !== false) $city = $o;
+              else if (strpos($g, 'country') !== false) $city = $o;
               ++$counter;
               if ($counter == $czr) {
                 if ($stoparr == 0) {
@@ -211,11 +233,11 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
 		  
       if (empty($stats_array[$conisq]['ip_adress'])) 
 		  $i_adrr = ''; else $i_adrr = $stats_array[$conisq]['ip_adress'];
-      if (empty($stats_array[$conisq]['citycode'])) 
-          $citycode = ''; else $citycode = $stats_array[$conisq]['citycode'];		  
+      if (empty($stats_array[$conisq]['country'])) 
+          $country = ''; else $country = $stats_array[$conisq]['country'];		  
 		  
           $sql = "INSERT INTO `chat` (`servername`, `s_port`, `guid`, `nickname`, `time`, `timeh`, `text`, `st1`, `st1days`, `st2`, `st2days`, `ip`, `geo`, `z`, `t`, `x`, `c`) 
-VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgOclear . "', '0', '0', '0', '0', '" .$i_adrr. "', '" . $citycode . "', '0', 'xl', '0', '0')";
+VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgOclear . "', '0', '0', '0', '0', '" .$i_adrr. "', '" . $country . "', '0', 'xl', '0', '0')";
           $dbx->query($sql);
           $dbx = null;
           $msqlcc = null;
