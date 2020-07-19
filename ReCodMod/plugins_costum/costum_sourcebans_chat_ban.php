@@ -1,5 +1,8 @@
 <?php
-if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !== false) || (strpos($parseline, "tell;") !== false)) {
+if ((strpos($parseline, "say;") !== false) 
+ || (strpos($parseline, "sayteam;") !== false) 
+ || (strpos($parseline, "tell;") !== false)) {
+	  
  if (!empty($guidn)) {
   $steamerid = '';
   $x_mat_detected = true;
@@ -15,9 +18,8 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
     foreach ($r as $string => $value) {
      if (!defined($string)) define($string, $value);
     }
-   } 
-  if (defined(sourcebans_cb__enable)) {
-   if (sourcebans_cb__enable == 1) {
+   }  
+   if (!empty(sourcebans_cb__enable)) {
     if (empty($stopscp)) {
      //echo "\n[sourcebans_chat_ban]_".$construct;
      $stopscp = 1; 
@@ -157,6 +159,10 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
         $steamid = $sb->query("SELECT authid,bid from sb_comms where authid = '" . $steamerid . "' ORDER BY `bid` DESC limit 1");
         $dv = $steamid->fetch(PDO::FETCH_LAZY);
        }
+	   else
+	   {
+		$sbbid = 0;   
+	   }
        if (empty($dv)) {
         if (!file_exists($sourcebans_chat_b_guid)) touch($sourcebans_chat_b_guid);
         if (file_exists($sourcebans_chat_b_guid)) {
@@ -283,8 +289,7 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
       touch($sourcebans_chat_b_guid);
      }
     }
-   }
-  }
+   } 
  }
 }
 /*  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""   */
@@ -310,7 +315,7 @@ if (strpos($parseline, " J;") !== false) {
     }
    }
   if (defined(sourcebans_cb__enable)) {
-   if (sourcebans_cb__enable == 1) {
+   if (!empty(sourcebans_cb__enable)) {
     if (empty($whilecounts)) {
      $whilecounts = 1;
      try {

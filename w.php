@@ -162,17 +162,17 @@ require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php';
                   $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
                   if (empty($stats_array[$conisq]['user_status'])) $stats_array[$conisq]['user_status'] = 'guest';
                 }
-                if (((!empty($guidn)) && ($validCommand == 1)) || (!empty($guid)) || (!empty($specials))) {
+                //if (((!empty($guidn)) && ($validCommand == 1)) || (!empty($guid)) || (!empty($specials))) {
                   /* COSTUM PLUGINS */
                   //if (!file_exists($cpath . 'ReCodMod/plugins_costum/')) mkdir($cpath . 'ReCodMod/plugins_costum/', 0777, true);
                   $allplugs = getDirContents($cpath . 'ReCodMod/plugins_costum/');
                   foreach ($allplugs AS $va) {
-                    if (strpos($va, '.php') !== false) {
+                    if (strpos($va, '.php') !== false) { 
                       require $va;
                     }
                   }
                   require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
-                }
+                //}
                 //%%%%%%%%%%%%%%%%%%%%%%%%  END PLUGINS LOAD  %%%%%%%%%%%%%%%%%%%%%%%%
               } 
           } 
