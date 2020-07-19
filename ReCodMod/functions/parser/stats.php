@@ -337,7 +337,7 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                     if (!empty($statscronx)) {
                         $rand = rand(1, 35);
                         $ci = filemtime($statscronx);
-                        if (time() - $ci >= (int)stats_cron_database+(int)$rand){
+                        if (time() - $ci >= (int)$stats_cron_database+(int)$rand){
                         //if (time() - $ci >= (int)$stats_cron_database){ 
                             echo "\n ~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~";
                             if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
