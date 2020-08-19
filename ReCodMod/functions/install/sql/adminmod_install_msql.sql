@@ -34,14 +34,15 @@ SET time_zone = "+00:00";
 -- DROP TABLE IF EXISTS `maps`;
 CREATE TABLE IF NOT EXISTS `maps` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
+  `s_port` mediumint(8) unsigned NOT NULL default '0',
   `name` varchar(25) NOT NULL default '',
+  `gametype` varchar(25) NOT NULL default '',
   `kills` mediumint(8) unsigned NOT NULL default '0',
   `deaths` mediumint(8) unsigned NOT NULL default '0',
   `rounds` mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
  
 -- --------------------------------------------------------
 
@@ -49,23 +50,24 @@ CREATE TABLE IF NOT EXISTS `maps` (
 -- 
 -- Table structure for table `playermaps`
 -- 
-
- 
+   
 CREATE TABLE IF NOT EXISTS `playermaps` (
-  `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `map_id` tinyint(3) unsigned NOT NULL default '0',
-  `s_pg` bigint(28) unsigned NOT NULL default '0',
-  `kills` mediumint(8) unsigned NOT NULL default '0',
-  `deaths` mediumint(8) unsigned NOT NULL default '0',
-  `teamkills` mediumint(8) unsigned NOT NULL default '0',
-  `teamdeaths` smallint(5) unsigned NOT NULL default '0',
-  `suicides` smallint(5) unsigned NOT NULL default '0',
-  `rounds` smallint(5) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `map_id` (`map_id`),
-  KEY `s_pg` (`s_pg`)
-)  ENGINE=MyISAM DEFAULT CHARSET=utf8;	
-
+  `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `gt_map_shid` bigint(28) NOT NULL,
+  `mapname` varchar(50) NOT NULL DEFAULT '',
+  `gametype` varchar(50) NOT NULL DEFAULT '',
+  `port` bigint(28) UNSIGNED NOT NULL DEFAULT 0,
+  `guid` varchar(40) NOT NULL,
+  `kills` mediumint(8) UNSIGNED NOT NULL DEFAULT 0,
+  `deaths` mediumint(8) UNSIGNED NOT NULL DEFAULT 0,
+  `teamkills` mediumint(8) UNSIGNED NOT NULL DEFAULT 0,
+  `teamdeaths` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
+  `suicides` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
+  `rounds` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `gt_map_shid` (`gt_map_shid`),
+  KEY `mapname` (`mapname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;	
 
  
 -- --------------------------------------------------------

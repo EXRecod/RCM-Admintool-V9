@@ -113,6 +113,14 @@ if (!empty($stats_array)) {
 		  $flags = 0;
 		  $saveflags = 0;
 		  $camps = 0;
+          $bomb_plant  = 0; 
+		  $bomb_defused  = 0; 
+		  $juggernaut_kill  = 0; 
+		  $destroyed_helicopter = 0; 
+		  $rcxd_destroyed = 0; 
+		  $turret_destroyed = 0; 
+		  $sam_kill = 0;
+		  //special end		  
           foreach ($v as $g => $o) {
             if (strpos($g, 'guid') !== false) $guid = $o;
             else if (strpos($g, 'nickname') !== false) $nickname = $o;
@@ -123,7 +131,14 @@ if (!empty($stats_array)) {
 			//special start
 			else if (strpos($g, 'scores;camps') !== false) $camps = $o;
 			else if (strpos($g, 'scores;flags') !== false) $flags = $o;
-			else if (strpos($g, 'scores;saveflags') !== false) $flags = $o;
+			else if (strpos($g, 'scores;saveflags') !== false) $saveflags = $o;
+			else if (strpos($g, 'scores;bomb_plant') !== false) $bomb_plant = $o;
+			else if (strpos($g, 'scores;bomb_defused') !== false) $bomb_defused = $o;
+			else if (strpos($g, 'scores;juggernaut_kill') !== false) $juggernaut_kill = $o;
+			else if (strpos($g, 'scores;destroyed_helicopter') !== false) $destroyed_helicopter = $o;
+			else if (strpos($g, 'scores;rcxd_destroyed') !== false) $rcxd_destroyed = $o;
+			else if (strpos($g, 'scores;turret_destroyed') !== false) $turret_destroyed = $o;			
+			else if (strpos($g, 'scores;sam_kill') !== false) $sam_kill = $o;			
 			//special end			
             else if ($g == 'scores;kill_series') $kill_series = $o;
             else if (strpos($g, 'scores;kill_series_db') !== false) $kill_series_db = $o;
@@ -374,13 +389,20 @@ right_hand,left_leg_lower)%('$player_server_uid','0','0','0','0','0','0','0','0'
                             $xzet = trim($svipport . $guid . $mapname . $gametypex);
                             $gt_map_shid = abs(hexdec(crc32($xzet)));
 							usleep(10000);
-                            $sql = "INSERT INTO `playermaps` (`gt_map_shid`,`mapname`,`gametype`,`port`,`guid`,`kills`,`deaths`,`teamkills`,`teamdeaths`,`suicides`,`rounds`)
+                            $sql = "INSERT INTO `playermaps` (`gt_map_shid`,`mapname`,`gametype`,`port`,`guid`,`kills`
+							,`deaths`,`teamkills`,`teamdeaths`,`suicides`,`rounds`)
 VALUES ('" . $gt_map_shid . "', '" . $mapname . "', '" . $gametypex . "', '" . $svipport . "', '" . $guid . "', '" . $kills . "', '" . $deaths . "', '0','0', '" . $suicides . "','" . $roundsx . "') 
 ON DUPLICATE KEY
     UPDATE gt_map_shid='" . $gt_map_shid . "', mapname='" . $mapname . "', gametype='" . $gametypex . "', port='" . $svipport . "', guid='" . $guid . "', kills=kills+" . $kills . ", deaths=deaths+" . $deaths . ", rounds=rounds+'" . $roundsx . "'";
                             $ok = $dbmaps->query($sql);
                             echo "\n  \033[38;5;178m USER MAP UPDATE $gt_map_shid  \033[38;5;48m  # PORT $svipport # map - ", $mapname, " gametype - ", $gametypex, " kills - ", $kills, " deaths - ", $deaths;
                             $ok = null;
+							
+							if(!$ok) 
+							{
+                             errorspdo('[' . $datetime . '] 402  ' . __FILE__ . '  Exception : ' . $sql);							
+							}
+							
                           }
                         }
                       }
@@ -437,6 +459,39 @@ ON DUPLICATE KEY
                   }
                 }
                 /////////////////////////////////////// update scores db
+ 
+ 
+//Оптимизация РЦМ 5.9 версия
+//Если сумма ноль, не дергаем бд				
+if(((int)$camps + (int)$flags + (int)$saveflags + (int)$bomb_plant + (int)$bomb_defused + (int)$juggernaut_kill + (int)$destroyed_helicopter
++ (int)$rcxd_destroyed + (int)$turret_destroyed + (int)$sam_kill) > 0)
+{ 				
+
+$querySQL = "update db_stats_3 set 
+								camp=camp +" . $camps . ",
+								flags=flags +" . $flags . ",
+								saveflags=saveflags +" . $saveflags . ",
+                                bomb_plant=bomb_plant +" . $bomb_plant . ",
+								bomb_defused=bomb_defused +" . $bomb_defused . ",
+								juggernaut_kill=juggernaut_kill +" . $juggernaut_kill . ",
+								destroyed_helicopter=destroyed_helicopter +" . $destroyed_helicopter . ",
+								rcxd_destroyed=rcxd_destroyed +" . $rcxd_destroyed . ",
+								turret_destroyed=turret_destroyed +" . $turret_destroyed . ",
+								sam_kill=sam_kill +" . $sam_kill . "  where s_pg= :s_pg";
+								
+$query = $db3->prepare($querySQL);
+$query->bindParam(':s_pg', $player_server_uid);
+$query->execute();								
+$query = null;		
+
+							if(!$query) 
+							{
+                             errorspdo('[' . $datetime . '] 402  ' . __FILE__ . '  Exception : ' . $querySQL);							
+							}						
+ 							
+echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;																
+}												
+			 
                 /////////////////////////////////////// update skill
                 if (!empty($skill)) {
                   echo "\n skill: ", $player_server_uid, " - ", $skill, " ~~~~~ ";
@@ -552,9 +607,18 @@ ON DUPLICATE KEY
                 unset($stats_array[$player_server_uid]['scores;kills']);
                 unset($stats_array[$player_server_uid]['scores;deaths']);
                 unset($stats_array[$player_server_uid]['scores;suicides']);
-				unset($stats_array[$player_server_uid]['scores;camp']);
-				unset($stats_array[$player_server_uid]['scores;flags']);
-				unset($stats_array[$player_server_uid]['scores;saveflags']);
+            //specials start
+			unset($stats_array[$player_server_uid]['scores;camps']);
+			unset($stats_array[$player_server_uid]['scores;flags']);
+			unset($stats_array[$player_server_uid]['scores;saveflags']);
+			unset($stats_array[$player_server_uid]['scores;bomb_plant']);
+			unset($stats_array[$player_server_uid]['scores;bomb_defused']);
+			unset($stats_array[$player_server_uid]['scores;juggernaut_kill']);
+			unset($stats_array[$player_server_uid]['scores;destroyed_helicopter']);
+			unset($stats_array[$player_server_uid]['scores;rcxd_destroyed']);
+			unset($stats_array[$player_server_uid]['scores;turret_destroyed']);			
+			unset($stats_array[$player_server_uid]['scores;sam_kill']);					
+			//specials end	
                 //unset($stats_array[$player_server_uid]['scores;kill_series_db']);
                 //unset($stats_array[$player_server_uid]['scores;kill_series_minute_db']);
                 //unset($stats_array[$player_server_uid]['scores;kill_series_head_db']);
@@ -624,6 +688,10 @@ ON DUPLICATE KEY
                   //print $dbmaps->lastInsertId();
                   echo "\n  \033[38;5;178m MAP UPDATE \033[38;5;46m  # PORT $svipport # map - ", $name, " gametype - ", $gametype, " kills - ", $kills, " deaths - ", $deaths;
                   if ($ok) unset($maps_array['' . $name . ''][$kills][$deaths][$rounds]);
+							if(!$ok) 
+							{
+                             errorspdo('[' . $datetime . '] 692  ' . __FILE__ . '  Exception : ' . $sql);							
+							}				  
                 }
               }
             }

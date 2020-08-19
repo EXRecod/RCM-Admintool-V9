@@ -27,7 +27,7 @@ if ((strpos($parseline, "say;") !== false)
      ////////////////////////////////////////////////////////////////////////////////////////////////////
      $pl_msg = '';
      $yesorno = '';
-     $pl_msg = iconv("windows-1251", "utf-8", $msgr);
+     $pl_msg = @iconv("windows-1251", "utf-8", $msgr);
      $player_msg = mb_strtolower($pl_msg);
      $yesorno = antimat($pl_msg);
      ///////////////////////////////////////////////////
