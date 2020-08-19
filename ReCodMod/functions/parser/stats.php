@@ -333,7 +333,6 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 				if($spps != 1)
 				{
                 $stats_cron_database = 5; //5
-                if (!empty($stats_cron_database)) {
                     if (!empty($statscronx)) {
                         $rand = rand(1, 35);
                         $ci = filemtime($statscronx);
@@ -350,11 +349,9 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                             file_put_contents($statscronx, "");
 							$activate_opt = 1;
                             require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
-                            
                         }
                     }
                 }
-            }
 			}
             echo "\033[38;5;202m ===> nd:", substr($tfinishh = (microtime(true) - $start), 0, 5);
             echo "\033[38;5;46m";

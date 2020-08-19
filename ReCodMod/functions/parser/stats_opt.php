@@ -13,7 +13,8 @@ if (!empty($stats_array)) {
   if (empty($activate_opt)) {
     $geoonqx = 100;
     $limitindb = 100;
-    $timeap = 1;
+    $timeap = 1; 
+	$rand = 30;
   }
   else {
     $geoonqx = 1;
@@ -466,7 +467,7 @@ ON DUPLICATE KEY
 if(((int)$camps + (int)$flags + (int)$saveflags + (int)$bomb_plant + (int)$bomb_defused + (int)$juggernaut_kill + (int)$destroyed_helicopter
 + (int)$rcxd_destroyed + (int)$turret_destroyed + (int)$sam_kill) > 0)
 { 				
-
+usleep(5000+($rand*200));
 $querySQL = "update db_stats_3 set 
 								camp=camp +" . $camps . ",
 								flags=flags +" . $flags . ",
@@ -495,7 +496,7 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
                 /////////////////////////////////////// update skill
                 if (!empty($skill)) {
                   echo "\n skill: ", $player_server_uid, " - ", $skill, " ~~~~~ ";
-                  usleep(10000);
+                  usleep(5000+($rand*200));
                   if ($skill < 0) $skill = 100;
                   $gt = $db3->query("UPDATE db_stats_2 SET w_skill=" . $skill . " where s_pg='" . $player_server_uid . "'");
                   $gt = null;
@@ -520,6 +521,7 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
                 /////////////////////////////////////// update skill
                 /////////////////////////////////////// update user db
                 if (!empty($nickname)) {
+					usleep(5000+($rand*200));
                   $w_n = clearSymbols($nickname);
                   $w_n = htmlentities($w_n);
                   if (strlen($w_n) > 25) $w_n = mb_strimwidth($w_n, 0, 25, "");
@@ -537,7 +539,7 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
 				  if(!empty($valueSetsw))
                   $joi = join(",", $valueSetsw);
                   if (!empty($joi)) {
-                    usleep(7000);
+                    usleep(5000+($rand*200));
                     $query = $db3->prepare("UPDATE db_stats_hits SET " . $joi . "  WHERE s_pg=:s_pg");
                     $query->bindParam(':s_pg', $player_server_uid);
                     $query->execute();
@@ -557,7 +559,7 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
 					if(!empty($valueSets))
                     $join = join(",", $valueSets);
                     if (!empty($join)) {
-                      usleep(7000);
+                      usleep(5000+($rand*200));
                       $query = $db3->prepare("UPDATE db_weapons_$i SET " . $join . "  WHERE s_pg=:s_pg");
                       $query->bindParam(':s_pg', $player_server_uid);
                       $query->execute();
