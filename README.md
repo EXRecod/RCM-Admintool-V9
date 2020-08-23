@@ -1,5 +1,5 @@
 ## RCM-Admintool-V9
-# RECODMOD-V9.0.4.9
+# RECODMOD-V9/0.4.9
 
 - Stable RECODMOD admintool version 9  ->  JUNE 20, 2020
 - Stable RECODMOD stats web version 9  ->  DEMO https://xxxreal.ru/codbox/
