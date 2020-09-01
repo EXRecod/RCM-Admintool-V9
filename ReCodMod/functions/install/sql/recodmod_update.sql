@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `playermaps` (
   `suicides` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   `rounds` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `gt_map_shid` (`gt_map_shid`),
+  UNIQUE KEY `gt_map_shid` (`gt_map_shid`),
   KEY `mapname` (`mapname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;

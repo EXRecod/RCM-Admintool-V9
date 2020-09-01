@@ -142,6 +142,15 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
           $multi   = $value[1];
           break;
          }
+		 //2020
+		          $player_msg = mb_strtolower($player_msg);
+         if (preg_match("/" . $value[0] . "/i", $player_msg, $subpatterns))
+         {
+          $bad     = true;
+          $badword = $subpatterns[0];
+          $multi   = $value[1];
+          break;
+         }
         }
        }
       

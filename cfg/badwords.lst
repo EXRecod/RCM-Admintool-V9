@@ -1,11 +1,30 @@
 regexp:[nb][o0]{2,}[bn]
 regexp:f+\s*[ui]+\s*c+\s*k+
 regexp:m\s?(ц|oe|o3)\s?s\s?[e3]
-your mom
-your mum
-your mam
-your sist
-your fath
+regexp:(мат+(ь|и|ере|ушке|ушка|ушку)+\s*(тво)+(я|ю|й|е))
+regexp:(мам+(ке|ку|у|е|ка|а|мочке)+\s*(тво)+(я|ю|й|е|ей|еи))
+regexp:(мам+(ке|ку|у|е|ка|а|мочке)+\s*(мой|ипал|шл|епал|шал|в|у|за|из|сосет|сосала|отсос|лизала|дает|дерет|возьм|возм|очко|жопа|жопу|жопе|в жопу|в жопе))
+regexp:(пап+(пка|пку|пке|очку|ке|ку|ка|а)+\s*(ипал|епал|в|у|за|из|сосет|сосала|отсос|лизала|дает|дерет|возьм|возм|очко|жопа|жопу|жопе|в жопу|в жопе))
+regexp:(пап+(пка|пку|пке|очку|ке|ку|ка|а)+\s*(тво)+(ему|й|и|им)+\s*(берет|возм|за|у|в|шл|сос))
+regexp:сос+[ни|ать|и]+\s*[мо]+[ему|й|и|им|е]
+regexp:отсос+[ни|ать|и]+\s*(мо)+(ему|й|и|им|е)
+regexp:отсос+[ни|ать|и]+\s*(у)
+regexp:отсас+[ни|ать|и]+\s*(мо)+(ему|й|и|им|е)
+regexp:отсас+[ни|ать|и]+\s*[у]
+regexp:(mat+(i|ere|ushke|ushka|ushku)+\s*(tvo)+(ya|yu|y|e))
+regexp:(mam+(ke|ku|u|e|ka|a|mochke)+\s*(tvo)+(ya|yu|y|e|ey|ei))
+regexp:(mam+(ke|ku|u|e|ka|a|mochke)+\s*(moy|ipal|epal|v|u|za|iz|soset|sosala|otsos|lizala|dayet|deret|vozm|vozm|ochko|zhopa|zhopu|zhope|v zhopu|v zhope))
+regexp:(pap+(pka|pku|pke|ochku|ke|ku|ka|a)+\s*(moy|ipal|epal|v|u|za|iz|soset|sosala|otsos|lizala|dayet|deret|vozm|vozm|ochko|zhopa|zhopu|zhope|v zhopu|v zhope))
+regexp:(pap+(pka|pku|pke|ochku|ke|ku|ka|a)+\s*(tvo)+(emu|y|i|im)+\s*(beret|vozm|za|u))
+regexp:sos+[ni|at|i]+\s*[mo]+[emu|y|i|im|e]
+regexp:otsos+[ni|at|i]+\s*(mo)+(emu|y|i|im|e)
+regexp:otsos+[ni|at|i]+\s*(u)
+regexp:otsas+[ni|at|i]+\s*(mo)+(emu|y|i|im|e)
+regexp:otsas+[ni|at|i]+\s*[u]
+regexp:в+\s*[рот]+(ик|ики)+\s*(мо)+(ему|й|и|им|е)
+regexp:о+[к|з|т|ш|ч|а|о]+\s*(уенно)
+regexp:([.]+com|[.]+ru|[.]+org|[.]+eu|[.]+ws|[.]+nl|[.]+de|[.]+net|[.]+lv|[.]+lt|http:|https:|[.]+tv|[.]+ua|[.]+by|[.]+fr|[.]+uz|www+[.])
+regexp:(your+\s*(mum|mom|mam|sist|fath|brother))
 bay your ass
 arschloch
 bastard
@@ -21,7 +40,6 @@ fotze
 fresse
 frustrated
 fuc
-gandon
 gblfh
 hoden
 hure
@@ -50,45 +68,5 @@ spirdallaj
 spiredalai
 sucker
 wichse
-xui
-pizdec
 Апездал
 Апездошенная
-нихуя
-Б Л Я
-с у к ас_у_к_ас_ук_а
-су_ка
-е б а т
-сукаУблюдкиУблюдки
-ублюдкиублюдки
-б л я д ь
-б_л_я_д_ь
-б_ляд_ь
-б_ля_д_ь
-б_ля_дь
-бля_дь
-бл_я_дь
-б л я
-м л я
-п и д е р а с т
-п и д о р
-п и д а р
-соси мой
-сосси мои
-соси мое
-sosi мои
-sosi moi
-с0си мои
-.com
-.lv
-.lt
-.kz
-.de
-.info
-.net
-.org
-.ru
-.ws
-.nl
-www.*
-http*
