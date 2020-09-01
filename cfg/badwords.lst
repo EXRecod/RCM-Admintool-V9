@@ -6,26 +6,40 @@ regexp:(мам+(ке|ку|у|е|ка|а|мочке)+\s*(тво)+(я|ю|й|е|е�
 regexp:(мам+(ке|ку|у|е|ка|а|мочке)+\s*(мой|ипал|шл|епал|шал|в|у|за|из|сосет|сосала|отсос|лизала|дает|дерет|возьм|возм|очко|жопа|жопу|жопе|в жопу|в жопе))
 regexp:(пап+(пка|пку|пке|очку|ке|ку|ка|а)+\s*(ипал|епал|в|у|за|из|сосет|сосала|отсос|лизала|дает|дерет|возьм|возм|очко|жопа|жопу|жопе|в жопу|в жопе))
 regexp:(пап+(пка|пку|пке|очку|ке|ку|ка|а)+\s*(тво)+(ему|й|и|им)+\s*(берет|возм|за|у|в|шл|сос))
-regexp:сос+[ни|ать|и]+\s*[мо]+[ему|й|и|им|е]
-regexp:отсос+[ни|ать|и]+\s*(мо)+(ему|й|и|им|е)
-regexp:отсос+[ни|ать|и]+\s*(у)
-regexp:отсас+[ни|ать|и]+\s*(мо)+(ему|й|и|им|е)
-regexp:отсас+[ни|ать|и]+\s*[у]
+regexp:сос+(ни|ать|и)+\s*(мо)+(ему|й|и|им|е)
+regexp:отсос+(ни|ать|и)+\s*(мо)+(ему|й|и|им|е)
+regexp:отсос+(ни|ать|и)+\s*(у)
+regexp:отсас+(ни|ать|и)+\s*(мо)+(ему|й|и|им|е)
+regexp:отсас+(ни|ать|и)+\s*(у)
+regexp:адми+(ны|н)+\s*(дауны|lox|лохи|соса|соси|шал|отсос|очко|жопа|жопу|жопе|в жопу|в жопе)
+regexp:сер+(вер|в)+\s*(говно|дерьмо|херня|убог|лажа|тупой|с лагами|лаги|лагает)
+regexp:((говно|дерьмо|херня|убог|лажа|тупой|с лагами|лаги|лагает)+\s*(сер)+(вер|в))
+regexp:((а|о|и|у)+(пезд)+(и|о|у|д|а|я|ю))
+regexp:((ну|но)+(бя|ба)+(ря|с|сик|ра|рик|р))
+regexp:(в+\s*(рот)+(ик|ики)+\s*(мо)+(ему|й|и|им|е))
+regexp:(о+(к|з|т|ш|ч|а|о)+\s*(уенно))
 regexp:(mat+(i|ere|ushke|ushka|ushku)+\s*(tvo)+(ya|yu|y|e))
 regexp:(mam+(ke|ku|u|e|ka|a|mochke)+\s*(tvo)+(ya|yu|y|e|ey|ei))
 regexp:(mam+(ke|ku|u|e|ka|a|mochke)+\s*(moy|ipal|epal|v|u|za|iz|soset|sosala|otsos|lizala|dayet|deret|vozm|vozm|ochko|zhopa|zhopu|zhope|v zhopu|v zhope))
 regexp:(pap+(pka|pku|pke|ochku|ke|ku|ka|a)+\s*(moy|ipal|epal|v|u|za|iz|soset|sosala|otsos|lizala|dayet|deret|vozm|vozm|ochko|zhopa|zhopu|zhope|v zhopu|v zhope))
 regexp:(pap+(pka|pku|pke|ochku|ke|ku|ka|a)+\s*(tvo)+(emu|y|i|im)+\s*(beret|vozm|za|u))
-regexp:sos+[ni|at|i]+\s*[mo]+[emu|y|i|im|e]
-regexp:otsos+[ni|at|i]+\s*(mo)+(emu|y|i|im|e)
-regexp:otsos+[ni|at|i]+\s*(u)
-regexp:otsas+[ni|at|i]+\s*(mo)+(emu|y|i|im|e)
-regexp:otsas+[ni|at|i]+\s*[u]
-regexp:в+\s*[рот]+(ик|ики)+\s*(мо)+(ему|й|и|им|е)
-regexp:о+[к|з|т|ш|ч|а|о]+\s*(уенно)
-regexp:([.]+com|[.]+ru|[.]+org|[.]+eu|[.]+ws|[.]+nl|[.]+de|[.]+net|[.]+lv|[.]+lt|http:|https:|[.]+tv|[.]+ua|[.]+by|[.]+fr|[.]+uz|www+[.])
+regexp:sos+(ni|at|i)+\s*[mo]+[emu|y|i|im|e]
+regexp:otsos+(ni|at|i)+\s*(mo)+(emu|y|i|im|e)
+regexp:otsos+(ni|at|i)+\s*(u)
+regexp:otsas+(ni|at|i)+\s*(mo)+(emu|y|i|im|e)
+regexp:otsas+(ni|at|i)+\s*[u] 
+regexp:(www\.)?([a-z0-9]([a-z0-9]|(\-[a-z0-9]))*\.)+(com|it|net|uk|de|tv|ua|by|fr|nl|uz|lv|lt|ws|eu|org|ru|рф|org|info|kz)$
+regexp:(k+(y|u)+(r)+(va|wa))
 regexp:(your+\s*(mum|mom|mam|sist|fath|brother))
-bay your ass
+regexp:(p+(i|u|y)+(d)+(ar|oras|or|ori|ory|oru|r))
+regexp:(spir+(eda|da|uda|yda|ida)+(lla|la)+(j|i|y|u))
+regexp:(dzi+(wka|vka))
+regexp:(suck+(er|ker|ers))
+regexp:(di+(ck|kk|cck))
+regexp:(n+(4|a|u)+(p|b))$
+regexp:((sister|father|brother|mother|kinder)+(porn|porno))
+regexp:((buy|bay)+\s*(your|you)+\s*(ass|mouth))
+pimmel
 arschloch
 bastard
 beschissen
@@ -35,7 +49,6 @@ cock
 deppen
 dildo
 dupa
-dziwka
 fotze
 fresse
 frustrated
@@ -43,20 +56,9 @@ fuc
 gblfh
 hoden
 hure
-kinderporno
-kurwa
 mieszaniec
-n4p
-nap
-nup
 pedro
 penis
-pidor
-pidori
-pimmel
-pydar
-pydor
-pydr
 qweer
 retard
 sack
@@ -64,9 +66,4 @@ sackgesicht
 scheisse
 schwanz
 skurwysyn
-spirdallaj
-spiredalai
-sucker
 wichse
-Апездал
-Апездошенная
