@@ -6,6 +6,7 @@ $geoudirtwo = 'https://2me.best/_geoipbases/IP2PROXY-LITE-PX3.BIN';
 $geoudirthree = 'https://s508man.storage.yandex.net/rdisk/f05441fb2214f8c21b104b02f1e9cb928d006a915c590aaab5b21114041d04c0/5f6006ac/m02cuYpLulmb_0MPatSGofVQPuJoF0LlU44UeDZxQGk3qiBHuuSeOJLt1dYEuTka4UolVBoUHYPdPgLuNkPK6g==?uid=0&filename=IP2PROXY-LITE-PX3.BIN&disposition=attachment&hash=BqINhUJuTae3sI0ATjHIUtrk0lwdFPUo1BHeNbw1L9pnlBZOxV3QaPSDanNMePbaq/J6bpmRyOJonT3VoXnDag%3D%3D&limit=0&content_type=application%2Foctet-stream&owner_uid=220176693&fsize=421536166&hid=63d35159210a10b6f85be04df4268299&media_type=encoded&tknv=v2&rtoken=ri9jzuMzgWUS&force_default=no&ycrid=na-b89da62e5f6fcd6ceedd27f9bae74e1b-downloader14f&ts=5af4efdce0300&s=8ef38e0ceca87a4d05cad6240474eeb8792750d9e4e43d04c5ef5ccc20d17c3d&pb=U2FsdGVkX18GgfWnE9f-SOavOzHENu1UzAbcKZGujyi8PVSQqq3-G_MbygIpFFxQsKCb8wYtaTD2UNcpr5fEPALWMy_fHVlKAmcUZ4sUwKc';
 
 $dircache = $cpath . "ReCodMod/functions/geoip_bases/iptolocations/IP2PROXY-LITE-PX3.BIN";
+ 
 if (!file_exists($dircache)) {
   echo " \n \033[38;5;23m Try to download: P2LOCATION";
   if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
@@ -202,7 +203,7 @@ $db->close();
                   if ($k < 10) {
 					  if(!empty($is_Proxy))
 					  {
-                    xcon('clientkick ' . $idk . '', '');
+                    //xcon('clientkick ' . $idk . '', '');
                     unset($stats_array[$uidd]);
                     debuglog((__FILE__) . "\n PROXY DETECTED = Kicked = Guid: $guidB Nickname: $i_name NUM: $idk Ping: $i_ping Ip: $i_ip");
 					  }
@@ -213,7 +214,7 @@ $db->close();
               {
 				  if(!empty($is_Proxy))
 					  {
-                xcon('clientkick ' . $idk . '', '');
+                //xcon('clientkick ' . $idk . '', '');
                 unset($stats_array[$uidd]);
                 debuglog((__FILE__) . "\n PROXY DETECTED = Kicked = Guid: $guid Nickname: $i_name NUM: $idk Ping: $i_ping Ip: $i_ip");
 					  }
@@ -235,7 +236,7 @@ echo ' Proxy? => ',$is_Proxy 		= $db->isProxy($ipfrarray);
 $db->close();	  
 				  if(!empty($is_Proxy))
 					  {	  
-                    xcon('clientkick ' . $idnumB . '', '');
+                    //xcon('clientkick ' . $idnumB . '', '');
                     unset($stats_array[$uidd]);
                     debuglog((__FILE__) . "\n PROXY DETECTED = Guid: $guid Nickname: $nickname Ip: ".$ipfrarray."");
 					  }
