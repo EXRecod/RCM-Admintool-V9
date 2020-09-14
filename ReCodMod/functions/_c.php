@@ -9,6 +9,7 @@ $charset_db   = 'utf8';
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
  
+   
 require $cpath . 'ReCodMod/functions/install/folders.php';
 
 if(!file_exists($cpath . 'ReCodMod/cache/x_cron/cron_time_kicker_'.$server_ip.'_'.$server_port))
@@ -202,7 +203,35 @@ if (empty($game_patch))
 	$game_patch = trim($game_patch);   
    }
   
+  
+  
+   
+ try {
+      $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
+      $msqlconnect = new PDO($dsn, db_user, db_pass);
+	  
+	  if(!$msqlconnect)
+	  {
+        echo "\n CAN'T CONNECT TO MSQL DATABASE! EDIT YOUR cfg/_settings.php"; 
+		sleep(5);
+      }		 
+    
+     }
+     catch(PDOException $e) {
+      echo "\n\n\n ERROR: ", $e->getMessage(); 
+     }
+	if(!empty($e))
+	 { 
+	 if(!empty($e->getMessage()))
+	 {
+        echo "\n CAN'T CONNECT TO MSQL DATABASE! EDIT YOUR cfg/_settings.php, OR YOU HAVE ANOTHER PROBLEM WITH MSQL!!!"; 
+		sleep(5);
+        exit();		
+	 }
+	 }
 require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
  
+
+
 
 ?>

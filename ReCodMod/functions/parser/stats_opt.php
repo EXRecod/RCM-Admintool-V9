@@ -208,58 +208,13 @@ if (!empty($stats_array)) {
                 if (!empty($death_series_head_db)) txt_db($server_ip, $server_port, $guid, 'death_series_head_db', $death_series_head_db, 1);
                 if (!empty($death_series_minute_head_db)) txt_db($server_ip, $server_port, $guid, 'death_series_minute_head_db', $death_series_minute_head_db, 1);
 */
-				
-				
+		 			
 				//foreach ----------
                 if ((strpos($g, 'scores;skill') === false) || ($g != 'scores;kill_series') || ($g != 'scores;death_series') || ($g != 'scores;death_series_head') || ($g != 'scores;kill_series_head') || ($g != 'scores;kill_series_minute') || ($g != 'scores;death_series_minute') || ($g != 'scores;death_series_head')) unset($stats_array[$player_server_uid][$g]);
-                ////////////////////############################################/////////////////////////
-                ////////////////////###   STOCK COD1 - COD5 WEAPONS INSERT   ###/////////////////////////
-                // $wp = ''; $wps = ''; $wprg = ''; $wpnm = ''; $table_insert = ''; $wweapons = '';
-                if (!empty($wp)) unset($wp);
-                require $cpath . 'ReCodMod/functions/costum_array/weapons/cod.php';
-                $table_insert = stock_weapons($wp);
-                for ($i = 1;$i <= 20;$i++) {
-                  if (!empty($table_insert[$i])) {
-                    $valueSetsz = array();
-                    foreach ($table_insert[$i] as $wweapons => $value) {
-                      $valueSetsz[] = "'0'"; //'' . $value . '';
-                      $weaponSets[] = $wweapons;
-                      //txt_db($server_ip, $server_port, $guid, 'weapons;' . $wweapons, $value, 1);
-                    }
-					
-                    $join_values = join(",", $valueSetsz);
-				   if(!empty($weaponSets))
-                    $join_weapon = join(",", $weaponSets);
-					
-                    if (!empty($join_weapon)) {
-                      $reg = $cpath . 'ReCodMod/databases/player_insert/' . $server_ip . '_' . $server_port . '/TABLE_db_weapons_' . $i . '_GID_' . $player_server_uid . '_GUID_' . $guid . '.log';
-                      if (!file_exists($reg)) {
-                        usleep(7000);
-                        $query = $db3->query("INSERT INTO db_weapons_$i (s_pg,$join_weapon)  VALUES ('$player_server_uid',$join_values)");
-                        unset($table_insert[$i]);
-                        if ($query) {
-                          //create $player_server_uid_db_stats_$i___insert
-                          if (!file_exists($reg)) touch($reg);
-                          if (file_exists($reg)) {
-                            $fpl = fopen($reg, 'w');
-                            fwrite($fpl, $join_weapon . "%" . $join_values . "\n");
-                            fclose($fpl);
-                          }
-                        }
-                        $query = null;
-                        echo "\n\n  \033[38;5;175m opt db_weapons_$i insert: 'INSERT INTO db_weapons_$i (s_pg," . $join_weapon . ")  VALUES ('$player_server_uid'," . $join_values . ")' \033[38;5;46m", $player_server_uid;
-                        echo "\n";
-                      }
-                    }
-                    unset($valueSetsz);
-                    unset($weaponSets);
-                  }
-                }
-                ////////////////////###   STOCK COD1 - COD5 WEAPONS INSERT   ###/////////////////////////
-                ////////////////////############################################/////////////////////////
                 ///$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                 $reg = $cpath . 'ReCodMod/databases/player_insert/' . $server_ip . '_' . $server_port . '/TABLE_db_stats_0_GID_' . $player_server_uid . '_GUID_' . $guid . '.log';
                 if (!file_exists($reg)) {
+						usleep(10000);
                   $query = $db3->query("INSERT INTO db_stats_0 (s_pg,s_guid,s_port,servername,s_player,s_time,s_lasttime) VALUES ('$player_server_uid','$guid', '$svipport', '" . $servername . "','" . $nickname . "','$date','$date')");
                   if ($query) {
                     if (!file_exists($reg)) touch($reg);
@@ -274,6 +229,7 @@ if (!empty($stats_array)) {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////
                 $reg = $cpath . 'ReCodMod/databases/player_insert/' . $server_ip . '_' . $server_port . '/TABLE_db_stats_1_GID_' . $player_server_uid . '_GUID_' . $guid . '.log';
                 if (!file_exists($reg)) {
+					usleep(10000);
                   $query = $db3->query("INSERT INTO db_stats_1 (s_pg,s_kills,s_deaths,s_heads,s_suicids,s_fall,s_melle,s_dmg) VALUES ('$player_server_uid','0','0','0','0','0','0','0')");
                   if ($query) {
                     if (!file_exists($reg)) touch($reg);
@@ -288,6 +244,7 @@ if (!empty($stats_array)) {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////
                 $reg = $cpath . 'ReCodMod/databases/player_insert/' . $server_ip . '_' . $server_port . '/TABLE_db_stats_2_GID_' . $player_server_uid . '_GUID_' . $guid . '.log';
                 if (!file_exists($reg)) {
+					usleep(10000);
                   $query = $db3->query("INSERT INTO db_stats_2 (s_pg, s_port, w_place,w_skill,w_ratio,w_geo,w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) VALUES ('" . $player_server_uid . "','$svipport','0','1000','0','0','0','0','$ip','0','0','0','0','0','0')");
                   if ($query) {
                     if (!file_exists($reg)) touch($reg);
@@ -302,6 +259,7 @@ if (!empty($stats_array)) {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////
                 $reg = $cpath . 'ReCodMod/databases/player_insert/' . $server_ip . '_' . $server_port . '/TABLE_db_stats_hits_GID_' . $player_server_uid . '_GUID_' . $guid . '.log';
                 if (!file_exists($reg)) {
+					usleep(10000);
                   $query = $db3->query("INSERT INTO db_stats_hits (s_pg,head,torso_lower,torso_upper,right_arm_lower,
 	left_leg_upper,neck,right_arm_upper,left_hand,
 left_arm_lower,none,right_leg_upper,left_arm_upper,right_leg_lower,left_foot,right_foot,
@@ -400,7 +358,7 @@ ON DUPLICATE KEY
                              
 							if(!$ok) 
 							{
-                             errorspdo('[' . $datetime . '] 402  ' . __FILE__ . '  Exception : ' . $sql);							
+                             errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
 							}
 							$ok = null;
 							
@@ -501,7 +459,7 @@ $query->execute();
 	 
 							if(!$query) 
 							{
-                             errorspdo('[' . $datetime . '] 402  ' . __FILE__ . '  Exception : ' . $querySQL);							
+                             errorspdo('[' . $datetime . '] 509  ' . __FILE__ . '  Exception : ' . $querySQL);							
 							}						
  							$query = null;	
 echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;																
@@ -512,8 +470,13 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
                   echo "\n skill: ", $player_server_uid, " - ", $skill, " ~~~~~ ";
                   usleep(5000+($rand*200));
                   if ($skill < 0) $skill = 100;
-                  $gt = $db3->query("UPDATE db_stats_2 SET w_skill=" . $skill . " where s_pg='" . $player_server_uid . "'");
-                  $gt = null;
+				 $querySQL = "UPDATE db_stats_2 SET w_skill=" . $skill . " where s_pg='" . $player_server_uid . "'";
+                  $gt = $db3->query($querySQL);
+ 							if(!$gt) 
+							{
+                             errorspdo('[' . $datetime . '] 524  ' . __FILE__ . '  Exception : ' . $querySQL);							
+							}                 
+				  $gt = null;
                   $player_skill_reg = $cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/ID_SPG_' . $player_server_uid . '.log';
                   if (!file_exists($player_skill_reg)) touch($player_skill_reg);
                   if (file_exists($player_skill_reg)) {
@@ -539,7 +502,12 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
                   $w_n = clearSymbols($nickname);
                   $w_n = htmlentities($w_n);
                   if (strlen($w_n) > 25) $w_n = mb_strimwidth($w_n, 0, 25, "");
-                  $t = $db3->query("update db_stats_0 set s_lasttime='" . $date . "', s_player='" . $w_n . "' where s_pg='" . $player_server_uid . "'");
+				  $querySQL = "update db_stats_0 set s_lasttime='" . $date . "', s_player='" . $w_n . "' where s_pg='" . $player_server_uid . "'";
+                  $t = $db3->query($querySQL);
+				   			if(!$t) 
+							{
+                             errorspdo('[' . $datetime . '] 556  ' . __FILE__ . '  Exception : ' . $querySQL);							
+							}
                   $t = null;
                 }
                 /////////////////////////////////////// update user db
@@ -553,18 +521,46 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
 				  if(!empty($valueSetsw))
                   $joi = join(",", $valueSetsw);
                   if (!empty($joi)) {
-                    usleep(5000+($rand*200));
-                    $query = $db3->prepare("UPDATE db_stats_hits SET " . $joi . "  WHERE s_pg=:s_pg");
+                    usleep(20000+($rand*200));
+					$querySQL = "UPDATE db_stats_hits SET " . $joi . "  WHERE s_pg=:s_pg";
+                    $query = $db3->prepare($querySQL);
                     $query->bindParam(':s_pg', $player_server_uid);
                     $query->execute();
+							if(!$query) 
+							{
+                             errorspdo('[' . $datetime . '] 578  ' . __FILE__ . '  Exception : ' . $querySQL);							
+							}
                     $query = null;
                     echo "\n  \033[38;5;175m opt db_stats_hits UPDATE: $joi \033[38;5;46m", $player_server_uid;
                   }
                 }
                 /////////////////////////////////////// update hit zones db
-                /////////////////////////////////////// update weapons db
+                
+				
+        		////////////////////############################################/////////////////////////
+                ////////////////////###   STOCK COD1 - COD5 WEAPONS INSERT   ###/////////////////////////
+                // $wp = ''; $wps = ''; $wprg = ''; $wpnm = ''; $table_insert = ''; $wweapons = '';
+                if (!empty($wp)) unset($wp);
+                require $cpath . 'ReCodMod/functions/costum_array/weapons/cod.php';
+                $table_insert = stock_weapons($wp);
+                ////////////////////###   STOCK COD1 - COD5 WEAPONS INSERT   ###/////////////////////////
+                ////////////////////############################################///////////////////////// 
+				/////////////////////////////////////// update weapons db
                 for ($i = 1;$i <= 20;$i++) {
                   if (!empty($table_update[$i])) {
+//////////////////////////////////////					  
+                  if (!empty($table_insert[$i])) {
+                    $valueSetsz = array();
+                    foreach ($table_insert[$i] as $wweapons => $value) {
+                      $valueSetsz[] = "'0'"; //'' . $value . '';
+                      $weaponSets[] = $wweapons;
+                      //txt_db($server_ip, $server_port, $guid, 'weapons;' . $wweapons, $value, 1);
+                    } 
+                    $join_values = join(",", $valueSetsz);
+				   if(!empty($weaponSets))
+                    $join_weapon = join(",", $weaponSets);	  
+                  }					  
+//////////////////////////////////////    
                     $valueSets = array();
                     foreach ($table_update[$i] as $key => $value) {
                       $valueSets[] = $key . " =  " . $key . " + " . $value . "";
@@ -573,19 +569,30 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
 					if(!empty($valueSets))
                     $join = join(",", $valueSets);
                     if (!empty($join)) {
-                      usleep(5000+($rand*200));
-                      $query = $db3->prepare("UPDATE db_weapons_$i SET " . $join . "  WHERE s_pg=:s_pg");
-                      $query->bindParam(':s_pg', $player_server_uid);
-                      $query->execute();
+                      usleep(15000+($rand*200));
+$querySQL = "INSERT INTO db_weapons_$i (s_pg,$join_weapon) VALUES ('$player_server_uid',$join_values) 
+ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $join . "";	
+                      $query = $db3->query($querySQL);
+                      unset($table_insert[$i]);					  
+					  	if(!$query) 
+							{
+                             errorspdo('[' . $datetime . '] 603  ' . __FILE__ . '  Exception : ' . $querySQL);							
+							}
                       $query = null;
                       echo "\n  \033[38;5;175m opt db_weapons_$i UPDATE: $join \033[38;5;46m", $player_server_uid;
                       unset($table_update[$i]);
                     }
                     unset($join);
+					$join_values = '';
+                    $join_weapon = ''; 
+                    unset($valueSetsz);
+                    unset($weaponSets);
                   }
                 }
                 /////////////////////////////////////// update weapons db
                 /////////////////////////////////////////////////////////////////
+				 
+				
                 ///////////////////////////  DAY AND WEEK STATS //////////////////////////////////////////////////
                 
                 if (!empty($nickname)) {
@@ -609,6 +616,14 @@ ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', s_player='" . $w_n . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                     $cc = $dbw3->query($sql2);
                     $ff = $dbm3day->query($sql);
+							if(!$cc) 
+							{
+                             errorspdo('[' . $datetime . '] 639  ' . __FILE__ . '  Exception : ' . $sql);							
+							}
+							if(!$ff) 
+							{
+                             errorspdo('[' . $datetime . '] 643  ' . __FILE__ . '  Exception : ' . $sql);							
+							}
 					$cc = null;
 					$ff = null;
                     echo "\n  \033[38;5;178m db_stats_week \033[38;5;46m", $player_server_uid;

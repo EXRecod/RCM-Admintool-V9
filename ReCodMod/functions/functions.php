@@ -2616,4 +2616,102 @@ function ftp2locallog($gmlobame) {
   return $ftp_exp_user . "%" . $ftp_exp_password . "%" . $ftp_exp_ip . "%" . $ftp_exp_url . "%" . $gmlobame;
 }
 require_once $cpath . "ReCodMod/functions/core/classes/log.class.php";
+
+
+function badwordslisting($player_msg) {
+	  global $cpath;
+	  $badword = '';
+	  $stolwlp = 0;
+       $list = file($cpath . "cfg/badwords.lst");
+       if ($list === false)
+       {
+        $badwords_list = false;
+        return;
+       }
+       $normal = array();
+       $regexp = array();
+       foreach ($list as $value)
+       {
+        $value = trim($value);
+        if (preg_match('|{([\d.]+)}$|', $value, $subpatterns))
+        {
+         $multi = $subpatterns[1];
+         $value = str_replace($subpatterns[0], "", $value);
+        }
+        else
+        {
+         $multi = 1;
+        }
+        if (stripos($value, "regexp:") === 0)
+        {
+         $regexp[] = array(
+          substr($value, 7),
+          $multi
+         );
+        }
+        else
+        {
+         $normal[] = array(
+          $value,
+          $multi
+         );
+        }
+       }
+       $badwords_list = array(
+        "normal" => $normal,
+        "regexp" => $regexp
+       );
+      
+       $bad = false;
+       foreach ($badwords_list["normal"] as $value)
+       {
+        if (stripos($player_msg, $value[0]) !== false)
+        {
+         $bad     = true;
+         $badword = $value[0];
+         $multi   = $value[1];
+         break;
+        }
+       }
+       if (!$bad)
+       {
+        foreach ($badwords_list["regexp"] as $value)
+        {
+         if (preg_match("/ґ" . str_replace("ґ", "\\xB4", $value[0]) . "ґi/", $player_msg, $subpatterns))
+         {
+          $bad     = true;
+          $badword = $subpatterns[0];
+          $multi   = $value[1];
+          break;
+         }
+		 
+       if (!$bad)
+       {		 
+		 //2020
+         $player_msg = mb_strtolower($player_msg);
+         if (preg_match("/" . $value[0] . "/i", $player_msg, $subpatterns))
+         {
+          $bad     = true;
+          $badword = $subpatterns[0];
+          $multi   = $value[1];
+          break;
+         }		 
+	   }	 
+		 
+        }
+       }
+      
+       if ($bad)
+       {
+        if ($stolwlp == 0)
+        {
+         $stolwlp = 1;
+   //echo " == " . $badword;
+         return $badword;
+        
+        }
+       }
+       else
+           return "";		   
+}
 ?>
