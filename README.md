@@ -8,6 +8,6 @@
 -    and not compatible with old WEB RECODMOD versions!!
 --------------------------------------------------------
 - Support and report \ 
-- Русский: Установка; https://github.com/EXRecod/RCM-Admintool-V9/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%BC%D0%BE%D0%B4%D0%B0. 
+- Русский: Установка; https://github.com/EXRecod/RCM-Admintool-V9/wiki/Install_rus 
 - English: How install; https://github.com/EXRecod/RCM-Admintool-V9/wiki/How-Install
 - Skype: larocca2012
