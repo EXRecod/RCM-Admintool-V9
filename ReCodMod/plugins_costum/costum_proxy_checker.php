@@ -1,22 +1,11 @@
 <?php
-if (strpos($parseline, " J;") !== false) {
-	
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////	
-/////////////////////////////////////////////////////////////////////////////////////////////////
+if (strpos($parseline, "InitGame:") !== false) {
 
-$dircache = $cpath . "ReCodMod/functions/geoip_bases/iptolocations/IP2PROXY-LITE-PX3.BIN";
-if (!file_exists($dircache)) {
 $geoudir = 'http://z-good.xyz/_geoipbases/IP2PROXY-LITE-PX3.BIN';
 $geoudirtwo = 'https://2me.best/_geoipbases/IP2PROXY-LITE-PX3.BIN';
 $geoudirthree = 'https://s508man.storage.yandex.net/rdisk/f05441fb2214f8c21b104b02f1e9cb928d006a915c590aaab5b21114041d04c0/5f6006ac/m02cuYpLulmb_0MPatSGofVQPuJoF0LlU44UeDZxQGk3qiBHuuSeOJLt1dYEuTka4UolVBoUHYPdPgLuNkPK6g==?uid=0&filename=IP2PROXY-LITE-PX3.BIN&disposition=attachment&hash=BqINhUJuTae3sI0ATjHIUtrk0lwdFPUo1BHeNbw1L9pnlBZOxV3QaPSDanNMePbaq/J6bpmRyOJonT3VoXnDag%3D%3D&limit=0&content_type=application%2Foctet-stream&owner_uid=220176693&fsize=421536166&hid=63d35159210a10b6f85be04df4268299&media_type=encoded&tknv=v2&rtoken=ri9jzuMzgWUS&force_default=no&ycrid=na-b89da62e5f6fcd6ceedd27f9bae74e1b-downloader14f&ts=5af4efdce0300&s=8ef38e0ceca87a4d05cad6240474eeb8792750d9e4e43d04c5ef5ccc20d17c3d&pb=U2FsdGVkX18GgfWnE9f-SOavOzHENu1UzAbcKZGujyi8PVSQqq3-G_MbygIpFFxQsKCb8wYtaTD2UNcpr5fEPALWMy_fHVlKAmcUZ4sUwKc';
+
+$dircache = $cpath . "ReCodMod/functions/geoip_bases/iptolocations/IP2PROXY-LITE-PX3.BIN";
 if (!file_exists($dircache)) {
   echo " \n \033[38;5;23m Try to download: P2LOCATION";
   if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
@@ -54,6 +43,93 @@ if (!file_exists($dircache)) {
   slowscript("SLEEP 30: Failed Download or install P2LOCATION!");
   sleep(3);
   exit;
+}	
+else
+{
+if ((filesize($dircache)) != 421536166) {
+  echo " \n \033[0;38;5;27m Try to reupload: P2LOCATION";
+  if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+    echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+  }
+  else {
+    echo " \n \033[38;5;1m Do not downloaded: P2LOCATION";
+    echo " \n \033[38;5;3m Try another server with download: P2LOCATION";
+    if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
+      echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+    }
+  }
+}	
+}	
+}	
+if (strpos($parseline, " J;") !== false) {
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////////////////////////////////
+$geoudir = 'http://z-good.xyz/_geoipbases/IP2PROXY-LITE-PX3.BIN';
+$geoudirtwo = 'https://2me.best/_geoipbases/IP2PROXY-LITE-PX3.BIN';
+$geoudirthree = 'https://s508man.storage.yandex.net/rdisk/f05441fb2214f8c21b104b02f1e9cb928d006a915c590aaab5b21114041d04c0/5f6006ac/m02cuYpLulmb_0MPatSGofVQPuJoF0LlU44UeDZxQGk3qiBHuuSeOJLt1dYEuTka4UolVBoUHYPdPgLuNkPK6g==?uid=0&filename=IP2PROXY-LITE-PX3.BIN&disposition=attachment&hash=BqINhUJuTae3sI0ATjHIUtrk0lwdFPUo1BHeNbw1L9pnlBZOxV3QaPSDanNMePbaq/J6bpmRyOJonT3VoXnDag%3D%3D&limit=0&content_type=application%2Foctet-stream&owner_uid=220176693&fsize=421536166&hid=63d35159210a10b6f85be04df4268299&media_type=encoded&tknv=v2&rtoken=ri9jzuMzgWUS&force_default=no&ycrid=na-b89da62e5f6fcd6ceedd27f9bae74e1b-downloader14f&ts=5af4efdce0300&s=8ef38e0ceca87a4d05cad6240474eeb8792750d9e4e43d04c5ef5ccc20d17c3d&pb=U2FsdGVkX18GgfWnE9f-SOavOzHENu1UzAbcKZGujyi8PVSQqq3-G_MbygIpFFxQsKCb8wYtaTD2UNcpr5fEPALWMy_fHVlKAmcUZ4sUwKc';
+
+$dircache = $cpath . "ReCodMod/functions/geoip_bases/iptolocations/IP2PROXY-LITE-PX3.BIN";
+if (!file_exists($dircache)) {
+  echo " \n \033[38;5;23m Try to download: P2LOCATION";
+  if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+    echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+  }
+  else {
+    echo " \n \033[38;5;1m Do not downloaded: P2LOCATION";
+    echo " \n \033[38;5;3m Try another server with download: P2LOCATION";
+    if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
+      echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+    }
+  }
+ if (!file_exists($dircache))
+ {
+   if (file_put_contents($dircache, fopen($geoudirthree, 'r'))) {
+      echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+    }	 
+  }
+}
+if ((filesize($dircache)) != 421536166) {
+  echo " \n \033[0;38;5;27m Try to reupload: P2LOCATION";
+  if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+    echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+  }
+  else {
+    echo " \n \033[38;5;1m Do not downloaded: P2LOCATION";
+    echo " \n \033[38;5;3m Try another server with download: P2LOCATION";
+    if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
+      echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+    }
+  }
+}
+if (!file_exists($dircache)) {
+  echo "\033[37;1;1m Failed Download or install P2LOCATION !";
+  slowscript("SLEEP 30: Failed Download or install P2LOCATION!");
+  sleep(3);
+  exit;
+}	
+else
+{
+if ((filesize($dircache)) != 421536166) {
+  echo " \n \033[0;38;5;27m Try to reupload: P2LOCATION";
+  if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+    echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+  }
+  else {
+    echo " \n \033[38;5;1m Do not downloaded: P2LOCATION";
+    echo " \n \033[38;5;3m Try another server with download: P2LOCATION";
+    if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
+      echo " \n \033[38;5;10m Downloaded: P2LOCATION";
+    }
+  }
 }	
 }	
 /////////////////////////////////////////////////////////////////////////////////////////////////
