@@ -9,7 +9,7 @@ if (strpos(
  
  {
     if (empty($stats_array[$conisq]['user_status'])) $stats_array[$conisq]['user_status'] = 'guest';
-    foreach ($costumgroupsInivalues('commands_costum', $stats_array[$conisq]['user_status'], 0) as $d) {
+    foreach (costumgroupsInivalues('commands_costum', $stats_array[$conisq]['user_status'], 0) as $d) {
         list($cvarcom, $cvarz) = explode('=', $d);
         if (empty(SqlDataBase)) {
             $msgr = @iconv("windows-1251", "utf-8", $msgr);

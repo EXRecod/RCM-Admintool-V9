@@ -4,6 +4,7 @@ if ((strpos($parseline, "say;") !== false)
  || (strpos($parseline, "tell;") !== false)) {
 	  
  if (!empty($guidn)) {
+  $guidn = trim($guidn);
   $steamerid = '';
   $x_mat_detected = true;
   $whilecounts = 0;
@@ -27,91 +28,102 @@ if ((strpos($parseline, "say;") !== false)
      ////////////////////////////////////////////////////////////////////////////////////////////////////
      $pl_msg = '';
      $yesorno = '';
-     $pl_msg = @iconv("windows-1251", "utf-8", $msgr);
+	 
+	 
+     $pl_msg = $msgr;	 
      $player_msg = mb_strtolower($pl_msg);
-     $yesorno = antimat($pl_msg);
+     $yesorno = antimat($player_msg);
      ///////////////////////////////////////////////////
      if (strpos($yesorno, '%CENSORED%') !== false) {
       if ($stolwlp == 0) {
        $stolwlp = 1;
        $x_mat_detected = false;
+	   $badword = $player_msg; 
        echo "\n " . $pl_msg;
        echo " ALARM %CENSORED%";
       }
      }
      ///////////////////////////////////////////////////
-     $list = file($cpath . "cfg/badwords.lst");
-     if ($list === false) {
-      $badwords_list = false;
-      return;
-     }
-     $normal = array();
-     $regexp = array();
-     foreach ($list as $value) {
-      $value = trim($value);
-      if (preg_match('|{([\d.]+)}$|', $value, $subpatterns)) {
-       $multi = $subpatterns[1];
-       $value = str_replace($subpatterns[0], "", $value);
-      }
-      else {
-       $multi = 1;
-      }
-      if (stripos($value, "regexp:") === 0) {
-       $regexp[] = array(
-        substr($value, 7) ,
-        $multi
-       );
-      }
-      else {
-       $normal[] = array(
-        $value,
-        $multi
-       );
-      }
-     }
-     $badwords_list = array(
-      "normal" => $normal,
-      "regexp" => $regexp
-     );
-     $bad = false;
-     foreach ($badwords_list["normal"] as $value) {
-      if (stripos($player_msg, $value[0]) !== false) {
-       $bad = true;
-       $badword = $value[0];
-       $multi = $value[1];
-       break;
-      }
-     }
-     if (!$bad) {
-      foreach ($badwords_list["regexp"] as $value) {
-       if (preg_match("/ґ" . str_replace("ґ", "\\xB4", $value[0]) . "ґi/", $player_msg, $subpatterns)) {
-        $bad = true;
-        $badword = $subpatterns[0];
-        $multi = $value[1];
-        break;
-       }
-		 //2020
-		          $player_msg = mb_strtolower($player_msg);
-         if (preg_match("/" . $value[0] . "/i", $player_msg, $subpatterns))
-         {
-          $bad     = true;
-          $badword = $subpatterns[0];
-          $multi   = $value[1];
-          break;
-         }	   
-      }
-     }
-     if ($bad) {
+
+
+if ($x_mat_detected) {	
+     $pl_msg = @iconv("windows-1251", "utf-8", $msgr);	 
+     $player_msg = mb_strtolower($pl_msg);
+	   $yesorno = antimat($player_msg);
+     ///////////////////////////////////////////////////
+     if (strpos($yesorno, '%CENSORED%') !== false) {
       if ($stolwlp == 0) {
        $stolwlp = 1;
+       $x_mat_detected = false;
+	   $badword = $player_msg; 
+       echo "\n " . $pl_msg;
+       echo " ALARM %CENSORED%";
+      }
+     }
+     ///////////////////////////////////////////////////
+}
+
+ 
+if ($x_mat_detected) {	
+	$badword = badwordslisting($player_msg);
+	echo "===".$badword;
+ if(!empty($badword))
+ {  
        echo ' DETECTED WORD!!! ';
        echo $player_msg . " == " . $badword;
        $x_mat_detected = false;
+ }
+}	 
+	 
+	 
+if ($x_mat_detected) {	 
+     $pl_msg = @iconv('utf-8//TRANSLIT', 'windows-1251', $msgr); 
+     $player_msg = mb_strtolower($pl_msg);
+     $yesorno = antimat($player_msg);
+     ///////////////////////////////////////////////////
+     if (strpos($yesorno, '%CENSORED%') !== false) {
+      if ($stolwlp == 0) {
+       $stolwlp = 1;
+       $x_mat_detected = false;
+	   $badword = $player_msg; 
+       echo "\n " . $pl_msg;
+       echo " ALARM %CENSORED%";
+      }
+    }
+     ///////////////////////////////////////////////////	 
+}	 
+  
+if ($x_mat_detected) {	
+	$badword = badwordslisting($pl_msg);
+ if(!empty($badword))
+ {  
+       echo ' DETECTED WORD!!! ';
+       echo $msgr . " == " . $badword;
+       $x_mat_detected = false;
+ }
+}
+     ////////////////////////////////////////////////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+
+// TRANSLIT
+if ($x_mat_detected) {
+    $pl_msg = @iconv("windows-1251", "utf-8", $msgr);
+    $pl_msg = rus2translit($pl_msg);
+     $player_msg = mb_strtolower($pl_msg);
+	   $yesorno = antimat($player_msg);
+     ///////////////////////////////////////////////////
+     if (strpos($yesorno, '%CENSORED%') !== false) {
+      if ($stolwlp == 0) {
+       $stolwlp = 1;
+       $x_mat_detected = false;
+	   $badword = $player_msg; 
+       echo "\n " . $pl_msg;
+       echo " ALARM %CENSORED%";
       }
      }
-     ////////////////////////////////////////////////////////////////////////////////////////////////////
-     ////////////////////////////////////////////////////////////////////////////////////////////////////
-     
+     ///////////////////////////////////////////////////
+} 
     }
     if (!$x_mat_detected) {
      if (!empty($badword)) //$pl_msg
