@@ -15,6 +15,15 @@ if (strpos($parseline, ";") !== false) {
           $gg  = $key;
         }
       }
+	/*  
+      if ((!empty($val['ip'])) && (!empty($f['ip']))) {
+        if ($val['ip'] === $f['ip']) {
+          ++$y;
+		  $fip = $f['ip'];
+          $gg  = $key;
+        }
+      }	  
+	*/  
     }
     if (!empty($y)) {
       if ($y > 1) $inf = $y . ';' . $gg;
