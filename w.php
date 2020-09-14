@@ -153,7 +153,8 @@ require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php';
                 require $cpath . 'ReCodMod/functions/parser/initgame_gametype_map_save.php';
               }
               //%%%%%%%%%%%%%%%%%%%%%%%%  ANOTHER PLUGINS  %%%%%%%%%%%%%%%%%%%%%%%%
-              if ((!empty($parseline)) && (preg_match('/;/', $parseline, $jn))) {
+              if ((!empty($parseline)) && (preg_match('/;/', $parseline, $jn))
+			   ||((!empty($parseline)) && (preg_match('/([0-9]):([0-9])+\s*([a-z])/iu', $parseline, $jn)))) {
                 require $cpath . 'ReCodMod/plugins/messages/banner_messages_rotations.php';
                 require $cpath . 'ReCodMod/functions/funcx/commands_array.php';
 				//COSTUM LOG PREFIX USES FC; GEO; and another
