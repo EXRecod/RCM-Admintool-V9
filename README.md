@@ -7,7 +7,7 @@
 - New version RECODMOD V9 not compatible with old RECODMOD versions 
 -    and not compatible with old WEB RECODMOD versions!!
 --------------------------------------------------------
-- Support and report: 
+-- Support and report: 
 - Русский: Установка; https://github.com/EXRecod/RCM-Admintool-V9/wiki/Install_rus 
 - Как обновить: заменяем эти 3 папки с архива https://github.com/EXRecod/RCM-Admintool-V9/tree/master/ReCodMod  на свои со всем содержимым в них.
 
