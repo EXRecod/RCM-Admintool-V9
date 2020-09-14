@@ -1713,8 +1713,8 @@ function rconExplode($guidin) {
   include $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   /*  */ 
   echo "\n -----------------------------\n ";
-  var_dump($rconarray);
-  echo "\n -----------------------------";
+  //var_dump($rconarray);
+  //echo "\n -----------------------------";
   foreach ($rconarray as $j => $e) {
     $i_ping = $e["ping"];
     $i_ip = $e["ip"];
@@ -1726,27 +1726,32 @@ function rconExplode($guidin) {
     $c_ping = $i_ping;
     $c_ip = $i_ip;
     $c_name = $i_name;
-    $c_guid = $i_guid;		
+    $c_guid = $i_guid;	
 		
       //echo    "\n > ".$i_guid  = $e["guid"];
       $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
-      $record = geoip_record_by_addr($gi, $i_ip);
-      if (!empty($record)) {
+      $record = geoip_record_by_addr($gi, $c_ip);
+      
+	  if (empty($i_ip)) 
+	  {
+    $cccode = 'n/a';
+    $city = 'n/a';
+    $country = 'n/a';
+	$c_ping = 'n/a';
+    $c_ip = '0';
+    $c_name = 'n/a';
+    $c_guid = '';  
+		return $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $cccode . ';' . $city . ';' . $country;
+	  }	  
+	  else if (!empty($record)) 
+	  {
         $cccode = $record->country_code;
         $city = $record->city;
         $country = $record->country_name;
+		return $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $cccode . ';' . $city . ';' . $country;
       }
-      else {
-        $cccode = 'n/a';
-        $city = 'n/a';
-        $country = 'n/a';
-	$c_ping = 'n/a';
-    $c_ip = 'n/a';
-    $c_name = 'n/a';
-    $c_guid = '';		
-		
-      }
-      return $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $cccode . ';' . $city . ';' . $country;
+      else if (empty($record))
+	  return $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';n/a;n/a;n/a'; 
     }
   }
   if (empty($c_ip)) return '0;0;0;0;0;0;0';
