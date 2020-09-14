@@ -147,13 +147,13 @@ if (file_exists($dircache)) {
 
  list($noon, $guid, $idk, $nickname) = explode(';', $parseline); 	
  $uidd = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
- 
+/* 
 if (strpos($stats_array[$uidd]['ip_adress'], ".") === false){ 
     
 	if(!empty($stats_array[$uidd]['ip_adress']))
 		$ipfrarray = 0;
 }	
-else  if(!empty($stats_array[$uidd]['ip_adress']))
+else */ if(!empty($stats_array[$uidd]['ip_adress']))
     $ipfrarray = $stats_array[$uidd]['ip_adress'];
 else
 	$ipfrarray = 0;
