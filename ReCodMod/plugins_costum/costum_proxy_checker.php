@@ -203,7 +203,7 @@ $db->close();
                   if ($k < 10) {
 					  if(!empty($is_Proxy))
 					  {
-                    //xcon('clientkick ' . $idk . '', '');
+                    xcon('clientkick ' . $idk . '', '');
                     unset($stats_array[$uidd]);
                     debuglog((__FILE__) . "\n PROXY DETECTED = Kicked = Guid: $guidB Nickname: $i_name NUM: $idk Ping: $i_ping Ip: $i_ip");
 					  }
@@ -214,7 +214,7 @@ $db->close();
               {
 				  if(!empty($is_Proxy))
 					  {
-                //xcon('clientkick ' . $idk . '', '');
+                xcon('clientkick ' . $idk . '', '');
                 unset($stats_array[$uidd]);
                 debuglog((__FILE__) . "\n PROXY DETECTED = Kicked = Guid: $guid Nickname: $i_name NUM: $idk Ping: $i_ping Ip: $i_ip");
 					  }
@@ -236,7 +236,7 @@ echo ' Proxy? => ',$is_Proxy 		= $db->isProxy($ipfrarray);
 $db->close();	  
 				  if(!empty($is_Proxy))
 					  {	  
-                    //xcon('clientkick ' . $idnumB . '', '');
+                    xcon('clientkick ' . $idnumB . '', '');
                     unset($stats_array[$uidd]);
                     debuglog((__FILE__) . "\n PROXY DETECTED = Guid: $guid Nickname: $nickname Ip: ".$ipfrarray."");
 					  }
