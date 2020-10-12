@@ -1,3 +1,24 @@
+
+ALTER TABLE `x_db_players` CHANGE `s_port` `s_port` MEDIUMINT(6) NOT NULL;
+ALTER TABLE `x_db_players` CHANGE `x_db_conn` `x_db_conn` MEDIUMINT(6) NOT NULL;
+ALTER TABLE `x_db_players` CHANGE `x_db_guid` `x_db_guid` BIGINT(24) NOT NULL;
+ALTER TABLE `db_stats_0` CHANGE `s_guid` `s_guid` BIGINT(24) NOT NULL;
+ALTER TABLE `db_stats_day` CHANGE `w_guid` `w_guid` BIGINT(24) NOT NULL;
+ALTER TABLE `db_stats_week` CHANGE `w_guid` `w_guid` BIGINT(24) NOT NULL;
+ALTER TABLE `player_status` CHANGE `guid` `guid` BIGINT(24) NOT NULL;
+ALTER TABLE `x_db_players` CHANGE `x_db_guid` `x_db_guid` BIGINT(24) NOT NULL;
+ALTER TABLE `chat` CHANGE `guid` `guid` BIGINT(24) NOT NULL;
+
+
+ALTER TABLE `playermaps` CHANGE `guid` `guid` BIGINT(24) NOT NULL;
+
+
+
+
+
+
+
+
 DELETE
 	`db_stats_week`
 FROM  

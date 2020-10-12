@@ -334,7 +334,7 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 				{
                 $stats_cron_database = 5; //5
                     if (!empty($statscronx)) {
-                        $rand = rand(1, 35);
+                        $rand = rand(3, 10);
                         $ci = filemtime($statscronx);
                         if (time() - $ci >= (int)$stats_cron_database+(int)$rand){
                         //if (time() - $ci >= (int)$stats_cron_database){ 

@@ -601,19 +601,20 @@ CREATE TABLE IF NOT EXISTS `x_db_admins` (
   
 CREATE TABLE IF NOT EXISTS `x_db_players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_port` bigint(28) NOT NULL,
+  `s_port` mediumint(6) NOT NULL,
   `x_db_name` varchar(80) NOT NULL,
   `x_up_name` mediumint(6) NOT NULL,
   `x_db_ip` varchar(16) NOT NULL,
   `x_up_ip` mediumint(6) NOT NULL,
   `x_db_ping` mediumint(4) NOT NULL,
-  `x_db_guid` varchar(32) NOT NULL,
-  `x_db_conn` mediumint(8) NOT NULL,
+  `x_db_guid` bigint(24) NOT NULL,
+  `x_db_conn` mediumint(6) NOT NULL,
   `x_db_date` datetime NOT NULL,
   `x_db_warn` mediumint(8) NOT NULL,
   `x_date_reg` datetime NOT NULL,
-  `stat` SMALLINT(3) NOT NULL,
-  PRIMARY KEY (`id`)
+  `stat` smallint(3) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `x_db_guid` (`x_db_guid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -639,8 +640,9 @@ CREATE TABLE IF NOT EXISTS `x_up_players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL,
   `ip` varchar(16) NOT NULL,
-  `guid` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
+  `guid` bigint(26) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`,`ip`,`guid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

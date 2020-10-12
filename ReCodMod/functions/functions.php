@@ -1987,6 +1987,8 @@ function get_skill_from_database($playeruniqueuid) {
     else {
       $e_skill = "1000";
     }
+	$db3 = null;
+	$msqlconnect = null;
   }
   catch(PDOException $e) {
     echo "\n\n\n ERROR 440 --------------" . $e->getMessage();
@@ -2052,7 +2054,28 @@ function dbInsert($SQLiteDatabase, $query) {
   }
   return $xresult;
 }
- 
+
+function dbLazy($SQLiteDatabase, $query) {
+  $xresult = '';
+  global $cpath, $SqlDataBase, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass;
+  try {
+    if (empty($SqlDataBase)) {
+      $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/' . $SQLiteDatabase . '.sqlite');
+    }
+    else {
+      $dsn = "mysql:host=" . $host_adress . ";dbname=" . $db_name . ";charset=$charset_db";
+      if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+      $db = $msqlconnect;
+    }
+    $result = $db->query($query)->fetch(PDO::FETCH_LAZY);
+    if (!empty($result)) $xresult = $result;
+    require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
+  }
+  catch(PDOException $e) {
+    errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function dbSelect / : ' . $e->getMessage());
+  }
+  return $xresult;
+} 
 
 function txt_db($server_ip, $server_port, $guid, $name, $value, $status) {
   if (!empty($guid)) {
