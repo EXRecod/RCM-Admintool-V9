@@ -53,6 +53,36 @@ if((empty($guid)) && (empty(reg_guid_stats)))
   list($cod4xipu) = explode(':', $cod4xip);
   
    
+     $date  = date('Y-m-d H:i:s');
+  $x_date  = date('Y-m-d H:i:s');
+   
+   
+ 				echo " \n MAMBA UP + x_db_players  ";
+                $nickname = clearSymbols($nickname);
+                $nickname = htmlentities($nickname);
+	$sql = "INSERT INTO x_db_players 
+				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
+         VALUES ('$svipport','" . $nickname . "', '0', '$cod4xipu', '0', '$cod4xping', '$guid', '1', '$date', '0', '$date', '1')
+ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $cod4xipu . "', x_db_name = '" . $nickname . "', 
+x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'"; 
+   $gt = dbInsert('',$sql);			
+							if(!$gt) 
+							{
+                             errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+							}				
+  
+ 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$cod4xipu','$guid')
+ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $cod4xipu . "', guid='" . $guid . "'"; 
+   $gtx = dbInsert('',$sql);			
+							if(!$gtx) 
+							{
+                             errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+							}  
+   
+   
+   
+   
+   
 ////////////////////////////////////////////////////////////////////////////////////////////////		 
 	$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));	 
 if (empty($stats_array[$conisq]['ip_adress'])) { 
@@ -193,55 +223,7 @@ else
 		
 		
 
-/*			
-	echo '-183';
-	 
- if(!empty(SqlDataBase))
-{		
-     
-	if($db4->query("UPDATE x_db_players SET x_db_date='".$x_date."', x_db_ip='".$cod4xip."', x_db_name = '".$x4vvv."' WHERE x_db_guid='".$guid."'"))
-	{
-	echo '-186';
-	} else echo '-000187';
-}
-else
-{
-	usleep(10000);
-$data = [
-    'x_db_date' => $x_date,
-    'x_db_ip' => $cod4xip,
-    'x_db_name' => $x4vvv,
-    'x_db_guid' => $guid,
-];
-$sql = "UPDATE x_db_players SET x_db_date=:x_db_date, x_db_ip=:x_db_ip, x_db_name=:x_db_name WHERE x_db_guid=:x_db_guid";
-$stmt= $db4->prepare($sql);
-$stmt->execute($data);		
-echo '-186';	
-}	
-	
-	
-	
-	usleep(20000);
- if(!empty(SqlDataBase))
-{	
-	if($db3->query("UPDATE db_stats_2 SET w_ip='".$cod4xip."' WHERE s_pg='".$shid."'"))
-	{
-	echo '-187';
-	}else echo '-000192';
-}	
-else
-{
-	
-$data = [
-    'w_ip' => $cod4xip,
-    's_pg' => $shid,
-];
-$sql = "UPDATE db_stats_2 SET w_ip=:w_ip WHERE s_pg=:s_pg";
-$stmt= $db3->prepare($sql);
-$stmt->execute($data);		
-echo '-187';	
-}	
-*/	
+ 
 	
 	slowscript(__FILE__);   
 $fin = microtime(true) - $start;
@@ -288,22 +270,6 @@ else if($cod4xprestige == 'x')
 	$cod4xprestigex = '0';
 
  
-
-
-
-usleep(13333);
-$sql = "INSERT INTO db_stats_week (servername,s_pg,w_guid,w_port,s_player,s_kills,s_killsweap,s_killsweap_min,s_deaths,s_deathsweap_min,s_heads,s_time,s_lasttime)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$stmt= $db3->prepare($sql);
-$stmt->execute([$servername,$shid,$guid,$svipport,$nickname,0,0,0,0,0,0,$date,$date]); 
- 
- 
-usleep(13333);
-$sql = "INSERT INTO db_stats_day (servername,s_pg,w_guid,w_port,s_player,s_kills,s_deaths,s_heads,s_time,s_lasttime)
-VALUES (?,?,?,?,?,?,?,?,?,?)";
-$stmt= $db3->prepare($sql);
-$stmt->execute([$servername,$shid,$guid,$svipport,$nickname,0,0,0,$date,$date]); 
- 
  
 usleep(11333);
 $sql = "INSERT INTO db_stats_0 (s_pg,s_guid, s_port, servername,s_player,s_time,s_lasttime)
@@ -311,13 +277,7 @@ VALUES (?,?,?,?,?,?,?)";
 $stmt= $db3->prepare($sql);
 $stmt->execute([$shid, $guid, $svipport, $servername, $nickname, $date, $date]); 
  
-usleep(11333);
-$sql = "INSERT INTO db_stats_1 (s_pg,s_kills,s_deaths,s_heads,s_suicids,s_fall,s_melle,s_dmg)
-VALUES (?,?,?,?,?,?,?,?)";
-$stmt= $db3->prepare($sql);
-$stmt->execute([$shid,0,0,0,0,0,0,0]);
  
-
 usleep(11333);
 $sql = "INSERT INTO db_stats_2 (s_pg,s_port,w_place,w_skill,w_ratio,w_geo,
 w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) 
@@ -325,40 +285,7 @@ VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 $stmt= $db3->prepare($sql);
 $stmt->execute([$shid,$svipport,0,1000,0,$cod4xgeo,$cod4xprestigex,$cod4xfps,$cod4xip,$cod4xping,0,0,0,0,0]); 
   
-
-usleep(10000);
-$sql = "INSERT INTO db_stats_3 (s_pg,claymore,c4,grenade,maps,heli,bombs,avia,artillery,camp,flags,saveflags,bonus,series,
-bomb_plant,bomb_defused,juggernaut_kill,destroyed_helicopter,rcxd_destroyed,turret_destroyed,sam_kill) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$stmt= $db3->prepare($sql);
-$stmt->execute([$shid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
-
-
-usleep(10000);
-$sql = "INSERT INTO db_stats_4 (s_pg,ak47_,ak74u_,deserteagle,m40a3_,m4_,m1014_,uzi_,g3_,g36c_,
-remington700_,mp5_,winchester1200_,m16_,m14_,rpd_,m60e4_,rpg_,saw_,p90_,barrett_,mp44_,beretta_,colt45_,usp_,dragunov_,skorpion_) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$stmt= $db3->prepare($sql);
-$stmt->execute([$shid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
-
-
-usleep(10000); 
-$sql = "INSERT INTO INTO db_stats_5 (s_pg,ac130_,airstrike_,at4_mp,aw50_,binoculars,cobra_,
-defaultweapon_mp,destructible_car,destructible_bar,hind_ffar,helicopter_,radar_ ) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$stmt= $db3->prepare($sql);
-$stmt->execute([$shid,0,0,0,0,0,0,0,0,0,0,0,0]);
  
-
-usleep(10000);	
-$sql = "INSERT INTO db_stats_hits (s_pg,head,torso_lower,torso_upper,right_arm_lower,
-	left_leg_upper,neck,right_arm_upper,left_hand,
-left_arm_lower,none,right_leg_upper,left_arm_upper,right_leg_lower,left_foot,right_foot,
-right_hand,left_leg_lower) 
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$stmt= $db3->prepare($sql);
-$stmt->execute([$shid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
-
 
 echo "==================   INSERT ============================\n";
  
@@ -394,71 +321,12 @@ $db3->query("UPDATE db_stats_2 SET w_prestige='$cod4xprestige',w_geo ='$cod4xgeo
 }
 					 
 	}					 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+ $chw = 0;
 /* ############################################################################################ */	
 /* ############################################################################################ */		
 /* ############################################################################################ */
-	  
-	 $chw = 0;
-	 echo '-280';
-	 	 usleep(70000);
-	 $sql    = "select id FROM x_db_players where x_db_guid = '".$guid."' limit 1";
-                      $stat   = $db4->query($sql)->fetch(PDO::FETCH_LAZY);
-                      
-if(!empty($stat))
-{					  
-			echo "\n\n";
-foreach($stat as $key => $value) {   
-echo $key ."\n" . $value . "\n";
-if(empty($chw))
-{	
-   if ((empty($key))&&(empty($value))){					
-				 $chw = 1;				 
-$db4->query("INSERT INTO x_db_players (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
-    VALUES ('$svipport','".$x4vvv."', '0', '$cod4xip', '0', '$cod4xping', '$guid', '1', '$x_date', '0', '$x_date', '1')");
-$db4->query("INSERT INTO x_up_players (name, ip, guid) VALUES ('".$x4vvv."','$cod4xip','$guid')");	
-						   } 
-						   }
-}
-	//ECHO "\n TUT GRUZIT =============== \n ";
-	
-	
-	
-	}
-						   
-						   
-						   
-						   
-						   
-						   
-						   
-						   
-	
+ 
+ 
 	slowscript(__FILE__);   
 $fin = microtime(true) - $start;
 if($fin > 30)
@@ -472,10 +340,13 @@ else if($fin > 4.5)
 require $cpath . 'ReCodMod/functions/null.php';
 exit;	
 }
+
+
+
  if($chw == 0){
 	 echo '-309';
 	 	 usleep(70000);
-  $sql    = "select guid,name FROM x_up_players where ip = '".$cod4xip."' and name='".$x4vvv."' limit 1";
+  $sql    = "select ip,guid,name FROM x_up_players where ip = '".$cod4xip."' and name='".$x4vvv."' limit 1";
                      $stat   = $db4->query($sql)->fetch(PDO::FETCH_LAZY);
                     //print_r($stat);
 if(!empty($stat))
