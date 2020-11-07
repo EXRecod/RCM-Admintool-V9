@@ -26,17 +26,17 @@ if (!empty($stats_array)) {
 	
 	//debuglog(" [ $datetime ] " . (__FILE__) ."  ENDMAP $servername FINAL UPDATE");	
 	
-	$sleeping = (rand(100, 600))*40;
+	$sleeping = (rand(100, 400))*15; //* 40
   }
   else {
-    $geoonqx = 1;
-    $limitindb = 1;
+    $geoonqx = 40;
+    $limitindb = 40;
 	if(!empty($rand))
-		$timeap = rand(10, 300);
+		$timeap = rand(10, 100);
 	else
         $timeap = 30;
 	
-	$sleeping = (rand(100, 1500))*10;
+	$sleeping = (rand(100, 1500))*3; //* 10
   }
   echo "\n \033[38;5;202m OPT $limitindb USERS LIMIT / SYNC STATS update \033[38;5;46m";
   if (empty($date)) $date = date('Y-m-d H:i:s');
@@ -67,7 +67,7 @@ if(empty($stpp))
 	  if(($stats_array[$player_server_uid]['scores;kills']) > 4)
 		{
 			if (!empty($activate_opt)) 
-		           $ciopt = $ciopt * 20;
+		           $ciopt = $ciopt * 10;
 		}	
 	}
 		
@@ -190,7 +190,7 @@ if(empty($stpp))
 		  //debuglog(" [ $datetime ] " . (__FILE__) ."  / $guid / $ip / $nickname / $servername ");
 		   
 	if (!empty($activate_opt)) {			
-
+if (!empty($ip)){
 				echo " \n MAMBA UP + x_db_players  ";
                 $nickname = clearSymbols($nickname);
                 $nickname = htmlentities($nickname);
@@ -216,7 +216,16 @@ ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $ip . "', guid='" . 
                              errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
 							}
  
- 
+}
+/*
+else 
+   { 
+	errorspdo('[' . $date . '] 222 строка: нету rcon ответа! 
+	' . __FILE__ . '  Exception : ' . $ping.', '.$ip.', '.$i_name.' '.$i_guid.' '.$city.' (Почему от rcon запроса не получили ответа, скорей должен знать администратор проекта, тут будет ip = 0 и ip = 1, 
+	но мы не дали записать ИП 0 или 1, значит и игрока не будет в бд из-за этой проблемы!!)');
+	}
+*/
+
 
 				
 	}			
@@ -365,50 +374,24 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
 
   /////////////////////////////////////// update skill
                 if (!empty($skill)) {
-                  echo "\n skill: ", $player_server_uid, " - ", $skill, " ~~~~~ ";
+					
+		$xx = dbLazy('','select s_pg,s_kills,s_deaths from db_stats_1 WHERE s_pg = "' . $player_server_uid . '" and s_kills>=1  and s_deaths>=1 limit 1');	
+$killsfrom = '0.2';
+$deathsfrom = '1';
+if(is_object($xx))
+  foreach ($xx as $keym => $value) {
+    if ($keym == 's_kills') $killsfrom = $value;
+    else if ($keym == 's_deaths') $deathsfrom = $value;
+  }    
+  
+  echo "\n skill: ", $player_server_uid, " - ", $skill, " ~~~~~ ";
                   usleep($sleeping);
                   if ($skill < 0) $skill = 100;
 				  usleep(10000);
@@ -416,7 +399,7 @@ echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m",$player_server_uid;
 (s_pg, s_port, w_place,w_skill,w_ratio,w_geo,w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) 
 VALUES ('" . $player_server_uid . "','$svipport','0','1000','0','0','0','0','$ip','0','0','0','0','0','0')
 ON DUPLICATE KEY
-    UPDATE s_pg='" . $player_server_uid . "', w_skill=" . $skill . ",w_ip='" . $ip . "'");
+    UPDATE s_pg='" . $player_server_uid . "', w_skill=" . $skill . ", w_ratio=" . $killsfrom/$deathsfrom . ",w_ip='" . $ip . "'");
 	 
  							if(!$gt) 
 							{
@@ -441,35 +424,29 @@ ON DUPLICATE KEY
                   }
                   unset($stats_array[$player_server_uid]['scores;skill']);
                 }
+				else
+				{ 	
+//###############################################################					
+usleep(10000);
+		$xx = dbLazy('','select s_pg,s_kills,s_deaths from db_stats_1 WHERE s_pg = "' . $player_server_uid . '" and s_kills>=1  and s_deaths>=1 limit 1');	
+$killsfrom = '0.2';
+$deathsfrom = '1';
+if(is_object($xx))
+  foreach ($xx as $keym => $value) {
+    if ($keym == 's_kills') $killsfrom = $value;
+    else if ($keym == 's_deaths') $deathsfrom = $value;
+  }
+
+  $gt = dbInsert('',"INSERT INTO db_stats_2 
+(s_pg, s_port, w_place,w_skill,w_ratio,w_geo,w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) 
+VALUES ('" . $player_server_uid . "','$svipport','0','1000','" . $killsfrom/$deathsfrom . "','0','0','0','$ip','0','0','0','0','0','0')
+ON DUPLICATE KEY
+    UPDATE s_pg='" . $player_server_uid . "', w_ratio=" . $killsfrom/$deathsfrom . ",w_ip='" . $ip . "'");					
+//###############################################################						
+					
+				}
 /////////////////////////////////////// update skill
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+	
 
 
 
