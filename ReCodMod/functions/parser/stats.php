@@ -326,32 +326,11 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                     require $cpath . 'ReCodMod/functions/null.php';
                     exit;
                 }
+				
                 //Обновление статистики *Начало
-                $statscronx = $cpath . 'ReCodMod/databases/' . $server_ip . '_' . $server_port . '_statstimer.log';
-                if (!file_exists($statscronx)) touch($statscronx);
-                //if(empty(stats_cron_database))
-				if($spps != 1)
-				{
-                $stats_cron_database = 5; //5
-                    if (!empty($statscronx)) {
-                        $rand = rand(3, 10);
-                        $ci = filemtime($statscronx);
-                        if (time() - $ci >= (int)$stats_cron_database+(int)$rand){
-                        //if (time() - $ci >= (int)$stats_cron_database){ 
-                            echo "\n ~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~";
-                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
-                            $string = str_replace(".", "_", $server_ip);
-                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/', 0777, true);
-                            //$statscronx = $cpath.'ReCodMod/cache/loader_opt/fast_up_'.$string.'_'.$server_port.'/';
-                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/', 0777, true);
-                            if (!file_exists($cpath . 'ReCodMod/cache/stats_register/')) mkdir($cpath . 'ReCodMod/cache/stats_register/', 0777, true);
-                            if (!file_exists($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port)) mkdir($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port, 0777, true);
-                            file_put_contents($statscronx, "");
 							$activate_opt = 1;
                             require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
-                        }
-                    }
-                }
+                //Обновление статистики *Конец
 			}
             echo "\033[38;5;202m ===> nd:", substr($tfinishh = (microtime(true) - $start), 0, 5);
             echo "\033[38;5;46m";

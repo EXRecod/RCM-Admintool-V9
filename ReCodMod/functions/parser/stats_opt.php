@@ -1,58 +1,31 @@
 <?php
 if (!empty($stats_array)) {
+  echo "\n ~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~";
   $stpp = 0;
-  if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
-  $string = str_replace(".", "_", $server_ip);
-  if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/', 0777, true);
-  //$statscronx = $cpath.'ReCodMod/cache/loader_opt/fast_up_'.$string.'_'.$server_port.'/';
-  if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/', 0777, true);
-  if (!file_exists($cpath . 'ReCodMod/cache/stats_register/')) mkdir($cpath . 'ReCodMod/cache/stats_register/', 0777, true);
-  if (!file_exists($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port)) mkdir($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port, 0777, true);
-  //$loadopt = $cpath . 'ReCodMod/cache/server_update_lock.log';
-  //if (!file_exists($loadopt))
-  ///	touch($loadopt);
   ////////////////////////лимит нагрузок
   if (empty($activate_opt)) {
-    $geoonqx = 100;
-    $limitindb = 100;
-    $timeap = 1;
-    $rand = 30;
     //debuglog(" [ $datetime ] " . (__FILE__) ."  ENDMAP $servername FINAL UPDATE");
     $sleeping = (rand(100, 400)) * 15; //* 40
-    
+    $limitgroup = 0;
   }
   else {
-    $geoonqx = 40;
-    $limitindb = 40;
-    if (!empty($rand)) $timeap = rand(10, 100);
-    else $timeap = 30;
     $sleeping = (rand(100, 1500)) * 3; //* 10
-    
+    $limitgroup = 20;
   }
-  echo "\n \033[38;5;202m OPT $limitindb USERS LIMIT / SYNC STATS update \033[38;5;46m";
+  echo "\n \033[38;5;202m OPT USERS LIMIT / SYNC STATS update \033[38;5;46m";
   if (empty($date)) $date = date('Y-m-d H:i:s');
-  $okyopt = 0;
-  $whileoptx = 0;
-  $whileopt = 0;
   if (empty($stpp)) {
     $stpp = 1;
     foreach ($stats_array as $player_server_uid => $v) {
       $g = '';
       $o = '';
       $data = '';
-      //$player_server_uid = 0;
+	  $group = 0;
       /////////////////// ОПТИМИЗАЦИЯ
-      if ($whileoptx < $limitindb) {
-        $string = str_replace(".", "_", $server_ip);
-        $loadopt = $cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/' . $player_server_uid . '.log';
-        if (!file_exists($loadopt)) touch($loadopt);
-        $ciopt = filemtime($loadopt);
-        if ((!empty($stats_array[$player_server_uid]['scores;kills'])) && (!empty($stats_array[$player_server_uid]['scores;deaths']))) {
-          if (($stats_array[$player_server_uid]['scores;kills']) > 4) {
-            if (!empty($activate_opt)) $ciopt = $ciopt * 10;
-          }
-        }
-        if (time() - $ciopt >= $timeap) {
+      if (!empty($stats_array[$player_server_uid]['scores;kills'])) $group = 'kills';
+      else if (!empty($stats_array[$player_server_uid]['scores;deaths'])) $group = 'deaths';
+      if (!empty($group)) {
+        if (($stats_array[$player_server_uid]['scores;' . $group . '']) >= $limitgroup) {
           echo "\n ===> ", $player_server_uid;
           /////////////////// ОПТИМИЗАЦИЯ
           $date = date('Y-m-d H:i:s');
@@ -237,7 +210,6 @@ ON DUPLICATE KEY
                   ///////////////////////////////////       PLAYER MAPS      /////////////////////////////////////
                   ////////////////////////////////////////////////////////////////////////////////////////////////
                   ////////////////////////////////////////////////////////////////////////////////////////////////
-                  ++$okyopt;
                   //Оптимизация РЦМ 5.9 версия
                   //Если сумма ноль, не дергаем бд
                   if (((int)$camps + (int)$flags + (int)$saveflags + (int)$bomb_plant + (int)$bomb_defused + (int)$juggernaut_kill + (int)$destroyed_helicopter + (int)$rcxd_destroyed + (int)$turret_destroyed + (int)$sam_kill) > 0) {
@@ -538,7 +510,6 @@ ON DUPLICATE KEY
                   unset($stats_array[$player_server_uid]['damage;damage']);
                 }
                 unset($table_insert);
-                ++$whileoptx;
                 $g = '';
                 $o = '';
                 //unset($stats_array[$player_server_uid]['scores;skill']);
@@ -564,7 +535,7 @@ ON DUPLICATE KEY
                 //unset($stats_array[$player_server_uid]['death_series_minute_head_db']);
                 //unset($stats_array[$player_server_uid]['weapons;']);
                 //unset($stats_array[$player_server_uid]['hitzones;']);
-                if ($geoonqx > 10) {
+                if (empty($activate_opt)) {
                   if (!empty($chat_flooder_time[$player_server_uid])) {
                     unset($chat_flooder_time[$player_server_uid]);
                     unset($chat_flooder_warns[$player_server_uid]);
@@ -577,15 +548,9 @@ ON DUPLICATE KEY
             ///
             
           }
-          echo "\n\n  \033[38;5;178m Unset: GUID $guid / SERVER_GUID ", $player_server_uid, "  sql inserts -> ", $okyopt, "\033[38;5;46m \n\n";
-          ++$whileopt;
-          file_put_contents($loadopt, "" . $player_server_uid . "");
+          echo "\n\n  \033[38;5;178m Unset: GUID $guid / SERVER_GUID ", $player_server_uid, "  sql inserts ->  vvv \033[38;5;46m \n\n";
         }
-      } /////////opt end in loop
-      //if ($okyopt > 0) {
-      //
-      //   }
-      
+      }
     }
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -632,7 +597,6 @@ ON DUPLICATE KEY
     ///////////////////////////////////       MAPS      /////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
-    if ($whileopt < $limitindb) $x_stop_lp = 7000; //break;
     $stpp = 0;
   }
 }
