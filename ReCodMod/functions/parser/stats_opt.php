@@ -1,18 +1,27 @@
 <?php
 if (!empty($stats_array)) {
-  echo "\n ~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~";
-  $stpp = 0;
+  //echo "\n ~~~\033[38;5;202m   UPDATE STATS LOADER OPT   \033[38;5;46m~~~";
+  $stpp = 0; $okinsrt = 0;
   ////////////////////////лимит нагрузок
   if (empty($activate_opt)) {
     //debuglog(" [ $datetime ] " . (__FILE__) ."  ENDMAP $servername FINAL UPDATE");
-    $sleeping = (rand(100, 400)) * 15; //* 40
+    $sleeping = (rand(100, 400)) * 40; //* 40
     $limitgroup = 0;
-  }
+	$outofgame = 0;
+	$reset = 1;
+  } 
+  else if ($activate_opt == 2) {
+     $sleeping = (rand(100, 400)); //* 40
+     $limitgroup = 0;
+	 $reset = 0;
+   }
   else {
     $sleeping = (rand(100, 1500)) * 3; //* 10
     $limitgroup = 20;
+	$outofgame = 0;
+	$reset = 0;
   }
-  echo "\n \033[38;5;202m OPT USERS LIMIT / SYNC STATS update \033[38;5;46m";
+  //echo "\n \033[38;5;202m OPT USERS LIMIT / SYNC STATS update \033[38;5;46m";
   if (empty($date)) $date = date('Y-m-d H:i:s');
   if (empty($stpp)) {
     $stpp = 1;
@@ -24,15 +33,38 @@ if (!empty($stats_array)) {
       /////////////////// ОПТИМИЗАЦИЯ
       if (!empty($stats_array[$player_server_uid]['scores;kills'])) $group = 'kills';
       else if (!empty($stats_array[$player_server_uid]['scores;deaths'])) $group = 'deaths';
+	  
+	  if (!empty($reset)){ $group = 'ALL'; $okinsrt = 1;}
+	  
       if (!empty($group)) {
-        if (($stats_array[$player_server_uid]['scores;' . $group . '']) >= $limitgroup) {
+		  
+		  if($group != 'ALL')
+		  {
+		  if (($stats_array[$player_server_uid]['scores;' . $group . '']) >= $limitgroup)
+			  $okinsrt = 1;
+		  }
+		  
+		  if(!empty($outofgame)){
+			  if(!empty($stats_array[$outofgame])){
+				 if($stats_array[$outofgame] == $stats_array[$player_server_uid]){ 
+				$okinsrt = 1;  
+		  }else $okinsrt = 0;}}
+		  
+        if ($okinsrt == 1) {
+			
           echo "\n ===> ", $player_server_uid;
           /////////////////// ОПТИМИЗАЦИЯ
           $date = date('Y-m-d H:i:s');
+		  $dateregister = '';
           $czr = count($v);
           $counter = 0;
           $guid = '';
           $nickname = '';
+		  $joi = '';
+		  $join = '';
+		  $totalplayedtimer = 0;
+		  if (empty($valueSets))$valueSets = array();
+		  if (!empty($valueSets))unset($valueSets);
           if (!empty($table_hits)) unset($table_hits);
           if (!empty($table_insert)) unset($table_insert);
           if (!empty($valueSets)) unset($valueSets);
@@ -40,6 +72,9 @@ if (!empty($stats_array)) {
           if (!empty($valueSetsz)) unset($valueSetsz);
           if (!empty($weaponSets)) unset($weaponSets);
           if (!empty($w)) unset($w);
+		  if (!empty($table)) $table = ''; 
+		  if (!empty($weap)) $weap = '';
+		  if (!empty($weapon_table_update)) unset($weapon_table_update);
           $ip = '';
           $skill = '';
           $kills = 0;
@@ -100,7 +135,8 @@ if (!empty($stats_array)) {
             else if (strpos($g, 'scores;death_series_head_db') !== false) $death_series_head_db = $o;
             else if (strpos($g, 'scores;death_series_minute_head_db') !== false) $death_series_minute_head_db = $o;
             else if (strpos($g, 'mod;MOD_MELEE') !== false) $mod_melee = $o;
-            else if (strpos($g, 'date') !== false) $date = $o;
+            else if (strpos($g, 'date') !== false) $dateregister = $o;
+			else if (strpos($g, 'totalplayedtimer') !== false) $totalplayedtimer = $o;
             else if (strpos($g, 'ip_adress') !== false) $ip = $o;
             else if (strpos($g, 'city') !== false) $city = $o;
             else if (strpos($g, 'ping') !== false) $ping = $o;
@@ -110,16 +146,14 @@ if (!empty($stats_array)) {
               //$h hits zones
               $table_hits[$hit] = $o;
               if ($hit == 'head') $heads = $o;
-              if (empty($activate_opt)) unset($stats_array[$player_server_uid]['hitzones;' . $hit]);
             }
             else if (strpos($g, 'weapons;') !== false) {
               list($table, $weap) = explode(';', $g);
               //$w weapons
               $w[$weap] = $o;
-              if (empty($activate_opt)) unset($stats_array[$player_server_uid]['weapons;' . $weap]);
               ////////////////////############################################/////////////////////////
               ////////////////////###   STOCK COD1 - COD5 WEAPONS UPDATE   ###/////////////////////////
-              if (empty($table_update)) $table_update = stock_weapons($w);
+              if (empty($weapon_table_update)) $weapon_table_update = stock_weapons($w);
               ////////////////////###   STOCK COD1 - COD5 WEAPONS UPDATE   ###/////////////////////////
               ////////////////////############################################/////////////////////////
               
@@ -129,14 +163,16 @@ if (!empty($stats_array)) {
               if (!empty($guid)) {
                 if (empty($ip)) list($ping, $ip, $i_name, $i_guid, $city) = explode(';', (rconExplode($guid)));
                 //debuglog(" [ $datetime ] " . (__FILE__) ."  / $guid / $ip / $nickname / $servername ");
-                if (!empty($activate_opt)) {
-                  if (!empty($ip)) {
+               // if (empty($reset)) {
+                  if (!empty($ip)) {	          
+		  if (empty($dateregister))  
+					  $dateregister = date('Y-m-d H:i:s');
                     echo " \n MAMBA UP + x_db_players  ";
                     $nickname = clearSymbols($nickname);
                     $nickname = htmlentities($nickname);
                     $sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
-         VALUES ('$svipport','" . $nickname . "', '0', '$ip', '0', '$ping', '$guid', '1', '$date', '0', '$date', '1')
+         VALUES ('$svipport','" . $nickname . "', '0', '$ip', '0', '$ping', '$guid', '1', '$date', '0', '$dateregister', '1')
 ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $ip . "', x_db_name = '" . $nickname . "', x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'";
                     $gt = dbInsert('', $sql);
                     if (!$gt) {
@@ -157,7 +193,7 @@ ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $ip . "', guid='" . 
                   но мы не дали записать ИП 0 или 1, значит и игрока не будет в бд из-за этой проблемы!!)');
                   }
                   */
-                }
+               // }
                 ///$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                 /////////////////////////////////////// update scores db
                 //Если сумма ноль, не дергаем бд №1
@@ -212,7 +248,8 @@ ON DUPLICATE KEY
                   ////////////////////////////////////////////////////////////////////////////////////////////////
                   //Оптимизация РЦМ 5.9 версия
                   //Если сумма ноль, не дергаем бд
-                  if (((int)$camps + (int)$flags + (int)$saveflags + (int)$bomb_plant + (int)$bomb_defused + (int)$juggernaut_kill + (int)$destroyed_helicopter + (int)$rcxd_destroyed + (int)$turret_destroyed + (int)$sam_kill) > 0) {
+                  if (((int)$camps + (int)$flags + (int)$saveflags + (int)$bomb_plant + (int)$bomb_defused + (int)$juggernaut_kill + 
+				  (int)$destroyed_helicopter + (int)$rcxd_destroyed + (int)$turret_destroyed + (int)$sam_kill) > 0) {
                     usleep($sleeping);
                     $querySQL = "update db_stats_3 set 
 								camp=camp + " . $camps . ",
@@ -229,6 +266,23 @@ ON DUPLICATE KEY
                     if (!$query) {
                       errorspdo('[' . $datetime . '] 509  ' . __FILE__ . '  Exception : ' . $querySQL);
                     }
+					else
+					{
+                //specials start
+                unset($stats_array[$player_server_uid]['scores;camps']);
+                unset($stats_array[$player_server_uid]['scores;flags']);
+                unset($stats_array[$player_server_uid]['scores;saveflags']);
+                unset($stats_array[$player_server_uid]['scores;bomb_plant']);
+                unset($stats_array[$player_server_uid]['scores;bomb_defused']);
+                unset($stats_array[$player_server_uid]['scores;juggernaut_kill']);
+                unset($stats_array[$player_server_uid]['scores;destroyed_helicopter']);
+                unset($stats_array[$player_server_uid]['scores;rcxd_destroyed']);
+                unset($stats_array[$player_server_uid]['scores;turret_destroyed']);
+                unset($stats_array[$player_server_uid]['scores;sam_kill']);
+                //specials end
+					}
+					
+					
                     $query = null;
                     echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m", $player_server_uid;
                   }
@@ -303,18 +357,37 @@ ON DUPLICATE KEY
                   else $sql_knifes = "";
                   //if(!empty($w_)) $sql_ = "s_deaths=s_deaths $deaths,"; else $sql_ = "";
                   $summdb1 = $sql_deaths . $sql_kills . $sql_heads . $sql_suicides . $sql_knifes;
+				  
+				  if(!empty($totalplayedtimer))
+				  $timeplayed = time() - $totalplayedtimer;
+			      else 
+					 $timeplayed = 50; 
+				  
                   $querySQL = "INSERT INTO db_stats_1 (s_pg,s_kills,s_deaths,s_heads,s_suicids,s_fall,s_melle,s_dmg) 
-				  VALUES ('$player_server_uid','$kills','$deaths','$heads','$suicides','0','$mod_melee','$damage')
-ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', $summdb1 s_dmg=s_dmg + $damage";
+				  VALUES ('$player_server_uid','$kills','$deaths','$heads','$suicides','$timeplayed','$mod_melee','$damage')
+ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', $summdb1 s_dmg=s_dmg + $damage, s_fall=s_fall + $timeplayed";
+
                   $t = dbInsert('', $querySQL);
                   if (empty($t)) {
                     errorspdo('[' . $datetime . '] 556  ' . __FILE__ . '  Exception : ' . $querySQL);
                   }
+				  else
+				  {
+				  unset($stats_array[$player_server_uid]['totalplayedtimer']);					  
+			      unset($stats_array[$player_server_uid]['hitzones;head']);
+                  unset($stats_array[$player_server_uid]['scores;kills']);
+                  unset($stats_array[$player_server_uid]['scores;deaths']);	
+                  unset($stats_array[$player_server_uid]['scores;kills']);
+                  unset($stats_array[$player_server_uid]['scores;deaths']);
+                  unset($stats_array[$player_server_uid]['scores;suicides']);
+                  unset($stats_array[$player_server_uid]['mod;MOD_MELEE']);
+                  unset($stats_array[$player_server_uid]['damage;damage']);				  
+				  }
                   $t = null;
                   echo "\n  \033[38;5;175m opt db_stats_1 update: $summdb1 \033[38;5;46m", $player_server_uid;
                   /*	*/
                 }
-                if (empty($activate_opt)) {
+                if (!empty($reset)) {
                   usleep($sleeping);
                   $player_main_id = '';
                   $result = dbLazy('', "SELECT id,s_pg,n_kills,n_deaths,n_heads,n_kills_min FROM db_stats_2 where s_pg='$player_server_uid' LIMIT 1");
@@ -345,7 +418,7 @@ ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', $summdb1 s_dmg=s_dmg 
                   
                 }
                 /*	*/
-                if (empty($activate_opt)) {
+                //if (!empty($reset)) {
                   /////////////////////////////////////// update user db
                   if (!empty($nickname)) {
                     usleep($sleeping);
@@ -358,9 +431,13 @@ ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', $summdb1 s_dmg=s_dmg 
                     $w_n = str_replace('"', '', $w_n);
                     $w_n = str_replace('{', '', $w_n);
                     $w_n = str_replace('}', '', $w_n);
+					
+		  if (empty($dateregister))  
+					  $dateregister = date('Y-m-d H:i:s');	
+					
                     if (strlen($w_n) > 25) $w_n = mb_strimwidth($w_n, 0, 25, "");
                     $querySQL = "INSERT INTO db_stats_0 (s_pg,s_guid,s_port,servername,s_player,s_time,s_lasttime) 
-VALUES ('$player_server_uid','$guid', '$svipport', '" . $servername . "','" . $w_n . "','$date','$date')
+VALUES ('$player_server_uid','$guid', '$svipport', '" . $servername . "','" . $w_n . "','$dateregister','$date')
 ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', s_lasttime='" . $date . "', s_player='" . $w_n . "'";
                     $t = dbInsert('', $querySQL);
                     usleep(10000);
@@ -373,8 +450,8 @@ ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', s_lasttime='" . $date
                   //////////////////////////////////////////////////////////////////////////////
                   unset($stats_array[$player_server_uid]['nickname']);
                   unset($stats_array[$player_server_uid]['date']);
-                }
-                if (empty($activate_opt)) {
+                //}
+                 
                   /////////////////////////////////////// update hit zones db
                   if (!empty($table_hits)) {
                     $valueSetsw = array();
@@ -394,6 +471,13 @@ ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $joi . "";
                       if (!$query) {
                         errorspdo('[' . $datetime . '] 578  ' . __FILE__ . '  Exception : ' . $querySQL);
                       }
+					  else
+					  {
+		 foreach($table_hits as $hitzoo)
+		 { if(!empty($stats_array[$player_server_uid]['hitzones;'.$hitzoo.'']))
+			   unset($stats_array[$player_server_uid]['hitzones;'.$hitzoo.'']);  
+		 }	  
+					  }
                       $query = null;
                       echo "\n  \033[38;5;175m opt db_stats_hits UPDATE: $joi \033[38;5;46m", $player_server_uid;
                     }
@@ -407,7 +491,7 @@ ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $joi . "";
                   unset($stats_array[$player_server_uid]['mod;MOD_MELEE']);
                   unset($stats_array[$player_server_uid]['date']);
                   unset($stats_array[$player_server_uid]['damage;damage']);
-                }
+               
                 ////////////////////############################################/////////////////////////
                 ////////////////////###   STOCK COD1 - COD5 WEAPONS INSERT   ###/////////////////////////
                 // $wp = ''; $wps = ''; $wprg = ''; $wpnm = ''; $table_insert = ''; $wweapons = '';
@@ -418,7 +502,7 @@ ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $joi . "";
                 ////////////////////############################################/////////////////////////
                 /////////////////////////////////////// update weapons db
                 for ($i = 1;$i <= 20;$i++) {
-                  if (!empty($table_update[$i])) {
+                  if (!empty($weapon_table_update[$i])) {
                     //////////////////////////////////////
                     if (!empty($table_insert[$i])) {
                       $valueSetsz = array();
@@ -432,11 +516,10 @@ ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $joi . "";
                       if (!empty($weaponSets)) $join_weapon = join(",", $weaponSets);
                     }
                     //////////////////////////////////////
-                    $valueSets = array();
-                    foreach ($table_update[$i] as $key => $value) {
+                    //$valueSets = array();
+                    foreach ($weapon_table_update[$i] as $key => $value) {
                       $valueSets[] = $key . " =  " . $key . " + " . $value . "";
                       //txt_db($server_ip, $server_port, $guid, 'weapons;' . $key, $value, 1);
-                      
                     }
                     if (!empty($valueSets)) $join = join(",", $valueSets);
                     if (!empty($join)) {
@@ -448,41 +531,55 @@ ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $join . "";
                       if (!$query) {
                         errorspdo('[' . $datetime . '] 603  ' . __FILE__ . '  Exception : ' . $querySQL);
                       }
-                      $query = null;
-                      echo "\n  \033[38;5;175m opt db_weapons_$i UPDATE: $join \033[38;5;46m", $player_server_uid;
-                      unset($table_update[$i]);
-                    }
+					  else
+					  {
+		 foreach($w as $weapq)
+		 {  if(!empty($stats_array[$player_server_uid]['weapons;'.$weapq.'']))
+			   unset($stats_array[$player_server_uid]['weapons;'.$weapq.'']);  
+		 }
+		        if (!empty($join))
                     unset($join);
                     $join_values = '';
                     $join_weapon = '';
                     unset($valueSetsz);
-                    unset($weaponSets);
+                    unset($weaponSets);		 
+                      echo "\n  \033[38;5;175m opt db_weapons_$i UPDATE: \033[38;5;46m", $player_server_uid;
+                      unset($weapon_table_update[$i]);		 
+					  }
+                      $query = null;
+
+                    }
+
                   }
-                }
+                } 			 
                 /////////////////////////////////////// update weapons db
                 /////////////////////////////////////////////////////////////////
-                if (empty($activate_opt)) {
+                //if (!empty($reset)) {
                   ///////////////////////////  DAY AND WEEK STATS //////////////////////////////////////////////////
                   if (!empty($nickname)) {
                     if (((int)$kills + (int)$deaths + (int)$heads) > 0) {
                       usleep($sleeping);
+					  
+		  if (empty($dateregister))  
+					  $dateregister = date('Y-m-d H:i:s');					  
+					  
                       if (empty($w_n)) $sql = "INSERT INTO db_stats_day (servername,s_pg,w_guid,w_port,s_player,s_kills,s_deaths,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $date . "','" . $date . "') 
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                       else $sql = "INSERT INTO db_stats_day 
 					(servername,s_pg,w_guid,w_port,s_player,s_kills,s_deaths,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $date . "','" . $date . "') 
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', s_player='" . $w_n . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                       if (empty($w_n)) $sql2 = "INSERT INTO db_stats_week 
 					(servername,s_pg,w_guid,w_port,s_player,s_kills,s_killsweap,s_killsweap_min,s_deaths,s_deathsweap_min,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $date . "','" . $date . "') 
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                       else $sql2 = "INSERT INTO db_stats_week 
 					(servername,s_pg,w_guid,w_port,s_player,s_kills,s_killsweap,s_killsweap_min,s_deaths,s_deathsweap_min,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $date . "','" . $date . "') 
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', s_player='" . $w_n . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                       $cc = dbInsert('', $sql2);
@@ -490,9 +587,32 @@ ON DUPLICATE KEY
                       if (!$cc) {
                         errorspdo('[' . $datetime . '] 639  ' . __FILE__ . '  Exception : ' . $sql);
                       }
+					  else
+					  {
+                  unset($stats_array[$player_server_uid]['nickname']);
+                  unset($stats_array[$player_server_uid]['scores;kills']);
+                  unset($stats_array[$player_server_uid]['scores;deaths']);
+                  unset($stats_array[$player_server_uid]['scores;suicides']);
+                  unset($stats_array[$player_server_uid]['mod;MOD_MELEE']);
+                  unset($stats_array[$player_server_uid]['date']);
+                  unset($stats_array[$player_server_uid]['damage;damage']);
+					  }
+					  
                       if (!$ff) {
                         errorspdo('[' . $datetime . '] 643  ' . __FILE__ . '  Exception : ' . $sql);
                       }
+					  else
+					  {
+                  unset($stats_array[$player_server_uid]['nickname']);
+                  unset($stats_array[$player_server_uid]['scores;kills']);
+                  unset($stats_array[$player_server_uid]['scores;deaths']);
+                  unset($stats_array[$player_server_uid]['scores;suicides']);
+                  unset($stats_array[$player_server_uid]['mod;MOD_MELEE']);
+                  unset($stats_array[$player_server_uid]['date']);
+                  unset($stats_array[$player_server_uid]['damage;damage']);  
+					  }
+					  
+					  
                       $cc = null;
                       $ff = null;
                       echo "\n  \033[38;5;178m db_stats_week \033[38;5;46m", $player_server_uid;
@@ -501,41 +621,14 @@ ON DUPLICATE KEY
                   }
                   ///////////////////////////  DAY AND WEEK STATS ////////////////////////
                   //////////////////////////////////////////////////////////////////////////////
-                  unset($stats_array[$player_server_uid]['nickname']);
-                  unset($stats_array[$player_server_uid]['scores;kills']);
-                  unset($stats_array[$player_server_uid]['scores;deaths']);
-                  unset($stats_array[$player_server_uid]['scores;suicides']);
-                  unset($stats_array[$player_server_uid]['mod;MOD_MELEE']);
-                  unset($stats_array[$player_server_uid]['date']);
-                  unset($stats_array[$player_server_uid]['damage;damage']);
-                }
+ 
+                //}
                 unset($table_insert);
                 $g = '';
                 $o = '';
                 //unset($stats_array[$player_server_uid]['scores;skill']);
-                //specials start
-                unset($stats_array[$player_server_uid]['scores;camps']);
-                unset($stats_array[$player_server_uid]['scores;flags']);
-                unset($stats_array[$player_server_uid]['scores;saveflags']);
-                unset($stats_array[$player_server_uid]['scores;bomb_plant']);
-                unset($stats_array[$player_server_uid]['scores;bomb_defused']);
-                unset($stats_array[$player_server_uid]['scores;juggernaut_kill']);
-                unset($stats_array[$player_server_uid]['scores;destroyed_helicopter']);
-                unset($stats_array[$player_server_uid]['scores;rcxd_destroyed']);
-                unset($stats_array[$player_server_uid]['scores;turret_destroyed']);
-                unset($stats_array[$player_server_uid]['scores;sam_kill']);
-                //specials end
-                //unset($stats_array[$player_server_uid]['scores;kill_series_db']);
-                //unset($stats_array[$player_server_uid]['scores;kill_series_minute_db']);
-                //unset($stats_array[$player_server_uid]['scores;kill_series_head_db']);
-                //unset($stats_array[$player_server_uid]['scores;kill_series_minute_head_db']);
-                //unset($stats_array[$player_server_uid]['death_series_db']);
-                //unset($stats_array[$player_server_uid]['scores;death_series_minute_db']);
-                //unset($stats_array[$player_server_uid]['death_series_head_db']);
-                //unset($stats_array[$player_server_uid]['death_series_minute_head_db']);
-                //unset($stats_array[$player_server_uid]['weapons;']);
-                //unset($stats_array[$player_server_uid]['hitzones;']);
-                if (empty($activate_opt)) {
+   
+                if (!empty($reset)) {
                   if (!empty($chat_flooder_time[$player_server_uid])) {
                     unset($chat_flooder_time[$player_server_uid]);
                     unset($chat_flooder_warns[$player_server_uid]);
@@ -549,6 +642,14 @@ ON DUPLICATE KEY
             
           }
           echo "\n\n  \033[38;5;178m Unset: GUID $guid / SERVER_GUID ", $player_server_uid, "  sql inserts ->  vvv \033[38;5;46m \n\n";
+		  
+		  
+		// foreach($table_hits as $hitzoo)
+		// {
+		//	unset($stats_array[$player_server_uid]['hitzones;'.$hitzoo.'']);  
+		// }		 
+ 
+		  
         }
       }
     }
@@ -557,7 +658,7 @@ ON DUPLICATE KEY
     ///////////////////////////////////       MAPS      /////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
-    if (empty($activate_opt)) {
+    if (!empty($reset)) {
       if (!empty($maps_array)) {
         $kills = 0;
         $deaths = 0;
@@ -599,6 +700,22 @@ ON DUPLICATE KEY
     /////////////////////////////////////////////////////////////////////////////////////////
     $stpp = 0;
   }
+ 
+  if (!empty($reset))
+  {            /*
+                unset($stats_array[$player_server_uid]['scores;kill_series_db']);
+                unset($stats_array[$player_server_uid]['scores;kill_series_minute_db']);
+                unset($stats_array[$player_server_uid]['scores;kill_series_head_db']);
+                unset($stats_array[$player_server_uid]['scores;kill_series_minute_head_db']);
+                unset($stats_array[$player_server_uid]['death_series_db']);
+                unset($stats_array[$player_server_uid]['scores;death_series_minute_db']);
+                unset($stats_array[$player_server_uid]['death_series_head_db']);
+                unset($stats_array[$player_server_uid]['death_series_minute_head_db']);
+			*/
+  unset($stats_array);				
+  } 
+
+  
 }
 //Обновление статистики *Начало
 //exit;

@@ -1,16 +1,12 @@
 <?php
-if ($x_stop_lp == 0) {
-    if (!file_exists($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/')) {
-        if (!file_exists($cpath . 'ReCodMod/databases/stats_register/')) mkdir($cpath . 'ReCodMod/databases/stats_register/', 0777, true);
-        mkdir($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/', 0777, true);
-    }
-    $parselinetxt = delxkll($parseline);
+
     ///////////////error fix
     $counttdot = substr_count($parseline, ';');
-    if ($counttdot < 12) $x_stop_lp = 10;
+    if ($counttdot < 12) $da = 10; else $da = 0;
     ///////////////error fix
-    if ($x_stop_lp == 0) {
-        if (strpos($parseline, 'D;') !== false) {
+    if ($da == 0) {
+        if (strpos($parseline, ' D;') !== false) {
+           $parselinetxt = delxkll($parseline);			
             $shy = 0;
             $dtshid = 0;
             list($vv1, $death_player_guid, $idnumb, $vv4, $death_player_name, $player_killer_guid, $idkill, $vv8, $killer_player_name, $byweapon, $vv11, $modkll, $hitlock) = explode(';', $parselinetxt);
@@ -38,6 +34,7 @@ if ($x_stop_lp == 0) {
         //////////#############         DAMAGE END        #############/////////////////////////////////////////////////////////////////////////////////////
         //////////#############///////#############///////#############/////////////////////////////////////////////////////////////////////////////////////
         if (strpos($parseline, ' K;') !== false) {
+         $parselinetxt = delxkll($parseline);	
             // 4:58    K;0                  ;31;      ;bot31 ;2310346615720138741;30;    ;TyK TyK..  ?;c4_mp;  98; MOD_GRENADE_SPLASH;none
             // 2304:11 K;2310346615980522343;25;allies;XXXXXX;2310346617077157795;32;axis;Deep sadness;ak47_mp;84; MOD_RIFLE_BULLET;torso_lower
             list($vv1, $death_player_guid, $idnumb, $vv4, $death_player_name, $player_killer_guid, $idkill, $vv8, $killer_player_name, $byweapon, $vv11, $modkll, $hitlock) = explode(';', $parselinetxt);
@@ -48,17 +45,17 @@ if ($x_stop_lp == 0) {
             // example: reg_guid_stats = "28960/28962/28964" servers without 0 guid adding in stats,
             // another servers wits bots going in stats
             if (empty(reg_guid_stats)) {
-                if (empty($death_player_guid)) $x_stop_lp = 20;
-                if (empty($player_killer_guid)) $x_stop_lp = 20;
-				if(strpos($player_killer_guid, 'bot') !== false) $x_stop_lp = 20;
-	           	if(strpos($death_player_guid, 'bot') !== false) $x_stop_lp = 20;           
+                if (empty($death_player_guid)) $da = 20;
+                if (empty($player_killer_guid)) $da = 20;
+				if(strpos($player_killer_guid, 'bot') !== false) $da = 20;
+	           	if(strpos($death_player_guid, 'bot') !== false) $da = 20;           
             } else if (reg_guid_stats == 1) {
-                if (empty($death_player_guid)) $x_stop_lp = 0;
-                if (empty($player_killer_guid)) $x_stop_lp = 0;
+                if (empty($death_player_guid)) $da = 0;
+                if (empty($player_killer_guid)) $da = 0;
 				 $player_killer_guid = $killer_player_name;
                  $death_player_guid = $death_player_name;
             }
-            if ($x_stop_lp == 0) {
+            if ($da == 0) {
                 if (!empty($ggtype)) {
                     if (empty($egtxrun)) {
                         $ggtype = $log_folder . '/g_gametype_' . $server_ip . '_' . $server_port . '.log';
@@ -80,6 +77,18 @@ if ($x_stop_lp == 0) {
                 //$shiddeath = CRC16::calculate($shiddeath);
                 $shiddeath = dbGuid(4) . (abs(hexdec(crc32($shiddeath))));
                 /////////////////////////////////////////////////
+				
+if (empty($stats_array[$shid]['date']))				
+	$stats_array[$shid]['date'] = date('Y-m-d H:i:s');			
+else if (empty($stats_array[$shid]['date']))				
+	$stats_array[$shiddeath]['date'] = date('Y-m-d H:i:s');
+
+
+if (empty($stats_array[$shid]['totalplayedtimer']))				
+	$stats_array[$shid]['totalplayedtimer'] = time();			
+else if (empty($stats_array[$shid]['totalplayedtimer']))				
+	$stats_array[$shiddeath]['totalplayedtimer'] = time();
+
 				
 if (empty($stats_array[$shid]['ip_adress'])) {
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($player_killer_guid)));
@@ -132,6 +141,7 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                 //dth
                 $stats_array[$shiddeath]['guid'] = $death_player_guid;
                 $stats_array[$shiddeath]['nickname'] = $death_player_name;
+				
                 $stats_array = data_values_input($shiddeath, 'scores', 'deaths', $stats_array);
                 //suicides
                 if (((strpos($parseline, ';MOD_SUICIDE;none') === false) && ($death_player_guid . ';-1;'))||
@@ -273,7 +283,13 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
                 //*************************************  SERIES in minute  *****************************************
                 //##########################################  SERIES  ##############################################
                 //##################################################################################################
-               if(empty($block_skill)){ 
+               if(empty($block_skill)){
+
+    if (!file_exists($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/')) {
+        if (!file_exists($cpath . 'ReCodMod/databases/stats_register/')) mkdir($cpath . 'ReCodMod/databases/stats_register/', 0777, true);
+        mkdir($cpath . 'ReCodMod/databases/stats_register/' . $server_ip . '_' . $server_port . '/', 0777, true);
+    }
+				   
 				$istatl = 0;
                 $damaged_skill = search_values($shiddeath, 'scores', 'skill', $stats_array);
                 $attacker_skill = search_values($shid, 'scores', 'skill', $stats_array);
@@ -334,10 +350,9 @@ if (empty($stats_array[$shiddeath]['ip_adress'])) {
 			}
             echo "\033[38;5;202m ===> nd:", substr($tfinishh = (microtime(true) - $start), 0, 5);
             echo "\033[38;5;46m";
-            $x_stop_lp = 56800;
+            $da = 0;
         }
         require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
     }
-}
 
 ?>
