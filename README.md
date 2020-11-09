@@ -2,7 +2,7 @@
 # RECODMOD-V9/0.7.2 (14/09/2020)
 
 - Stable RECODMOD admintool version 9  ->  JUNE 20, 2020
-- Stable RECODMOD stats web version 9  ->  DEMO https://xxxreal.ru/codbox/
+- Stable RECODMOD stats web version 9  ->  https://github.com/EXRecod/CODBoX
 --------------------------------------------------------
 - New version RECODMOD V9 not compatible with old RECODMOD versions 
 -    and not compatible with old WEB RECODMOD versions!!
