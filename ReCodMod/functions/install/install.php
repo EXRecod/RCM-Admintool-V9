@@ -945,34 +945,28 @@ if (!is_dir($dircache)) {
   }
 }
 $dircache = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat";
-$geoudir = 'https://github.com/EXRecod/RCM-Admintool-V5/raw/master/RCM/ReCodMod/geoip_bases/MaxMD/GeoLiteCity.dat';
-$geoudirtwo = 'http://xxxreal.ru/GeoLiteCity.dat';
+$geoudir[] = 'https://github.com/EXRecod/RCM-Admintool-V5/raw/master/RCM/ReCodMod/geoip_bases/MaxMD/GeoLiteCity.dat';
+$geoudir[] = 'https://github.com/EXRecod/RCM-Admintool-V9/raw/master/ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat';
+$geoudir[] = 'http://xxxreal.ru/GeoLiteCity.dat';
+
+
+foreach ($geoudir as $geof)
+{
 if (!file_exists($dircache)) {
   echo " \n \033[38;5;23m Try to download: GeoLiteCity.dat";
-  if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+  if (file_put_contents($dircache, fopen($geof, 'r'))) {
     echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
   }
-  else {
-    echo " \n \033[38;5;1m Do not downloaded: GeoLiteCity.dat";
-    echo " \n \033[38;5;3m Try another server with download: GeoLiteCity.dat";
-    if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
-      echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
-    }
-  }
 }
+
 if ((filesize($dircache)) != 20539238) {
   echo " \n \033[0;38;5;27m Try to reupload: GeoLiteCity.dat";
-  if (file_put_contents($dircache, fopen($geoudir, 'r'))) {
+  if (file_put_contents($dircache, fopen($geof, 'r'))) {
     echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
   }
-  else {
-    echo " \n \033[38;5;1m Do not downloaded: GeoLiteCity.dat";
-    echo " \n \033[38;5;3m Try another server with download: GeoLiteCity.dat";
-    if (file_put_contents($dircache, fopen($geoudirtwo, 'r'))) {
-      echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
-    }
-  }
 }
+}
+
 if (!file_exists($dircache)) {
   echo "\033[37;1;1m Failed Download or install GeoLiteCity.dat !";
   slowscript("SLEEP 30: Failed Download or install GeoLiteCity.dat!");
