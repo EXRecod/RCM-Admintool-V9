@@ -506,7 +506,7 @@ CREATE TABLE IF NOT EXISTS `chat_ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `guid` varchar(32) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `timeh` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `timeh` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` smallint(2) NOT NULL,
   `status1days` mediumint(6) NOT NULL,
   `admin` varchar(80) NOT NULL,
