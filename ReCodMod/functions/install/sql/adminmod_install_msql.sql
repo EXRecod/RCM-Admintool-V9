@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `chat` (
 -- Структура таблицы `chat_opt_new`
 --
  
-CREATE TABLE `chat_opt_new` (
+CREATE TABLE IF NOT EXISTS `chat_opt_new` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `s_port` bigint(28) NOT NULL,
 `guid` varchar(32) NOT NULL,
