@@ -1707,6 +1707,9 @@ function rconExplodeIdnum($num) {
   }
   if (empty($xxccode)) return '0;0;0;0;0;0';
 }
+
+
+
 function rconExplode($guidin) {
   global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
   if (strpos($game_patch, 'cod1') !== false) usleep(45000);
@@ -1756,6 +1759,11 @@ function rconExplode($guidin) {
   }
   if (empty($c_ip)) return '0;0;0;0;0;0;0';
 }
+
+
+
+
+
 function inix($IniFileName, $enabler) {
   global $cpath;
   if (file_exists($cpath . 'cfg/' . $IniFileName . '.ini')) {

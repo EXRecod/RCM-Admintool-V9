@@ -171,3 +171,21 @@ fwrite($handlePos, "1");
 echo "OK ...";	  
   }  
 } 
+
+                $statscronx = $cpath . 'ReCodMod/databases/' . $server_ip . '_' . $server_port . '_statstimer.log';
+                if (!file_exists($statscronx)) touch($statscronx);
+				
+                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/')) mkdir($cpath . 'ReCodMod/cache/loader_opt/', 0777, true);
+                            $string = str_replace(".", "_", $server_ip);
+                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/')) 
+								mkdir($cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/', 0777, true);
+                            //$statscronx = $cpath.'ReCodMod/cache/loader_opt/fast_up_'.$string.'_'.$server_port.'/';
+                            if (!file_exists($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/')) 
+								mkdir($cpath . 'ReCodMod/cache/loader_opt/fast_up_' . $string . '_' . $server_port . '/', 0777, true);
+                            if (!file_exists($cpath . 'ReCodMod/cache/stats_register/')) 
+								mkdir($cpath . 'ReCodMod/cache/stats_register/', 0777, true);
+                            if (!file_exists($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port)) 
+								mkdir($cpath . 'ReCodMod/cache/stats_register/' . $server_ip . '_' . $server_port, 0777, true);
+                            file_put_contents($statscronx, "");				
+				
+?>

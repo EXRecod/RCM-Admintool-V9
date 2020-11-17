@@ -950,18 +950,18 @@ $geoudir[] = 'https://github.com/EXRecod/RCM-Admintool-V9/raw/master/ReCodMod/fu
 $geoudir[] = 'http://xxxreal.ru/GeoLiteCity.dat';
 
 
-foreach ($geoudir as $geof)
+foreach ($geoudir as $geof => $d)
 {
 if (!file_exists($dircache)) {
   echo " \n \033[38;5;23m Try to download: GeoLiteCity.dat";
-  if (file_put_contents($dircache, fopen($geof, 'r'))) {
+  if (file_put_contents($dircache, fopen($d, 'r'))) {
     echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
   }
 }
 
 if ((filesize($dircache)) != 20539238) {
   echo " \n \033[0;38;5;27m Try to reupload: GeoLiteCity.dat";
-  if (file_put_contents($dircache, fopen($geof, 'r'))) {
+  if (file_put_contents($dircache, fopen($d, 'r'))) {
     echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
   }
 }

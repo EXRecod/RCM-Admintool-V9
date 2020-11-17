@@ -19,7 +19,45 @@ if(!empty($rconExplode))
 {
 list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', $rconExplode);
 $chistx = $i_name;
-} else {$i_ping='';$i_ip='';$i_name='';$i_guid='';$xxccode='';$city='';$country='';}
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+ if (!empty($i_ip))
+	 {
+		 
+		 $date = date('Y-m-d H:i:s');
+                $nickname = clearSymbols($i_name);
+                $nickname = htmlentities($nickname);
+	$sql = "INSERT INTO x_db_players 
+				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
+         VALUES ('$svipport','" . $nickname . "', '0', '$i_ip', '0', '$i_ping', '$i_guid', '1', '$date', '0', '$date', '1')
+ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $i_ip . "', x_db_name = '" . $nickname . "', x_db_conn=x_db_conn+1, x_db_guid='" . $i_guid . "'"; 
+   $gt = dbInsert('',$sql);			
+							if(!$gt) 
+							{
+                             errorspdo('[' . $date . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+							}	 
+ 
+ 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$i_ip','$i_guid')
+ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $i_ip . "', guid='" . $i_guid . "'"; 
+   $gtx = dbInsert('',$sql);			
+							if(!$gtx) 
+							{
+                             errorspdo('[' . $date . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+							}
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////							
+} else {
+	
+	
+	$i_ping='';$i_ip='';$i_name='';$i_guid='';$xxccode='';$city='';$country='';
+	errorspdo('[' . $date . '] 56 строка: нету rcon ответа! 
+	' . __FILE__ . '  Exception : ' . $rconExplode . ' (Почему от rcon запроса не получили ответа, скорей должен знать администратор проекта, тут будет ip = 0 и ip = 1, 
+	но мы не дали записать ИП 0 или 1, значит и игрока не будет в бд из-за этой проблемы!!)');
+	
+	}
        
   if ((empty($i_ip)) || (strpos($i_ip, '192.168') !== false) || (strpos($i_ip, '255.255') !== false) || (strpos($i_ip, 'localhost') !== false) || (strpos($i_ip, '127.0.0.1') !== false)) $i_ip = '37.120.56.200';
             

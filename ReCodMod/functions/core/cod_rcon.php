@@ -7,7 +7,7 @@ if (!$connect) { die('Can\'t connect to COD gameserver.'); }
 if (strpos($game_patch, 'cod1_1.1') !== false)	
   socket_set_timeout ($connect, 0, 67000);  // bylo2
 else
-  stream_set_timeout ($connect, 0, 36000); //1e5
+  stream_set_timeout ($connect, 0, 36000); //  //36000 было
  
  $send = "\xff\xff\xff\xff" . 'rcon "' . $server_rconpass . '" status';
 fwrite($connect, $send);
@@ -24,7 +24,7 @@ $output = explode ("\xff\xff\xff\xffprint\n", $output);
  $sffg = $output;
 $output = implode ('!', $output);
 $output = explode ("\n",$output);
-
+$newoutputtwo = $output;
 ///////////////////////////////////////////////////////////////////
 /**/
 $newoutput = $sffg;
@@ -42,10 +42,12 @@ else
 			// COD1(*<1.2p, UO) COD2 COD4 COD5 ORIGINAL
 			// 1:NUM 2:score 3:ping 4:guid 5:name 6:lastmsg 7:IP 8:port 9:qport 10:rate
 			$pattern = '#^\s*(\d+)\s+(-?\d+)\s+(\d+)\s+([a-fA-F0-9]{16,32}|\d+) (.+?)\s+(\d+) (\d+\.\d+\.\d+\.\d+):(\-?\d+)\s+(\-?\d+)\s+(\d+)$#';
-			
 			if (preg_match($pattern, $nm, $sb)) {
 		if(!empty($sb[7]))
 			{
+				
+if ((filter_var($sb[7], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))||(filter_var($sb[7], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)))
+{	
 				$rconarray[] = array(
 					"num" => $sb[1],
 					"score" => $sb[2],
@@ -60,14 +62,25 @@ else
 				);
 			}
 			}
-		}
+		}}
 
-
+$goa = 0;
+if(!empty($rconarray)) {
+foreach ($rconarray as $nmj => $vk) {
+foreach ($vk as $i => $k) {		
+	if($i=='guid')
+	{
+	if(!empty($k))
+	{
+	 if(strlen($k)<10)
+       $goa = 1;}}}}}	
+if($goa == 0)
+{unset($rconarray);$rconarray = array();}
 
 if(empty($rconarray))
 {
 	 
- $newoutput  = preg_grep ('/[0-9]{1,8}[[:space:]][0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(\b)/', $newoutput);
+ $newoutput  = preg_grep ('/[0-9]{1,8}[[:space:]][0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(\b)/', $newoutputtwo);
  
 		foreach ($newoutput as $nm) {
 			 
@@ -77,7 +90,10 @@ if(empty($rconarray))
 			if (preg_match($pattern, $nm, $sb)) {
 				//echo "\n".$nm;
 			if(!empty($sb[8]))
-			{				
+			{
+
+if ((filter_var($sb[8], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))||(filter_var($sb[8], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)))
+{					
 				$rconarray[] = array(
 				    //"g" => $sb[0],
 					"num" => trim($sb[1]),
@@ -93,14 +109,28 @@ if(empty($rconarray))
 					"rate" => $sb[11],
 				);
 			}
-		}
+		}}
 	}
 }	
+	
+	
+$goa = 0;
+if(!empty($rconarray)) {
+foreach ($rconarray as $nmj => $vk) {
+foreach ($vk as $i => $k) {		
+	if($i=='guid')
+	{
+	if(!empty($k))
+	{
+	 if(strlen($k)<10)
+       $goa = 1;}}}}}	
+if($goa == 0)
+{unset($rconarray);$rconarray = array();}
 	
  
 if(empty($rconarray))
 { 
-  $newoutput  = preg_grep ('/[[:space:]][0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(\b)/', $newoutput);
+  $newoutput  = preg_grep ('/[[:space:]][0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(\b)/', $newoutputtwo);
  
 		foreach ($newoutput as $nm) {
 			
@@ -124,7 +154,10 @@ $string = substr($string, 0, 19);
    
  $AFAIK = $string;
 			if(!empty($sb[6]))
-			{				
+			{
+
+if ((filter_var($sb[6], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))||(filter_var($sb[6], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)))
+{					
 				$rconarray[] = array(
 				    //"g" => $sb[0],
 					"num" => trim($sb[1]),
@@ -139,7 +172,7 @@ $string = substr($string, 0, 19);
 					"rate" => $sb[9],
 				);
 			}
-			}
+			}}
 		}
  
 /*	
@@ -148,6 +181,90 @@ var_dump($rconarray);
 echo "\n -----------------------------";
 */	
 }
+
+
+$goa = 0;
+if(!empty($rconarray)) {
+foreach ($rconarray as $nmj => $vk) {
+foreach ($vk as $i => $k) {		
+	if($i=='guid')
+	{
+	if(!empty($k))
+	{
+	 if(strlen($k)<10)
+       $goa = 1;}}}}}	
+if($goa == 0)
+{unset($rconarray);$rconarray = array();}
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+// MAY 2020 COD4X
+///num   score   ping    playerid  steamid   name  lastmsg  address  qport   rate
+if(empty($rconarray))
+{
+	 
+$newoutput  = preg_grep ('/[0-9]{1,8}[[:space:]][0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(\b)/', $newoutputtwo);
+
+		foreach ($newoutput as $nm) {
+		
+			// COD4x 1.8 patch http://cod4x.me project
+			// 1:num 2:score 3:ping 4:guid 5:steam 6:name 7:lastmsg 8:IP 9:port 10:qport 11:rate
+			$pattern = "/\s*(\d+)\s+(-?\d+)\s+(\d+)\s+(\d+)\s+([a-fA-F0-9]{16,32}|\d+)(.+?)\s+(\d+)\s+(\d+\.\d+\.\d+\.\d+):(\-?\d+)\s+(\-?\d+)\s+(\d+)/";
+			
+			if (preg_match($pattern, $nm, $sb)) {
+				//echo "\n".$nm;
+			if(!empty($sb[8]))
+			{
+
+if ((filter_var($sb[8], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))||(filter_var($sb[8], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)))
+{		
+
+if(trim($sb[8]) == "127.0.0.1")
+	$sb[8] = '78.84.53.158';
+ 
+
+		      if(!empty(trim($sb[4])))
+				$rconarray[] = array(
+				    //"g" => $sb[0],
+					"num" => trim($sb[1]),
+					"score" => trim($sb[2]),
+					"ping" => trim($sb[3]),
+					"guid" => trim($sb[4]),
+					"steam" => trim($sb[5]),
+					"name" => trim($sb[6]),
+					"lastmsg" => $sb[7],
+					"ip" => trim($sb[8]),
+					"port" => trim($sb[9]),
+					"qport" => $sb[10],
+					"rate" => $sb[11],
+				);
+				}
+				
+			}
+		}
+	}
+}
+
+
+
+
+/*	
+	
+echo "\n -----------------------------\n ";
+var_dump($rconarray);
+echo "\n -----------------------------";
+*/
+
+
  
   $valid_id = '';   $valid_ping = '';
 ///////////////////////////////////////////////////////////////////

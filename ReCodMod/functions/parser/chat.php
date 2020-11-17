@@ -27,7 +27,10 @@ if ($x_stop_lp == 0) {
   if (strpos($f, ' ') !== false) list($n, $f) = explode(' ', $f);
   echo "\n\033[38;5;202m[$f]\033[38;5;46m: [", $datetime, "] : ", $nickr, " : ", $msgr;
   AddToLog1clear("[" . $datetime . "] " . $guidn . " : " . $nickr . " : " . $msgr . "");
-  if ((preg_match("/^" . ixz . "/", $msgr)) || (preg_match("/^" . ixzadmins . "/", $msgr))) {
+    require $cpath . 'ReCodMod/functions/funcx/commands_array.php';  
+if ((!empty($validCommandtwo))||(preg_match("/^" . ixz . "/", $msgr)) 
+	|| (preg_match("/^" . ixzadmins . "/", $msgr))) 
+	{
     $iiiii = @iconv("windows-1251", "utf-8", $msgr);
     $iiiii = rus2translit($iiiii);
     $msgr = @iconv("windows-1251", "utf-8", $iiiii);

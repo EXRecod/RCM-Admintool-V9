@@ -5,7 +5,7 @@ $server_addr = "udp://" . $server_ip;
 if (!$connx) { die('Can\'t connx to COD gameserver.'); }
 //socket_set_timeout ($connx, 1, 000000);  // bylo2
 stream_set_timeout ($connx, 0, 70000); //1e5
-$send = "\xff\xff\xff\xff rcon ". $server_rconpass . " ".$getinf;
+$send = "\xff\xff\xff\xff" . 'rcon "'. $server_rconpass . '" '.$getinf;
 fwrite($connx, $send);
 $outxxx = fread ($connx, 1);
 if (!empty($outxxx)) {

@@ -35,7 +35,21 @@ if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseli
   }
   $vcs = 0;
   $validCommand = 0;
+  $validCommandtwo = 0;
   $array = explode(';', $commands);
+  $array2 = explode(';', $commands2);
+  
+  foreach ($array2 as $value) {
+    if (!empty($value)) {
+      $value = trim($value);
+      if (strpos($msgr, $value) !== false) {
+        $validCommandtwo = 1;
+		$validCommand = 1;
+        $vcs = 1;
+      }
+    }
+  }   
+   
   foreach ($array as $value) {
     if (!empty($value)) {
       $value = trim($value);
@@ -44,7 +58,9 @@ if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseli
         $vcs = 1;
       }
     }
-  }
+  }   
+   
+
   $ini_array = parse_ini_file($cpath . 'cfg/' . $IniFileName0 . '.ini');
   $u = str_replace(ixz, "", $msgr);
   foreach ($ini_array as $section => $coms) {

@@ -141,12 +141,16 @@ $sleep_rcon     = 59000; ///Rcon get pause time
   
 		if(!empty($parts[0]))
 			{
+				
+				if(empty($parts[1]))
+					$parts[1] = '';				
 				if(empty($parts[2]))
 					$parts[2] = '';
 				if(empty($parts[3]))
 					$parts[3] = '';
 				if(empty($parts[4]))
-					$parts[4] = '';					
+					$parts[4] = '';	
+				
 $cvarstring = $parts[1].' '.$parts[2].' '.$parts[3].' '.$parts[4];			
 				
 switch ($parts[0]) {
