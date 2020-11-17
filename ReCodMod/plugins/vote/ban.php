@@ -1,5 +1,5 @@
 <?php
-if (strpos($msgr, ixz . 'b') !== false) {
+if (strpos($msgr, ixz . 'b ') !== false) {
 	if(!empty(vote_ban_enable)){
 if(!empty($banvote_voteTime))
 {	
@@ -12,7 +12,11 @@ if(!empty($banvote_voteTime))
 	}
 }
   if (strpos($msgr, ixz . 'b ') !== false) list($x_cmd, $banvote_msgrID) = explode(' ', $msgr);
-  if (empty($banvote_Playercount)) {
+  else rcon('say ^1Where is player ID number?!(For vote need player ID '.ixz . 'num or '.ixz . 'list)', '');
+	  
+  
+   if (empty($banvote_Playercount)) { 
+  if (!empty($banvote_msgrID)) {
     require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
     //$cntply = count($rconarray);
 	$cntply = 0;
@@ -68,6 +72,6 @@ if(!empty($banvote_voteTime))
       }
     }
   }
-}
+}}
 }
 ?>

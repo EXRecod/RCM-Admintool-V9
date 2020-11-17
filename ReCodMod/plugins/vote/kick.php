@@ -1,5 +1,5 @@
 <?php
-if (strpos($msgr, ixz . 'k') !== false) {
+if (strpos($msgr, ixz . 'k ') !== false) {
 if(!empty(vote_kick_enable)){
 if(!empty($kickvote_voteTime))
 {	
@@ -11,7 +11,12 @@ if(!empty($kickvote_voteTime))
       rcon('say  ^6Previous kick vote time end!', '');
 	}
 }
-  if (strpos($msgr, ixz . 'k ') !== false) list($x_cmd, $kickvote_msgrID) = explode(' ', $msgr);
+ 
+   if (strpos($msgr, ixz . 'k ') !== false) list($x_cmd, $kickvote_msgrID) = explode(' ', $msgr);
+  else rcon('say ^1Where is player ID number?!(For vote need player ID '.ixz . 'num or '.ixz . 'list)', ''); 
+  
+  
+    if (!empty($kickvote_msgrID)) {
   if (empty($kickvote_Playercount)) {
     require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
     //$cntply = count($rconarray);
@@ -62,7 +67,7 @@ if(!empty($kickvote_voteTime))
           rcon('say  ' . $chistx . ' ' . $ban_ip_all . ' "^7Reason:^1 Vote kick"', '');
           xcon('clientkick ' . $kickvote_msgrID, '');
           AddToLog("[" . $datetime . "] kick VOTE: " . $kickvote_ip . " (" . $kickvote_name . ") (" . $kickvote_id . ") BY: (" . $nickr . ")  R ");
-        }
+        }}
 		}
       }
     }

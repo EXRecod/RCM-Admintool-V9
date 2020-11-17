@@ -39,7 +39,7 @@ else if (strpos($msgr, ixz . 'dumpbanlist') !== false) {
   require $cpath . 'ReCodMod/functions/getinfo/_main_getinfo.php';
   fclose($connx);
   xcon('tell ' . $idnum . ' ' . $dumpbanlist . '', '');
-  AddToLog("[" . $datetime . "] dumpbanlist: " . $i_ip . " (" . $i_namex . ") (" . $i_id . ")");
+  AddToLog("[" . $datetime . "] dumpbanlist: " . $i_ip . " (" . $nickr . ") (" . $i_id . ")");
   echo '  ban  ' . substr($tfinishh = (microtime(true) - $start) , 0, 7);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ else if (trim($msgr) == ixz . 'banlist') {
     $result = null;
     $db = NULL;
     ++$x_number;
-    AddToLogInfo("[" . $datetime . "] BANLIST-10: (" . $x_nickx . ") (" . $msgr . ") reason: LIST");
+   // AddToLogInfo("[" . $datetime . "] BANLIST-10: (" . $x_nickx . ") (" . $msgr . ") reason: LIST");
     ++$x_stop_lp;
     echo '  ' . substr($tfinishh = (microtime(true) - $start) , 0, 7);
     require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
@@ -239,7 +239,7 @@ else if (strpos($msgr, ixz . 'find ') !== false) {
     $sql = 'SELECT * FROM bans WHERE playername LIKE :keyword ORDER BY (id+0) DESC LIMIT 10';
     $reponse = $db2->prepare($sql);
     $reponse->bindValue(':keyword', '%' . $x_idn . '%');
-    $reponse->queryute();
+    $reponse->query();
     $newid = $idnum;
     $i = 0;
     while ($row = $reponse->fetch()) {
@@ -357,7 +357,7 @@ else if (strpos($msgr, ixz . 'tban ') !== false) {
           ++$x_stop_lp;
         }
         AddToLog("[" . $datetime . "] Tempban: " . $i_ip . " (" . $i_name . ") (" . $i_id . ") BY: (" . $nickr . ")  R ");
-        ////AddToLog1("<br/>[" . $datetime . "]<font color='green'> Server :</font> " . $i_namex . " " . $infooreas . ":^1 Tempban " . $x_r_minutes . " ");
+        AddToLog1("<br/>[" . $datetime . "]<font color='green'> Server :</font> " . $nickr . " " . $infooreas . ":^1 Tempban " . $x_r_minutes . " ");
         AddToLog1clear("[" . $datetime . "] Server : " . $i_name . "  " . $infooreas . ":^1 Tempban " . $x_r_minutes . " ");
         ++$x_number;
         echo '  tempban  ' . substr($tfinishh = (microtime(true) - $start) , 0, 7);

@@ -12,7 +12,10 @@ if(!empty($mapvote_voteTime))
 	}
 }
   if (strpos($msgr, ixz . 'mv ') !== false)  list($x_cmd, $x_mapname) = explode(' ', $msgr);   // !map mp_carentan 
-  
+  else rcon('say ^1Where is map name??!(Example: '.ixz.'mv mapname)', '');
+
+  if (!empty($x_mapname)) { 
+
  $getinf = 'sv_mapRotation';
 if(empty($mapvote_rconlist))
 {
@@ -91,7 +94,7 @@ for ($i = 5; $i >= 1; $i--)
 		}
       }
     }
-  }
+  }}
 }}
 ?>
  

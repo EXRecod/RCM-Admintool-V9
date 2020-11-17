@@ -108,7 +108,7 @@ else
 						if (strpos($game_patch, 'cod1_1.1') !== false)
                             rcon('say ^7' . $loggran . ' ' . $logginn . ' ' . $groupxx . ' ^7' . $loggithx, '');
                          else
-                            rcon('tell ' . $idnum . ' ^3' . $loggran . ' ^7' . $chistx . ' ^3' . $logginn . ' ' . $groupxx . ' ^7' . $loggithx, '');
+                            rcon('tell ' . $idnum . ' ^3' . $loggran . ' ^7' . $nickr . ' ^3' . $logginn . ' ' . $groupxx . ' ^7' . $loggithx, '');
                         $date = date('Y-m-d H:i:s');
 							 
                         if ($db->exec("INSERT INTO x_db_admins (s_adm, s_dat, s_group, s_guid) VALUES ('".$stats_array[$conisq]['ip_adress']."', '$date', '$igroup', '$guidn')") > 0) {

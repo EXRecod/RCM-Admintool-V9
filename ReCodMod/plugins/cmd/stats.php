@@ -820,7 +820,7 @@ else
     join 
  (select * from db_stats_3) 
  t2 ON 
- t1.s_pg = t2.s_pg where t1.s_kills>='.$limm.' and t0.s_port='.$svipport.' ORDER BY (s_kills+0) DESC LIMIT 5'); 	
+ t1.s_pg = t2.s_pg where t1.s_kills>=100 and t0.s_port='.$svipport.' ORDER BY (s_kills+0) DESC LIMIT 5'); 	
 	
 
 	$number = 0;	

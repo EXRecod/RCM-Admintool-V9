@@ -69,9 +69,9 @@ else
 if ($x_idn=='')
 { 
 		if (strpos($game_patch, 'cod1') !== false)
-		rcon('say ^7'.$i_name.' ^2'.$infooguid.': ^3'.$guidn.'', '');
+		rcon('say ^7'.$nickr.' ^2'.$infooguid.': ^3'.$guidn.'', '');
 		else
-		rcon('tell '.$idnum.'  ^7'.$i_name.' ^2'.$infooguid.': ^3'.$guidn.'', ''); 	
+		rcon('tell '.$idnum.'  ^7'.$nickr.' ^2'.$infooguid.': ^3'.$guidn.'', ''); 	
  
 
 	AddToLogInfo("[".$datetime."] GEO: " . $i_ip . " (" . $nickr . ") (" . $guidn . ") reason: G");    
@@ -102,11 +102,11 @@ echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
     if (strpos($msgr, ixz . 'ip') !== false) {
             
             if ((($game_patch == 'cod2') || ($game_patch == 'cod4') || ($game_patch == 'cod5')) && (!empty($guidn)))
-                rcon('tell ' . $i_id . ' ^2My IP:^3 ' . $stats_array[$conisq]['ip_adress'] . ' ^2My GUID:^3 ' . $guidn, '');
+                rcon('tell ' . $idnum . ' ^2My IP:^3 ' . $stats_array[$conisq]['ip_adress'] . ' ^2My GUID:^3 ' . $guidn, '');
             else if (strpos($game_patch, 'cod1_1.1') !== false)
                 rcon('say ^2My IP:^3 ' . $stats_array[$conisq]['ip_adress'], '');
             else
-                rcon('tell ' . $i_id . ' ^2My IP:^3 ' . $stats_array[$conisq]['ip_adress'], '');
+                rcon('tell ' . $idnum . ' ^2My IP:^3 ' . $stats_array[$conisq]['ip_adress'], '');
             AddToLogInfo("[" . $datetime . "] IP: " . $stats_array[$conisq]['ip_adress'] . " (" . $nickr . ") (" . $msgr . ") reason: I");	
             echo '    ' . substr($tfinishh = (microtime(true) - $start), 0, 7);
             ++$x_stop_lp; //return;	
@@ -160,7 +160,7 @@ rcon('say '.$infoomnxtt.' ^7'.$emaprunl.'', '');
  if (strpos($msgr, ixz . 'time') !== false){
 	    
  if (empty($stats_array[$conisq]['ip_adress'])){
-    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guid)));	
+    list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guidn)));	
 	    $stats_array[$conisq]['ip_adress'] = $i_ip;
    	 if (empty($stats_array[$conisq]['city'])) 
 	    $stats_array[$conisq]['city'] = $xxccode;  
@@ -187,7 +187,7 @@ rcon('say '.$infoomnxtt.' ^7'.$emaprunl.'', '');
             //echo 'Timezone GMT offset: ' . $user_timezone_offset . '<br/>';
             $serverdate = date('M-d H:i:s');
             usleep($sleep_rcon * 2);
-            rcon('say ^7' . $chistx . ' ^3Geo: ^7' . $xxxnw . ' ^3' . $infootime . ':^7 ' . $user_localtime->format('H:i:s') . ' ^3' . $sunnsett . ': ^7' . date_sunset(time(), SUNFUNCS_RET_STRING, $record->latitude, $record->longitude, ini_get("date.sunset_zenith"), ($user_timezone_offset / 3600)) . ' ^3' . $inforsun . ': ^7' . date_sunrise(time(), SUNFUNCS_RET_STRING, $record->latitude, $record->longitude, ini_get("date.sunrise_zenith"), ($user_timezone_offset / 3600)) . ' ^3' . $infoservv . ': ^7' . $serverdate, '');
+            rcon('say ^7' . $nickr . ' ^3Geo: ^7' . $xxxnw . ' ^3' . $infootime . ':^7 ' . $user_localtime->format('H:i:s') . ' ^3' . $sunnsett . ': ^7' . date_sunset(time(), SUNFUNCS_RET_STRING, $record->latitude, $record->longitude, ini_get("date.sunset_zenith"), ($user_timezone_offset / 3600)) . ' ^3' . $inforsun . ': ^7' . date_sunrise(time(), SUNFUNCS_RET_STRING, $record->latitude, $record->longitude, ini_get("date.sunrise_zenith"), ($user_timezone_offset / 3600)) . ' ^3' . $infoservv . ': ^7' . $serverdate, '');
             AddToLogInfo("[" . $datetime . "] Time: " . $stats_array[$conisq]['ip_adress'] . " (" . $nickr . ") (" . $msgr . ")");
             ++$x_number;
             //f//close($connect);	
