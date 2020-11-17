@@ -2,6 +2,9 @@
 if (empty($x_return)) {
 	$ext = 1;
 ++$x_number;
+
+
+
 if (strpos($msgr, ixz.'geo') !== false)
     { 
 echo '-GEO';
@@ -154,9 +157,8 @@ rcon('say '.$infoomnxtt.' ^7'.$emaprunl.'', '');
 		   
     }
 ////////////////////////////////////////////////////////////////////////////////////////////
- if ((strpos($msgr, ixz . 'time') !== false) && ($x_number != 1)) {
+ if (strpos($msgr, ixz . 'time') !== false){
 	    
-        if (strpos($nickr, $x_nickx) !== false) {
  if (empty($stats_array[$conisq]['ip_adress'])){
     list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', (rconExplode($guid)));	
 	    $stats_array[$conisq]['ip_adress'] = $i_ip;
@@ -192,7 +194,7 @@ rcon('say '.$infoomnxtt.' ^7'.$emaprunl.'', '');
             echo '  -time-  ' . substr($tfinishh = (microtime(true) - $start), 0, 7);
             ++$x_stop_lp; //return;	
         }
-    }
+   
 $ext = 0;	
 } 		 
 ?> 

@@ -1,6 +1,7 @@
 <?php
 if(!empty($msgr)){
-
+if(!empty(ixz)){
+	if(!empty($stats_array[$conisq]['user_status'])){
 if (strpos(
 (implode(",", (costumgroupsInivalues('commands_costum', ($stats_array[$conisq]['user_status']), 1))))
 , str_replace(ixz, "", $msgr)) !== false)
@@ -32,5 +33,5 @@ if (strpos(
         }
     }
 }
-}
+}}}
 ?>

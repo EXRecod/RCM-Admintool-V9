@@ -55,8 +55,15 @@ if((empty($guid)) && (empty(reg_guid_stats)))
    
      $date  = date('Y-m-d H:i:s');
   $x_date  = date('Y-m-d H:i:s');
-   
-   
+  
+  $rdgt = '';
+  if((empty($cod4xipu))||($cod4xipu==1))  
+   $rdgt = 1;
+  
+ if(empty($rdgt)){  
+   if(!empty($guid)){
+	   if(strpos($guid, "bot") === false){
+		   if(strpos($cod4xip, "bot") === false){
  				echo " \n MAMBA UP + x_db_players  ";
                 $nickname = clearSymbols($nickname);
                 $nickname = htmlentities($nickname);
@@ -68,7 +75,7 @@ x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'";
    $gt = dbInsert('',$sql);			
 							if(!$gt) 
 							{
-                             errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+                             errorspdo('[' . $datetime . '] 77  ' . __FILE__ . '  Exception : ' . $sql);							
 							}				
   
  	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$cod4xipu','$guid')
@@ -76,10 +83,14 @@ ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $cod4xipu . "', guid
    $gtx = dbInsert('',$sql);			
 							if(!$gtx) 
 							{
-                             errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+                             errorspdo('[' . $datetime . '] 86  ' . __FILE__ . '  Exception : ' . $sql);							
 							}  
-   
-   
+	   }
+   }}}else {
+	errorspdo('[' . $date . '] 90 строка: нету rcon ответа! 
+	' . __FILE__ . "  Exception : (Почему $noon, $guid, $cod4xgeo, $cod4xip,  $cod4xping, $cod4xfps, $cod4xprestige, $idk, $nickname
+	не получили ответа, скорей должен знать администратор проекта, тут будет ip = 0 и ip = 1, но мы не дали записать ИП 0 или 1, значит и игрока не будет в бд из-за этой проблемы!)");
+	}
    
    
    

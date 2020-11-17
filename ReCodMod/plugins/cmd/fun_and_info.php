@@ -1,5 +1,5 @@
 <?php
-if ($x_stop_lp == 0) {
+
   if (('ty' == mb_strtolower(trim(clearnamex($msgr)))) && ($x_number != 1)) {
     rcon('say ^3' . $thxq . '!', '');
     ++$x_number;
@@ -466,5 +466,5 @@ if ($x_stop_lp == 0) {
     echo '  ' . substr($tfinishh = (microtime(true) - $start), 0, 7);
     ++$x_stop_lp;
   }
-}
+
 ?>

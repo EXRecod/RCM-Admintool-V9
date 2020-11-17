@@ -6,6 +6,6 @@ if (strpos($msgr,ixz.'status') !== false){
 if (strpos($game_patch, 'cod1_1.1') !== false)	  
          rcon('say  ^6Status ^7=> ^1['.$stats_array[$conisq]['user_status'].'] ^3'.html_entity_decode($nickr), '');
      else
-rcon('tell '.$idk.' ^6Status ^7=> ^1['.$stats_array[$conisq]['user_status'].'] ^3'.html_entity_decode($nickr), '');
+rcon('tell '.$idnum.' ^6Status ^7=> ^1['.$stats_array[$conisq]['user_status'].'] ^3'.html_entity_decode($nickr), '');
 }}    	
 ?>
