@@ -631,7 +631,9 @@ ON DUPLICATE KEY
                 if (!empty($reset)) {
                   if (!empty($chat_flooder_time[$player_server_uid])) {
                     unset($chat_flooder_time[$player_server_uid]);
+					if(!empty($chat_flooder_warns))
                     unset($chat_flooder_warns[$player_server_uid]);
+				   if(!empty($chat_flooder_msg))
                     unset($chat_flooder_msg[$player_server_uid]);
                   }
                 }

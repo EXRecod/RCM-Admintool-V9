@@ -37,8 +37,9 @@ if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseli
   $validCommand = 0;
   $validCommandtwo = 0;
   $array = explode(';', $commands);
+ if(!empty($commands2))
+ {
   $array2 = explode(';', $commands2);
-  
   foreach ($array2 as $value) {
     if (!empty($value)) {
       $value = trim($value);
@@ -49,7 +50,7 @@ if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseli
       }
     }
   }   
-   
+ }   
   foreach ($array as $value) {
     if (!empty($value)) {
       $value = trim($value);

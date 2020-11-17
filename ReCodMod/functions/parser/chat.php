@@ -27,7 +27,29 @@ if ($x_stop_lp == 0) {
   if (strpos($f, ' ') !== false) list($n, $f) = explode(' ', $f);
   echo "\n\033[38;5;202m[$f]\033[38;5;46m: [", $datetime, "] : ", $nickr, " : ", $msgr;
   AddToLog1clear("[" . $datetime . "] " . $guidn . " : " . $nickr . " : " . $msgr . "");
-    require $cpath . 'ReCodMod/functions/funcx/commands_array.php';  
+  
+
+  /////////////////////////////////////
+  $IniFileName0 = 'commands';
+  /////////////////////////////////////
+  $ini_array = parse_ini_file($cpath . 'cfg/' . $IniFileName0 . '.ini', true);
+  $commands2 = $ini_array["commands_fun"]["cm_sp_gt"]; 
+
+if(!empty($commands2))
+ {
+  $array2 = explode(';', $commands2);
+  foreach ($array2 as $value) {
+    if (!empty($value)) {
+      $value = trim($value);
+      if (strpos($msgr, $value) !== false) {
+        $validCommandtwo = 1;
+		$validCommand = 1;
+        $vcs = 1;
+      }
+    }
+  }   
+ }
+   
 if ((!empty($validCommandtwo))||(preg_match("/^" . ixz . "/", $msgr)) 
 	|| (preg_match("/^" . ixzadmins . "/", $msgr))) 
 	{
