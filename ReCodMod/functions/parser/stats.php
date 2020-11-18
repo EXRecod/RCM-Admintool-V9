@@ -44,12 +44,12 @@
             // 1 - ON(ADD BOTS IN STATISTICS SYSTEM for all servers)
             // example: reg_guid_stats = "28960/28962/28964" servers without 0 guid adding in stats,
             // another servers wits bots going in stats
-            if (empty(reg_guid_stats)) {
+            if ((empty(reg_guid_stats))||((strpos(reg_guid_stats, $server_ip) === false)&&(strlen(reg_guid_stats)>3))) {
                 if (empty($death_player_guid)) $da = 20;
                 if (empty($player_killer_guid)) $da = 20;
 				if(strpos($player_killer_guid, 'bot') !== false) $da = 20;
 	           	if(strpos($death_player_guid, 'bot') !== false) $da = 20;           
-            } else if (reg_guid_stats == 1) {
+            } else if ((reg_guid_stats == 1)||((strpos(reg_guid_stats, $server_ip) !== false)&&(strlen(reg_guid_stats)>3))) {
                 if (empty($death_player_guid)) $da = 0;
                 if (empty($player_killer_guid)) $da = 0;
 				 $player_killer_guid = $killer_player_name;
