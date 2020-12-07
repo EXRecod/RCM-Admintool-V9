@@ -33,7 +33,13 @@ if ($mplogfile) {
                         debuglog((__FILE__)." RCM DEBUGGER: [FTP USER]: $ftp_exp_user [FTP PASS]: " . md5($ftp_exp_password) . " [FTP IP]: $ftp_exp_ip [FTP URL]: $ftp_exp_url [LOCAL FILE]: $gmlobame");
                     }
                 }
-            }
+            } 
+			
+         if ((time() - filemtime($mplogfilep) >= 300)&&(filesize($mplogfilep) < 1)) {	
+               require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
+                exit;
+		 }		 
+			
         }
         else {
             $parseline = trim(readloglines($mplogfile));
