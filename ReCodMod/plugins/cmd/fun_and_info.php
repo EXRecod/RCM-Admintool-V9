@@ -1,5 +1,5 @@
 <?php
-
+if ($x_stop_lp == 0) {
   if (('ty' == mb_strtolower(trim(clearnamex($msgr)))) && ($x_number != 1)) {
     rcon('say ^3' . $thxq . '!', '');
     ++$x_number;
@@ -153,11 +153,11 @@
     $message = AddCheatHelp("[" . $datetime . "] CHEATER ALARM: " . $server_ip . "_" . $server_port . " (" . $nickr . ") (" . $msgr . ")");
     ++$x_number;
   } else if ((strpos($msgr, 'fps') !== false) && ($x_number != 1)) {
-    rcon('say ' . $fps3 . '', '');
+    rcon('say cg_drawfps 1 ^3/^7 cg_drawlagometer 1 ^3/^7 com_maxfps 125 ^3/^7 snaps 30 ^3/^7 maxpackets 100', '');
     $message = AddCheatHelp("[" . $datetime . "] CHEATER ALARM: " . $server_ip . "_" . $server_port . " (" . $nickr . ") (" . $msgr . ")");
     ++$x_number;
   } else if ((strpos('ping', $msgr) !== false) && ($x_number != 1)) {
-    rcon('say ' . $fps3 . '', '');
+    rcon('say cg_drawfps 1 ^3/^7 cg_drawlagometer 1 ^3/^7 com_maxfps 125 ^3/^7 snaps 30 ^3/^7 maxpackets 100', '');
     AddToLogInfo("[" . $datetime . "] QUESTION: " . $i_ip . " (" . $nickr . ") (" . $msgr . ") reason: Q");
     ++$x_number;
   } else if ((strpos('hi', $msgr) !== false) && ($x_number != 1)) {
@@ -466,5 +466,5 @@
     echo '  ' . substr($tfinishh = (microtime(true) - $start), 0, 7);
     ++$x_stop_lp;
   }
-
+}
 ?>

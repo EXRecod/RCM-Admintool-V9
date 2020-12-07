@@ -27,10 +27,9 @@ $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
 			   
    	 if (empty($stats_array[$conisq]['ip_adress'])) 
 	    $stats_array[$conisq]['ip_adress'] = $cod4xipu;				   
-	  
-			   
- 				echo " \n MAMBA UP + x_db_players  ";
+	   
                 $nickname = clearSymbols($nickname);
+				$nickname = preg_replace('/[^ a-zа-яё\d]/ui', 'Symbl', $nickname);		
                 $nickname = htmlentities($nickname);
 	$sql = "INSERT INTO x_db_players (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
          VALUES ('$svipport','" . $nickname . "', '0', '$cod4xipu', '0', '999', '$guid', '1', '$date', '0', '$date', '1') ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $cod4xipu . "', x_db_name = '" . $nickname . "', 

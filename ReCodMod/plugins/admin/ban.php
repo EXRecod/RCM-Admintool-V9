@@ -324,7 +324,14 @@ else if (strpos($msgr, ixz . 'ulist') !== false) {
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 else if (strpos($msgr, ixz . 'tban ') !== false) {
-  try {
+ 
+    list($x_cmd, $x_idn, $x_r_minutes) = explode(' ', $msgr); // !tban 5 30  ( 5 = id  30 = times in minutes)
+if (empty($x_r_minutes)) {
+    xcon('tell ' . $idnum . ' ^1ENTER TIME!  [!tban '.$x_idn.' 30] where 30 is minutes', '');
+  }
+else{ 
+
+ try {
     if (empty(SqlDataBase)) $db2 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db2.sqlite');
     else {
       $dsn = "mysql:host=" . host_adress . ";dbname=" . db_name . ";charset=$charset_db";
@@ -332,7 +339,8 @@ else if (strpos($msgr, ixz . 'tban ') !== false) {
       if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt);
       $db = $msqlconnect;
     }
-    list($x_cmd, $x_idn, $x_r_minutes) = explode(' ', $msgr); // !tban 5 30  ( 5 = id  30 = times in minutes)
+ 
+	
     if ($x_r_minutes == '') $x_r_minutes = '5';
     //$x_x_minutes = ''.$x_r_minutes.'.minute(-s)';
     $datetimex = date('YmdHis');
@@ -371,7 +379,7 @@ else if (strpos($msgr, ixz . 'tban ') !== false) {
     echo "\n\n\n ERROR --------------" . $e->getMessage();
     errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
   }
-}
+}}
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////

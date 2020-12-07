@@ -1,6 +1,11 @@
 <?php
 if ((strpos($parseline, ' K;') !== false) || (strpos($parseline, ' D;') !== false)) {
   $poss = 0;
+    ///////////////error fix
+    $counttdot = substr_count($parseline, ';');
+    if ($counttdot < 12) $da = 10; else $da = 0;
+    ///////////////error fix
+    if ($da == 0) {  
   list($vv1, $death_player_guid, $idnumb, $vv4, $death_player_name, $player_killer_guid, $idkill, $vv8, $killer_player_name, $byweapon, $vv11, $modkll, $hitlock) = explode(';', $parselinetxt);
   ///////////////////////////SHID = PORT+GUID
   $shid = trim($server_port . $player_killer_guid);
@@ -130,6 +135,6 @@ if ((strpos($parseline, ' K;') !== false) || (strpos($parseline, ' D;') !== fals
   }
   //############################################################################
   //##########################      ANTI AIM     ##############################
-  
+ } 
 }
 ?>
