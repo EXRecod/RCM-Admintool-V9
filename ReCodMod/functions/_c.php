@@ -3,7 +3,7 @@
   $startc        = microtime(true);
   $stimec       = time();
 //////////////////////////////////////////////////
-$z_rcm = "RCM[v.9.3.9]";
+$z_rcm = "RCM[v.9.5.1]";
 $charset_db   = 'utf8';
 
 error_reporting(E_ALL);

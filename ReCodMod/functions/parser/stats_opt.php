@@ -299,11 +299,12 @@ ON DUPLICATE KEY
                     usleep($sleeping);
                     if ($skill < 0) $skill = 100;
                     usleep(10000);
-                    $gt = dbInsert('', "INSERT INTO db_stats_2 
+					$querySQL = "INSERT INTO db_stats_2 
 (s_pg, s_port, w_place,w_skill,w_ratio,w_geo,w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) 
 VALUES ('" . $player_server_uid . "','$svipport','0','1000','0','0','0','0','$ip','0','0','0','0','0','0')
 ON DUPLICATE KEY
-    UPDATE s_pg='" . $player_server_uid . "', w_skill=" . $skill . ", w_ratio=" . $killsfrom / $deathsfrom . ",w_ip='" . $ip . "'");
+    UPDATE s_pg='" . $player_server_uid . "', w_skill=" . $skill . ", w_ratio=" . $killsfrom / $deathsfrom . ",w_ip='" . $ip . "'";
+                    $gt = dbInsert('', $querySQL);
                     if (!$gt) {
                       errorspdo('[' . $datetime . '] 524  ' . __FILE__ . '  Exception : ' . $querySQL);
                     }
