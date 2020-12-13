@@ -149,7 +149,7 @@ if ($x_stop_lp == 0) {
     rcon('say ' . $wordl, '');
     ++$x_number;
   } else if ((strpos($msgr, 'haker') !== false) && ($x_number != 1)) {
-    rcon('say ' . $cmdz . '', '');
+    rcon('say ^1REPORT @ ^7https:/^7/^7zona-ato-game.ru/', '');
     $message = AddCheatHelp("[" . $datetime . "] CHEATER ALARM: " . $server_ip . "_" . $server_port . " (" . $nickr . ") (" . $msgr . ")");
     ++$x_number;
   } else if ((strpos($msgr, 'fps') !== false) && ($x_number != 1)) {
