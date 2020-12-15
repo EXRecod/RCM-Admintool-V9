@@ -1,6 +1,6 @@
 <?php
 if ($mplogfile) {
-    if ($x_stop_lp == 0) {
+    ///if ($x_stop_lp == 0) {
         if (strpos($mplogfile, 'ftp:') !== false) {
             list($ftp_exp_user, $ftp_exp_password, $ftp_exp_ip, $ftp_exp_url, $gmlobame) = explode('%', ftp2locallog($mplogfile));
             //echo $ftp_exp_user,$ftp_exp_password,$ftp_exp_ip,$ftp_exp_url,$gmlobame;
@@ -19,27 +19,21 @@ if ($mplogfile) {
                         fputs($fp, "0");
                         fclose($fp);
                         $hu = fopen($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_pos_ftp.txt', 'w+');
-                        fwrite($hu, "1");
+                        fwrite($hu, "0");
                         fclose($hu);
-                        $fp = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_position.txt", "w+");
-                        fputs($fp, "0");
-                        fclose($fp);
                         require $cpath . 'ReCodMod/functions/null.php';
-                        debuglog((__FILE__)." RCM DEBUGGER: RESET 50 MB AND RESTART [LOCAL FILE]: $gmlobame");
+                        debuglog((__FILE__)." RCM DEBUGGER: RESET 50 MB AND RESTART [LOCAL FILE]: $gmlobame ".$server_ip."_".$server_port." ");
                         echo "\n FILE $file UPLOADED \n";
+						require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
+						exit;
                     }
                     else {
                         $cur_activator = 100;
-                        debuglog((__FILE__)." RCM DEBUGGER: [FTP USER]: $ftp_exp_user [FTP PASS]: " . md5($ftp_exp_password) . " [FTP IP]: $ftp_exp_ip [FTP URL]: $ftp_exp_url [LOCAL FILE]: $gmlobame");
+                        debuglog((__FILE__)." RCM DEBUGGER: ОЧИСТКА ФАЙЛОВ ПО ЛИМИТУ / НЕМОЗМОЖНО ОБНУЛИТЬ ФТП ЛОГ! [FTP USER]: $ftp_exp_user [FTP PASS (MD5]: " . md5($ftp_exp_password) . " [FTP IP]: $ftp_exp_ip [FTP URL]: $ftp_exp_url [LOCAL FILE]: $gmlobame ".$server_ip."_".$server_port." ");
                     }
                 }
             } 
-			
-         if ((time() - filemtime($mplogfilep) >= 300)&&(filesize($mplogfilep) < 1)) {	
-               require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
-                exit;
-		 }		 
-			
+		   
         }
         else {
             $parseline = trim(readloglines($mplogfile));
@@ -107,7 +101,7 @@ if ($mplogfile) {
             clearstatcache();
             $dya = filemtime($mplogfile);
             if (time() - $dya >= 300) {
-                debuglog((__FILE__)."\n RCM Информация: [Не обновлено] за 5 минут не обновило локальный лог игры, перезагрузка мода, обнуление локального лога и кеша.");
+                debuglog((__FILE__)."\n RCM Информация: [Не обновлено] за 5 минут не обновило локальный лог игры, перезагрузка мода, обнуление локального лога и кеша. ".$server_ip."_".$server_port." ");
                 $file = hxlog($mplogfile);
                 $fp = fopen($file, 'w');
                 fputs($fp, " ---\n");
@@ -132,16 +126,15 @@ if ($mplogfile) {
                         $fp = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_pos.txt", "w+");
                         fputs($fp, "0");
                         fclose($fp);
-                        $fp = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_position.txt", "w+");
-                        fputs($fp, "0");
-                        fclose($fp);
                         //AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> LogFile game_mp.log 30MB auto reset! </font> ");
                         echo "OK ...";
                     }
                 }
             }
         }
-        if (!empty(debugmodx)) echo "\n" . $parseline;
+        
+		/*
+		if (!empty(debugmodx)) echo "\n" . $parseline;
         ////////////////////////////////////////////////////////////////////
         $cron_time = filemtime($cpath . "ReCodMod/cache/x_cron/cron_time_top_" . $server_ip . "_" . $server_port);
         if ($stime - $cron_time >= 180) {
@@ -177,7 +170,7 @@ if ($mplogfile) {
             else $mplogfilepzzz = $mplogfile;
         }
         ////////////////////////////////////////////////////////////////////
-        
-    } 
+       */ 
+   // } 
 }	
 ?>

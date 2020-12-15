@@ -167,21 +167,6 @@ echo 'x2 SERVERNAME IS EMPTY, CLEAR.PHP  getstatus ERROR!'; sleep(5); return;}
 $getinf = 'serverinfo';
 require $cpath.'ReCodMod/functions/getinfo/_main_getinfo.php';
  fclose($connx);
-
-//    if(!empty($servername))
-//function Prg_serverinformation($s)
-/*          
-echo "\n Server Name: ".$servername;
-    if(!empty($mpgamenname))
-echo "\n Game: ".$mpgamenname = sevenofff($mpgamenname);
- if(!empty($mpshortver))
-echo "\n Patch: ".$mpshortver = sevenofff($mpshortver);
- if(!empty($serverxmap))
-echo "\n Map: ".$serverxmap = sevenofff($serverxmap);
- if(!empty($plyr_cnt))
-echo "\n Players: ".$plyr_cnt."\n";
-echo "\n Pre loading system - OK! ";
-*/
  
 
 require $cpath . 'ReCodMod/functions/install/install.php';
@@ -196,147 +181,6 @@ if($installok<2)
 {echo 'not instaled databases!'; sleep(10); return;}
 }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-if (strpos($mplogfile, 'ftp:') !== false){
- 
-$mplogfilei = str_replace(array(
-        "sftp://", "ftp://"
-  ), '', $mplogfile);
-$ftp_user_explode = explode(':', $mplogfilei);
-  $ftp_exp_user = $ftp_user_explode[0];
-
-$ftp_pass_explode = explode('@', $ftp_user_explode[1]);
-  $ftp_exp_password = $ftp_pass_explode[0];
-
-$mssf = explode('@', $ftp_user_explode[1]);
-$mssy = explode('/', $mssf[1]);
-  $ftp_exp_ip = $mssy[0];
-
-$mssy = explode($mssy[0], $mssf[1]);
-  $ftp_exp_url = $mssy[1];
-
-$gmlobame = basename($ftp_exp_url);
-
-// connect and login data
-$web = $ftp_exp_ip;
-$user = $ftp_exp_user;
-$pass = $ftp_exp_password;
-// file location
-$server_file = $ftp_exp_url;
- 
-//connect
-$conn_id = ftp_connect($web);
-
-$login_result = ftp_login($conn_id,$user,$pass);
- 
- 
-if (!$conn_id || !$login_result)
-//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
-debuglog((__FILE__)."\n RCM DEBUG: Не удалось установить соединение с FTP сервером $web !");  
- 
-if(!empty($conn_id)){
-// включение пассивного режима
- if (!ftp_pasv($conn_id, true)) {
-            $errmsg = "Passive mode not available at this server";
-            //Passive mode not available
-    ftp_pasv($conn_id, false);
-        }
-}
-  
- $ftp_user_name = $ftp_exp_user;
- $ftp_user_pass = $ftp_exp_password;
- 
-
-$remote_file = $ftp_exp_url;
-
-
-
-$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-$fp = fopen($file, 'w');
-fputs($fp, " ---\n");
-fclose($fp); 
-
-// попытка загрузки файла
-if (ftp_put($conn_id, $remote_file, $file, FTP_BINARY)) {
-    echo "\n FILE $file UPLOADED \n";
-} else {
-    echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo $remote_file."ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-}  
- 
- 
- 
-// попытка переименовать $olf_file в $new_file
-if (ftp_rename($conn_id, $ftp_exp_url, $ftp_exp_url.'recod')) {
- echo "Файл ".$ftp_exp_url." переименован в ".$ftp_exp_url."recod \n";
-
- 
-	    $hu = fopen($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame, 'w+');
-        fwrite($hu, "0");
-        fclose($hu);
-        echo 'NULLED';
-
-
- 
- } else {
- echo "Не удалось переименовать ".$ftp_exp_url." в ".$ftp_exp_url."recod\n";
-} 
- 
-
- 
-$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-$fp = fopen($file, 'w');
-fputs($fp, " ---\n");
-fclose($fp); 
-
-// попытка загрузки файла
-if (ftp_put($conn_id, $remote_file, $file, FTP_BINARY)) {
-    echo "\n FILE $file UPLOADED \n";
-} else {
-    echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo $remote_file."ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-}   
- 
-
-// close the connection
-ftp_close($conn_id);
- 
-
-}
-else
-{
- if(!empty($mplogfile))
-file_put_contents($mplogfile, null);	
-}
-
-
-$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_pos.txt", "w+");
-fputs($fp, "0");
-fclose($fp);
-
-$hu = fopen($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos_ftp.txt', 'w+');
-fwrite($hu, "1");
-fclose($hu);
-
-
-$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_position.txt", "w+");
-fputs($fp, "0");
-fclose($fp);
-
  
 
 $getinf = 'rconpassword';
@@ -395,32 +239,6 @@ AddToparsser($mplogfiler);
                             
          //sleep(3000); if(!empty($mysqlilink))mysqli_close($mysqlilink); exit;                    
 }
-
-   if (strpos($mplogfile, 'ftp:') === false)
-	 {
-
-$vvvvv = @fopen($mplogfilexl, "w+");
-@ftruncate($mplogfilexl, 0);
-fclose($vvvvv);
-
-$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_pos.txt", "w+");
-fputs($fp, "0");
-fclose($fp);
-
-$hu = fopen($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos_ftp.txt', 'w+');
-fwrite($hu, "1");
-fclose($hu);
-
-
-$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_position.txt", "w+");
-fputs($fp, "0");
-fclose($fp);
-
-	 }
-
- 							
-////AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> LogFile game_mp.log starting auto reset! </font> "); 
-AddToLog1clear ("[".$datetime."] Server : LogFile game_mp.log starting auto reset! "); 
  
 
 /*
@@ -442,11 +260,5 @@ fwrite($handlePos, "1");
 fclose($handlePos);
 
 //echo "\n          YOUR (games_mp.log) possible log file path is: \n          ".$mplogfiler = sevenofff($mplogfilenew)." \n \n";
-
-	
-	
-
- 
-	
-						
+ 						
 ?>

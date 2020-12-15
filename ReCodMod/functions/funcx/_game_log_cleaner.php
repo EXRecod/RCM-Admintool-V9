@@ -5,9 +5,8 @@ if (time()-$cron_time>=200) {             //сравниваем с текущи
     file_put_contents($cpath."ReCodMod/cache/x_cron/cron_time_".$server_ip."_".$server_port,"");    //перезаписываем файл cron_time
  
 //////////////////////////////////////////////////////////////////////////////////////////+ LOG CLEANER
-	
-   if (strpos($mplogfile, 'ftp:') === false)
-	 {	
+ if (strpos($mplogfile, 'ftp:') === false)
+ {	
 
 if(!file_exists($mplogfile))
 {
@@ -30,116 +29,7 @@ fclose($handlePos);
 echo "OK ...";
 
 }
-}
-else
-{
-	
-list($ftp_exp_user,$ftp_exp_password,$ftp_exp_ip,$ftp_exp_url,$gmlobame) = explode('%', ftp2locallog($mplogfile));
- 	
-$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-if (filesize($file) > game_log_limits)
-  {
- 
-
- 
-//connect
-$conn_id = ftp_connect($ftp_exp_ip);
-$login_result = ftp_login($conn_id,$ftp_exp_user,$ftp_exp_password);
- 
- 
-if (!$conn_id || !$login_result)
-//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу ftp_server!");
-debuglog((__FILE__)."\n RCM DEBUG: Не удалось установить соединение с FTP сервером $ftp_exp_ip !");  
- 
-if(!empty($conn_id)){
-// включение пассивного режима
- if (!ftp_pasv($conn_id, true)) {
-            $errmsg = "Passive mode not available at this server";
-            //Passive mode not available
-    ftp_pasv($conn_id, false);
-        }
-}
-  
- $ftp_user_name = $ftp_exp_user;
- $ftp_user_pass = $ftp_exp_password;
- 
-
-$remote_file = $ftp_exp_url;
-
-
-
-$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-$fp = fopen($file, 'w');
-fputs($fp, " ---\n");
- 
-
-// попытка загрузки файла
-if (ftp_put($conn_id, $remote_file, $file, FTP_BINARY)) {
-    echo "\n FILE $file UPLOADED \n";
-} else {
-    echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo $remote_file."ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-}  
- 
- 
- 
-// попытка переименовать $olf_file в $new_file
-if (ftp_rename($conn_id, $ftp_exp_url, $ftp_exp_url.'recod')) {
- echo "Файл ".$ftp_exp_url." переименован в ".$ftp_exp_url."recod \n";
-
-	    $hu = fopen($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame, 'w+');
-        fwrite($hu, "0");
-        fclose($hu);
-        echo 'NULLED';
- 
- } else {
- echo "Не удалось переименовать ".$ftp_exp_url." в ".$ftp_exp_url."recod\n";
 } 
- 
-
- 
-$file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-$fp = fopen($file, 'w');
-fputs($fp, " ---\n");
-fclose($fp); 
-
-// попытка загрузки файла
-if (ftp_put($conn_id, $remote_file, $file, FTP_BINARY)) {
-    echo "\n FILE $file UPLOADED \n";
-} else {
-    echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo $remote_file."ERRRRRRRRROORRRRRRRRR FTP \n";
-	echo "ERRRRRRRRROORRRRRRRRR FTP \n";
-}   
- 
-
-// close the connection
-ftp_close($conn_id);
- 
-
-
-$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_pos2.txt", "w+");
-fputs($fp, "0");
-fclose($fp);
-
-$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_pos.txt", "w+");
-fputs($fp, "0");
-fclose($fp);
-
-$fp = fopen($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos_ftp.txt', 'w+');
-fwrite($fp, "0");
-fclose($fp);
-
-
-$fp=fopen($cpath."ReCodMod/cache/x_cache/".$server_ip."_".$server_port."_position.txt", "w+");
-fputs($fp, "0");
-fclose($fp);
-}
-}
-
-
-
 
 if (!file_exists($cpath . 'ReCodMod/cache/x_logs/'.$server_ip.'_'.$server_port.'_chat.log'))
 touch($cpath . 'ReCodMod/cache/x_logs/'.$server_ip.'_'.$server_port.'_chat.log');

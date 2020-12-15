@@ -1,4 +1,7 @@
 <?php
+ 
+$rconstatus = 1;
+ 
 $charset_db = 'utf8';
 require $cpath . 'ReCodMod/functions/install/install.php';
 if (empty($game_patch)) $game_patch = '';
@@ -1658,7 +1661,9 @@ function userStatus($name) {
   }
 }
 function rconExplodeNickname($num) {
-  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
+  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch, $rconstatus;
+  if($rconstatus == 1)
+  {
   $i_ip = '';
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
@@ -1681,9 +1686,12 @@ function rconExplodeNickname($num) {
     }
   }
   if (empty($c_ip)) return '0;0;0;0;0;0';
+  }else return '0;0;0;0;0;0;0';
 }
 function rconExplodeIdnum($num) {
-  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
+  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch, $rconstatus;
+ if($rconstatus == 1)
+  { 
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
     $i_id = $e["num"];
@@ -1706,12 +1714,17 @@ function rconExplodeIdnum($num) {
     }
   }
   if (empty($xxccode)) return '0;0;0;0;0;0';
+  }
+  else return '0;0;0;0;0;0;0';
+  
 }
 
 
 
 function rconExplode($guidin) {
-  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
+  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch, $rconstatus;
+ if($rconstatus == 1)
+  {  
   if (strpos($game_patch, 'cod1') !== false) usleep(45000);
   include $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   /*  */ 
@@ -1758,6 +1771,8 @@ function rconExplode($guidin) {
     }
   }
   if (empty($c_ip)) return '0;0;0;0;0;0;0';
+    }
+  else return '0;0;0;0;0;0;0';
 }
 
 
@@ -2810,4 +2825,110 @@ function discord_bot($server_ip,$server_port,$nickname,$guidn,$message,$webhook_
         // echo $response;
         curl_close($ch);
 }
+
+
+
+
+function ftp_to_upload_ftp($conn_idqnew, $ftp_q_url, $filei, $file){
+	global $cpath,$server_ip,$server_port;
+if (@ftp_put($conn_idqnew, $ftp_q_url, $filei, FTP_BINARY)) {
+ if (is_resource($conn_idqnew))
+       ftp_quit($conn_idqnew);
+                        $fp = fopen($file, "w+");
+                        fputs($fp, "---");
+                        fclose($fp);
+                        $fp = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_pos.txt", "w+");
+                        fputs($fp, "0");
+                        fclose($fp);
+                        $hu = fopen($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_pos_ftp.txt', 'w+');
+                        fwrite($hu, "1");
+                        fclose($hu);							
+  return true;						
+}else{
+  if (is_resource($conn_idqnew))
+    ftp_quit($conn_idqnew);
+	return false;		
+}}
+
+
+
+
+function ftp_connect_check($ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url){
+	global $cpath,$server_ip,$server_port;
+$conn_idqnew = ftp_connect($ftp_q_ip);
+if($conn_idqnew){
+$log_res = ftp_login($conn_idqnew,$ftp_q_user,$ftp_q_password);
+}
+if (!$conn_idqnew || !$log_res)
+{
+//("Не удалось установить соединение с FTP сервером!\nПопытка подключения к серверу $ftp_server!");
+debuglog((__FILE__)."\n RCM DEBUG: ".$server_ip."_".$server_port." Не удалось установить соединение с FTP сервером $ftp_q_ip !");
+return false;
+}
+else
+{
+if(!empty($conn_idqnew)){
+// включение пассивного режима
+ if (!ftp_pasv($conn_idqnew, true)) {
+            $errmsg = "Passive mode not available at this server";
+            //Passive mode not available
+    ftp_pasv($conn_idqnew, false);
+        }
+}	
+	return $conn_idqnew;
+}
+}
+
+
+
+
+function ftp_write_in_local($conn_idqnew,$ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url){
+	global $cpath,$server_ip,$server_port,$gmlobame;
+	
+$opp = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
+$ftp_position_log = $cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos_ftp.txt';
+$resumeposftpy   = file_get_contents($ftp_position_log);	
+	
+// попытка скачать $ftp_q_url и сохранить в $local_file
+//  $conn_idqnew
+if (@ftp_get($conn_idqnew, $opp, $ftp_q_url, FTP_BINARY, $resumeposftpy)) 
+{
+clearstatcache();
+$resumeposftp = filesize($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame);		
+$hu = fopen($ftp_position_log, 'r+');
+fwrite($hu, $resumeposftp);
+fclose($hu);
+
+if($ftp_position_log==(file_get_contents($cpath.'ReCodMod/cache/x_cache/'.$server_ip.'_'.$server_port.'_pos_ftp.txt')))
+debuglog((__FILE__)."\n RCM DEBUG: ".$server_ip."_".$server_port." НЕ МОГУ ЗАПИСАТЬ В ЛОГ !!!!!");
+
+return true;
+}
+else
+return false; 
+}
+
+
+
+
+function ftp_try_connect($conn_idqnew,$ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url){
+	global $cpath,$server_ip,$server_port,$gmlobame;
+        for ($i = 1; $i <= 5; $i ++) {
+			if($conn_idqnew==false){
+            debuglog((__FILE__)."\n * RCM DEBUG: ".$server_ip."_".$server_port." try connect ".pow(2, $i)." seconds to ftp.");
+            sleep(pow(2, $i));
+			$conn_idqnew = ftp_connect_check($ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url);
+            if ($conn_idqnew != false) 
+			{
+            debuglog((__FILE__)."\n * RCM DEBUG: ".$server_ip."_".$server_port." Successfully reconnected to FTP server.");
+            return $conn_idqnew;
+			}}}
+
+if($conn_idqnew==false)
+return false; 
+}
+
+
+
+
 ?>
