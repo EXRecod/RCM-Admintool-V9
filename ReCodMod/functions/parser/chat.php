@@ -1,5 +1,5 @@
 <?php
-if ($x_stop_lp == 0) {
+ 
   if (preg_match('/tell;/', $parseline, $xm)) {
     foreach (count_chars($parseline, 1) as $i => $val) {
       if (((chr($i)) == ";") && ($val < 9)) list($f, $forguidn, $foridnum, $fornick, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
@@ -66,11 +66,11 @@ if (!empty($stats_array[$conisq]['ip_adress']))
       if (!empty($record)) $xxccode = $record->country_name;
       else $xxccode = '?';
 	  $stats_array[$conisq]['country'] = $xxccode;
-	        debuglog((__FILE__)."country: $xxccode guid: $guidn nickname: $nickr"); 		  
+	        //debuglog((__FILE__)."country: $xxccode guid: $guidn nickname: $nickr"); 		  
 	  if (!empty($record)) $xxccode = $record->city;
       else $xxccode = '?';
 	  $stats_array[$conisq]['city'] = $xxccode;
-	        debuglog((__FILE__)."city: $xxccode guid: $guidn nickname: $nickr");  		
+	        //debuglog((__FILE__)."city: $xxccode guid: $guidn nickname: $nickr");  		
 }
 
 
@@ -356,6 +356,5 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
     }
   }
   echo '.' . $tfinishh = (microtime(true) - $start);
-  ++$x_stop_lp;
-}
+ 
 ?>

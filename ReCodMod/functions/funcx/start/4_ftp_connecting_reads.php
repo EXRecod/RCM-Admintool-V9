@@ -20,19 +20,20 @@ list($ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url,$gmlobame) = explode('%', 
  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if(empty($ftprecon)) $ftprecon = time();
 $xftp_time = 300;
+if (time() - $ftprecon >= 90){
+$ftprecon = time();
 $dyq = filemtime($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame);
-if (time() - $dyq >= $xftp_time)
-{    
+if (time() - $dyq >= $xftp_time){    
 if (@is_resource($conn_idqnew))
     ftp_quit($conn_idqnew);
 clearstatcache();
 debuglog((__FILE__)."\n * RCM DEBUG: SLEEP GAME LOG: ".$server_ip."_".$server_port." try REconnect AFTER ".$xftp_time." seconds to ftp.");
-$conn_idqnew_ftp_connect = 0;
-}
+$conn_idqnew_ftp_connect = 0;}}
 
-if(empty($conn_idqnew_ftp_connect))
-{		
+
+if(empty($conn_idqnew_ftp_connect)){		
 $conn_idqnew = false;
 $ftp_passives = 0;
 $conn_idqnew = ftp_connect_check($ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url);
@@ -87,7 +88,7 @@ $ftp_reader = ftp_write_in_local($conn_idqnew,$ftp_q_user,$ftp_q_password,$ftp_q
 if($ftp_reader !=false)
 {
 	echo "\033[38;5;191m -get- \033[38;5;46m";
-	debuglog( "\n Try ftp - ".date('Y-m-d H:i:s'). " - ".$server_ip."_".$server_port." ");
+	//debuglog( "\n Try ftp - ".date('Y-m-d H:i:s'). " - ".$server_ip."_".$server_port." ");
 }
 else
 {

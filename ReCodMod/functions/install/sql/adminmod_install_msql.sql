@@ -177,6 +177,29 @@ CREATE TABLE IF NOT EXISTS `bans` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
+
+--
+-- Структура таблицы `banip`
+--
+ 
+CREATE TABLE IF NOT EXISTS `banip` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `playername` varchar(100) NOT NULL,
+  `ip` varchar(16) NOT NULL,
+  `iprange` varchar(16) NOT NULL,  
+  `guid` varchar(34) NOT NULL,
+  `reason` varchar(100) NOT NULL,
+  `time` datetime NOT NULL,
+  `bantime` varchar(100) NOT NULL,
+  `days` smallint(5) NOT NULL,
+  `whooo` varchar(80) NOT NULL,
+  `patch` int(8) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `iprange` (`iprange`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
  
 
 --

@@ -250,10 +250,12 @@ ON DUPLICATE KEY
                   //Если сумма ноль, не дергаем бд
                   if (((int)$camps + (int)$flags + (int)$saveflags + (int)$bomb_plant + (int)$bomb_defused + (int)$juggernaut_kill + 
 				  (int)$destroyed_helicopter + (int)$rcxd_destroyed + (int)$turret_destroyed + (int)$sam_kill) > 0) {
-                    usleep($sleeping);
-                    $querySQL = "update db_stats_3 set 
-								camp=camp + " . $camps . ",
-								flags=flags + " . $flags . ",
+                    usleep($sleeping);			
+$querySQL = "INSERT INTO `db_stats_3`(`s_pg`, `claymore`, `c4`, `grenade`, `maps`, `heli`, `bombs`, `avia`, `artillery`, `camp`, `flags`, `saveflags`, `bonus`, `series`, `bomb_plant`, 
+`bomb_defused`, `juggernaut_kill`, `destroyed_helicopter`, `rcxd_destroyed`, `turret_destroyed`, `sam_kill`) VALUES 
+(" . $player_server_uid . ",'0','0','0','0','0','0','0','0'," . $camps . "," . $flags . "," . $saveflags . ",'0','0'," . $bomb_plant . ",
+" . $bomb_defused . "," . $juggernaut_kill . "," . $destroyed_helicopter . "," . $rcxd_destroyed . "," . $turret_destroyed . "," . $sam_kill.")
+ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', camp=camp + " . $camps . ", flags=flags + " . $flags . ",
 								saveflags=saveflags + " . $saveflags . ",
                                 bomb_plant=bomb_plant + " . $bomb_plant . ",
 								bomb_defused=bomb_defused + " . $bomb_defused . ",
@@ -261,7 +263,8 @@ ON DUPLICATE KEY
 								destroyed_helicopter=destroyed_helicopter + " . $destroyed_helicopter . ",
 								rcxd_destroyed=rcxd_destroyed + " . $rcxd_destroyed . ",
 								turret_destroyed=turret_destroyed + " . $turret_destroyed . ",
-								sam_kill=sam_kill + " . $sam_kill . "  where s_pg=" . $player_server_uid . "";
+								sam_kill=sam_kill + " . $sam_kill;					
+								
                     $query = dbInsert('', $querySQL);
                     if (!$query) {
                       errorspdo('[' . $datetime . '] 509  ' . __FILE__ . '  Exception : ' . $querySQL);
@@ -281,8 +284,7 @@ ON DUPLICATE KEY
                 unset($stats_array[$player_server_uid]['scores;sam_kill']);
                 //specials end
 					}
-					
-					
+                //debuglog("\n ".(__FILE__) . " : " .$querySQL);
                     $query = null;
                     echo "\n  \033[38;5;178m db_stats_3 \033[38;5;46m", $player_server_uid;
                   }
