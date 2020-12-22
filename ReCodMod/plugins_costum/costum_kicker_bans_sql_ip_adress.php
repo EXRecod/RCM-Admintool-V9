@@ -1,5 +1,12 @@
 <?php
 if ((strpos($parseline, " J;") !== false)||((strpos($parseline, 'IP;') !== false)&&(strpos($parseline, '<=>') !== false))) {
+
+//ALTER TABLE `banip` ADD UNIQUE KEY `ip` (`ip`);
+//UPDATE `banip`set `patch`= 1;
+//ALTER TABLE `banip` CHANGE `patch` `patch` INT(6) NOT NULL;
+
+
+
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 //////////////////////////  Прокси, впн, тор кикер по самым свежым базам (кик игрока без статистики)  //////////////////////////////////////
@@ -58,9 +65,26 @@ if(!empty($rconExplode))
 list($i_pingо,$ipadrx,$i_nameо,$i_guidо,$xxccodeо,$cityо,$countryо) = explode(';', $rconExplode);
  }}
   
+
 if (empty($proxylist)) {
 		if (!empty($ipadrx)) {
-$ipadrx = trim($ipadrx);			
+$ipadrx = trim($ipadrx);
+			
+//////////////////////////////////////////////// VALID IP ADRESS   
+if(filter_var($ipadrx, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+    echo "Valid IPv6";
+	debuglog(" \n [ $datetime ] " . (__FILE__) ." VALID IPv6 ADRESS: ".$ipadrx);
+}
+else if(filter_var($ipadrx, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+    echo "Valid IPv4";
+}
+else
+{
+   echo "INVALID IP ADRESS";
+   errorzz(" \n [ $datetime ] " . (__FILE__) ." INVALID IP ADRESS: ".$ipadrx);
+}
+//////////////////////////////////////////////// VALID IP ADRESS
+		
  $dircache     = $cpath . "ReCodMod/functions/geoip_bases/iptolocations/IP2PROXY-LITE-PX3.BIN";				
     if (file_exists($dircache)) {                            
                   
@@ -77,8 +101,10 @@ $ipadrx = trim($ipadrx);
 				if(!empty($proxy_kick))
                 xcon('clientkick ' . $idk . ' PROXY OFF!', '');
 $re = "INSERT INTO banip (playername, ip, iprange, guid, reason, time, bantime, days, whooo, patch) 
-VALUES ('".$nickname."','".$ipadrx."','".$ipadrx."','".$guid."','PROXY FRAUD:IP2L','".date("Y.m.d H:i:s")."', '".date("Y.m.d H:i:s")."', '1','Recod','cod4 1.8')";
+VALUES ('".$nickname."','".$ipadrx."','".$ipadrx."','".$guid."','PROXY FRAUD:IP2L','".date("Y.m.d H:i:s")."', '".date("Y.m.d H:i:s")."', '1','Recod','1')
+ON DUPLICATE KEY UPDATE ip='" . $ipadrx . "', time='".date("Y.m.d H:i:s")."', patch=patch+1";
 $r = dbInsert('', $re);
+
                     //if (!$r) {
                     //  errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $re);
                     //}
@@ -141,16 +167,16 @@ $r = dbInsert('', $re);
               }
 			} 
 			  
-		  
-			
-
+		   
               if (!empty($kills_ip)) {  
                 echo 'kicked';
                 xcon('clientkick ' . $idk . ' BAN', '');
                 xcon('clientkick ' . $idk, '');
                 AddToLog("[" . $datetime . "] IP MySQL BAN KICK: (" . $idk . ") (" . $ipadrx . ") (" . $nickname . ")");
 				debuglog(" [ $datetime ] " . (__FILE__) ." GUID: [$guid]  NickName: [$nickname] IP: ".$ipadrx." Kills: [$kills]  kills_ip: [$kills_ip] Sql one: [$sqlone]  sql two: [$sqltwo] and $sqlthree \n\n");
-                ++$x_loopsv; //continue;		
+                ++$x_loopsv; //continue;	
+                $re = "UPDATE banip SET patch=patch+1 WHERE ip = '" . $ipadrx . "'";
+                $r = dbInsert('', $re);
             }
           }
 //////////////////////////////////////////////////////////////////////////////////////				
@@ -224,7 +250,8 @@ if (empty($kills_ip)) {
 				if(!empty($proxy_kick))
                 xcon('clientkick ' . $idk . ' PROXY OFF!', '');
 $re = "INSERT INTO banip (playername, ip, iprange, guid, reason, time, bantime, days, whooo, patch) 
-VALUES ('".$nickname."','".$ipadrx."','".$ipadrx."','".$guid."','".$ry." FRAUD:".$typeof_fraud_score."','".date("Y.m.d H:i:s")."', '".date("Y.m.d H:i:s")."', '1','Recod','cod4 1.8')";
+VALUES ('".$nickname."','".$ipadrx."','".$ipadrx."','".$guid."','".$ry." FRAUD:".$typeof_fraud_score."','".date("Y.m.d H:i:s")."', '".date("Y.m.d H:i:s")."', '1','Recod','1')
+ON DUPLICATE KEY UPDATE ip='" . $ipadrx . "', time='".date("Y.m.d H:i:s")."', patch=patch+1";
 $r = dbInsert('', $re);
                     //if (!$r) {
                     //  errorspdo('[' . $datetime . '] 409  ' . __FILE__ . '  Exception : ' . $re);

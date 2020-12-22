@@ -16,7 +16,8 @@ if (strpos($parseline, ' CP;') !== false)
 		 $camps = $stats_array[$cshid]['scores;camps'];	 
 		 $stats_array[$cshid]['scores;camps'] = $camps+1; 	 
 		 }
-		
+     //debuglog("\n ".(__FILE__) . " : " .$parseline);
+				
 		echo "\n [camp] : ".$camp_guid."  ".$camp_player_name."";
 	  }
 		  }
@@ -35,6 +36,7 @@ if (strpos($parseline, ' CP;') !== false)
 		 $stats_array[$fshid]['scores;flags'] = $flags+1; 	 
 		 }
 		echo "\n [flag] : ".$flag_guid."  ".$flag_player_name."";
+		     //debuglog("\n ".(__FILE__) . " : " .$parseline);
          }
 		 }
 	  else if (strpos($parseline, ' XC;') !== false)
@@ -52,6 +54,7 @@ if (strpos($parseline, ' CP;') !== false)
 		 $stats_array[$fsshid]['scores;saveflags'] = $saveflags+1; 	 
 		 }
 		echo "\n [saveflag] : ".$flags_guid."  ".$flags_player_name."";
+		    // debuglog("\n ".(__FILE__) . " : " .$parseline);
          }
 		 }	
 	 
@@ -79,6 +82,7 @@ if (strpos($parseline, ' CP;') !== false)
 		 $stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''] = $bonus+1; 	 
 		 }
 		echo "\n [$bplayer_funct] : ".$bguid."  ".$bplayer_name."";
+		     //debuglog("\n ".(__FILE__) . " : " .$parseline);
          
 }}
 ?>		 
