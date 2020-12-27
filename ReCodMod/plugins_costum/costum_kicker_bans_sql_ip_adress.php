@@ -108,7 +108,7 @@ $r = dbInsert('', $re);
                     //if (!$r) {
                     //  errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $re);
                     //}
-                debuglog((__FILE__) . "\n PROXY DETECTED = Guid: $guid Nickname: $nickname Ip: " . $ipadrx . "");
+                //debuglog((__FILE__) . "\n PROXY DETECTED = Guid: $guid Nickname: $nickname Ip: " . $ipadrx . "");
             }
         }
 		}
@@ -173,7 +173,7 @@ $r = dbInsert('', $re);
                 xcon('clientkick ' . $idk . ' BAN', '');
                 xcon('clientkick ' . $idk, '');
                 AddToLog("[" . $datetime . "] IP MySQL BAN KICK: (" . $idk . ") (" . $ipadrx . ") (" . $nickname . ")");
-				debuglog(" [ $datetime ] " . (__FILE__) ." GUID: [$guid]  NickName: [$nickname] IP: ".$ipadrx." Kills: [$kills]  kills_ip: [$kills_ip] Sql one: [$sqlone]  sql two: [$sqltwo] and $sqlthree \n\n");
+				//debuglog(" [ $datetime ] " . (__FILE__) ." GUID: [$guid]  NickName: [$nickname] IP: ".$ipadrx." Kills: [$kills]  kills_ip: [$kills_ip] Sql one: [$sqlone]  sql two: [$sqltwo] and $sqlthree \n\n");
                 ++$x_loopsv; //continue;	
                 $re = "UPDATE banip SET patch=patch+1 WHERE ip = '" . $ipadrx . "'";
                 $r = dbInsert('', $re);
@@ -256,7 +256,7 @@ $r = dbInsert('', $re);
                     //if (!$r) {
                     //  errorspdo('[' . $datetime . '] 409  ' . __FILE__ . '  Exception : ' . $re);
                     //}										
-                                    debuglog((__FILE__) . "\n PROXY $typeof1 % / VPN=$typeof2 TOR=$typeof3 FRAUD=$typeof_fraud_score % DETECTED = Kicked = Guid: $guid Nickname: $nickname NUM: $idk Ip: " . $ipadrx . "");
+                                   // debuglog((__FILE__) . "\n PROXY $typeof1 % / VPN=$typeof2 TOR=$typeof3 FRAUD=$typeof_fraud_score % DETECTED = Kicked = Guid: $guid Nickname: $nickname NUM: $idk Ip: " . $ipadrx . "");
                                 }
 								}
     }
