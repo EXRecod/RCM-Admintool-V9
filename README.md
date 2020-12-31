@@ -4,10 +4,6 @@
 - Stable RECODMOD admintool version 9  ->  JUNE 20, 2020
 - Stable RECODMOD stats web version 9  ->  https://github.com/EXRecod/CODBoX
 --------------------------------------------------------
-- New version RECODMOD V9 not compatible with old RECODMOD versions 
--    and not compatible with old WEB RECODMOD versions!!
---------------------------------------------------------
---------------------------------------------------------
 
 - PHP: 5.6 < 7.2 (After 7.2 version not working)
 
@@ -34,3 +30,8 @@ set g_antilag 1
 
 ### Support:
 - Skype: larocca2012
+
+- New version RECODMOD V9 not compatible with old RECODMOD versions 
+-    and not compatible with old WEB RECODMOD versions!!
+--------------------------------------------------------
+--------------------------------------------------------
