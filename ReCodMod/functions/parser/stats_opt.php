@@ -476,7 +476,7 @@ ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $joi . "";
                       }
 					  else
 					  {
-		 foreach($table_hits as $hitzoo)
+		 foreach($table_hits as $hitzoo => $valuex)
 		 { if(!empty($stats_array[$player_server_uid]['hitzones;'.$hitzoo.'']))
 			   unset($stats_array[$player_server_uid]['hitzones;'.$hitzoo.'']);  
 		 }	  

@@ -20,10 +20,13 @@ if(!file_exists($cpath . 'ReCodMod/cache/x_cache/msqlinstallok'))
 	debuglog((__FILE__)."\n RCM Информация: ALARM! DATABASE NOT INSTALED!!! STOPED MOD WORKING!");
 	sleep(3);
 }
- 
- if(!file_exists(chatdb))
+
+if(!file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite'))
+include($cpath . '/ReCodMod/functions/funcx/start/1_db_chat_sqlite_install.php'); 
+ if(!file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite'))
 {
-	echo "\n cfg/_settings.ini chatdb is false";
+	echo "\n cfg/_settings.ini $cpath/ReCodMod/databases/sqlitechat.sqlite' is false";
+include($cpath . '/ReCodMod/functions/funcx/start/1_db_chat_sqlite_install.php');
 	sleep(20);
 	exit;
 }

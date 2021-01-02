@@ -126,6 +126,7 @@ function fakeguid($string) {
   global $game_patch;
   if (strpos($game_patch, 'cod1_1.1') !== false) {
     $shid = trim($string);
+	$shid = trim(allclearsymb(uncolorize($string)));
     $shid = abs(hexdec(crc32($shid)));
     if (strlen($shid) < 10) $shid = $shid . (abs(hexdec(crc32($shid))));
     $string = '231034661' . $shid;
@@ -336,6 +337,22 @@ function colorize($string) {
   $string = str_replace("^", "", $string);
   return $string . "</font>";
 }
+
+
+function uncolorize($string) {	
+for ($x = 0; $x <= 10; $x++) {
+    $string = str_replace("^^".$x."".$x, "", $string);
+}
+for ($x = 0; $x <= 10; $x++) {
+    $string = str_replace("^^".$x, "", $string);
+}
+for ($x = 0; $x <= 10; $x++) {
+    $string = str_replace("^".$x, "", $string);
+}	
+  $string = str_replace("^", "", $string);
+  return $string;
+}
+
 function delxkll($string) {
   $string = preg_replace('/([0-9]+\\:[0-9]+)/', '', $string);
   //$string = preg_replace('/([0-9]+\\;[0-9]+)\\;/', ' % ', $string);
@@ -1670,7 +1687,7 @@ function rconExplodeNickname($num) {
     $i_id = $e["num"];
     $i_ping = $e["ping"];
     $i_ip = $e["ip"];
-    $i_name = $e["name"];
+   $i_name = $e["name"];
     $i_guid = $e["guid"];
     if (trim(allclearsymb($num)) == trim(allclearsymb($i_name))) {
 	$c_id = $i_id;	
@@ -1688,6 +1705,34 @@ function rconExplodeNickname($num) {
   if (empty($c_ip)) return '0;0;0;0;0;0';
   }else return '0;0;0;0;0;0;0';
 }
+
+
+function rconExplodeNicknameone($num) {
+  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
+  $i_ip = '';
+  require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
+  foreach ($rconarray as $j => $e) {
+    $i_id = $e["num"];
+    $i_ping = $e["ping"];
+    $i_ip = $e["ip"];
+   $i_name = $e["name"];
+    $i_guid = $e["guid"];
+    if (trim(allclearsymb($num)) == trim(allclearsymb($i_name))) {
+	$c_id = $i_id;	
+    $c_ping = $i_ping;
+    $c_ip = $i_ip;
+    $c_name = $i_name;
+    $c_guid = $i_guid;	
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $c_ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '?';
+      return $c_id . ';' . $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $xxccode;
+    }
+  }
+  if (empty($c_ip)) return '0;0;0;0;0;0';
+}
+
 function rconExplodeIdnum($num) {
   global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch, $rconstatus;
  if($rconstatus == 1)
@@ -2908,9 +2953,6 @@ else
 return false; 
 }
 
-
-
-
 function ftp_try_connect($conn_idqnew,$ftp_q_user,$ftp_q_password,$ftp_q_ip,$ftp_q_url){
 	global $cpath,$server_ip,$server_port,$gmlobame;
         for ($i = 1; $i <= 5; $i ++) {
@@ -2928,7 +2970,13 @@ if($conn_idqnew==false)
 return false; 
 }
 
-
-
+function CharCountFind($parseline){
+    foreach (count_chars($parseline, 1) as $i => $val) {
+      if (((chr($i)) == ";") && ($val > 0)) 
+		return $val;
+	  else
+		return false;  
+    }	
+}
 
 ?>

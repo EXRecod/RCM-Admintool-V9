@@ -762,7 +762,7 @@ class Database {
         return $data = substr(self::$buffer[$this->resource], $pos, $len);
       default:
         fseek($this->resource, $pos, SEEK_SET);
-        return fread($this->resource, $len);
+        return @fread($this->resource, $len);
     }
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -824,7 +824,7 @@ class Database {
    */
   private function readByte($pos) {
     // Unpack a byte's worth of data
-    return self::wrap8(unpack('C', $this->read($pos - 1, 1))[1]);
+    return self::wrap8(@unpack('C', $this->read($pos - 1, 1))[1]);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //  High-level read functions  ///////////////////////////////////////////////////////////////////////////////////////////////////////////

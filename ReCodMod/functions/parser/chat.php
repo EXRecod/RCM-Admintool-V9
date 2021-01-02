@@ -1,15 +1,18 @@
 <?php
  
   if (preg_match('/tell;/', $parseline, $xm)) {
-    foreach (count_chars($parseline, 1) as $i => $val) {
-      if (((chr($i)) == ";") && ($val < 9)) list($f, $forguidn, $foridnum, $fornick, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
+      if(CharCountFind($parseline) < 9) 
+		list($f, $forguidn, $foridnum, $fornick, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
     }
+  else 
+  {
+      list($f, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
+
+    $guidnk = $guidn;	
+////////////////////////////////////////////////////////////
   }
-  else {
-    list($f, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
-    $guidnk = $guidn;
-  }
-   
+
+ 
   $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));	
  
   $msgOclear = '';
@@ -293,21 +296,21 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
   ////////////////////////////////////////////////////////////////////////////////////
   if (strpos($msgr, 'QUICKMESSAGE_') === false) {
     if (!empty($msgr)) {
-      if (!empty(chatdb)) {
-        if ((filesize(chatdb) > (chatdbsize * 1000000))) {
+      if (!empty($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
+        if ((filesize($cpath . 'ReCodMod/databases/sqlitechat.sqlite') > (chatdbsize * 1000000))) {
           //AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> Chat database chatdbsize mb auto reset! </font> ");
           echo "OK ...";
-          if (file_exists(chatdb)) {
-            $file = chatdb;
+          if (file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
+            $file = $cpath . 'ReCodMod/databases/sqlitechat.sqlite';
             $newfile = $cpath . "ReCodMod/cache/x_logs/archive/chat/chat";
             $datetime = date('Y.m.d H:i:s');
             if (!copy($file, $newfile . "_" . $datetime . ".db")) {
               echo "Error copy $file...\n";
             }
             else {
-              if (file_exists(chatdb)) {
+              if (file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
                 try {
-                  $dbc = new PDO('sqlite:' . chatdb);
+                  $dbc = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/sqlitechat.sqlite');
                   $sql = $dbc->prepare("DROP TABLE chat");
                   if ($sql->execute()) {
                     echo " Table deleted ";
@@ -315,7 +318,7 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
                   else {
                     print_r($sql->errorInfo());
                   }
-                  unlink(chatdb);
+                  unlink($cpath . 'ReCodMod/databases/sqlitechat.sqlite');
                   $dbc->exec('CREATE table chat(
 			id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
 			servername varchar(90)  NOT NULL,
