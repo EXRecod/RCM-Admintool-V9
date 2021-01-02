@@ -12,21 +12,21 @@ if (preg_match('/PS;/', $parseline, $xnon))
   if ($cccntx > 4) list($noon, $st1, $st2, $pl_guid, $st1days, $st2days) = explode(';', $parseline);
   else list($noon, $st1, $pl_guid, $st1days) = explode(';', $parseline);
   //if(empty(SqlDataBase)){
-  if (!empty(chatdb)) {
-    if ((filesize(chatdb) > (chatdbsize * 1000000))) {
+  if (!empty($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
+    if ((filesize($cpath . 'ReCodMod/databases/sqlitechat.sqlite') > (chatdbsize * 1000000))) {
       //AddToLog1("<br/>[".$datetime."]<font color='green'> Server :</font> <font color='silver'> Chat database chatdbsize mb auto reset! </font> ");
       echo "OK ...";
-      if (file_exists(chatdb)) {
-        $file = chatdb;
+      if (file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
+        $file = $cpath . 'ReCodMod/databases/sqlitechat.sqlite';
         $newfile = $cpath . "ReCodMod/cache/x_logs/archive/chat/chat";
         $datetime = date('Y.m.d H:i:s');
         if (!copy($file, $newfile . "_" . $datetime . ".db")) {
           echo "Error copy $file...\n";
         }
         else {
-          if (file_exists(chatdb)) {
+          if (file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
             try {
-              $dbc = new PDO('sqlite:' . chatdb);
+              $dbc = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/sqlitechat.sqlite');
               $sql = $dbc->prepare("DROP TABLE chat");
               if ($sql->execute()) {
                 echo " Table deleted ";
@@ -34,7 +34,7 @@ if (preg_match('/PS;/', $parseline, $xnon))
               else {
                 print_r($sql->errorInfo());
               }
-              unlink(chatdb);
+              unlink($cpath . 'ReCodMod/databases/sqlitechat.sqlite');
               $dbc->exec('CREATE table chat(
 			id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
 			servername varchar(90)  NOT NULL,
@@ -70,7 +70,7 @@ if (preg_match('/PS;/', $parseline, $xnon))
     }
   } //}
   try {
-    $dbc = new PDO('sqlite:' . chatdb);
+    $dbc = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/sqlitechat.sqlite');
     //if(preg_match("/[\d]+[\d]{14,22}/",$pl_guid))
     if (!empty($pl_guid)) {
       //$nservername = meessagee($servername);

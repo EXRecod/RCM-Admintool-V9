@@ -29,6 +29,7 @@ if ((strpos($parseline, "say;") !== false)
      $pl_msg = '';
      $yesorno = '';
 	 
+	 $msgr = preg_replace('/\PL/u', '', $msgr);
 	 
      $pl_msg = $msgr;	 
      $player_msg = mb_strtolower($pl_msg);

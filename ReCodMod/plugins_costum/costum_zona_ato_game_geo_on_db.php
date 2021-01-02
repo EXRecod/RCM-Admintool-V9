@@ -145,7 +145,7 @@ if (empty($stats_array[$conisq]['ip_adress']))
 ////////////////////////////////////////////////////////////////////////////////////						  
 try{
 	 	 
-    $dbc = new PDO('sqlite:' . chatdb);
+    $dbc = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/sqlitechat.sqlite');
  
              //if(preg_match("/[\d]+[\d]{14,22}/",$guid)) 
 				 if(!empty($guid))
