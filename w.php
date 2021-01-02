@@ -73,6 +73,7 @@ else {
   echo " \033[38;5;255m Unique server id = port: ", $svipport;
   echo "\n \033[38;5;255m Unique server id = ", 'multi_ip_servers = 1;';
 }
+$spps = 50000;
 echo "\n";
 //if (empty($settizones))
 //   $settizones = setTimezone("k");
@@ -106,30 +107,20 @@ require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php';
 		 
 		
              //%%%%%%%%%%%%%%%%%%%%%%%%  CHAT  %%%%%%%%%%%%%%%%%%%%%%%%
-              if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseline, $xm)) || (preg_match('/tell;/', $parseline, $xm))) {
+              if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseline, $xm)) || (preg_match('/tell;/', $parseline, $xm)))
                 require $cpath . 'ReCodMod/functions/parser/chat.php';
-                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
-              }
               //%%%%%%%%%%%%%%%%%%%%%%%%  JOIN  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (preg_match('/J;/', $parseline, $u)) {
+              else if (preg_match('/J;/', $parseline, $u))
                 require $cpath . 'ReCodMod/functions/parser/geo.php';
-                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
-              }
               //%%%%%%%%%%%%%%%%%%%%%%%%  QUIT  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (preg_match('/Q;/', $parseline, $u)) {
+              else if (preg_match('/Q;/', $parseline, $u))
                 require $cpath . 'ReCodMod/functions/parser/quit.php';
-              }
               //%%%%%%%%%%%%%%%%%%%%%%%%  KILL  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (strpos($parseline, 'K;') !== false) {
-				
+              else if (strpos($parseline, 'K;') !== false)
                 require $cpath . 'ReCodMod/functions/parser/stats.php';
-                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
-              }
               //%%%%%%%%%%%%%%%%%%%%%%%%  DAMAGE  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (strpos($parseline, 'D;') !== false) {
+              else if (strpos($parseline, 'D;') !== false)
                 require $cpath . 'ReCodMod/functions/parser/stats.php';
-                require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
-              }
               //%%%%%%%%%%%%%%%%%%%%%%%%  END  %%%%%%%%%%%%%%%%%%%%%%%%
               else if ((strpos($parseline, 'W;END;GAME;') !== false) && (strlen($parseline) < 45))
               //// level notify ( "game_ended" ); logPrint("W;END;GAME; \n");
