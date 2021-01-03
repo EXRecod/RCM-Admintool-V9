@@ -1,11 +1,21 @@
 <?php  
 
 $server_addr = "udp://" . $server_ip;
-@$connect = fsockopen($server_addr, $server_port, $re, $errstr, 30);
+if (strpos($game_patch, 'cod1_1.1') !== false)
+{	
+$retries = 2;
+@$connect = fsockopen($server_addr, $server_port, $re, $errstr, 4);
+}
+else
+{
+$retries = 2;
+@$connect = fsockopen($server_addr, $server_port, $re, $errstr, 30);	
+}
+
 if (!$connect) { die('Can\'t connect to COD gameserver.'); }
 
 if (strpos($game_patch, 'cod1_1.1') !== false)	
-  socket_set_timeout ($connect, 0, 97000);  // bylo2
+  socket_set_timeout ($connect, 0, 117000);  // bylo2
 else
   stream_set_timeout ($connect, 0, 36000); //  //36000 было
  
@@ -17,7 +27,7 @@ do {
 $status_pre = socket_get_status ($connect);
 $output = $output . fread ($connect, 1024);  //1024
 $status_post = socket_get_status ($connect);
-} while ($status_pre['unread_bytes'] != $status_post['unread_bytes']);
+} while (--$retries >= 0);
 };
 
 $output = explode ("\xff\xff\xff\xffprint\n", $output);
@@ -52,8 +62,7 @@ $newoutput  = preg_grep ('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/', $ne
 foreach ($newoutput as $nm) {
 foreach ($patternx as $rr => $pattern) {
 			if (preg_match($pattern, $nm, $sb)) {
-			if(!empty($sb[1]))
-			{		
+			//if(!empty($sb[1])){		
 
         $sbouts = str_replace(' ', '', implode(",", $output));
 
@@ -66,15 +75,83 @@ if(strpos($sbouts,'numscorepingnamelastmsgaddressqportrate') !== false)
 		if (preg_match('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(\b)/', $sb[6], $sbn)) {
 			
 				if (preg_match('/[0-9]{1,2}/', $sb[1], $sbn)) {
-					
-				if($sb[6] == '127.0.0.1') $sb[6] = '111.111.111.111';	
 
+				if($sb[6] == '127.0.0.1') $sb[6] = '111.111.111.111';
+$rangeip = '';
+if (!empty(trim($sb[6])))
+{	
+ list($onem, $twom, $threem, $fourm) = explode(".", $sb[6]);
+  $rangeip = $onem.'.'.$twom.'.'.$threem;
+}	
+
+                //$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . fakeguid(uncolorize($sb[4]).$rangeip)))))));
+                  $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . fakeguid($sb[4])))))));
+				 $ipdd   = ''; 
+				 $plarid = '';
+				 $ipdd   = trim($sb[6]);
+				 $plarid = trim($sb[1]);
+				  
+				if (empty($stats_array[$conisq]['ip_adress']))
+				          $stats_array[$conisq]['ip_adress'] = $ipdd;
+	            if (empty($stats_array[$conisq]['nickname'])) 
+	                      $stats_array[$conisq]['nickname']  = ''.$sb[4].''; 
+	           if (!empty($stats_array[$conisq]['nickname;'])) 
+	                      $stats_array[$conisq]['nickname;'] = ''.$sb[4].'';
+   	           if (empty($stats_array[$conisq]['guid'])) 
+	                     $stats_array[$conisq]['guid']   = fakeguid($sb[4]); //fakeguid(uncolorize($sb[4]).$rangeip);  	
+   	           if (empty($stats_array[$conisq]['admins'])) 
+	                     $stats_array[$conisq]['admins'] = fakeguid(uncolorize($sb[4]).$rangeip);  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                if (empty($stats_error[$plarid]['ipv']))
+				{					
+                    $stats_error[$plarid]['ipv']  = $ipdd;
+					$stats_error[$plarid]['name'] = trim($sb[4]);
+				}
+					  
+                else if (!empty($stats_error[$plarid]['name']))
+				{
+					  if((($stats_error[$plarid]['ipv']) == $ipdd)&&(($stats_error[$plarid]['name']) != trim($sb[4])))
+					  {
+						  
+				if (empty($stats_error[$plarid]['no_nickname_change']))
+				          $stats_error[$plarid]['no_nickname_change'] = $stats_error[$plarid]['name'];
+				if (empty($stats_error[$plarid]['no_nickname_change_timer']))
+				          $stats_error[$plarid]['no_nickname_change_timer'] = time();
+					  
+					  }
+                    else if((($stats_error[$plarid]['ipv']) != $ipdd)&&(($stats_error[$plarid]['name']) == trim($sb[4])))
+					  {
+						  
+							usleep(20000);
+							xcon(' ^3FAKE => ^1['.$sb[4].']' . '', '');
+						    xcon('clientkick ' . $plarid, '');	
+						  
+				if (empty($stats_error[$plarid]['no_nickname_change']))
+				          $stats_error[$plarid]['no_nickname_change'] = $stats_error[$plarid]['name'];
+				if (empty($stats_error[$plarid]['no_nickname_change_timer']))
+				          $stats_error[$plarid]['no_nickname_change_timer'] = time();
+					  
+					  } 
+                    else if((($stats_error[$plarid]['ipv']) == $ipdd)&&(($stats_error[$plarid]['name']) == trim($sb[4])))
+					  {
+				          unset($stats_error[$plarid]['no_nickname_change']);
+				          unset($stats_error[$plarid]['no_nickname_change_timer']);
+					  
+					  } 
+					
+				}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$rconarray[] = array(
 					"num" => trim($sb[1]),
 					"score" => trim($sb[2]),
 					"ping" => trim($sb[3]),
-					"name" => uncolorize($sb[4]),
-					"guid" => fakeguid($sb[4]),
+					"name" => $sb[4],
+					//"guid" => fakeguid(uncolorize($sb[4]).$rangeip),
+					  "guid" => fakeguid($sb[4]),
 					"lastmsg" => $sb[5],
 					"ip" => trim($sb[6])
 				);
@@ -121,7 +198,7 @@ if(strpos($sbouts,'numscorepingplayeridsteamidnamelastmsgaddressqportrate') !== 
 	
 	}
 	
-			}
+			//}
 		}
 	}
 }
