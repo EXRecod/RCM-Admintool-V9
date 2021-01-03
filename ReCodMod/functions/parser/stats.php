@@ -34,6 +34,43 @@
         //////////#############         DAMAGE END        #############/////////////////////////////////////////////////////////////////////////////////////
         //////////#############///////#############///////#############/////////////////////////////////////////////////////////////////////////////////////
         if (strpos($parseline, ' K;') !== false) {
+		
+
+		
+/*
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+foreach($stats_array as $rl => $tl){
+if(!empty($stats_array[$rl]['welcometimer'])){
+if(!empty($stats_array[$rl]['ip_adress'])){	
+if(time() - $stats_array[$rl]['welcometimer'] >= 30)
+{
+$geodata = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat";
+      $gi = geoip_open($geodata, GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $stats_array[$rl]['ip_adress']);
+      if (!empty($record)) $xxccode = $record->country_name;
+      else $xxccode = '?';
+	  $stats_array[$rl]['country'] = $xxccode;
+ 		  
+	  if (!empty($record)) $xxccode = $record->city;
+      else $xxccode = '?';
+	  $stats_array[$rl]['city'] = $xxccode;
+						 
+				if (($xxccode == 'RU') || ($xxccode == 'UA') || ($xxccode == 'BY') 
+					|| ($xxccode == 'LV') || ($xxccode == 'UZ') 
+					|| ($xxccode == 'AZ') || ($xxccode == 'AM') || ($xxccode == 'KZ') 
+					|| ($xxccode == 'KG') || ($xxccode == 'MD') || ($xxccode == 'TJ') 
+					|| ($xxccode == 'TM') || ($xxccode == 'AB')) require $cpath . 'cfg/languages/ru.lng.php';
+                    else if ($xxccode == 'DE')
+                         require $cpath .  'cfg/languages/de.lng.php';
+                    else require $cpath . 'cfg/languages/en.lng.php';
+      rcon('say ^3' . $welcome_x . ' ^7' . $stats_array[$rl]['nickname'] . ' ^3' . $infoofrom . ' ^6[^2' . $stats_array[$rl]['country'] . '^6]', '');
+	unset($stats_array[$rl]['welcometimer']);		
+	
+}}}}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/		
+
+	
          $parselinetxt = delxkll($parseline);	
             // 4:58    K;0                  ;31;      ;bot31 ;2310346615720138741;30;    ;TyK TyK..  ?;c4_mp;  98; MOD_GRENADE_SPLASH;none
             // 2304:11 K;2310346615980522343;25;allies;XXXXXX;2310346617077157795;32;axis;Deep sadness;ak47_mp;84; MOD_RIFLE_BULLET;torso_lower

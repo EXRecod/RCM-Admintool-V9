@@ -6,14 +6,32 @@
     }
   else 
   {
+	  if (substr_count($parseline, ';') == 2) {
+	  		$game_patch = 'cod1_1.1';
+            require $cpath . 'ReCodMod/functions/funcx/game/cod1_1_1.php';
+	                             }
+	  
       list($f, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
-
     $guidnk = $guidn;	
 ////////////////////////////////////////////////////////////
   }
+  
+$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));
+  
+if(empty($agoantispam))  
+         $agoantispam = time(); 
+  
+if ((strpos($msgr, ixz.'register') !== false)||(strpos($msgr, ixz.'reg') !== false)){ 	
 
+ if (empty($stats_array[$conisq]['user_status'])){ 
+ $stats_array[$conisq]['user_status'] = 'registered'; 
+ if ($game_patch != 'cod1_1.1')
+    xcon('tell '.$i_id.' ^3'.$loggistopk. ' => ^1['.$stats_array[$conisq]['user_status'].'] ^3' . $nickr.'' , '');
+else
+	xcon('say ^3'.$loggistopk. ' => ^1['.$stats_array[$conisq]['user_status'].']', '');	
+ }}
  
-  $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));	
+	
  
   $msgOclear = '';
   if (empty($nickr)) $nickr = '';
@@ -151,6 +169,8 @@ if((trim($i_guid))==(trim($guidn)))
       }
     }
     //
+      if(time() - $agoantispam	> 30)
+	  {
     if ((empty($validCommand)) && (empty($vcs))) {
       if (strpos($game_patch, 'cod1_1.1') !== false) rcon('say ^7' . $nickr . ' ^3' . $nocommand . ' ^1!cmd ^2https:^2/^2/github.com^2/EXRecod^2/RCM-Admintool-V5^2/wiki^2/Commands', '');
       else rcon('tell ' . $idnum . ' ^3' . $nocommand . ' ^1!cmd ^2https:^2/^2/github.com^2/EXRecod^2/RCM-Admintool-V5^2/wiki^2/Commands', '');
@@ -165,6 +185,10 @@ if((trim($i_guid))==(trim($guidn)))
         else rcon('tell ' . $idnum . ' ^3NO PERMISSIONS FOR THIS COMMAND, use ^7!register ^1!', '');
       }
     }
+	
+	    $agoantispam = time(); 
+	  }
+	
   }
   
      require $cpath . 'ReCodMod/plugins/messages/chat_antiflood.php';
@@ -222,8 +246,38 @@ if((trim($i_guid))==(trim($guidn)))
           }
         }
         if (empty(SqlDataBase)) {
+
+$msgrtxtt = $msgr;
+if (strpos($msgrtxtt, ixz) !== false){
+if(!empty($stats_array[$conisq]['user_status'])){
+	if((($stats_array[$conisq]['user_status'])=='Administrator')
+		||(($stats_array[$conisq]['user_status'])=='administrator')
+	    ||(($stats_array[$conisq]['user_status'])=='Admin')
+	    ||(($stats_array[$conisq]['user_status'])=='admin')){	
+	if(!empty($stats_array[$conisq]['ip_adress'])){	
+				$sql   = "SELECT s_guid,s_group,s_adm FROM `x_db_admins` WHERE s_guid='$guidn' limit 1";	
+                $statt = dbInsert('', $sql);
+		   if (!empty($statt)) { 
+      foreach ($statt as $row) {
+if($row['s_group']=='0')
+{		  
+if($stats_array[$conisq]['ip_adress']!= $row['s_adm'])
+{	
+   $stats_array[$conisq]['user_status'] = 'guest';
+}
+else if($stats_array[$conisq]['ip_adress']== $row['s_adm'])
+$msgrtxtt = '^1admin hide cmd';
+       }}  
+		}}
+	}
+}}		
+
+if (strpos($msgrtxtt, ixz.'on') !== false)
+	$msgrtxtt = '^1player try login';
+	
+
           $sqll = "INSERT INTO chat (servername, s_port, guid, nickname, time, timeh, text, st1, st1days, st2, st2days, ip, geo, z, t, x, c) 
-VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgr . "', '0', '0', '0', '0', '" . $stats_array[$conisq]['ip_adress'] . "', '" . $xxccode . "', '0', 'xl', '0', '0')";
+VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" . $stats_array[$conisq]['ip_adress'] . "', '" . $xxccode . "', '0', 'xl', '0', '0')";
           $dbc->query($sqll);
           $dbc = null;
         }
@@ -264,8 +318,38 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgs
       if (empty($stats_array[$conisq]['country'])) 
           $country = ''; else $country = $stats_array[$conisq]['country'];		  
 		  
+		  
+		  
+$msgrtxtt = $msgOclear;
+if (strpos($msgrtxtt, ixz) !== false){
+if(!empty($stats_array[$conisq]['user_status'])){
+	if((($stats_array[$conisq]['user_status'])=='Administrator')
+		||(($stats_array[$conisq]['user_status'])=='administrator')
+	    ||(($stats_array[$conisq]['user_status'])=='Admin')
+	    ||(($stats_array[$conisq]['user_status'])=='admin')){	
+	if(!empty($stats_array[$conisq]['ip_adress'])){	
+				$sql   = "SELECT s_guid,s_group,s_adm FROM `x_db_admins` WHERE s_guid='$guidn' limit 1";	
+                $statt = dbInsert('', $sql);
+		   if (!empty($statt)) { 
+      foreach ($statt as $row) {
+if($row['s_group']=='0')
+{		  
+if($stats_array[$conisq]['ip_adress']!= $row['s_adm'])
+{	
+   $stats_array[$conisq]['user_status'] = 'guest';
+}
+else if($stats_array[$conisq]['ip_adress'] == $row['s_adm'])
+$msgrtxtt = '^1admin hide cmd';
+       }}  
+		}}
+	}
+}}			  
+		  
+if (strpos($msgrtxtt, ixz.'on') !== false)
+	$msgrtxtt = '^1player try login';
+		  
           $sql = "INSERT INTO `chat` (`servername`, `s_port`, `guid`, `nickname`, `time`, `timeh`, `text`, `st1`, `st1days`, `st2`, `st2days`, `ip`, `geo`, `z`, `t`, `x`, `c`) 
-VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgOclear . "', '0', '0', '0', '0', '" .$i_adrr. "', '" . $country . "', '0', 'xl', '0', '0')";
+VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" .$i_adrr. "', '" . $country . "', '0', 'xl', '0', '0')";
           $dbx->query($sql);
           $dbx = null;
           $msqlcc = null;

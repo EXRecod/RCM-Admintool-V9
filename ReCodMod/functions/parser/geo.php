@@ -3,6 +3,9 @@ if (strpos($parseline, " J;") !== false) {
  
 list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
 
+
+
+
  if (!file_exists($cpath . 'ReCodMod/databases/player_insert_GEO/'))
 	 mkdir($cpath . 'ReCodMod/databases/player_insert_GEO/', 0777, true);
  if (!file_exists($cpath . 'ReCodMod/databases/player_insert_GEO/' . $server_ip . '_' . $server_port . '/'))
@@ -10,6 +13,10 @@ list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
            
 			 $reg = $cpath . 'ReCodMod/databases/player_insert_GEO/' . $server_ip . '_' . $server_port . '/JOIN__GUID_' . $guid . '_md5_'. md5($nickname) . '.log';
 $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
+
+if (empty($stats_array[$conisq]['welcometimer']))
+	      $stats_array[$conisq]['welcometimer'] = time();
+ 
        
 if ((empty($stats_array[$conisq]['guid']))||(!file_exists($reg))||(time() - filemtime($reg) >= 900))
 { 
@@ -92,10 +99,20 @@ if (!empty(geo_welcome_message))
                   $x_db_conn = $row['x_db_conn'];  
 if (translater == 1) 
 {   
-				if (($xxccode == 'RU') || ($xxccode == 'UA') || ($xxccode == 'BY') || ($xxccode == 'LV') || ($xxccode == 'UZ') || ($xxccode == 'AZ') || ($xxccode == 'AM') || ($xxccode == 'KZ') || ($xxccode == 'KG') || ($xxccode == 'MD') || ($xxccode == 'TJ') || ($xxccode == 'TM') || ($xxccode == 'AB')) require $cpath . 'cfg/languages/ru.lng.php';
+				if (($xxccode == 'RU') || ($xxccode == 'UA') || ($xxccode == 'BY') 
+				|| ($xxccode == 'LV') || ($xxccode == 'UZ') || ($xxccode == 'AZ') 
+				|| ($xxccode == 'AM') || ($xxccode == 'KZ') || ($xxccode == 'KG') 
+				|| ($xxccode == 'MD') || ($xxccode == 'TJ') || ($xxccode == 'TM') 
+				|| ($xxccode == 'AB')) 
+				         require $cpath . 'cfg/languages/ru.lng.php';
                     else if ($xxccode == 'DE')
                          require $cpath .  'cfg/languages/de.lng.php';
-                    else require $cpath . 'cfg/languages/en.lng.php';
+                    else if ($xxccode == 'ES') {
+						if(file_exists($cpath .  'cfg/languages/es.lng.php'))
+                         require $cpath .  'cfg/languages/es.lng.php';
+					}						 
+                    else 
+						require $cpath . 'cfg/languages/en.lng.php';
 
 rcon('say ^3' . $welcome_x . ' ^7' . html_entity_decode($nickname) . ' ^3' . $infoofrom . ' ^6[^2' . $country . '^6]', '');
 }	
@@ -105,7 +122,7 @@ rcon('say ^3' . $welcome_x2 . ' ^7' . html_entity_decode($nickname) . ' ^3' . $i
       /////////////////////// nickname;nickname';
 	 if (empty($stats_array[$conisq]['nickname'])) 
 	    $stats_array[$conisq]['nickname'] = $nickname; 
-	 if (!empty($stats_array[$conisq]['nickname;'])) 
+	 if (empty($stats_array[$conisq]['nickname;'])) 
 	    $stats_array[$conisq]['nickname;'] = $nickname; 	
 	 
   	 if (empty($stats_array[$conisq]['date'])) 
@@ -229,7 +246,8 @@ if (empty($stats_array[$conisq]['ip_adress'])){
          if(userStatus($stats_array[$conisq]['user_status']) != 3)
          rcon('tell ' . $idk . ' ^6Rbot => ^1['.$stats_array[$conisq]['user_status'].'] ^3' . html_entity_decode($nickname) , '');
         $date = date('Y-m-d H:i:s'); 
-         if ($db->query("INSERT INTO x_db_admins (s_adm, s_dat, s_group, s_guid) VALUES ('" . $stats_array[$conisq]['ip_adress'] . "', '" . $date . "', '".userStatus($stats_array[$conisq]['user_status'])."', '" . $guid . "')") > 0) {
+         if ($db->query("INSERT INTO x_db_admins (s_adm, s_dat, s_group, s_guid) 
+			 VALUES ('" . $stats_array[$conisq]['ip_adress'] . "', '" . $date . "', '".userStatus($stats_array[$conisq]['user_status'])."', '" . $guid . "')") > 0) {
           echo "Created IN DATABASE." . "\n";
           ++$x_stop_lpjk;
         }

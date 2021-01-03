@@ -3,7 +3,7 @@
   $startc        = microtime(true);
   $stimec       = time();
 //////////////////////////////////////////////////
-$z_rcm = "RCM[v.9.5.1]";
+$z_rcm = "RCM[v.9.5.9]";
 $charset_db   = 'utf8';
 
 error_reporting(E_ALL);
@@ -100,6 +100,8 @@ else if (language == 'fr')
 require $cpath . 'cfg/languages/fr.lng.php';
 else if (language == 'nl')
 require $cpath . 'cfg/languages/nl.lng.php';
+else if (language == 'es')
+require $cpath . 'cfg/languages/es.lng.php';
 else
 require $cpath . 'cfg/languages/en.lng.php';
 

@@ -256,6 +256,7 @@ function cleart($string) {
   global $cpath, $z_ver;
   if (language == 'en') require $cpath . 'cfg/languages/en.lng.php';
   else if (language == 'ru') require $cpath . 'cfg/languages/ru.lng.php';
+  else if (language == 'es') require $cpath . 'cfg/languages/es.lng.php';
   else if (language == 'de') require $cpath . 'cfg/languages/de.lng.php';
   else if (language == 'pl') require $cpath . 'cfg/languages/pl.lng.php';
   else if (language == 'it') require $cpath . 'cfg/languages/it.lng.php';

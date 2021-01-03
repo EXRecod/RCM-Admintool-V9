@@ -168,8 +168,12 @@ if (!empty($stats_array)) {
 		  if (empty($dateregister))  
 					  $dateregister = date('Y-m-d H:i:s');
                     echo " \n MAMBA UP + x_db_players  ";
+					
+				if (strpos($game_patch, 'cod1') === false)
+				{
                     $nickname = clearSymbols($nickname);
-                    $nickname = htmlentities($nickname);
+                    $nickname = htmlentities($nickname);				
+				}	 
                     $sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
          VALUES ('$svipport','" . $nickname . "', '0', '$ip', '0', '$ping', '$guid', '1', '$date', '0', '$dateregister', '1')
@@ -301,9 +305,16 @@ ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', camp=camp + " . $camp
                     usleep($sleeping);
                     if ($skill < 0) $skill = 100;
                     usleep(10000);
+					
+					
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '?';						
+					 
 					$querySQL = "INSERT INTO db_stats_2 
 (s_pg, s_port, w_place,w_skill,w_ratio,w_geo,w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) 
-VALUES ('" . $player_server_uid . "','$svipport','0','1000','0','0','0','0','$ip','0','0','0','0','0','0')
+VALUES ('" . $player_server_uid . "','$svipport','0','1000','0','$xxccode','0','0','$ip','0','0','0','0','0','0')
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', w_skill=" . $skill . ", w_ratio=" . $killsfrom / $deathsfrom . ",w_ip='" . $ip . "'";
                     $gt = dbInsert('', $querySQL);
@@ -339,9 +350,15 @@ ON DUPLICATE KEY
                       if ($keym == 's_kills') $killsfrom = $value;
                       else if ($keym == 's_deaths') $deathsfrom = $value;
                     }
+					
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '?';					
+					
                     $gt = dbInsert('', "INSERT INTO db_stats_2 
 (s_pg, s_port, w_place,w_skill,w_ratio,w_geo,w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) 
-VALUES ('" . $player_server_uid . "','$svipport','0','1000','" . $killsfrom / $deathsfrom . "','0','0','0','$ip','0','0','0','0','0','0')
+VALUES ('" . $player_server_uid . "','$svipport','0','1000','" . $killsfrom / $deathsfrom . "','$xxccode','0','0','$ip','0','0','0','0','0','0')
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', w_ratio=" . $killsfrom / $deathsfrom . ",w_ip='" . $ip . "'");
                     //###############################################################
@@ -425,8 +442,14 @@ ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', $summdb1 s_dmg=s_dmg 
                   /////////////////////////////////////// update user db
                   if (!empty($nickname)) {
                     usleep($sleeping);
+				if (strpos($game_patch, 'cod1') !== false)	
+                    $w_n = $nickname;
+				else 
+				{
                     $w_n = clearSymbols($nickname);
-                    $w_n = htmlentities($w_n);
+                    $w_n = htmlentities($w_n);					
+				}
+					
                     $nickname = str_replace("'", "", $nickname);
                     $nickname = str_replace("`", "", $nickname);
                     $w_n = str_replace("'", "", $w_n);

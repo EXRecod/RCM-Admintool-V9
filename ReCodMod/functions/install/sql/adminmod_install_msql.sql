@@ -606,14 +606,15 @@ CREATE TABLE IF NOT EXISTS `x_cmd_kck` (
 --
 -- Структура таблицы `x_db_admins`
 --
- 
+DROP TABLE IF EXISTS `x_db_admins`; 
 CREATE TABLE IF NOT EXISTS `x_db_admins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `s_adm` varchar(100) NOT NULL,
   `s_dat` varchar(55) NOT NULL,
   `s_group` varchar(55) NOT NULL,
   `s_guid` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `s_adm` (`s_adm`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
