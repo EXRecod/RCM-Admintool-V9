@@ -2,69 +2,8 @@
      
 if (empty($x_stop_lp)) { 
         if (strpos($msgr, ixz . 'sk') !== false)  {
- 
- $skill = txt_db($server_ip,$server_port,$guidn,'score','skill',0);
-if(!empty($skill))
-{
- 		
-	  try {
-                        if (empty(SqlDataBase)) {
-                            $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
-                        
-						
-						  
-                          		$skill = txt_db($server_ip,$server_port,$guidn,'score','skill',0);
-                                $kills = txt_db($server_ip,$server_port,$guidn,'score','kills',0);
-                                $deaths = txt_db($server_ip,$server_port,$guidn,'score','deaths',0);
-								
-	       
-                                $result = $db3->query("SELECT * FROM db_stats_2 WHERE s_pg='$conisq' ORDER BY (w_place+0) DESC LIMIT 1");
-                             							
-                            foreach ($result as $row) {
-                                 
-                                $pla   = $row['s_place']; 
-                            }
-							
-							
-							if(empty($pla))
-								$pla = '?';
-							    $kills = 0;
-							    $deaths = 0;
-							if(!empty($stats_array[$conisq]['scores;kills'])) 
-									$kills =  $stats_array[$conisq]['scores;kills'];
-                            if(!empty($stats_array[$conisq]['scores;deaths'])) 
-									$deaths =  $stats_array[$conisq]['scores;deaths'];								
-								 
-								 
-							$z = get_skill_from_log($conisq, $server_ip, $server_port);
-							  
-							
-						     if (empty($z))
-							 {
-								if(!empty($stats_array[$conisq]['scores;skill'])) 
-									$skill =  $stats_array[$conisq]['scores;skill'];
-							 }	 
-								$skill = 1000;
-                           
-                
-                                    rcon("say ^7" . $nickr . " ^1Top:^2" . $pla . " ^1Skill:^2 " . $skill . " ^1 Kills:^2" . $kills . " ^1 Deaths:^2" . $deaths . " ^1Ratio:^2 " . substr(($kills/$deaths), 0, 8) . "", "");
-                                ++$x_number;
-                                AddToLogInfo("[" . $datetime . "] SKILL: " . $i_ip . " (" . $nickr . ") (" . $msgr . ") reason: S");
-                                echo '    ' . $tfinishh = (microtime(true) - $start);
-                                ++$x_stop_lp; //return;
-                             
-                         						
-						
-						
-						
-						
-						} else {
-                            $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
-                            if (empty($msqlconnect))
-                                $msqlconnect = new PDO($dsn, db_user, db_pass);
-                            $db3 = $msqlconnect;		
-			 
-                                    $result = $db3->query("SELECT sort, w_skill
+$skill = '';
+$sqll = "SELECT sort, w_skill
 FROM
 (
     SELECT @sort:=@sort + 1 AS sort, w_skill, s_pg, s_lasttime
@@ -76,62 +15,27 @@ FROM
         ON db_stats_2.s_pg = db_stats_1.s_pg
           INNER JOIN db_stats_0
           ON db_stats_1.s_pg = db_stats_0.s_pg
-        WHERE DATE_SUB(CURDATE(),INTERVAL 30 DAY) <= db_stats_0.s_lasttime and db_stats_2.s_port = $svipport and db_stats_1.s_kills >= 1000
+        WHERE DATE_SUB(CURDATE(),INTERVAL 14 DAY) <= db_stats_0.s_lasttime and db_stats_2.s_port = $svipport and db_stats_1.s_kills >= 100
         ORDER BY w_skill DESC
     ) sub0
     CROSS JOIN (SELECT @sort:=0) sub2
 ) sub1
-WHERE sub1.s_pg = $conisq");
-                              
-							 
-                            foreach ($result as $row) {
-                                $skil_x = $row['w_skill']; 
-                                    $player_place_skill = $row['sort']; 
-                            }							 
-							
+WHERE sub1.s_pg = $conisq";
 
-
-							if(empty($player_place_skill))
-								$player_place_skill = '?';
-							$z = 0;
-							    $kills = 0;
-							    $deaths = 0;
-							if(!empty($stats_array[$conisq]['scores;kills'])) 
-									$kills =  $stats_array[$conisq]['scores;kills'];
-                            if(!empty($stats_array[$conisq]['scores;deaths'])) 
-									$deaths =  $stats_array[$conisq]['scores;deaths'];								
-								 
-								 
-							$z = get_skill_from_log($conisq, $server_ip, $server_port);
-							  
-							
-						     if (empty($z))
-							 {  $z = 1000;
-								if(!empty($stats_array[$conisq]['scores;skill'])) 
-									$skill =  $stats_array[$conisq]['scores;skill'];
-							 }	 
-								$skill = 1000;
-                                 
-							
-							 
-                                
+                           $gtx = dbInsert('', $sqll);
+						if (!empty($gtx)) { 
+                           foreach ($gtx as $row) 
+						    {
+                                $skill = $row['w_skill']; 
+                                $player_place_skill = $row['sort']; 
 								
-                                rcon("say  ^6[^3!sk^6] ^7" . $nickr . " ^1Place:^3[" . $player_place_skill . "] ^1" . $infoosklll . ":^2 " . $skill . "", "");
-                              }
-                            ++$x_number;
+                            rcon("say  ^6[^3!sk^6] ^7" . $nickr . " ^1Place:^3[" . $player_place_skill . "] ^1" . $infoosklll . ":^2 " . $skill . "", "");
+
                             AddToLogInfo("[" . $datetime . "] SKILL: " . $i_ip . " (" . $nickr . ") (" . $msgr . ") reason: S");
-                            echo '    ' . $tfinishh = (microtime(true) - $start);
-                            ++$x_stop_lp; //return;
-                       
-                        require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
-                    }
-                    catch (PDOException $e) {
-                        errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception : ' . $e->getMessage());
-                    }
+							}
+					}
 					
-					
-					
- } else {
+		             if (empty($skill)) {
                             
 							if (strpos($game_patch, 'cod1_1.1') !== false)
 							rcon("say  ^3" . $stsnoskl, "");	
@@ -139,28 +43,25 @@ WHERE sub1.s_pg = $conisq");
                             rcon("tell " . $idnum . "  ^3" . $stsnoskl, "");
                             echo '    ' . $tfinishh = (microtime(true) - $start);
                             ++$x_stop_lp; //return;
-                        }					
+                   }						
  }					
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (strpos($msgr, ixz . "stats") !== false) { 
-								$skill = txt_db($server_ip,$server_port,$guidn,'score','skill',0);
-                                echo '='.$kills = txt_db($server_ip,$server_port,$guidn,'score','kills',0);
-                               echo '='.$deaths = txt_db($server_ip,$server_port,$guidn,'score','deaths',0);	
+
+$kills = 0; $deaths = 0;
+$sqll = "SELECT s_kills,s_deaths,s_heads FROM db_stats_1 WHERE s_pg = $conisq";
+                           $gtx = dbInsert('', $sqll);
+						if (!empty($gtx)) { 
+                           foreach ($gtx as $row) 
+						    {
+                                $kills = $row['s_kills']; 
+                                $deaths = $row['s_deaths']; 
+							}}
+			
 			if(!empty($kills))
 			{
              if((!empty($kills))&&(!empty($deaths)))
@@ -175,9 +76,9 @@ WHERE sub1.s_pg = $conisq");
 				 //rcon("say ^1" . $infootop . ":^2" . $place_ontop . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . substr(($kills/$deaths), 0, 8) . " ^6" . website, "");
 			     //rcon("tell " . $idnum . " ^1" . $infootop . ":^2" . $place_ontop . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . substr(($kills/$deaths), 0, 8) . " ^6" . website, "");
 				 
-				 rcon("say ^1 " . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . $ratiokd . " ^6" . website, "");
+				 rcon("say  ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " . $ratiokd . " ^6" . website, "");
             else
-			     rcon("tell " . $idnum . " ^1" . $infoorank . ":^2 " . $skill . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " .$ratiokd . " ^6" . website, "");
+			     rcon("tell " . $idnum . " ^1" . $infoofrag . ":^2" . $kills . " ^1" . $infoodth . ":^2" . $deaths . " ^1" . $infoortio . ":^2 " .$ratiokd . " ^6" . website, "");
           
             }
              else{ if (strpos($game_patch, 'cod1_1.1') !== false)

@@ -24,27 +24,48 @@ if (!empty(chat_banner)) {
    
   
   ///////////////// banner scheduler
-  if (!file_exists($cpath . 'ReCodMod/cache/x_cron/cron_time_message_' . $server_ip . "_" . $server_port)) touch($cpath . 'ReCodMod/cache/x_cron/cron_time_message_' . $server_ip . "_" . $server_port);
-  if (!file_exists($cpath . 'ReCodMod/cache/x_cron/cron_time_exec1z_' . $server_ip . "_" . $server_port)) touch($cpath . 'ReCodMod/cache/x_cron/cron_time_exec1z_' . $server_ip . "_" . $server_port);
+  if (!file_exists($cpath . 'ReCodMod/cache/x_cron/cron_time_message_' . $server_ip . "_" . $server_port)) 
+	  touch($cpath . 'ReCodMod/cache/x_cron/cron_time_message_' . $server_ip . "_" . $server_port);
+  if (!file_exists($cpath . 'ReCodMod/cache/x_cron/cron_time_exec1z_' . $server_ip . "_" . $server_port)) 
+	  touch($cpath . 'ReCodMod/cache/x_cron/cron_time_exec1z_' . $server_ip . "_" . $server_port);
   $cron_time = filemtime($cpath . "ReCodMod/cache/x_cron/cron_time_message_" . $server_ip . "_" . $server_port);
+  
+  
   if ($stime - $cron_time >= chat_message_pause * $xmoretime) {
     file_put_contents($cpath . "ReCodMod/cache/x_cron/cron_time_message_" . $server_ip . "_" . $server_port, "");
     echo ' - ' . $spps . ' - ';
     ////////////////////////////////////////////////////////////////////////
     $whiles = 0;
+	if(empty($fwl))
+	$fwl    = 1;
+	$rr     = 0;
     foreach (chat_message as $servers => $command) {
-      if (empty($mes_memory)) $mes_memory[$servers . $command] = $servers . $command;
-      else {
-        unset($mes_memory);
-        $mes_memory[$servers . $command] = $servers . $command;
-      }
-      if (($mes_memory[$servers . $command] != $servers . $command) && (empty($whiles))) {
+	   ++$rr;	
+	$msg_memory[$rr] = $servers .'%%%%%'.$command;	
+    }
+	 
+	 if(!empty($msg_memory[$fwl]))
+	 list($servers,$command) = explode('%%%%%', $msg_memory[$fwl]);
+     else
+	  $fwl    = 1;	 
+	 
+	 ++$fwl;
+	 
+	
+      if (empty($whiles)) {
         $whiles = 1;
+		 
+	echo '################# ',$servers,' / ',$command;		
+		
+		
         //chat_message["28960,28962,28969"] = 'top_skill'
         //chat_message["28961"] = 'today'
         //chat_message[] = 'top_week'  - for all servers
         if (((strpos($servers, $server_port) !== false) && (strpos($servers, ':') === false)) || ((strpos($servers, $server_port) !== false) && (is_int($servers)))) {
           require $cpath . 'ReCodMod/plugins/messages/banner_messages_switch.php';
+		  
+				  
+		  
         }
         //chat_message["212.109.217.69:28960,212.109.217.69:28961"] = '[SERVERINFO] ^3{SERVER_IP} ^7{SERVER_NAME} ^7=> ^2{SERVER_CURRENT_PLAYERS} ^7/ ^2{SERVER_MAX_PLAYERS}'
         else if ((strpos($servers, '.') !== false) && (strpos($servers, ':') === false)) { {
@@ -80,7 +101,7 @@ usleep($sleep_rcon);
         }
         echo " \n [" . $datetime . "] _Message -> " . meessagee($command) . " \n Paused -> " . $tfinishh = (microtime(true) - $start) . " seconds \n";
       }
-    }
+ 
     ///////////////////////////////////////////////////////////////////
     $x_stop_lp = 56800;
   }

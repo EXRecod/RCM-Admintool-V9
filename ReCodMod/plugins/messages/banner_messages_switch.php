@@ -5,9 +5,9 @@ switch ($command) {
     //######################################################
     
   case 'top_total':
-    $dbSelArray = dbSelectArray('db3', 'SELECT t1.*, t2.* from db_stats_0 t1 join (select * from db_stats_1) t2 ON t1.s_pg = t2.s_pg where t1.s_port="' . $svipport . '"ORDER BY (t2.s_kills+0)  DESC LIMIT 3');
+    $dbSelArray = dbSelectArray('', 'SELECT t1.*, t2.* from db_stats_0 t1 join (select * from db_stats_1) t2 ON t1.s_pg = t2.s_pg where t1.s_port="' . $svipport . '"ORDER BY (t2.s_kills+0)  DESC LIMIT 3');
     rcon("say  ^3[ ^6" . $stats_top . " 3 ^7by ^1kills ^7& ^2" . $played_top . "^3]", "");
-    if (is_array($dbSelArray)) {
+    if (!empty($dbSelArray)) {
       foreach ($dbSelArray as $row) {
         $playername = $row['s_player'];
         $ipm = $row['s_kills'];
@@ -65,14 +65,14 @@ switch ($command) {
     //######################################################
     
   case 'top_skill':
-    $dbSelArray = dbSelectArray('db3', "SELECT P.servername,
+    $dbSelArray = dbSelectArray('', "SELECT P.servername,
   P.s_pg,P.s_port,P.s_player,P.s_lasttime,P.s_time,
   C.s_pg,C.w_skill
       FROM db_stats_0 P INNER JOIN db_stats_2 C 
 	     ON P.s_pg = C.s_pg where P.s_port = '" . $svipport . "' ORDER BY (w_skill+0) DESC LIMIT 3");
     $number = 0;
     rcon("say  ^3[ ^6" . $stats_top . " 3 ^7by ^1" . $stats_skill . " ^7& ^2" . $played_top . "^3]", "");
-    if (is_array($dbSelArray)) {
+    if (!empty($dbSelArray)) {
       foreach ($dbSelArray as $row) {
         $playername = $row['s_player'];
         $ipm = $row['w_skill'];
@@ -100,10 +100,10 @@ switch ($command) {
     //######################################################
     
   case 'top_day':
-    $dbSelArray = dbSelectArray('dbm3', "SELECT * FROM db_stats_day WHERE s_kills>=100 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
+    $dbSelArray = dbSelectArray('', "SELECT * FROM db_stats_day WHERE s_kills>=100 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
     $number = 0;
     rcon("say  ^3[ ^6" . $day_top . " 3 ^7by ^1kills ^7& ^2" . $played_top . "^3]", "");
-    if (is_array($dbSelArray)) {
+    if (!empty($dbSelArray)) {
       foreach ($dbSelArray as $row) {
         $playername = $row['s_player'];
         $ipm = $row['s_kills'];
@@ -131,10 +131,10 @@ switch ($command) {
     //######################################################
     
   case 'top_week':
-    $dbSelArray = dbSelectArray('dbw3', "SELECT * FROM db_stats_week WHERE s_kills>=1000 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
+    $dbSelArray = dbSelectArray('', "SELECT * FROM db_stats_week WHERE s_kills>=1000 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
     $number = 0;
     rcon("say  ^3[ ^6" . $week_top . " 3 ^7by ^1kills ^7& ^2" . $played_top . "^3]", "");
-    if (is_array($dbSelArray)) {
+    if (!empty($dbSelArray)) {
       foreach ($dbSelArray as $row) {
         $playername = $row['s_player'];
         $ipm = $row['s_kills'];
