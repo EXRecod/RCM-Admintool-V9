@@ -5,7 +5,7 @@ switch ($command) {
     //######################################################
     
   case 'top_total':
-    $dbSelArray = dbSelectArray('', 'SELECT t1.*, t2.* from db_stats_0 t1 join (select * from db_stats_1) t2 ON t1.s_pg = t2.s_pg where t1.s_port="' . $svipport . '"ORDER BY (t2.s_kills+0)  DESC LIMIT 3');
+    $dbSelArray = dbSelectArray('', 'SELECT t1.*, t2.* from db_stats_0 t1 join (select * from db_stats_1) t2 ON t1.s_pg = t2.s_pg where t1.s_port = "' . $svipport . '" ORDER BY (t2.s_kills+0)  DESC LIMIT 3');
     rcon("say  ^3[ ^6" . $stats_top . " 3 ^7by ^1kills ^7& ^2" . $played_top . "^3]", "");
     if (!empty($dbSelArray)) {
       foreach ($dbSelArray as $row) {
@@ -37,14 +37,9 @@ switch ($command) {
     $message = "today";
     $number = 0;
     try {
-      if (empty(SqlDataBase)) {
-        $db3 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db3.sqlite');
-      }
-      else {
         $dsn = "mysql:host=" . host_adress . ";dbname=" . db_name . ";charset=$charset_db";
         if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass);
         $db3 = $msqlconnect;
-      }
       $today = date("Y-m-d");
       $sql = 'SELECT COUNT(*) AS id FROM db_stats_0 where s_lasttime LIKE :today';
       $reponse = $db3->prepare($sql);
