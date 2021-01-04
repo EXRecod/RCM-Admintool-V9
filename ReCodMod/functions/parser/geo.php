@@ -33,8 +33,22 @@ $chistx = $i_name;
 	 {
 		 
 		 $date = date('Y-m-d H:i:s');
+				if (strpos($game_patch, 'cod1') === false)
+				{		 
                 $nickname = clearSymbols($i_name);
                 $nickname = htmlentities($nickname);
+				}
+				else
+				{
+                    $nickname = str_replace("'", "", $i_name);
+                    $nickname = str_replace("`", "", $nickname);
+                    $nickname = str_replace("'", "", $nickname);
+                    $nickname = str_replace("`", "", $nickname);
+                    $nickname = str_replace('"', '', $nickname);
+                    $nickname = str_replace('{', '', $nickname);
+                    $nickname = str_replace('}', '', $nickname);
+				}
+				
 	$sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
          VALUES ('$svipport','" . $nickname . "', '0', '$i_ip', '0', '$i_ping', '$i_guid', '1', '$date', '0', '$date', '1')
@@ -131,10 +145,10 @@ if (translater == 1)
                     else 
 						require $cpath . 'cfg/languages/en.lng.php';
 
-rcon('say ^3' . $welcome_x . ' ^7' . html_entity_decode($nickname) . ' ^3' . $infoofrom . ' ^6[^2' . $country . '^6]', '');
+rcon('say ^3' . $welcome_x . ' ^7' . $nickname . ' ^3' . $infoofrom . ' ^6[^2' . $country . '^6]', '');
 }	
 else
-rcon('say ^3' . $welcome_x2 . ' ^7' . html_entity_decode($nickname) . ' ^3' . $infoofrom . ' ^6[^2' . $country . '^6] ^1id#' . $idcc . ' ^1visit#' . $x_db_conn . ' ^7' . website . '', '');
+rcon('say ^3' . $welcome_x2 . ' ^7' . $nickname . ' ^3' . $infoofrom . ' ^6[^2' . $country . '^6] ^1id#' . $idcc . ' ^1visit#' . $x_db_conn . ' ^7' . website . '', '');
  }										
       /////////////////////// nickname;nickname';
 	 if (empty($stats_array[$conisq]['nickname'])) 
