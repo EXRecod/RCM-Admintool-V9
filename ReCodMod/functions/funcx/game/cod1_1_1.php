@@ -95,6 +95,65 @@ if (strpos($parseline, ' K;') !== false) {
 }
 else if (strpos($parseline, ' D;') !== false) {
 	$rconstatus = 1;
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                $plarid = $idkill;
+				if (empty($stats_error[$plarid]['name']))
+				{					
+					$stats_error[$plarid]['name'] = trim($killer_player_name);
+				}
+                else if(!empty($stats_error[$plarid]['name']))
+				{
+					if(($stats_error[$plarid]['name']) != trim($killer_player_name))
+					  {
+						  
+				if (empty($stats_error[$plarid]['no_nickname_change']))
+				          $stats_error[$plarid]['no_nickname_change'] = $stats_error[$plarid]['name'];
+				if (empty($stats_error[$plarid]['no_nickname_change_timer']))
+				          $stats_error[$plarid]['no_nickname_change_timer'] = time();	  
+						  
+			          if(time() - $stats_error[$plarid]['no_nickname_change_timer'] > 10)
+						  {
+							$stats_error[$plarid]['no_nickname_change_timer'] = time(); 
+							usleep(20000);
+							xcon('say ^3FAKE => ^1['.$killer_player_name.']' . ' ^7Your nick: ^7'.$stats_error[$plarid]['no_nickname_change'].' ^1STATS BLOCKED!', '');	
+							$killer_player_name = 'nickname_faker'; 
+						  }		
+					  } 		
+				}
+				
+                $plarid = $idnumb;
+				if (empty($stats_error[$plarid]['name']))
+				{					
+					$stats_error[$plarid]['name'] = trim($death_player_name);
+				}
+                else if (!empty($stats_error[$plarid]['name']))
+				{
+
+				if (empty($stats_error[$plarid]['no_nickname_change']))
+				          $stats_error[$plarid]['no_nickname_change'] = $stats_error[$plarid]['name'];
+				if (empty($stats_error[$plarid]['no_nickname_change_timer']))
+				          $stats_error[$plarid]['no_nickname_change_timer'] = time();					
+
+					if(($stats_error[$plarid]['name']) != trim($death_player_name))
+					  {
+			          if(time() - $stats_error[$plarid]['no_nickname_change_timer'] > 10)
+						  {
+							$stats_error[$plarid]['no_nickname_change_timer'] = time(); 
+							usleep(20000);
+							xcon('say ^3FAKE => ^1['.$death_player_name.']' . ' ^7Your nick: ^7'.$stats_error[$plarid]['no_nickname_change'].' ^1STATS BLOCKED!', '');	
+							$death_player_name = 'nickname_faker'; 
+						  }		
+					  } 		
+				}				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	
     list($num, $idnumb, $vv4, $death_player_name, $idkill, $vv8, $killer_player_name, $byweapon, $vv11, $modkll, $hitlock) = explode(';', $parseline);
     $parseline = $num . ';' . fakeguid(trim($death_player_name)) . ';' . $idnumb . ';' . $vv4 . ';' . $death_player_name . ';' . fakeguid(trim($killer_player_name)) . ';' . $idkill . ';' . $vv8 . ';' . $killer_player_name . ';' . $byweapon . ';' . $vv11 . ';' . $modkll . ';' . $hitlock;
 }
@@ -120,7 +179,9 @@ else if (strpos($parseline, ' Q;') !== false) {
 else if ((strpos($parseline, ' say;') !== false) || (strpos($parseline, ' sayteam;') !== false)) {
 	$rconstatus = 1;
     if (substr_count($parseline, ';') == 2) {
-        list($num, $player_name, $react) = explode(';', $parseline);
+
+        list($num, $player_name, $react) = explode(';', $parseline);		
+		
         list($i_id, $i_ping, $i_ip, $i_name, $i_guid, $xxccode) = explode(';', (rconExplodeNicknameone($player_name)));
         $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))));
         if (empty($stats_array[$conisq]['ip_adress'])) {
@@ -145,10 +206,47 @@ if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
    $stats_array[$conisq]['user_status'] = 'admin';
 }}}}}}}		
 		
-		
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+                $plarid = $i_id;
+				if (empty($stats_error[$plarid]['name']))
+				{					
+					$stats_error[$plarid]['name'] = trim($death_player_name);
+				}
+                else if (!empty($stats_error[$plarid]['name']))
+				{
+
+				if (empty($stats_error[$plarid]['no_nickname_change']))
+				          $stats_error[$plarid]['no_nickname_change'] = $stats_error[$plarid]['name'];
+				if (empty($stats_error[$plarid]['no_nickname_change_timer']))
+				          $stats_error[$plarid]['no_nickname_change_timer'] = time();					
+
+					if(($stats_error[$plarid]['name']) != trim($death_player_name))
+					  {
+			          if(time() - $stats_error[$plarid]['no_nickname_change_timer'] > 10)
+						  {
+							$stats_error[$plarid]['no_nickname_change_timer'] = time(); 
+							usleep(20000);
+							xcon('say ^3FAKE => ^1['.$player_name.']' . ' ^7Your nick: ^7'.$stats_error[$plarid]['no_nickname_change'].' ^1CHAT BLOCKED!', '');	
+							$player_name       = $stats_error[$plarid]['no_nickname_change']; 
+							$react             = '^1disabled fake chat';
+						  }		
+					  } 		
+				}				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		 
         $parseline = $num . ';' . $i_guid . ';' . $i_id . ';' . $player_name . ';' . $react;
-    }
+    
+	
+	
+	
+	
+	}
    
                    // echo "\n -----------------------------\n ";
                   //  var_dump($player_geoip_ctrl);

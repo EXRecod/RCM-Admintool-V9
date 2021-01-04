@@ -125,7 +125,7 @@ if (!empty(trim($sb[6])))
 					  {
 						  
 							usleep(20000);
-							xcon(' ^3FAKE => ^1['.$sb[4].']' . '', '');
+							xcon('say ^3FAKE => ^1['.$sb[4].']' . '', '');
 						    xcon('clientkick ' . $plarid, '');	
 						  
 				if (empty($stats_error[$plarid]['no_nickname_change']))
@@ -142,6 +142,35 @@ if (!empty(trim($sb[6])))
 					  } 
 					
 				}
+		 	    $z = 0;
+				for ($i = 0; $i <= 60; $i++) {
+					++$z;
+				if (!empty($stats_error[$i]['name']))
+				{
+
+				if (!empty($stats_error[$z]['name']))
+				{	
+				       if((uncolorize($stats_error[$i]['name'])) == uncolorize($stats_error[$z]['name']))
+					   {
+						   	usleep(20000);
+							xcon('say ^3FAKE => ^1['.$sb[4].'] REASON => NO DUBLICATE!', '');
+						    xcon('clientkick ' . $z, '');	
+					   }
+				 }	   
+				}
+				if (!empty($stats_error[$i+1]['name']))
+				{		
+				if (!empty($stats_error[$z-1]['name']))
+				{	
+				       if((uncolorize($stats_error[$i+1]['name'])) == uncolorize($stats_error[$z-1]['name']))
+					   {
+						   	usleep(20000);
+							xcon('say ^3FAKE => ^1['.$sb[4].'] REASON => NO DUBLICATE!', '');
+						    xcon('clientkick ' . ($z-1), '');	
+					   }
+				}	   
+				}
+			 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////

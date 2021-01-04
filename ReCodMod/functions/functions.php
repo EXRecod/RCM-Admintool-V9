@@ -1578,7 +1578,19 @@ function findKey($array, $keySearch) {
   }
   return false;
 }
-
+function findKeyNew($array, $keySearch) {
+  foreach ($array as $k => $i) {
+	   foreach ($i as $key => $item) {
+    if ($item == $keySearch) {
+      return true;
+    }
+    elseif (is_array($item) && findKeyNew($item, $keySearch)) {
+      return true;
+    }
+  }
+ }	  
+  return false;
+}
 /////////////////////////////////////////###############//////////////////////////////////////////
 /////////////////////////////////////////###############//////////////////////////////////////////
 /////////////////////////////////////////###############//////////////////////////////////////////

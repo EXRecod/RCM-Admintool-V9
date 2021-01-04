@@ -42,7 +42,7 @@ ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $i_ip . "', x_db
    $gt = dbInsert('',$sql);			
 							if(!$gt) 
 							{
-                             errorspdo('[' . $date . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+                             errorspdo('[' . $date . '] 45  ' . __FILE__ . '  Exception : ' . $sql);							
 							}	 
  
  	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$i_ip','$i_guid')
@@ -50,8 +50,25 @@ ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $i_ip . "', guid='" 
    $gtx = dbInsert('',$sql);			
 							if(!$gtx) 
 							{
-                             errorspdo('[' . $date . '] 408  ' . __FILE__ . '  Exception : ' . $sql);							
+                             errorspdo('[' . $date . '] 53  ' . __FILE__ . '  Exception : ' . $sql);							
 							}
+							
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $i_ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '?';						
+					 
+					$querySQL = "INSERT INTO db_stats_2 
+(s_pg, s_port, w_place,w_skill,w_ratio,w_geo,w_prestige,w_fps,w_ip,w_ping,n_kills,n_deaths,n_heads,n_kills_min,n_deaths_min) 
+VALUES ('" . $conisq . "','$svipport','0','1000','0','$xxccode','0','0','$i_ip','0','0','0','0','0','0')
+ON DUPLICATE KEY UPDATE s_pg='" . $conisq . "', w_ip='" . $i_ip . "'";
+                    $gt = dbInsert('', $querySQL);							
+								if(!$gt) 
+							{
+                             errorspdo('[' . $date . '] 68  ' . __FILE__ . '  Exception : ' . $sql);							
+							}						
+							
+							
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
