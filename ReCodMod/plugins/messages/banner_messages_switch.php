@@ -100,7 +100,7 @@ switch ($command) {
     //######################################################
     
   case 'top_day':
-    $dbSelArray = dbSelectArray('', "SELECT * FROM db_stats_day WHERE s_kills>=100 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
+    $dbSelArray = dbSelectArray('', "SELECT * FROM db_stats_day WHERE s_kills>=50 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
     $number = 0;
     rcon("say  ^3[ ^6" . $day_top . " 3 ^7by ^1kills ^7& ^2" . $played_top . "^3]", "");
     if (!empty($dbSelArray)) {
@@ -131,7 +131,7 @@ switch ($command) {
     //######################################################
     
   case 'top_week':
-    $dbSelArray = dbSelectArray('', "SELECT * FROM db_stats_week WHERE s_kills>=1000 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
+    $dbSelArray = dbSelectArray('', "SELECT * FROM db_stats_week WHERE s_kills>=100 and w_port='$svipport' ORDER BY (s_kills+0) DESC LIMIT 3");
     $number = 0;
     rcon("say  ^3[ ^6" . $week_top . " 3 ^7by ^1kills ^7& ^2" . $played_top . "^3]", "");
     if (!empty($dbSelArray)) {

@@ -66,6 +66,7 @@ if (!empty($inf)) {
                     }
                   }
                   if ($k < 10) {
+					xcon('say ^3FAKE => ^1['.$i_name.'] REASON => NO DUBLICATE!', '');   
                     xcon('clientkick ' . $idnumB . '', '');
                     unset($stats_array[$uidd]);
                     debuglog((__FILE__) . "\n playerInfo Kicked = Guid: $guidB Nickname: $i_name NUM: $idnumB Ping: $i_ping Ip: $i_ip");
@@ -74,6 +75,7 @@ if (!empty($inf)) {
               }
               else if (!file_exists($loadopt)) //проверка статистики
               {
+				xcon('say ^3FAKE => ^1['.$i_name.'] REASON => NO DUBLICATE!', '');  
                 xcon('clientkick ' . $idnumB . '', '');
                 unset($stats_array[$uidd]);
                 debuglog((__FILE__) . "\n loader_opt Kicked = Guid: $guidB Nickname: $i_name NUM: $idnumB Ping: $i_ping Ip: $i_ip");

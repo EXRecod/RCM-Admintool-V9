@@ -54,6 +54,9 @@ if (!empty(chat_banner)) {
 	
       if (empty($whiles)) {
         $whiles = 1;
+		
+		
+		 $servers = trim($servers); $command = trim($command);
 		 
 	echo '################# ',$servers,' / ',$command;		
 		
