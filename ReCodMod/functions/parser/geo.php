@@ -2,9 +2,10 @@
 if (strpos($parseline, " J;") !== false) {
  
 list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
-
-
-
+ 
+$kickedonone = 0;
+$nicknameoneone = $nickname;
+ 
 
  if (!file_exists($cpath . 'ReCodMod/databases/player_insert_GEO/'))
 	 mkdir($cpath . 'ReCodMod/databases/player_insert_GEO/', 0777, true);
@@ -14,39 +15,97 @@ list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
 			 $reg = $cpath . 'ReCodMod/databases/player_insert_GEO/' . $server_ip . '_' . $server_port . '/JOIN__GUID_' . $guid . '_md5_'. md5($nickname) . '.log';
 $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
 
+
 if (empty($stats_array[$conisq]['welcometimer']))
 	      $stats_array[$conisq]['welcometimer'] = time();
- 
+  
+$date = date('Y-m-d H:i:s');
        
 if ((empty($stats_array[$conisq]['guid']))||(!file_exists($reg))||(time() - filemtime($reg) >= 900))
 { 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$rconExplode = rconExplode($guid);
-if(!empty($rconExplode))
+
+for ($i = 1;$i <= 3;$i++) {	
+usleep(50000); 
+$rconExplode = rconExplodeIdnuminfo($idk);
+list($c_id,$i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', $rconExplode);
+if(!empty($i_ip))
+	$i = 3;
+}
+
+if(!empty($i_ip))
 {
-list($i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', $rconExplode);
-$chistx = $i_name;
+$chistx = $nickname; //$i_name;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
  if (!empty($i_ip))
-	 {
+	 { 
 		 
-		 $date = date('Y-m-d H:i:s');
 				if (strpos($game_patch, 'cod1') === false)
 				{		 
                 $nickname = clearSymbols($i_name);
                 $nickname = htmlentities($nickname);
 				}
 				else
-				{
-                    $nickname = str_replace("'", "", $i_name);
+				{				
+/////////////////////////////////////////////////////////////////////					
+/////////////////////////////////////////////////////////////////////					
+/////////////////////////////////////////////////////////////////////					
+                    $nickname = str_replace("'", "", $chistx);
                     $nickname = str_replace("`", "", $nickname);
                     $nickname = str_replace("'", "", $nickname);
                     $nickname = str_replace("`", "", $nickname);
                     $nickname = str_replace('"', '', $nickname);
                     $nickname = str_replace('{', '', $nickname);
                     $nickname = str_replace('}', '', $nickname);
+					
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $i_ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '';	
+$w_geo = ''; $w_ip = '';  $okone = 0;	
+	  
+$rep = 'SELECT s_pg, w_geo, w_ip from db_stats_2 where s_pg = ' . $conisq . ' LIMIT 1'; 
+					
+$result = dbLazy('', $rep);
+                  if (!empty($result)) {
+                    foreach ($result as $key => $value) {
+                      if (!empty($key)) {					
+                        if ($key == 'w_geo') $w_geo = $value;
+                        if ($key == 'w_ip')  $w_ip = $value;
+                        $okone = 1;						
+				  }}}
+if($okone == 1)
+{
+if (($w_geo == '?')||(empty($w_geo))) { if (!empty($w_ip)) {
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $w_ip);
+      if (!empty($record)) $w_geo = ($record->country_code);
+      else $w_geo = '';	}}
+
+
+		  
+if (!empty($xxccode)) {	if (!empty($w_geo)) { if ($w_geo != '?') {	
+	if($xxccode != $w_geo){								
+//////////////////////////////////////////////////////////////////////////////////
+usleep(20000);
+rcon('say ^3CHANGE NICKNAME:  ^7'.$nicknameoneone.' ^1REGISTERED WITH ANOTHER PLAYER!', '');
+//sleep(2);
+//xcon('clientkick ' . $idk, '');	
+ if(empty($connect_error[$idk]['nickname_change']))
+	      $connect_error[$idk]['nickname_change'] = ''.$nicknameoneone.'';
+ if(empty($connect_error[$idk]['nickname_timers']))
+	      $connect_error[$idk]['nickname_timers'] = time();
+debuglog("\n [ $datetime ] CHANGE NICKNAME:  [$nicknameoneone] NICKNAME REGISTERED WITH ANOTHER PLAYER!");
+$kickedonone = 1;	
+//////////////////////////////////////////////////////////////////////////////////					
+}}}}
+}						
+				
+/////////////////////////////////////////////////////////////////////					
+/////////////////////////////////////////////////////////////////////					
+/////////////////////////////////////////////////////////////////////					
 				}
 				
 	$sql = "INSERT INTO x_db_players 
@@ -107,15 +166,12 @@ ON DUPLICATE KEY UPDATE s_pg='" . $conisq . "', w_ip='" . $i_ip . "'";
 if (!empty(geo_welcome_message))
 { 
         try {
-         if (empty(SqlDataBase)) 
-          $db4 = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db4.sqlite');
-	     else
-		 {
+ 
           $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
           $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false, ];
           if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass, $opt);
           $db4 = $msqlconnect;
-		 }
+		 
      if (empty(SqlDataBase)) 
 		$sql = "SELECT * FROM x_db_players WHERE x_db_guid='" . $guid . "' and x_db_name='" . $nickname . "' LIMIT 1";
                  else 
@@ -176,14 +232,17 @@ AddToLogGUID("[" . $datetime . "] WELLCOME -" . $nickname . " : " . $guid . " : 
 	  
   }
 	  
-
+if($kickedonone == 0)
+{
    if (!file_exists($reg))
                 touch($reg);
               if (file_exists($reg)) {
                 $fpl = fopen($reg, 'w');
                 fwrite($fpl, " $guid % $nickname \n");
                 fclose($fpl);
-              }	 
+              }
+}
+			  
     }
     catch(PDOException $e) {
      errorspdo('[' . $datetime . '] 2755  ' . __FILE__ . '  Exception : ' . $e->getMessage());
@@ -250,13 +309,11 @@ if (empty($stats_array[$conisq]['ip_adress'])){
  if ((empty($stats_array[$conisq]['user_status']))||($adminguidctl == 1))
  {  
      try {
-      if (empty(SqlDataBase)) 
-       $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/db1.sqlite');
-      else {
+ 
        $dsn = "mysql:host=".host_adress.";dbname=".db_name.";charset=$charset_db";
        if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, db_user, db_pass);
        $db = $msqlconnect;
-	  }   
+   
      $statt = 0;
        $result = $db->query("SELECT * FROM x_db_admins WHERE s_guid='" . $guid . "' LIMIT 1");
        foreach ($result as $row) {
