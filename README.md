@@ -41,7 +41,7 @@ self playerMsg( level.cocoColor + "Command not found: ^7" + chatcmd[ 0 ] + " " +
 
 + add after that line - this 2 lines
 
-printconsole("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
+    printconsole("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
 
     logPrint("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
 
