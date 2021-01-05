@@ -1730,7 +1730,7 @@ function rconExplodeNicknameone($num) {
     $i_ip = $e["ip"];
    $i_name = $e["name"];
     $i_guid = $e["guid"];
-    if (trim(allclearsymb($num)) == trim(allclearsymb($i_name))) {
+    if (trim(allclearsymb(uncolorize($num))) == trim(allclearsymb(uncolorize($i_name)))) {
 	$c_id = $i_id;	
     $c_ping = $i_ping;
     $c_ip = $i_ip;
@@ -1752,15 +1752,15 @@ function rconExplodeIdnum($num) {
   { 
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
-    $i_id = $e["num"];
+    $i_id   = $e["num"];
     $i_ping = $e["ping"];
-    $i_ip = $e["ip"];
+    $i_ip   = $e["ip"];
     $i_name = $e["name"];
     $i_guid = $e["guid"];
     if (trim($num) == trim($i_id)) {
-	$c_id = $i_id;	
+	$c_id   = $i_id;	
     $c_ping = $i_ping;
-    $c_ip = $i_ip;
+    $c_ip   = $i_ip;
     $c_name = $i_name;
     $c_guid = $i_guid;		
 	
@@ -1777,6 +1777,35 @@ function rconExplodeIdnum($num) {
   
 }
 
+
+function rconExplodeIdnuminfo($num) {
+  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch, $rconstatus;
+  require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
+  foreach ($rconarray as $j => $e) {
+    $i_id   = $e["num"];
+    $i_ping = $e["ping"];
+    $i_ip   = $e["ip"];
+    $i_name = $e["name"];
+    $i_guid = $e["guid"];
+    if (trim($num) == trim($i_id)) {
+	$c_id   = $i_id;	
+    $c_ping = $i_ping;
+    $c_ip   = $i_ip;
+    $c_name = $i_name;
+    $c_guid = $i_guid;		
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $i_ip);
+      if (!empty($record)){ 
+	    $cccode = $record->country_code;
+        $city   = $record->city;
+        $country = $record->country_name;
+	  }
+      else{ $city = '?'; $cccode = '?'; $country = '?';}
+      return $c_id . ';' . $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $cccode . ';' . $city . ';' . $country;
+    }
+  }
+  if (empty($cccode)) return '0;0;0;0;0;0;0;0';
+}
 
 
 function rconExplode($guidin) {
@@ -1832,9 +1861,6 @@ function rconExplode($guidin) {
     }
   else return '0;0;0;0;0;0;0';
 }
-
-
-
 
 
 function inix($IniFileName, $enabler) {
