@@ -28,6 +28,45 @@ set g_antilag 1
 - English: How install; https://github.com/EXRecod/RCM-Admintool-V9/wiki/How-Install
 - How update: replace this 3 folders from archive https://github.com/EXRecod/RCM-Admintool-V9/tree/master/ReCodMod  to yours with all files from this 3 folders.
 
+
+
+
+# HIDE MESSAGES Support CoDaM CodCommands 2.3 [cod1 1.1
+
+Open __CoDaM_CodCommands.pk3 and in file callback.gsc 
+
++ find
+
+self playerMsg( level.cocoColor + "Command not found: ^7" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ));
+
++ add after that line - this 2 lines
+
+printconsole("say;" + self.name+";"+chatcmd[ 0 ]+" "+ combineChatCommand( chatcmd, " " )+"\n");
+
+logPrint("say; " + self.name + "; "+chatcmd[ 0 ]+" "+ combineChatCommand( chatcmd, " " )+"\n");
+
+# HIDE MESSAGES b3hide FOR Call OF Duty 4 X 1.8 - Modern Warfare
+
+
+
++ download -> https://bitbucket.org/msgaming/cod4x_b3hide/downloads
+
++ b3hide.so place in  ->  call of duty 4/plugins/
+
++ in main server configuration   .cfg
+
+loadplugin "b3hide"
+
+b3Hide "1"
+
+b3Prefix "!"
+
+b3HideLvl "0" 
+
+
+
+
+
 ### Support:
 - Skype: larocca2012
 
