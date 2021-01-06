@@ -349,8 +349,10 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
 			  
               
              }
-             if ($kick != 'x')
+             if ($kick != 'x'){
               xcon('clientkick ' . $idnum . ' ' . $kickreason, '');
+			  xcon('clientkick ' . $idnum, '');
+			 }
             
             }
             else if ((file_exists($sourcebans_chat_b_guid)) and (empty($fpline)))
@@ -379,8 +381,10 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
 ('" . $sbbid . "','" . $steamerid . "', '" . $htmlnickname . "', '" . $sbcreated . "', $sbantimestrtime, '" . ($sbantimestrtime - $sbcreated) . "', '" . $banreason . "', 0, '" . $server_ip . "', 0, NULL, NULL, NULL, 2, NULL)");
               $stmt = null;
               }
-              if ($kick != 'x')
+              if ($kick != 'x'){
                xcon('clientkick ' . $idnum . ' ' . $kickreason, '');
+			   xcon('clientkick ' . $idnum, '');
+			  }
               
 			  
               if ($c != "say")
@@ -610,7 +614,12 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
        $cb_rcon = $stringq;
        else if (strpos($const, 'cb_info') !== false)
        $cb_info = $stringq;
-      
+       else if (strpos($const, 'kick') !== false)
+	   {
+        $kick = $stringq;
+		if (empty($kick))
+			$kick = 'x';
+	   }      
     
         if (!empty($source_bans_host))
         {
@@ -710,7 +719,8 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "sayteam;") !=
             
             if ($cb_rcon == "say")
 			xcon('say ' . $cb_info . '', '');	
-            else
+            
+		   if ($kick != 'x')
 			{
 			if($game_patch != 'cod1_1.1')	
              xcon($cb_rcon . ' ' . $idk . ' ' . $cb_info . '', '');

@@ -8,10 +8,10 @@ if (strpos($parseline, ";") !== false) {
     $y = 0;
     $g = 0;
 	foreach ($stats_array as $key => $val) {
-      if ((!empty($val['ip_adress'])) && (!empty($f['ip_adress']))) {
-        if ($val['ip_adress'] === $f['ip_adress']) {
+      if ((!empty($val['nickname'])) && (!empty($f['nickname']))) {
+        if ($val['nickname'] === $f['nickname']) {
           ++$y;
-		  $fip = $f['ip_adress'];
+		  $fip = $f['nickname'];
           $gg  = $key;
         }
       }
@@ -44,7 +44,7 @@ if (!empty($inf)) {
             $i_name = $e["name"];
             $i_guid = $e["guid"];
             if (trim($i_guid) == trim($stats_array[$uidd]['guid'])) {
-				if(trim($fip) == trim($i_ip)) {
+				if(trim($fip) == trim($i_name)) {
               $guidB = $i_guid;
               $idnumB = $i_id;
               $loadopt = $cpath . 'ReCodMod/cache/loader_opt/' . $string . '_' . $server_port . '/' . $uidd . '.log';

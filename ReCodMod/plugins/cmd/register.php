@@ -1,4 +1,94 @@
 <?php
+if (strpos($msgr, ixz.'enter ') !== false){
+if (strpos($parseline, 'ChatCommand_say;') !== false){
+	
+if (empty($codoneprotected[$idnum]['time']))		
+          $codoneprotected[$idnum]['time'] = time()+20;	
+	   
+if(time() - $codoneprotected[$idnum]['time'] > 10)
+{	
+	$codoneprotected[$idnum]['time'] = time();
+	
+if (strpos($msgr, ' ') !== false)
+{	
+   list($password) = explode(ixz.'enter', $msgr);
+   $password = md5(md5(trim($password)));
+
+    $date = date('Y-m-d H:i:s');
+	
+    if (!empty($stats_array[$conisq]['ip_adress']))
+         $ip = $stats_array[$conisq]['ip_adress'];	
+		else 
+		{	 
+$ip = '';
+for ($i = 1;$i <= 3;$i++) {	
+usleep(50000); 
+$rconExplode = rconExplodeIdnuminfo($idk);
+list($c_id,$i_ping,$ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', $rconExplode);
+if(!empty($ip))
+	$i = 3;
+}	 	 $stats_array[$conisq]['ip_adress'] = $ip;
+		 }
+ 
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '';	 
+
+    usleep($sleep_rcon*2);
+	$statt = 0;
+$dj = dbSelectArray('', "SELECT guid,playername,password,geo FROM users WHERE password='" . $password . "' LIMIT 1");
+    if (!empty($dj)) {
+
+      foreach ($dj as $row) { 
+        $enter_guid = $row['guid'];
+        $enter_play = $row['playername']; 
+		$enter_geo  = $row['geo'];
+		$statt = 1;
+ 
+//$sql = "UPDATE users SET playername = '" . $enter_play . "'  WHERE password='" . $password;
+//dbSelectArray('', $sql);	
+		
+ if (empty($codoneprotected[$idnum]['enter_guid']))		
+           $codoneprotected[$idnum]['enter_guid'] = $enter_guid;
+ if (empty($codoneprotected[$idnum]['enter_play']))		
+           $codoneprotected[$idnum]['enter_play'] = $originalz;
+ if (empty($codoneprotected[$idnum]['enter_geo']))		
+           $codoneprotected[$idnum]['enter_geo']  = $enter_geo;	   
+	   
+	rcon('say ^7'.$enter_geo.' '.$originalz.' ^2Password ok! ^3Your GUID:'.$enter_guid, '');
+	rcon('say ^1!IMPORTANT ^6DO NOT CHANGE NICKNAME AFTER !enter ... ', '');
+    rcon('say ^1After map restart use !enter .... ', '');	
+
+	if(!empty($stats_error[$idnum])){ unset($stats_error[$idnum]); echo "\n CLEAR $idnum ";}
+    if(!empty($connect_error[$idnum])){ unset($connect_error[$idnum]); echo "\n CLEAR $num ";}	       
+	   
+	   } 
+       if ($statt == 0)
+	   {
+$dj = dbSelectArray('', "INSERT INTO `users` (`guid`, `playername`, `password`, `ip`, `geo`, `time`) 
+VALUES ('$guidn','$nickr','$password','$ip','$xxccode','$date')"); 
+
+	rcon('say ^7'.$xxccode.' '.$originalz.' ^2NEW Enter Succsess! ^3Your GUID:'.$guidn, '');
+	rcon('say ^1!IMPORTANT ^6DO NOT CHANGE NICKNAME AFTER !enter ... ', '');
+    rcon('say ^1After map restart use !enter .... ', '');	
+		
+ if (empty($codoneprotected[$idnum]['enter_guid']))		
+           $codoneprotected[$idnum]['enter_guid'] = $guidn;
+ if (empty($codoneprotected[$idnum]['enter_play']))		
+           $codoneprotected[$idnum]['enter_play'] = $originalz;
+ if (empty($codoneprotected[$idnum]['enter_geo']))		
+           $codoneprotected[$idnum]['enter_geo']  = $xxccode;	
+
+	if(!empty($stats_error[$idnum])){ unset($stats_error[$idnum]); echo "\n CLEAR $idnum ";}
+    if(!empty($connect_error[$idnum])){ unset($connect_error[$idnum]); echo "\n CLEAR $idnum ";}	
+ 
+}}}}}}
+ 
+
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 if ((strpos($msgr, ixz.'register') !== false)||(strpos($msgr, ixz.'reg') !== false)){ 	
 
  if ((empty($stats_array[$conisq]['user_status']))|| $stats_array[$conisq]['user_status'] == 'guest'){ 
