@@ -92,14 +92,8 @@ if (!empty(trim($sb[6])))
 				 $plarid = trim($sb[1]);
 				  
 				if (empty($stats_array[$conisq]['ip_adress']))
-				          $stats_array[$conisq]['ip_adress'] = $ipdd;
-	            if (empty($stats_array[$conisq]['nickname'])) 
-	                      $stats_array[$conisq]['nickname']  = ''.$sb[4].''; 
-	           if (!empty($stats_array[$conisq]['nickname;'])) 
-	                      $stats_array[$conisq]['nickname;'] = ''.$sb[4].'';
-   	           if (empty($stats_array[$conisq]['guid'])) 
-	                     $stats_array[$conisq]['guid']   = fakeguid($sb[4]); //fakeguid(uncolorize($sb[4]).$rangeip);  	
-   	           if (empty($stats_array[$conisq]['admins'])) 
+				          $stats_array[$conisq]['ip_adress'] = $ipdd; 	
+   	            if (empty($stats_array[$conisq]['admins'])) 
 	                     $stats_array[$conisq]['admins'] = fakeguid(uncolorize($sb[4]).$rangeip);  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,7 +147,7 @@ if (!empty(trim($sb[6])))
 				       if((uncolorize($stats_error[$i]['name'])) == uncolorize($stats_error[$z]['name']))
 					   {
 						   	usleep(20000);
-							xcon('say ^3FAKE => ^1['.$sb[4].'] REASON => NO DUBLICATE!', '');
+							rcon('say ^3FAKE => ^1['.$sb[4].'] REASON => NO DUBLICATE!', '');
 						    xcon('clientkick ' . $z, '');	
 					   }
 				 }	   
@@ -165,7 +159,7 @@ if (!empty(trim($sb[6])))
 				       if((uncolorize($stats_error[$i+1]['name'])) == uncolorize($stats_error[$z-1]['name']))
 					   {
 						   	usleep(20000);
-							xcon('say ^3FAKE => ^1['.$sb[4].'] REASON => NO DUBLICATE!', '');
+							rcon('say ^3FAKE => ^1['.$sb[4].'] REASON => NO DUBLICATE!', '');
 						    xcon('clientkick ' . ($z-1), '');	
 					   }
 				}	   
@@ -180,7 +174,7 @@ if (!empty(trim($sb[6])))
 					"ping" => trim($sb[3]),
 					"name" => $sb[4],
 					//"guid" => fakeguid(uncolorize($sb[4]).$rangeip),
-					  "guid" => fakeguid($sb[4]),
+					  "guid" => fakeguid(trim($sb[4])),
 					"lastmsg" => $sb[5],
 					"ip" => trim($sb[6])
 				);

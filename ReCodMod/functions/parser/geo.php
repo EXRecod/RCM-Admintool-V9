@@ -2,6 +2,16 @@
 if (strpos($parseline, " J;") !== false) {
  
 list($noon, $guid, $idk, $nickname) = explode(';', $parseline);
+
+$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
+
+
+	           if (empty($stats_array[$conisq]['nickname'])) 
+	                     $stats_array[$conisq]['nickname']   = $nickname; 
+	           if (!empty($stats_array[$conisq]['nickname;'])) 
+	                     $stats_array[$conisq]['nickname;'] = $nickname;
+   	           if (empty($stats_array[$conisq]['guid'])) 
+	                     $stats_array[$conisq]['guid']       = $guid; //fakeguid(uncolorize($sb[4]).$rangeip); 
  
 $kickedonone = 0;
 $nicknameoneone = $nickname;
@@ -13,7 +23,7 @@ $nicknameoneone = $nickname;
 	 mkdir($cpath . 'ReCodMod/databases/player_insert_GEO/' . $server_ip . '_' . $server_port . '/', 0777, true);
            
 			 $reg = $cpath . 'ReCodMod/databases/player_insert_GEO/' . $server_ip . '_' . $server_port . '/JOIN__GUID_' . $guid . '_md5_'. md5($nickname) . '.log';
-$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
+
 
 
 if (empty($stats_array[$conisq]['welcometimer']))
@@ -24,7 +34,7 @@ $date = date('Y-m-d H:i:s');
 if ((empty($stats_array[$conisq]['guid']))||(!file_exists($reg))||(time() - filemtime($reg) >= 900))
 { 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+$i_ip = '';
 for ($i = 1;$i <= 3;$i++) {	
 usleep(50000); 
 $rconExplode = rconExplodeIdnuminfo($idk);

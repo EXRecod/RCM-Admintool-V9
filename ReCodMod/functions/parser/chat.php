@@ -21,7 +21,9 @@ $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));
 if(empty($agoantispam))  
          $agoantispam = time(); 
   
-if ((strpos($msgr, ixz.'register') !== false)||(strpos($msgr, ixz.'reg') !== false)){ 	
+if ((strpos($msgr, ixz.'register') !== false)
+	||(strpos($msgr, ixz.'reg') !== false)
+||(strpos($msgr, ixz.'enter') !== false)){ 	
 
  if (empty($stats_array[$conisq]['user_status'])){ 
  $stats_array[$conisq]['user_status'] = 'registered'; 
@@ -29,7 +31,13 @@ if ((strpos($msgr, ixz.'register') !== false)||(strpos($msgr, ixz.'reg') !== fal
     xcon('tell '.$i_id.' ^3'.$loggistopk. ' => ^1['.$stats_array[$conisq]['user_status'].'] ^3' . $nickr.'' , '');
 else
 	xcon('say ^3'.$loggistopk. ' => ^1['.$stats_array[$conisq]['user_status'].']', '');	
- }}
+ } 
+ else if (!empty($stats_array[$conisq]['user_status'])){ 
+ if ($stats_array[$conisq]['user_status'] == 'guest') 
+     $stats_array[$conisq]['user_status'] = 'registered';	
+ }
+ 
+ }
  
 	
  
@@ -274,7 +282,15 @@ $msgrtxtt = '^1admin hide cmd';
 
 if (strpos($msgrtxtt, ixz.'on') !== false)
 	$msgrtxtt = '^1player try login';
-	
+
+if (strpos($msgr, ixz.'enter ') !== false)
+{
+if (strpos($msgr, ' ') !== false)
+{	
+   list($password) = explode(ixz.'enter', $msgr);
+   $msgrtxtt = ixz.'enter '.md5(trim($password));
+}
+}	
 
           $sqll = "INSERT INTO chat (servername, s_port, guid, nickname, time, timeh, text, st1, st1days, st2, st2days, ip, geo, z, t, x, c) 
 VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" . $stats_array[$conisq]['ip_adress'] . "', '" . $xxccode . "', '0', 'xl', '0', '0')";
@@ -343,7 +359,16 @@ $msgrtxtt = '^1admin hide cmd';
        }}  
 		}}
 	}
-}}			  
+}}
+
+if (strpos($msgr, ixz.'enter ') !== false)
+{
+if (strpos($msgr, ' ') !== false)
+{	
+   list($password) = explode(ixz.'enter', $msgr);
+   $msgrtxtt = ixz.'enter '.md5(trim($password));
+}
+}
 		  
 if (strpos($msgrtxtt, ixz.'on') !== false)
 	$msgrtxtt = '^1player try login';

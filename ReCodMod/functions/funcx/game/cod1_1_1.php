@@ -33,6 +33,15 @@ if (strpos($parseline, ' K;') !== false) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+ //if (!empty($codoneprotected[$idnum][$enter_guid]))		
+ //          $codoneprotected[$idnum][$enter_guid] = $originalz;
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                 $plarid = $idkill;
 				if (empty($stats_error[$plarid]['name']))
 				{					
@@ -248,6 +257,10 @@ else if (strpos($parseline, ' Q;') !== false) {
 	
 }
 else if ((strpos($parseline, ' say;') !== false) || (strpos($parseline, ' sayteam;') !== false)) {
+	
+	
+	
+	
 	$rconstatus = 1;
     if (substr_count($parseline, ';') == 2) {
 
@@ -313,13 +326,84 @@ if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		 
-        $parseline = $num . ';' . $i_guid . ';' . $i_id . ';' . $player_name . ';' . $react;
-    
-	
-	
-	
+        $parseline = $num . ';' . $i_guid . ';' . $i_id . ';' . $i_name . ';' . $react;
 	
 	}
+	else
+	{
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// printconsole("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
+//
+// logPrint("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+if (substr_count($parseline, ';') == 3) {
+list($num, $idnum, $nickr, $react) = explode(';', $parseline);
+
+$i_guid = fakeguid($nickr);
+		
+if(!empty($stats_array[$conisq]['user_status'])){
+if($stats_array[$conisq]['user_status'] != 'admin')
+{	
+	if(!empty($stats_array[$conisq]['ip_adress'])){	
+				$sql   = "SELECT s_guid,s_group,s_adm FROM `x_db_admins` WHERE s_guid='$i_guid' limit 1";	
+                $statt = dbInsert('', $sql);
+		   if (!empty($statt)) { 
+      foreach ($statt as $row) {
+if($row['s_group']=='0')
+{		  
+if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
+{	
+   $stats_array[$conisq]['user_status'] = 'admin';
+}}}}}}}		
+		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                $plarid = $idnum;
+				if (empty($stats_error[$plarid]['name']))
+				{					
+					$stats_error[$plarid]['name'] = trim($nickr);
+				}
+                else if (!empty($stats_error[$plarid]['name']))
+				{
+
+				if (empty($stats_error[$plarid]['no_nickname_change']))
+				          $stats_error[$plarid]['no_nickname_change'] = $stats_error[$plarid]['name'];
+				if (empty($stats_error[$plarid]['no_nickname_change_timer']))
+				          $stats_error[$plarid]['no_nickname_change_timer'] = time();					
+
+					if(($stats_error[$plarid]['name']) != trim($nickr))
+					  {
+			          if(time() - $stats_error[$plarid]['no_nickname_change_timer'] > 50)
+						  {
+							$stats_error[$plarid]['no_nickname_change_timer'] = time(); 
+							usleep(20000);
+							rcon('say ^3FAKE => ^1['.$player_name.'] ^7Your nick: ^7'.$stats_error[$plarid]['no_nickname_change'].' ^1CHAT BLOCKED!', '');	
+							$player_name       = $stats_error[$plarid]['no_nickname_change']; 
+							$react             = '^1disabled fake chat';
+						  }
+                            $player_name       = $stats_error[$plarid]['no_nickname_change']; 
+							$react             = '^1disabled fake chat';						  
+					  } 		
+				}	
+                     $parseline = 'ChatCommand_say;' . $i_guid . ';' . $idnum . ';' . $nickr . ';' . $react;				
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// printconsole("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
+//
+// logPrint("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////		
+	}
+	
+	
    
                    // echo "\n -----------------------------\n ";
                   //  var_dump($player_geoip_ctrl);
