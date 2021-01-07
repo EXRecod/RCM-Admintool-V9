@@ -257,16 +257,25 @@ else if (strpos($parseline, ' Q;') !== false) {
 	
 }
 else if ((strpos($parseline, ' say;') !== false) || (strpos($parseline, ' sayteam;') !== false)) {
-	
-	
-	
-	
+
 	$rconstatus = 1;
     if (substr_count($parseline, ';') == 2) {
 
-        list($num, $player_name, $react) = explode(';', $parseline);		
-		
-        list($i_id, $i_ping, $i_ip, $i_name, $i_guid, $xxccode) = explode(';', (rconExplodeNicknameone($player_name)));
+	 $game_patch = 'cod1_1.1';
+
+        list($num, $player_name, $react) = explode(';', $parseline);
+
+		$i_name = $player_name; 
+
+$i_ip = '';
+for ($i = 1;$i <= 3;$i++) {	
+usleep(20000); 
+$rconExplode = rconExplodeNicknameone($player_name);
+        list($i_id, $i_ping, $i_ip, $i_name, $i_guid, $xxccode) = explode(';', $rconExplode);
+if(!empty($i_ip))
+	$i = 3;
+}		
+
         $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $i_guid))))));
         if (empty($stats_array[$conisq]['ip_adress'])) {
             $stats_array[$conisq]['ip_adress'] = ''.$i_ip.'';
@@ -274,7 +283,8 @@ else if ((strpos($parseline, ' say;') !== false) || (strpos($parseline, ' saytea
             if (empty($stats_array[$conisq]['ping'])) $stats_array[$conisq]['ping'] = $i_ping;
         }
 		
-		
+if(!empty($i_ip)){	
+	
 if(!empty($stats_array[$conisq]['user_status'])){
 if($stats_array[$conisq]['user_status'] != 'admin')
 {	
@@ -294,7 +304,11 @@ if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				
+			
+
+if(trim($player_name) == ($i_name))
+{
+			
                 $plarid = $i_id;
 				if (empty($stats_error[$plarid]['name']))
 				{					
@@ -321,15 +335,19 @@ if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
                             $player_name       = $stats_error[$plarid]['no_nickname_change']; 
 							$react             = '^1disabled fake chat';						  
 					  } 		
-				}				
+				}
+}		}		
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		 
-        $parseline = $num . ';' . $i_guid . ';' . $i_id . ';' . $i_name . ';' . $react;
+	if(empty($i_name))
+		$i_name = $player_name;
+		 
+      $parseline = $num . ';' . $i_guid . ';' . $i_id . ';' . $i_name . ';' . $react;
 	
 	}
-	else
+	else if (substr_count($parseline, ';') == 3) 
 	{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -340,7 +358,10 @@ if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-if (substr_count($parseline, ';') == 3) {
+
+	
+	$game_patch = 'cod1_1.1';
+	
 list($num, $idnum, $nickr, $react) = explode(';', $parseline);
 
 $i_guid = fakeguid($nickr);
@@ -401,9 +422,7 @@ if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////		
-	}
-	
-	
+
    
                    // echo "\n -----------------------------\n ";
                   //  var_dump($player_geoip_ctrl);

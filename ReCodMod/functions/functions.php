@@ -88,6 +88,13 @@ function allclearsymb($string) {
   ) , "", $string);
   return $string;
 }
+function CodOneOneChatRcon($string) {
+  $string = preg_replace('/[(^)][+\d{1}]/', '', $string);
+  //delete all symbols
+  $string = preg_replace('/[^\p{L}\p{N}\s]/u', '', $string);
+  $string = trim($string);	
+  return $string;
+}
 function clearSymbols($string) {
   //delete all symbols
   $string = preg_replace('/[^\p{L}\p{N}\s]/u', '', $string);
@@ -1720,7 +1727,8 @@ function rconExplodeNickname($num) {
 }
 
 
-function rconExplodeNicknameone($num) {
+
+function rconExplodeCodOneChat($num) {
   global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
   $i_ip = '';
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
@@ -1731,6 +1739,34 @@ function rconExplodeNicknameone($num) {
    $i_name = $e["name"];
     $i_guid = $e["guid"];
     if (trim(allclearsymb(uncolorize($num))) == trim(allclearsymb(uncolorize($i_name)))) {
+	$c_id = $i_id;	
+    $c_ping = $i_ping;
+    $c_ip = $i_ip;
+    $c_name = $i_name;
+    $c_guid = $i_guid;	
+      $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
+      $record = geoip_record_by_addr($gi, $c_ip);
+      if (!empty($record)) $xxccode = ($record->country_code);
+      else $xxccode = '?';
+      return $c_id . ';' . $c_ping . ';' . $c_ip . ';' . $c_name . ';' . $c_guid . ';' . $xxccode;
+    }
+  }
+  if (empty($c_ip)) return '0;0;0;0;0;0';
+}
+
+
+function rconExplodeNicknameone($num) {
+  global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch;
+  $i_ip = '';
+  require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
+  foreach ($rconarray as $j => $e) {
+    $i_id = $e["num"];
+    $i_ping = $e["ping"];
+    $i_ip = $e["ip"];
+  //echo "\n".$i_name = $e["name"];
+    $i_name = $e["name"];
+    $i_guid = $e["guid"];
+    if (CodOneOneChatRcon($num) == CodOneOneChatRcon($i_name)) {
 	$c_id = $i_id;	
     $c_ping = $i_ping;
     $c_ip = $i_ip;

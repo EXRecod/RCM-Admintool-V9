@@ -35,7 +35,7 @@ if ((empty($stats_array[$conisq]['guid']))||(!file_exists($reg))||(time() - file
 { 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $i_ip = '';
-for ($i = 1;$i <= 3;$i++) {	
+for ($i = 1;$i <= 3;$i++) {
 usleep(50000); 
 $rconExplode = rconExplodeIdnuminfo($idk);
 list($c_id,$i_ping,$i_ip,$i_name,$i_guid,$xxccode,$city,$country) = explode(';', $rconExplode);
@@ -120,16 +120,16 @@ $kickedonone = 1;
 				
 	$sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
-         VALUES ('$svipport','" . $nickname . "', '0', '$i_ip', '0', '$i_ping', '$i_guid', '1', '$date', '0', '$date', '1')
-ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $i_ip . "', x_db_name = '" . $nickname . "', x_db_conn=x_db_conn+1, x_db_guid='" . $i_guid . "'"; 
+         VALUES ('$svipport','" . $nickname . "', '0', '$i_ip', '0', '$i_ping', '$guid', '1', '$date', '0', '$date', '1')
+ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $i_ip . "', x_db_name = '" . $nickname . "', x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'"; 
    $gt = dbInsert('',$sql);			
 							if(!$gt) 
 							{
                              errorspdo('[' . $date . '] 45  ' . __FILE__ . '  Exception : ' . $sql);							
 							}	 
  
- 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$i_ip','$i_guid')
-ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $i_ip . "', guid='" . $i_guid . "'"; 
+ 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$i_ip','$guid')
+ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $i_ip . "', guid='" . $guid . "'"; 
    $gtx = dbInsert('',$sql);			
 							if(!$gtx) 
 							{

@@ -200,6 +200,26 @@ CREATE TABLE IF NOT EXISTS `banip` (
 
 
 -- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+ 
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `guid` bigint(24) NOT NULL,  
+  `playername` varchar(80) NOT NULL,
+  `password` varchar(32) NOT NULL,  
+  `ip` varchar(18) NOT NULL,
+  `geo` varchar(3) NOT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `guid` (`guid`,`password`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+-- --------------------------------------------------------
  
 
 --
