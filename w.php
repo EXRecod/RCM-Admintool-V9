@@ -107,19 +107,28 @@ require $cpath . 'ReCodMod/functions/funcx/start/3_sleep_time.php';
 		 
 		
              //%%%%%%%%%%%%%%%%%%%%%%%%  CHAT  %%%%%%%%%%%%%%%%%%%%%%%%
-              if ((preg_match('/say;/', $parseline, $u)) || (preg_match('/sayteam;/', $parseline, $xm)) || (preg_match('/tell;/', $parseline, $xm)))
+              if (ActionIs('say',$parseline) || ActionIs('sayteam',$parseline) || ActionIs('tell',$parseline))
                 require $cpath . 'ReCodMod/functions/parser/chat.php';
               //%%%%%%%%%%%%%%%%%%%%%%%%  JOIN  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (preg_match('/J;/', $parseline, $u))
+              else if (ActionIs('J',$parseline))
                 require $cpath . 'ReCodMod/functions/parser/geo.php';
+              //%%%%%%%%%%%%%%%%%%%%%%%%  BOMB  %%%%%%%%%%%%%%%%%%%%%%%% logPrint("A;"....
+              else if (ActionIs('A',$parseline))
+                require $cpath . 'ReCodMod/functions/parser/teamplay.php';	
+              //%%%%%%%%%%%%%%%%%%%%%%%%   WIN  %%%%%%%%%%%%%%%%%%%%%%%% logPrint("W;"....
+              else if (ActionIs('W',$parseline))
+                require $cpath . 'ReCodMod/functions/parser/teamplay.php';
+              //%%%%%%%%%%%%%%%%%%%%%%%%  LOSE  %%%%%%%%%%%%%%%%%%%%%%%% logPrint("L;"....
+              else if (ActionIs('L',$parseline))
+                require $cpath . 'ReCodMod/functions/parser/teamplay.php';			
               //%%%%%%%%%%%%%%%%%%%%%%%%  QUIT  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (preg_match('/Q;/', $parseline, $u))
+              else if (ActionIs('Q',$parseline))
                 require $cpath . 'ReCodMod/functions/parser/quit.php';
               //%%%%%%%%%%%%%%%%%%%%%%%%  KILL  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (strpos($parseline, 'K;') !== false)
+              else if (ActionIs('K',$parseline))
                 require $cpath . 'ReCodMod/functions/parser/stats.php';
               //%%%%%%%%%%%%%%%%%%%%%%%%  DAMAGE  %%%%%%%%%%%%%%%%%%%%%%%%
-              else if (strpos($parseline, 'D;') !== false)
+              else if (ActionIs('D',$parseline))
                 require $cpath . 'ReCodMod/functions/parser/stats.php';
               //%%%%%%%%%%%%%%%%%%%%%%%%  END  %%%%%%%%%%%%%%%%%%%%%%%%
               else if ((strpos($parseline, 'W;END;GAME;') !== false) && (strlen($parseline) < 45))
