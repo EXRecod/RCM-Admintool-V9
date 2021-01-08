@@ -76,6 +76,7 @@ if (!empty($stats_array)) {
 		  if (!empty($weap)) $weap = '';
 		  if (!empty($weapon_table_update)) unset($weapon_table_update);
           $ip = '';
+		  $ipperv = '';
           $skill = '';
           $kills = 0;
           $deaths = 0;
@@ -138,6 +139,7 @@ if (!empty($stats_array)) {
             else if (strpos($g, 'date') !== false) $dateregister = $o;
 			else if (strpos($g, 'totalplayedtimer') !== false) $totalplayedtimer = $o;
             else if (strpos($g, 'ip_adress') !== false) $ip = $o;
+			else if (strpos($g, 'ip_adress100') !== false) $ipperv = $o;
             else if (strpos($g, 'city') !== false) $city = $o;
             else if (strpos($g, 'ping') !== false) $ping = $o;
             else if (strpos($g, 'damage;damage') !== false) $damage = $o;
@@ -161,6 +163,10 @@ if (!empty($stats_array)) {
             ++$counter;
             if ($counter == $czr) {
               if (!empty($guid)) {
+				  
+				 if (!empty($ipperv)) $ip = $ipperv; 
+				  
+				  
                 if (empty($ip)) list($ping, $ip, $i_name, $i_guid, $city) = explode(';', (rconExplode($guid)));
                 //debuglog(" [ $datetime ] " . (__FILE__) ."  / $guid / $ip / $nickname / $servername ");
                // if (empty($reset)) {

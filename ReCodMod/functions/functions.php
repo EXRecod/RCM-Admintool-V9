@@ -38,6 +38,19 @@ function tempban($string) {
   $string = preg_replace('/^[0-9]+$/i', 'Tempban', $string);
   return $string . "";
 }
+
+
+function ActionIs($aqtion,$parseline) {
+$patternx[0] = "/^\s*(([0-9]{0,4}+)+(:)+([0-9]{0,4}+))\s+(".$aqtion.";)/";
+foreach ($patternx as $n) {
+if (preg_match($n, $parseline, $u))
+	return true;
+else 
+	return false;
+}
+}
+
+
 function dddzz($string) {
   $string = str_replace(array(
     ""
@@ -145,71 +158,7 @@ function fakeguid($string) {
     return $string;
   }
 }
-function delxxxc($string) {
-  if (($game_mod == 'codam') || (strpos($game_patch, 'cod1') !== false)) {
-    $string = preg_replace('/([0-9]+\\:[0-9]+)/', '', $string);
-    $string = str_replace(array(
-      " "
-    ) , ' % ', $string); //NOVOEEEEEEEEEEEEEEEEE S CHATA
-    $string = str_replace(array(
-      " "
-    ) , ' % ', $string); //NOVOEEEEEEEEEEEEEEEEE S CONSOLI
-    $string = str_replace(array(
-      " say: "
-    ) , '', $string);
-    $string = str_replace(array(
-      "say: "
-    ) , '', $string);
-    $string = str_replace(array(
-      "sayteam: "
-    ) , '', $string);
-    return $string . "";
-    $string = preg_replace('/([0-9]+\\:[0-9]+)/', '', $string);
-    $string = str_replace(array(
-      ";"
-    ) , ' % ', $string); //ESLI V ANSI
-    $string = str_replace(array(
-      "say;"
-    ) , '', $string);
-    $string = str_replace(array(
-      "sayteam;"
-    ) , '', $string);
-    $string = preg_replace('/([0-9]+\\;[0-9]+)\\;/', '', $string);
-    $string = str_replace(array(
-      ""
-    ) , ' % ', $string); //NOVOEEEEEEEEEEEEEEEEE S CHATA
-    $string = str_replace(array(
-      "\r\n",
-      "\n",
-      "\r"
-    ) , "     \n", $string);
-    return $string . "";
-  }
-  else {
-    $string = preg_replace('/([0-9]+\\:[0-9]+)/', '', $string);
-    //$string = str_replace(array(" "), ' % ', $string ); //NOVOEEEEEEEEEEEEEEEEE S CHATA
-    //$string = str_replace(array(" "), ' % ', $string );    //NOVOEEEEEEEEEEEEEEEEE S CONSOLI
-    $string = str_replace(array(
-      ";"
-    ) , ' % ', $string); //ESLI V ANSI
-    //$string = str_replace(array(": "), ' % ', $string ); //ESLI V ANSI
-    //$string = str_replace(array(""), ' % ', $string ); //ESLI V ANSI
-    $string = str_replace(array(
-      "say;"
-    ) , '', $string);
-    $string = str_replace(array(
-      "sayteam;"
-    ) , '', $string);
-    $string = preg_replace('/([0-9]+\\;[0-9]+)\\;/', '', $string);
-    $string = str_replace(array(
-      "\r\n",
-      "\n",
-      "\r"
-    ) , "     \n", $string);
-    //$string = str_replace(array("\r\n", "\n", "\r", "$"), "     \n", $string);
-    return $string . "";
-  }
-}
+ 
 function infod($string) {
   $string = preg_replace('  ', '', $string);
   $string = preg_replace(' ', '', $string);
@@ -1704,6 +1653,7 @@ function rconExplodeNickname($num) {
   $i_ip = '';
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
+		$i_ip   = '';   
     $i_id = $e["num"];
     $i_ping = $e["ping"];
     $i_ip = $e["ip"];
@@ -1733,6 +1683,7 @@ function rconExplodeCodOneChat($num) {
   $i_ip = '';
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
+		$i_ip   = '';   
     $i_id = $e["num"];
     $i_ping = $e["ping"];
     $i_ip = $e["ip"];
@@ -1760,6 +1711,7 @@ function rconExplodeNicknameone($num) {
   $i_ip = '';
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
+		$i_ip   = '';   
     $i_id = $e["num"];
     $i_ping = $e["ping"];
     $i_ip = $e["ip"];
@@ -1788,6 +1740,7 @@ function rconExplodeIdnum($num) {
   { 
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
+		$i_ip   = '';   
     $i_id   = $e["num"];
     $i_ping = $e["ping"];
     $i_ip   = $e["ip"];
@@ -1818,6 +1771,7 @@ function rconExplodeIdnuminfo($num) {
   global $cpath, $server_ip, $server_port, $server_rconpass, $game_patch, $rconstatus;
   require $cpath . 'ReCodMod/functions/core/cod_rcon.php';
   foreach ($rconarray as $j => $e) {
+	$i_ip   = '';  
     $i_id   = $e["num"];
     $i_ping = $e["ping"];
     $i_ip   = $e["ip"];
@@ -1830,7 +1784,7 @@ function rconExplodeIdnuminfo($num) {
     $c_name = $i_name;
     $c_guid = $i_guid;		
       $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
-      $record = geoip_record_by_addr($gi, $i_ip);
+      $record = geoip_record_by_addr($gi, $c_ip);
       if (!empty($record)){ 
 	    $cccode = $record->country_code;
         $city   = $record->city;
@@ -1855,6 +1809,7 @@ function rconExplode($guidin) {
   //var_dump($rconarray);
   //echo "\n -----------------------------";
   foreach ($rconarray as $j => $e) {
+	$i_ip   = '';   
     $i_ping = $e["ping"];
     $i_ip = $e["ip"];
     $i_name = $e["name"];

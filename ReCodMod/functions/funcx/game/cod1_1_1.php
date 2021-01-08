@@ -28,19 +28,6 @@ if (strpos($parseline, ' K;') !== false) {
             }
         }
     }
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
- //if (!empty($codoneprotected[$idnum][$enter_guid]))		
- //          $codoneprotected[$idnum][$enter_guid] = $originalz;
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 $plarid = $idkill;
 				if (empty($stats_error[$plarid]['name']))
@@ -97,6 +84,8 @@ if (strpos($parseline, ' K;') !== false) {
 						  $death_player_name = 'nickname_faker';
 					  } 
 				}
+				
+				
 
 	if(!empty($connect_error[$idnumb]['nickname_change']))
 	{
@@ -133,11 +122,139 @@ if (strpos($parseline, ' K;') !== false) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+$fakeguiddeath = fakeguid(trim($death_player_name));
+$fakeguidkiller = fakeguid(trim($killer_player_name));
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ if (!empty($codoneprotected[$idnumb][$death_player_name]['enter_guid']))
+ {
+	 $fakeguiddeath = $codoneprotected[$idnumb][$death_player_name]['enter_guid'];
+	 $codoneprotectedt[$idnumb]['time_active'] = time();
+ }
+ if (!empty($codoneprotected[$idkill][$killer_player_name]['enter_guid']))
+ {
+	$fakeguidkiller = $codoneprotected[$idkill][$killer_player_name]['enter_guid'];
+	$codoneprotectedt[$idkill]['time_active'] = time();
+ }
+
+for ($i = 0;$i <= 60;$i++) {
+	$x = $i;
+	
+//////////////////////////////////////////////// session enter and in 180 seconds	
+ if (!empty($codoneprotected[$x]))
+ {	
+      if(empty($codoneprotectedtimer[$x]['time']))
+		  $codoneprotectedtimer[$x]['time'] = time();
+	  if(empty($codoneprotectedt[$idnumb]['time_active']))
+		  $codoneprotectedt[$idnumb]['time_active'] = time(); 
+	  if(empty($codoneprotectedt[$idkill]['time_active']))
+		  $codoneprotectedt[$idkill]['time_active'] = time(); 
+      
+       if($codoneprotectedt[$idnumb]['time_active'] - $codoneprotectedtimer[$x]['time'] >= 60*5)
+			{
+          	unset($codoneprotectedtimer[$x]['time']);		
+			unset($codoneprotectedt[$x]);
+			unset($codoneprotected[$x]);
+			debuglog((__FILE__)." ID: $x !enter timeout"); 	
+			}		
+ }
+//////////////////////////////////////////////// 
+
+ if (!empty($codoneprotected[$x][$death_player_name]['enter_guid']))
+ {
+	 if (empty($codoneprotected[$idnumb][$death_player_name]['enter_guid']))
+	 {
+			//
+			if(empty($codoneprotected[$x][$death_player_name]['time_error']))
+			{
+			rcon('say ^4['.$codoneprotected[$x][$death_player_name]['enter_geo'].'] '.$death_player_name.' ^1PLEASE ^7!enter , ^1OR ^7!enter will be deleted!', '');	
+			rcon('say ^2You have 1 minute!', '');
+			$codoneprotected[$x][$death_player_name]['time_error'] = time();
+			}
+			else
+			{
+			if(time() - $codoneprotected[$x][$death_player_name]['time_error'] >= 60)
+			{
+          		 unset($codoneprotected[$x]);		
+			rcon('say ^7'.$death_player_name.' ^1DELETED session ^7!enter!', '');
+			debuglog((__FILE__)." ID: $death_player_name ^1DELETED session ^7!enter!"); 
+			}			
+			}
+		     $i = 60;
+	 }
+	 
+ }
+ 
+ if (!empty($codoneprotected[$x][$killer_player_name]['enter_guid']))
+ {
+     if (empty($codoneprotected[$idkill][$killer_player_name]['enter_guid']))
+     {
+			//
+			if(empty($codoneprotected[$x][$killer_player_name]['time_error']))
+			{
+			rcon('say ^4['.$codoneprotected[$x][$killer_player_name]['enter_geo'].'] '.$killer_player_name.' ^1PLEASE ^7!enter , ^1OR ^7!enter will be deleted!', '');	
+			rcon('say ^2You have 1 minute!', '');
+			$codoneprotected[$x][$killer_player_name]['time_error'] = time();
+			}
+			else
+			{
+			if(time() - $codoneprotected[$x][$killer_player_name]['time_error'] >= 60)
+			{
+          		 unset($codoneprotected[$x]);
+            rcon('say ^7'.$killer_player_name.' ^1DELETED session ^7!enter!', '');
+			debuglog((__FILE__)." ID: $killer_player_name ^1DELETED session ^7!enter!"); 			
+			}			
+				
+			}
+		     $i = 60;
+     }
+ }	
+}
+
+
+ if (empty($codoneprotected[$idkill][$killer_player_name]['enter_guid']))
+ {
+$dj = dbSelectArray('', "SELECT guid,playername,password,geo FROM users WHERE guid='" . $fakeguidkiller . "' LIMIT 1");
+    if (!empty($dj)) {
+
+      foreach ($dj as $row) { 
+        $enter_guid = $row['guid'];
+        $enter_play = $row['playername']; 
+		$enter_geo  = $row['geo'];
+		$statt = 1;
+	
+ if (empty($codoneprotectedalarm[$idkill]['enter_timer']))		
+           $codoneprotectedalarm[$idkill]['enter_timer'] = time();					 
+
+    rcon('say ^7'.$killer_player_name.' ^1You have 30 seconds, for ^7!enter ^7this guid or kick!', '');
+	debuglog((__FILE__)." ID: $killer_player_name ^1You have 30 seconds, for ^7!enter ^1this guid or kick!"); 
+	
+	  }					 
+	}
+	///else
+	///{
+    ///rcon('say ^7'.$killer_player_name.' ^1You have 30 seconds, for ^7!enter ^7this guid or kick!', '');
+	///debuglog((__FILE__)." ID: $killer_player_name ^1You have 30 seconds, for ^7!enter ^7this guid or kick!"); 		
+	///}
+ }
+
+ if (!empty($codoneprotectedalarm[$idkill]['enter_timer']))		
+          if(time() - $codoneprotectedalarm[$idkill]['enter_timer'] >= 30)
+			 xcon('clientkick ' . $idkill, '');
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	
     if ($go == 1) 
-		$parseline = $num . ';' . fakeguid(trim($death_player_name)) . ';' . $idnumb . ';' . $vv4 . ';' . $death_player_name . ';0;' . $idkill . ';' . $vv8 . ';' . $killer_player_name . ';' . $byweapon . ';' . $vv11 . ';' . $modkll . ';' . $hitlock;
+		$parseline = $num . ';' . $fakeguiddeath . ';' . $idnumb . ';' . $vv4 . ';' . $death_player_name . ';0;' . $idkill . ';' . $vv8 . ';' . $killer_player_name . ';' . $byweapon . ';' . $vv11 . ';' . $modkll . ';' . $hitlock;
     else 
-		$parseline = $num . ';' . fakeguid(trim($death_player_name)) . ';' . $idnumb . ';' . $vv4 . ';' . $death_player_name . ';' . fakeguid(trim($killer_player_name)) . ';' . $idkill . ';' . $vv8 . ';' . $killer_player_name . ';' . $byweapon . ';' . $vv11 . ';' . $modkll . ';' . $hitlock;
+		$parseline = $num . ';' . $fakeguiddeath . ';' . $idnumb . ';' . $vv4 . ';' . $death_player_name . ';' . $fakeguidkiller . ';' . $idkill . ';' . $vv8 . ';' . $killer_player_name . ';' . $byweapon . ';' . $vv11 . ';' . $modkll . ';' . $hitlock;
 		
 }
 else if (strpos($parseline, ' D;') !== false) {
@@ -147,6 +264,11 @@ else if (strpos($parseline, ' D;') !== false) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ if (!empty($codoneprotectedalarm[$idkill]['enter_timer']))		
+          if(time() - $codoneprotectedalarm[$idkill]['enter_timer'] >= 60)
+			 xcon('clientkick ' . $idkill, '');
+
 
                 $plarid = $idkill;
 				if (empty($stats_error[$plarid]['name']))
@@ -232,9 +354,20 @@ else if (strpos($parseline, ' D;') !== false) {
 	}				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
-////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
-    $parseline = $num . ';' . fakeguid(trim($death_player_name)) . ';' . $idnumb . ';' . $vv4 . ';' . $death_player_name . ';' . fakeguid(trim($killer_player_name)) . ';' . $idkill . ';' . $vv8 . ';' . $killer_player_name . ';' . $byweapon . ';' . $vv11 . ';' . $modkll . ';' . $hitlock;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$fakeguiddeath = fakeguid(trim($death_player_name));
+$fakeguidkiller = fakeguid(trim($killer_player_name));
+
+ if (!empty($codoneprotected[$idnumb][$death_player_name]['enter_guid']))
+	 $fakeguiddeath = $codoneprotected[$idnumb][$death_player_name]['enter_guid'];
+ if (!empty($codoneprotected[$idkill][$killer_player_name]['enter_guid']))
+	$fakeguidkiller = $codoneprotected[$idkill][$killer_player_name]['enter_guid'];
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+    $parseline = $num . ';' . $fakeguiddeath . ';' . $idnumb . ';' . $vv4 . ';' . $death_player_name . ';' . $fakeguidkiller . ';' . $idkill . ';' . $vv8 . ';' . $killer_player_name . ';' . $byweapon . ';' . $vv11 . ';' . $modkll . ';' . $hitlock;
 }
 else if (strpos($parseline, ' J;') !== false) {
 	$rconstatus = 1;
@@ -344,7 +477,7 @@ if(trim($player_name) == ($i_name))
 	if(empty($i_name))
 		$i_name = $player_name;
 		 
-      $parseline = $num . ';' . $i_guid . ';' . $i_id . ';' . $i_name . ';' . $react;
+       $parseline = $num . ';' . $i_guid . ';' . $i_id . ';' . $i_name . ';' . $react;
 	
 	}
 	else if (substr_count($parseline, ';') == 3) 
@@ -410,8 +543,8 @@ if($stats_array[$conisq]['ip_adress'] == ''.$row['s_adm'].'')
 							$react             = '^1disabled fake chat';						  
 					  } 		
 				}	
-                     $parseline = 'ChatCommand_say;' . $i_guid . ';' . $idnum . ';' . $nickr . ';' . $react;				
-
+                    // $parseline = 'ChatCommand_say;' . $i_guid . ';' . $idnum . ';' . $nickr . ';' . $react;				
+                       $parseline = $num . ';' . $i_guid . ';' . $idnum . ';' . $nickr . ';' . $react;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -12,6 +12,7 @@ $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
 	                     $stats_array[$conisq]['nickname;'] = $nickname;
    	           if (empty($stats_array[$conisq]['guid'])) 
 	                     $stats_array[$conisq]['guid']       = $guid; //fakeguid(uncolorize($sb[4]).$rangeip); 
+			 
  
 $kickedonone = 0;
 $nicknameoneone = $nickname;
@@ -46,6 +47,27 @@ if(!empty($i_ip))
 if(!empty($i_ip))
 {
 $chistx = $nickname; //$i_name;
+
+
+$rangeip = '';
+ 
+ list($onem, $twom, $threem, $fourm) = explode(".", $i_ip);
+  $rangeip = $onem.'.'.$twom.'.'.$threem;
+ 
+
+				if (empty($stats_array[$conisq]['ip_adress']))
+				          $stats_array[$conisq]['ip_adress'] = $i_ip; 
+
+
+				if (empty($stats_array[$conisq]['ip_adress100']))
+				          $stats_array[$conisq]['ip_adress100'] = $i_ip; 
+
+					  
+   	            if (empty($stats_array[$conisq]['admins'])) 
+	                      $stats_array[$conisq]['admins'] = fakeguid(uncolorize($nickname).$rangeip); 
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////

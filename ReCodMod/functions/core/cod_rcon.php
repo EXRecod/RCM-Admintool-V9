@@ -75,7 +75,7 @@ if(strpos($sbouts,'numscorepingnamelastmsgaddressqportrate') !== false)
 		if (preg_match('/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(\b)/', $sb[6], $sbn)) {
 			
 				if (preg_match('/[0-9]{1,2}/', $sb[1], $sbn)) {
-
+ 
 				if($sb[6] == '127.0.0.1') $sb[6] = '111.111.111.111';
 $rangeip = '';
 if (!empty(trim($sb[6])))
@@ -83,18 +83,11 @@ if (!empty(trim($sb[6])))
  list($onem, $twom, $threem, $fourm) = explode(".", $sb[6]);
   $rangeip = $onem.'.'.$twom.'.'.$threem;
 }	
-
-                //$conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . fakeguid(uncolorize($sb[4]).$rangeip)))))));
-                  $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . fakeguid($sb[4])))))));
+ 
 				 $ipdd   = ''; 
 				 $plarid = '';
 				 $ipdd   = trim($sb[6]);
 				 $plarid = trim($sb[1]);
-				  
-				if (empty($stats_array[$conisq]['ip_adress']))
-				          $stats_array[$conisq]['ip_adress'] = $ipdd; 	
-   	            if (empty($stats_array[$conisq]['admins'])) 
-	                     $stats_array[$conisq]['admins'] = fakeguid(uncolorize($sb[4]).$rangeip);  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,6 +161,7 @@ if (!empty(trim($sb[6])))
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
 				$rconarray[] = array(
 					"num" => trim($sb[1]),
 					"score" => trim($sb[2]),

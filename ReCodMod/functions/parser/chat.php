@@ -177,7 +177,7 @@ if((trim($i_guid))==(trim($guidn)))
       }
     }
     //
-      if(time() - $agoantispam	> 30)
+      if(time() - $agoantispam	>= 30)
 	  {
     if ((empty($validCommand)) && (empty($vcs))) {
       if (strpos($game_patch, 'cod1_1.1') !== false) rcon('say ^7' . $nickr . ' ^3' . $nocommand . ' ^1!cmd ^2https:^2/^2/github.com^2/EXRecod^2/RCM-Admintool-V5^2/wiki^2/Commands', '');
@@ -210,8 +210,15 @@ if((trim($i_guid))==(trim($guidn)))
           if (empty($msqlcc)) $msqlcc = new PDO($dsn, db_user, db_pass);
           $dbx = $msqlcc;
         }
+		
+		if (strpos($game_patch, 'cod1') === false)
         $dhgsj = addslashes(clearSymbols($nickr));
+	  else
+		$dhgsj = addslashes($nickr);
+		
+		if (strpos($game_patch, 'cod1') === false)
         $dhgsj = preg_replace('/[^ a-zа-яё\d]/ui', '', $dhgsj);
+		
         $dayzstamp = date('Y-m-d');
         if (!empty(SqlDataBase)) {
           $msgO1 = @iconv("windows-1251", "utf-8", $msgr);
@@ -287,10 +294,20 @@ if (strpos($msgr, ixz.'enter ') !== false)
 {
 if (strpos($msgr, ' ') !== false)
 {	
-   list($password) = explode(ixz.'enter', $msgr);
-   $msgrtxtt = ixz.'enter '.md5(trim($password));
+   list($nt,$password) = explode(ixz.'enter', $msgr);
+   $msgrtxtt = ixz.'enter '.md5(md5(trim($password)));
 }
-}	
+}
+
+if (strpos($msgr, ixz.'register ') !== false)
+{
+if (strpos($msgr, ' ') !== false)
+{	
+   list($nt,$password) = explode(ixz.'register', $msgr);
+   $msgrtxtt = ixz.'register '.md5(md5(trim($password)));
+}
+}
+	
 
           $sqll = "INSERT INTO chat (servername, s_port, guid, nickname, time, timeh, text, st1, st1days, st2, st2days, ip, geo, z, t, x, c) 
 VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" . $stats_array[$conisq]['ip_adress'] . "', '" . $xxccode . "', '0', 'xl', '0', '0')";
@@ -365,8 +382,18 @@ if (strpos($msgr, ixz.'enter ') !== false)
 {
 if (strpos($msgr, ' ') !== false)
 {	
-   list($password) = explode(ixz.'enter', $msgr);
-   $msgrtxtt = ixz.'enter '.md5(trim($password));
+   list($nt,$password) = explode(ixz.'enter', $msgr);
+   $msgrtxtt = ixz.'enter '.md5(md5(trim($password)));
+}
+}
+
+
+if (strpos($msgr, ixz.'register ') !== false)
+{
+if (strpos($msgr, ' ') !== false)
+{	
+   list($nt,$password) = explode(ixz.'register', $msgr);
+   $msgrtxtt = ixz.'register '.md5(md5(trim($password)));
 }
 }
 		  
