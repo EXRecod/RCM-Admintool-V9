@@ -58,7 +58,14 @@ echo '  '.substr($tfinishh = (microtime(true) - $start),0,7);
 	}}
  ///////////////////////////////////////////////////////////////////////////////////////////
 if (strpos($msgr, ixz.'guid') !== false)
-    { 
+    {
+
+
+if (!empty($codoneprotected[$idnum][$originalz]['enter_guid']))
+ {
+	 $guidn = $codoneprotected[$idnum][$originalz]['enter_guid']. ' ^2Current: ^3'.$guidn;
+	 $codoneprotectedt[$idnum]['time_active'] = time();
+ }	
  
 
 if (strpos($msgr, ixz.'guid ') !== false)

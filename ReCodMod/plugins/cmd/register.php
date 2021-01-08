@@ -1,17 +1,17 @@
 <?php
 if (strpos($msgr, ixz.'enter ') !== false){
-if (strpos($parseline, 'ChatCommand_say;') !== false){
+//if (strpos($parseline, 'ChatCommand_say;') !== false){
 	
-if (empty($codoneprotected[$idnum]['time']))		
-          $codoneprotected[$idnum]['time'] = time()+20;	
+if (empty($codoneprotected[$idnum][$nickr]['time']))		
+          $codoneprotected[$idnum][$nickr]['time'] = time()+20;	
 	   
-if(time() - $codoneprotected[$idnum]['time'] > 10)
+if(time() - $codoneprotected[$idnum][$nickr]['time'] > 10)
 {	
-	$codoneprotected[$idnum]['time'] = time();
+	$codoneprotected[$idnum][$nickr]['time'] = time();
 	
 if (strpos($msgr, ' ') !== false)
 {	
-   list($password) = explode(ixz.'enter', $msgr);
+   list($nt,$password) = explode(ixz.'enter', $msgr);
    $password = md5(md5(trim($password)));
 
     $date = date('Y-m-d H:i:s');
@@ -49,16 +49,19 @@ $dj = dbSelectArray('', "SELECT guid,playername,password,geo FROM users WHERE pa
 //$sql = "UPDATE users SET playername = '" . $enter_play . "'  WHERE password='" . $password;
 //dbSelectArray('', $sql);	
 		
- if (empty($codoneprotected[$idnum]['enter_guid']))		
-           $codoneprotected[$idnum]['enter_guid'] = $enter_guid;
- if (empty($codoneprotected[$idnum]['enter_play']))		
-           $codoneprotected[$idnum]['enter_play'] = $originalz;
- if (empty($codoneprotected[$idnum]['enter_geo']))		
-           $codoneprotected[$idnum]['enter_geo']  = $enter_geo;	   
+ if (empty($codoneprotected[$idnum][$nickr]['enter_guid']))		
+           $codoneprotected[$idnum][$nickr]['enter_guid'] = $enter_guid;
+ if (empty($codoneprotected[$idnum][$nickr]['enter_play']))		
+           $codoneprotected[$idnum][$nickr]['enter_play'] = $originalz;
+ if (empty($codoneprotected[$idnum][$nickr]['enter_geo']))		
+           $codoneprotected[$idnum][$nickr]['enter_geo']  = $enter_geo;	   
 	   
-	rcon('say ^7'.$enter_geo.' '.$originalz.' ^2Password ok! ^3Your GUID:'.$enter_guid, '');
+	rcon('say ^4['.$enter_geo.'] ^7'.$originalz.' ^2Password ok! ^3Your GUID:'.$enter_guid, '');
 	rcon('say ^1!IMPORTANT ^6DO NOT CHANGE NICKNAME AFTER !enter ... ', '');
     rcon('say ^1After map restart use !enter .... ', '');	
+	
+	if(!empty($codoneprotectedalarm[$idnum]['enter_timer']))
+	    unset($codoneprotectedalarm[$idnum]['enter_timer']);
 
 	if(!empty($stats_error[$idnum])){ unset($stats_error[$idnum]); echo "\n CLEAR $idnum ";}
     if(!empty($connect_error[$idnum])){ unset($connect_error[$idnum]); echo "\n CLEAR $num ";}	       
@@ -69,21 +72,40 @@ $dj = dbSelectArray('', "SELECT guid,playername,password,geo FROM users WHERE pa
 $dj = dbSelectArray('', "INSERT INTO `users` (`guid`, `playername`, `password`, `ip`, `geo`, `time`) 
 VALUES ('$guidn','$nickr','$password','$ip','$xxccode','$date')"); 
 
-	rcon('say ^7'.$xxccode.' '.$originalz.' ^2NEW Enter Succsess! ^3Your GUID:'.$guidn, '');
+
+if (!empty($dj)) {
+
+	rcon('say ^4['.$xxccode.'] ^7'.$originalz.' ^2NEW Enter Success! ^3Your GUID:'.$guidn, '');
 	rcon('say ^1!IMPORTANT ^6DO NOT CHANGE NICKNAME AFTER !enter ... ', '');
     rcon('say ^1After map restart use !enter .... ', '');	
 		
- if (empty($codoneprotected[$idnum]['enter_guid']))		
-           $codoneprotected[$idnum]['enter_guid'] = $guidn;
- if (empty($codoneprotected[$idnum]['enter_play']))		
-           $codoneprotected[$idnum]['enter_play'] = $originalz;
- if (empty($codoneprotected[$idnum]['enter_geo']))		
-           $codoneprotected[$idnum]['enter_geo']  = $xxccode;	
+ if (empty($codoneprotected[$idnum][$nickr]['enter_guid']))		
+           $codoneprotected[$idnum][$nickr]['enter_guid'] = $guidn;
+ if (empty($codoneprotected[$idnum][$nickr]['enter_play']))		
+           $codoneprotected[$idnum][$nickr]['enter_play'] = $originalz;
+ if (empty($codoneprotected[$idnum][$nickr]['enter_geo']))		
+           $codoneprotected[$idnum][$nickr]['enter_geo']  = $xxccode;	
+	   
+	if(!empty($codoneprotectedalarm[$idnum]['enter_timer']))
+	    unset($codoneprotectedalarm[$idnum]['enter_timer']);	   
 
 	if(!empty($stats_error[$idnum])){ unset($stats_error[$idnum]); echo "\n CLEAR $idnum ";}
     if(!empty($connect_error[$idnum])){ unset($connect_error[$idnum]); echo "\n CLEAR $idnum ";}	
+ }
+else
+{
+rcon('say ^4['.$xxccode.'] ^7You registered '.$originalz.'! ^6ERROR!!! ^1YOUR PASSWORD IS INNCORECT!', '');		
+} 
  
-}}}}}}
+ 
+}
+}
+else
+{
+rcon('say ^4['.$xxccode.'] ^7'.$originalz.' ^6ERROR!!! ^1YOUR PASSWORD IS INNCORECT!', '');		
+}
+}}}
+//}
  
 
 /////////////////////////////////////////////////////////////////////////

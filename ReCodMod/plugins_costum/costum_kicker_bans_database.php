@@ -257,7 +257,7 @@ if (empty($guids)) {
               if (!empty($guid)) {
                if ($guid != '0') {
                 if ($guid != 'EMPTYguid') {
-                 $result = $db2->query("SELECT * FROM bans WHERE guid='" . $guid . "'  LIMIT 1");
+                 $result = $db2->query("SELECT guid,reason FROM bans WHERE guid='" . $guid . "'  LIMIT 1");
                  foreach ($result as $row) {
                   $pssiblegguid = $row['guid'];
                   $reason = $row['reason'];

@@ -65,24 +65,24 @@ if (strpos($parseline, ' CP;') !== false)
 	  //logPrint("BONUS;" + player getGuid() + ";" + player getEntityNumber() + ";" + player.name + ";bomb_planted \n);
 	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";juggernaut_kill \n);
 	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";destroyed_helicopter \n);
-	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";rcxd_destroyed \n); МАШИНКА
-	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";turret_destroyed \n); ТУРЕЛЬ
-	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";sam_kill \n); ПВО
+	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";rcxd_destroyed \n); //МАШИНКА
+	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";turret_destroyed \n); //ТУРЕЛЬ
+	  //logPrint("BONUS;" + attacker getGuid() + ";" + attacker getEntityNumber() + ";" + attacker.name + ";sam_kill \n); //ПВО
 	  
       list($not, $bguid, $idnm, $bplayer_name, $bplayer_funct) = explode(';', $parseline);
 	  if(!empty($bguid)){
 					$fsshid = trim($server_port.$bguid);	
 					$fsshid = dbGuid(4).(abs(hexdec(crc32($fsshid))));
 			
-		if (empty($stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''])) 			
-	    $stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''] = 1;
+		if (empty($stats_array[$fsshid]['scores;'.$bplayer_funct.''])) 			
+	    $stats_array[$fsshid]['scores;'.$bplayer_funct.''] = 1;
          else	
 		 {
-		 $bonus = $stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''];	 
-		 $stats_array[$fsshid]['scores;bonus_'.$bplayer_funct.''] = $bonus+1; 	 
+		 $bonus = $stats_array[$fsshid]['scores;'.$bplayer_funct.''];	 
+		 $stats_array[$fsshid]['scores;'.$bplayer_funct.''] = $bonus+1; 	 
 		 }
 		echo "\n [$bplayer_funct] : ".$bguid."  ".$bplayer_name."";
-		     //debuglog("\n ".(__FILE__) . " : " .$parseline);
+//debuglog("\n ".(__FILE__) . " : " .$parseline);
          
 }}
 ?>		 
