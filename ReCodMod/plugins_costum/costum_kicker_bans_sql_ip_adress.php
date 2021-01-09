@@ -119,7 +119,8 @@ $r = dbInsert('', $re);
         if ((int)$rest) {
           $file = dirname($mplogfile) . '/playerInfo/' . $rest . '.db';
           if (file_exists($file)) {
-            $lines = file($file);
+            $lines = @file($file);
+		if(!empty($lines)){	
             foreach ($lines as $line_num => $line) {
               $line = preg_replace("/[^a-z0-9'-_. ]/i", '~', $line);
               //status~default~style~default~kills_id~1110~screenshots_id~296~deaths_id~803~prestige_all~33~lang~IT~skill_id~156.115~m_skill_id~-98.8775~ranked_id~37~~
@@ -134,6 +135,7 @@ $r = dbInsert('', $re);
               }
               else $deaths = 0;
             }
+		  }
           }
         }
 

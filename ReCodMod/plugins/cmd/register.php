@@ -62,10 +62,15 @@ $dj = dbSelectArray('', "SELECT guid,playername,password,geo FROM users WHERE pa
 	
 	if(!empty($codoneprotectedalarm[$idnum]['enter_timer']))
 	    unset($codoneprotectedalarm[$idnum]['enter_timer']);
+	
+	if(!empty($connect_errortwo[$idnum]['nickname_changetwo']))
+	    unset($connect_errortwo[$idnum]['nickname_changetwo']);
 
 	if(!empty($stats_error[$idnum])){ unset($stats_error[$idnum]); echo "\n CLEAR $idnum ";}
     if(!empty($connect_error[$idnum])){ unset($connect_error[$idnum]); echo "\n CLEAR $num ";}	       
-	   
+
+	//if(!empty($codoneprotectedalarms[$idnum]['enter_prot']))
+	//    unset($codoneprotectedalarms[$idnum]['enter_prot']);	   
 	   } 
        if ($statt == 0)
 	   {
@@ -87,7 +92,13 @@ if (!empty($dj)) {
            $codoneprotected[$idnum][$nickr]['enter_geo']  = $xxccode;	
 	   
 	if(!empty($codoneprotectedalarm[$idnum]['enter_timer']))
-	    unset($codoneprotectedalarm[$idnum]['enter_timer']);	   
+	    unset($codoneprotectedalarm[$idnum]['enter_timer']);
+	
+	if(!empty($connect_errortwo[$idnum]['nickname_changetwo']))
+	    unset($connect_errortwo[$idnum]['nickname_changetwo']);
+	
+	//if(!empty($codoneprotectedalarms[$idnum]['enter_prot']))
+	//    unset($codoneprotectedalarms[$idnum]['enter_prot']);	
 
 	if(!empty($stats_error[$idnum])){ unset($stats_error[$idnum]); echo "\n CLEAR $idnum ";}
     if(!empty($connect_error[$idnum])){ unset($connect_error[$idnum]); echo "\n CLEAR $idnum ";}	

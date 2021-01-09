@@ -65,8 +65,16 @@ if((empty($guid)) && (empty(reg_guid_stats)))
 	   if(strpos($guid, "bot") === false){
 		   if(strpos($cod4xip, "bot") === false){
  				echo " \n MAMBA UP + x_db_players  ";
-                $nickname = clearSymbols($nickname);
-                $nickname = htmlentities($nickname);
+
+					if (preg_match('/([^\p{L}\p{N}\s])|([a-zA-Z0-9])/u', $nickname, $sbn))
+						{
+                    $nickname = clearSymbols($nickname);
+                    $nickname = htmlentities($nickname);
+						}
+                        else
+                           	$nickname = md5($nickname);			
+				
+				
 	$sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
          VALUES ('$svipport','" . $nickname . "', '0', '$cod4xipu', '0', '$cod4xping', '$guid', '1', '$date', '0', '$date', '1')
