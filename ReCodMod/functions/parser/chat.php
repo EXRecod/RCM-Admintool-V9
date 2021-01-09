@@ -9,8 +9,8 @@
 	  if ((substr_count($parseline, ';') == 2)||(substr_count($parseline, ';') == 3)) {
 	  		$game_patch = 'cod1_1.1';
             require $cpath . 'ReCodMod/functions/funcx/game/cod1_1_1.php';
-	                             }
-	  
+	                             }								 
+
       list($f, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
     $guidnk = $guidn;	
 ////////////////////////////////////////////////////////////

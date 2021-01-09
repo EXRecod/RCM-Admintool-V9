@@ -76,8 +76,13 @@ $rangeip = '';
 		 
 				if (strpos($game_patch, 'cod1') === false)
 				{		 
-                $nickname = clearSymbols($i_name);
-                $nickname = htmlentities($nickname);
+					if (preg_match('/([^\p{L}\p{N}\s])|([a-zA-Z0-9])/u', $i_name, $sbn))
+						{
+                    $nickname = clearSymbols($i_name);
+                    $nickname = htmlentities($nickname);
+						}
+                        else
+                           	$nickname = md5($nickname);
 				}
 				else
 				{				

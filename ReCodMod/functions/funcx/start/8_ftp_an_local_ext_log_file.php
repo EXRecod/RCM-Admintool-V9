@@ -6,6 +6,17 @@ if ($mplogfile) {
             //echo $ftp_exp_user,$ftp_exp_password,$ftp_exp_ip,$ftp_exp_url,$gmlobame;
             $mplogfilep = hxlog($cpath . "ReCodMod/cache/" . $server_ip . "_" . $server_port . '_' . $gmlobame);
             $parseline = trim(readloglines($mplogfilep));
+/////////////////////////////////////////////////////////////////////////////////////
+             if (strpos($mpgamenname, 'Call of Duty 5') !== false) $game_patch = 'cod5';
+            else if (strpos($mpgamenname, 'Call of Duty 4') !== false) $game_patch = 'cod4';
+            else if (strpos($mpgamenname, 'Call of Duty 2') !== false) $game_patch = 'cod2';
+            else if (strpos($mpgamenname, 'Call of Duty') !== false) $game_patch = 'cod1'; //cod1 or uo
+            else if ($mpgamenname == 'main') $game_patch = 'cod1_1.1';
+			if (strpos($game_patch, 'cod1_1.1') !== false)
+            require $cpath . 'ReCodMod/functions/funcx/game/cod1_1_1.php';
+            else if (strpos(no_guid_servers, $server_port.';') !== false)							 
+            require $cpath . 'ReCodMod/functions/funcx/game/cod_no_guids.php';				
+/////////////////////////////////////////////////////////////////////////////////////
             $datedayup = date('H');
             if (($datedayup == '03') || ($datedayup == '3')) // в 3 часа ночи обнуляем
             {
@@ -98,6 +109,8 @@ if ($mplogfile) {
             else if ($mpgamenname == 'main') $game_patch = 'cod1_1.1';
 			if (strpos($game_patch, 'cod1_1.1') !== false)
             require $cpath . 'ReCodMod/functions/funcx/game/cod1_1_1.php';
+            else if (strpos(no_guid_servers, $server_port.';') !== false)							 
+            require $cpath . 'ReCodMod/functions/funcx/game/cod_no_guids.php';		
             clearstatcache();
             $dya = filemtime($mplogfile);
             if (time() - $dya >= 300) {
