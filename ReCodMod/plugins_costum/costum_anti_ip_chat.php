@@ -2,7 +2,7 @@
 if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "teamsay;") !== false) | (strpos($parseline, "tell;") !== false)) {
   if (preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}/', $msgr, $ip_match)) {
     if (preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $msgr, $ip_matchtwo)) $ipmmatch = $ip_matchtwo[0];
-    $nickr = htmlentities($nickr);
+    $nickr = htmlspecialchars($nickr, ENT_QUOTES);;
     $freason = '';
     $fffff = '';
     $freason = '';

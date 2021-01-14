@@ -66,19 +66,13 @@ if((empty($guid)) && (empty(reg_guid_stats)))
 		   if(strpos($cod4xip, "bot") === false){
  				echo " \n MAMBA UP + x_db_players  ";
 
-					if (preg_match('/([^\p{L}\p{N}\s])|([a-zA-Z0-9])/u', $nickname, $sbn))
-						{
-                    $nickname = clearSymbols($nickname);
-                    $nickname = htmlentities($nickname);
-						}
-                        else
-                           	$nickname = md5($nickname);			
+$nicknamedata = pChar_preg_match($nickname,$guid);  	
 				
 				
 	$sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
-         VALUES ('$svipport','" . $nickname . "', '0', '$cod4xipu', '0', '$cod4xping', '$guid', '1', '$date', '0', '$date', '1')
-ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $cod4xipu . "', x_db_name = '" . $nickname . "', 
+         VALUES ('$svipport','" . $nicknamedata . "', '0', '$cod4xipu', '0', '$cod4xping', '$guid', '1', '$date', '0', '$date', '1')
+ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $cod4xipu . "', x_db_name = '" . $nicknamedata . "', 
 x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'"; 
    $gt = dbInsert('',$sql);			
 							if(!$gt) 
@@ -86,8 +80,8 @@ x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'";
                              errorspdo('[' . $datetime . '] 77  ' . __FILE__ . '  Exception : ' . $sql);							
 							}				
   
- 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$cod4xipu','$guid')
-ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $cod4xipu . "', guid='" . $guid . "'"; 
+ 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nicknamedata . "','$cod4xipu','$guid')
+ON DUPLICATE KEY UPDATE name = '" . $nicknamedata . "', ip='" . $cod4xipu . "', guid='" . $guid . "'"; 
    $gtx = dbInsert('',$sql);			
 							if(!$gtx) 
 							{
@@ -119,7 +113,7 @@ if ($x_loopsv == 0)
 //'145.255.174.215:49779<=>0.0.0.0:28961
 
 	//		if(empty(array_key_exists($guid, $player_geoip)))
-	// $player_geoip[''.$idk.''][''.$guid.''][''.html_entity_decode($nickname).''][''.$cod4xip.''] = $guid;
+	// $player_geoip[''.$idk.''][''.$guid.''][''.html_entity_decode($nicknamedata).''][''.$cod4xip.''] = $guid;
 
 
 if(!empty($cod4xgeo))
@@ -133,7 +127,7 @@ if (empty($stats_array[$conisq]['ip_adress']))
  
   
 
-  $x4vvv = clearSymbols($nickname);
+  //$nicknamedata = clearSymbols($nicknamedata);
   $date  = date('Y-m-d H:i:s');
   $x_date  = date('Y-m-d H:i:s');
  
@@ -167,7 +161,7 @@ try{
 			//$nservername = md5($nservername);
 			  $nservername = $server_port;
 			
-			$nickname = clearSymbols($nickname);
+$nicknamedata = pChar_preg_match($nickname,$guid);  
  			
 			if(empty($stats_array[$conisq]['ip_adress']))
 				$xipadr = '0';
@@ -180,7 +174,7 @@ $stats_array[$conisq]['ip_adress'] = ''.$cod4xipu.'';
   
 	  
 $sql = "INSERT INTO chat (servername, s_port, guid, nickname, time, timeh, text, st1, st1days, st2, st2days, ip, geo, z, t, x, c) 
-					VALUES ('".$servername."', '".$svipport."', '".$guid."', '".$nickname."', '".$datetime."', '".$datetime."', '0', '0', '0', '0', '0', '".$cod4xipu."', '".$cod4xgeo."', '1', '0', '$xipadr', '0')";	
+					VALUES ('".$servername."', '".$svipport."', '".$guid."', '".$nicknamedata."', '".$datetime."', '".$datetime."', '0', '0', '0', '0', '0', '".$cod4xipu."', '".$cod4xgeo."', '1', '0', '$xipadr', '0')";	
 $dbc->query($sql);
       
 echo '-130';
@@ -237,7 +231,7 @@ else
 		echo '-',$shid;			  
 		echo '-',$x_date;
         echo '-',$cod4xip;
-		echo '-',$x4vvv;
+		echo '-',$nicknamedata;
 		echo '-',$guid;
 		
 		
@@ -365,7 +359,7 @@ exit;
  if($chw == 0){
 	 echo '-309';
 	 	 usleep(70000);
-  $sql    = "select ip,guid,name FROM x_up_players where ip = '".$cod4xip."' and name='".$x4vvv."' limit 1";
+  $sql    = "select ip,guid,name FROM x_up_players where ip = '".$cod4xip."' and name='".$nicknamedata."' limit 1";
                      $stat   = $db4->query($sql)->fetch(PDO::FETCH_LAZY);
                     //print_r($stat);
 if(!empty($stat))
@@ -379,7 +373,7 @@ if(empty($ftr))
 echo $key ."\n" . $value . "\n";
    if ((empty($key))&&(empty($value))){
 						 echo '-314';
-                        $db4->query("INSERT INTO x_up_players (name, ip, guid) VALUES ('".$x4vvv."','$cod4xip','$guid')");					
+                        $db4->query("INSERT INTO x_up_players (name, ip, guid) VALUES ('".$nicknamedata."','$cod4xip','$guid')");					
 					 $ftr = 1;
 					 
 					 }}}
@@ -395,7 +389,7 @@ echo $key ."\n" . $value . "\n";
                       $stat   = $db4->query($sql)->fetch(PDO::FETCH_LAZY);
                       if (empty($stat))	
 $db4->query("INSERT INTO x_db_players (x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg)
-    VALUES ('".$x4vvv."', '0', '$cod4xip', '0', '$cod4xping', '$guid', '1', '$x_date', '0', '$x_date')");
+    VALUES ('".$nicknamedata."', '0', '$cod4xip', '0', '$cod4xping', '$guid', '1', '$x_date', '0', '$x_date')");
 			             else
 $db4->query("UPDATE x_db_players SET x_db_date='{$x_date}',x_db_conn = x_db_conn +1 WHERE x_db_guid='{$guid}' and s_port='$svipport'");
 */	 

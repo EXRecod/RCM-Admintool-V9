@@ -46,6 +46,9 @@ else
         $conisq = trim($server_port . $guid);
         $conisq = dbGuid(4) . (abs(hexdec(crc32($conisq))));
 
+$nicknamedata = pChar_preg_match($nickname,$guid);	
+
+
 if(!empty($ipadddr))
 {	
   if(empty($stats_array[$conisq]['ip_adress']))
@@ -101,7 +104,7 @@ else
 				if(!empty($proxy_kick))
                 xcon('clientkick ' . $idk . ' PROXY OFF!', '');
 $re = "INSERT INTO banip (playername, ip, iprange, guid, reason, time, bantime, days, whooo, patch) 
-VALUES ('".$nickname."','".$ipadrx."','".$ipadrx."','".$guid."','PROXY FRAUD:IP2L','".date("Y.m.d H:i:s")."', '".date("Y.m.d H:i:s")."', '1','Recod','1')
+VALUES ('".$nicknamedata."','".$ipadrx."','".$ipadrx."','".$guid."','PROXY FRAUD:IP2L','".date("Y.m.d H:i:s")."', '".date("Y.m.d H:i:s")."', '1','Recod','1')
 ON DUPLICATE KEY UPDATE ip='" . $ipadrx . "', time='".date("Y.m.d H:i:s")."', patch=patch+1";
 $r = dbInsert('', $re);
 
@@ -178,6 +181,8 @@ $r = dbInsert('', $re);
 				//debuglog(" [ $datetime ] " . (__FILE__) ." GUID: [$guid]  NickName: [$nickname] IP: ".$ipadrx." Kills: [$kills]  kills_ip: [$kills_ip] Sql one: [$sqlone]  sql two: [$sqltwo] and $sqlthree \n\n");
                 ++$x_loopsv; //continue;	
                 $re = "UPDATE banip SET patch=patch+1 WHERE ip = '" . $ipadrx . "'";
+                $r = dbInsert('', $re);
+				$re = "UPDATE banip SET patch=patch+1 WHERE ip = '" . $rangeip . "'";
                 $r = dbInsert('', $re);
             }
           }
