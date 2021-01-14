@@ -3009,4 +3009,22 @@ function CharCountFind($parseline){
     }	
 }
 
+
+function pChar_preg_match($nickname,$guid){
+if (strlen($guid) == 17 )
+ $rest = substr($guid, 9); 
+else
+ $rest = substr($guid, 11);	
+ if (preg_match('/([^\p{L}\p{N}\s])|([a-zA-Z0-9])/', $nickname,$rt) == TRUE)
+						{			
+        if(strlen(@iconv("CP866","UTF-8//TRANSLIT",$nickname)) > strlen($nickname))
+			$nicknamedata = htmlspecialchars(@iconv("CP866","UTF-8//TRANSLIT",$nickname), ENT_QUOTES);
+         else		
+		    $nicknamedata = htmlspecialchars($nickname, ENT_QUOTES);
+						}
+                        else  $nicknamedata = @iconv("CP866","UTF-8//TRANSLIT",$nickname);
+if (preg_match('/[а-яА-Я\s]+/msi',$nicknamedata))
+$nicknamedata = preg_replace('/[\x{0410}-\x{042F}]+.*[\x{0410}-\x{042F}]+/iu', '['.$rest.']',$nicknamedata);
+return $nicknamedata;
+}
 ?>

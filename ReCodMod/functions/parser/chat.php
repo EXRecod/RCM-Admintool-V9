@@ -16,6 +16,9 @@
 ////////////////////////////////////////////////////////////
   }
   
+   $nicknamedata = pChar_preg_match($nickr,$guidn);
+						
+  
 $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guidn))))));
   
 if(empty($agoantispam))  
@@ -229,7 +232,7 @@ if((trim($i_guid))==(trim($guidn)))
         $x = '';
         $msgr = str_replace("`", "", $msgr);
         $msgr = str_replace("'", "", $msgr);
-        $dhgsj = htmlentities($dhgsj);
+        $dhgsj = htmlspecialchars($dhgsj, ENT_QUOTES);
         $xxccode = '0';
         if (empty($stats_array[$conisq]['ip_adress'])) {
           $t_ip = '';
@@ -310,7 +313,7 @@ if (strpos($msgr, ' ') !== false)
 	
 
           $sqll = "INSERT INTO chat (servername, s_port, guid, nickname, time, timeh, text, st1, st1days, st2, st2days, ip, geo, z, t, x, c) 
-VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" . $stats_array[$conisq]['ip_adress'] . "', '" . $xxccode . "', '0', 'xl', '0', '0')";
+VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $nicknamedata . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" . $stats_array[$conisq]['ip_adress'] . "', '" . $xxccode . "', '0', 'xl', '0', '0')";
           $dbc->query($sqll);
           $dbc = null;
         }
@@ -401,7 +404,7 @@ if (strpos($msgrtxtt, ixz.'on') !== false)
 	$msgrtxtt = '^1player try login';
 		  
           $sql = "INSERT INTO `chat` (`servername`, `s_port`, `guid`, `nickname`, `time`, `timeh`, `text`, `st1`, `st1days`, `st2`, `st2days`, `ip`, `geo`, `z`, `t`, `x`, `c`) 
-VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $dhgsj . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" .$i_adrr. "', '" . $country . "', '0', 'xl', '0', '0')";
+VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $nicknamedata . "', '" . $datetime . "', '" . $dayzstamp . "', '" . $msgrtxtt . "', '0', '0', '0', '0', '" .$i_adrr. "', '" . $country . "', '0', 'xl', '0', '0')";
           $dbx->query($sql);
           $dbx = null;
           $msqlcc = null;

@@ -16,6 +16,9 @@ $conisq = (dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))));
  
 $kickedonone = 0;
 $nicknameoneone = $nickname;
+
+
+ 
  
 
  if (!file_exists($cpath . 'ReCodMod/databases/player_insert_GEO/'))
@@ -25,7 +28,7 @@ $nicknameoneone = $nickname;
            
 			 $reg = $cpath . 'ReCodMod/databases/player_insert_GEO/' . $server_ip . '_' . $server_port . '/JOIN__GUID_' . $guid . '_md5_'. md5($nickname) . '.log';
 
-
+$nicknamedata = pChar_preg_match($nickname,$guid);	 
 
 if (empty($stats_array[$conisq]['welcometimer']))
 	      $stats_array[$conisq]['welcometimer'] = time();
@@ -74,28 +77,12 @@ $rangeip = '';
  if (!empty($i_ip))
 	 { 
 		 
-				if (strpos($game_patch, 'cod1') === false)
-				{		 
-					if (preg_match('/([^\p{L}\p{N}\s])|([a-zA-Z0-9])/u', $i_name, $sbn))
-						{
-                    $nickname = clearSymbols($i_name);
-                    $nickname = htmlentities($nickname);
-						}
-                        else
-                           	$nickname = md5($nickname);
-				}
-				else
+				if (strpos($game_patch, 'cod1') !== false)
 				{				
 /////////////////////////////////////////////////////////////////////					
 /////////////////////////////////////////////////////////////////////					
 /////////////////////////////////////////////////////////////////////					
-                    $nickname = str_replace("'", "", $chistx);
-                    $nickname = str_replace("`", "", $nickname);
-                    $nickname = str_replace("'", "", $nickname);
-                    $nickname = str_replace("`", "", $nickname);
-                    $nickname = str_replace('"', '', $nickname);
-                    $nickname = str_replace('{', '', $nickname);
-                    $nickname = str_replace('}', '', $nickname);
+      
 					
       $gi = geoip_open($cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat", GEOIP_STANDARD);
       $record = geoip_record_by_addr($gi, $i_ip);
@@ -147,16 +134,16 @@ $kickedonone = 1;
 				
 	$sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
-         VALUES ('$svipport','" . $nickname . "', '0', '$i_ip', '0', '$i_ping', '$guid', '1', '$date', '0', '$date', '1')
-ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $i_ip . "', x_db_name = '" . $nickname . "', x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'"; 
+         VALUES ('$svipport','" . $nicknamedata . "', '0', '$i_ip', '0', '$i_ping', '$guid', '1', '$date', '0', '$date', '1')
+ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $i_ip . "', x_db_name = '" . $nicknamedata . "', x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'"; 
    $gt = dbInsert('',$sql);			
 							if(!$gt) 
 							{
                              errorspdo('[' . $date . '] 45  ' . __FILE__ . '  Exception : ' . $sql);							
 							}	 
  
- 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$i_ip','$guid')
-ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $i_ip . "', guid='" . $guid . "'"; 
+ 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nicknamedata . "','$i_ip','$guid')
+ON DUPLICATE KEY UPDATE name = '" . $nicknamedata . "', ip='" . $i_ip . "', guid='" . $guid . "'"; 
    $gtx = dbInsert('',$sql);			
 							if(!$gtx) 
 							{

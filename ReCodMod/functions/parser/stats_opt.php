@@ -164,6 +164,8 @@ if (!empty($stats_array)) {
             if ($counter == $czr) {
               if (!empty($guid)) {
 				  
+$nicknamedata = pChar_preg_match($nickname,$guid);				  
+				  
 				 if (!empty($ipperv)) $ip = $ipperv; 
 				  
 				  
@@ -174,27 +176,19 @@ if (!empty($stats_array)) {
 		  if (empty($dateregister))  
 					  $dateregister = date('Y-m-d H:i:s');
                     echo " \n MAMBA UP + x_db_players  ";
-					
-				if (strpos($game_patch, 'cod1') === false)
-				{
-					if (preg_match('/([^\p{L}\p{N}\s])|([a-zA-Z0-9])/u', $nickname, $sbn))
-						{
-                    $nickname = clearSymbols($nickname);
-                    $nickname = htmlentities($nickname);
-						}
-                        else
-                           	$nickname = md5($nickname);						
-				}	 
+				  
                     $sql = "INSERT INTO x_db_players 
 				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
-         VALUES ('$svipport','" . $nickname . "', '0', '$ip', '0', '$ping', '$guid', '1', '$date', '0', '$dateregister', '1')
-ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $ip . "', x_db_name = '" . $nickname . "', x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'";
+         VALUES ('$svipport','" . $nicknamedata . "', '0', '$ip', '0', '$ping', '$guid', '1', '$date', '0', '$dateregister', '1')
+ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $ip . "', x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'";	
+	 
+		
                     $gt = dbInsert('', $sql);
                     if (!$gt) {
                       errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);
                     }
-                    $sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nickname . "','$ip','$guid')
-ON DUPLICATE KEY UPDATE name = '" . $nickname . "', ip='" . $ip . "', guid='" . $guid . "'";
+                    $sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nicknamedata . "','$ip','$guid')
+ON DUPLICATE KEY UPDATE name = '" . $nicknamedata . "', ip='" . $ip . "', guid='" . $guid . "'";
                     $gtx = dbInsert('', $sql);
                     if (!$gtx) {
                       errorspdo('[' . $datetime . '] 408  ' . __FILE__ . '  Exception : ' . $sql);
@@ -453,29 +447,15 @@ ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', $summdb1 s_dmg=s_dmg 
                   /////////////////////////////////////// update user db
                   if (!empty($nickname)) {
                     usleep($sleeping);
-				if (strpos($game_patch, 'cod1') !== false)	
-                    $w_n = $nickname;
-				else 
-				{
-                    $w_n = clearSymbols($nickname);
-                    $w_n = htmlentities($w_n);					
-				}
-					
-                    $nickname = str_replace("'", "", $nickname);
-                    $nickname = str_replace("`", "", $nickname);
-                    $w_n = str_replace("'", "", $w_n);
-                    $w_n = str_replace("`", "", $w_n);
-                    $w_n = str_replace('"', '', $w_n);
-                    $w_n = str_replace('{', '', $w_n);
-                    $w_n = str_replace('}', '', $w_n);
+ 
 					
 		  if (empty($dateregister))  
 					  $dateregister = date('Y-m-d H:i:s');	
 					
-                    if (strlen($w_n) > 25) $w_n = mb_strimwidth($w_n, 0, 25, "");
+                    if (strlen($nicknamedata) > 25) $nicknamedata = mb_strimwidth($nicknamedata, 0, 25, "");
                     $querySQL = "INSERT INTO db_stats_0 (s_pg,s_guid,s_port,servername,s_player,s_time,s_lasttime) 
-VALUES ('$player_server_uid','$guid', '$svipport', '" . $servername . "','" . $w_n . "','$dateregister','$date')
-ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', s_lasttime='" . $date . "', s_player='" . $w_n . "'";
+VALUES ('$player_server_uid','$guid', '$svipport', '" . $servername . "','" . $nicknamedata . "','$dateregister','$date')
+ON DUPLICATE KEY UPDATE s_pg='" . $player_server_uid . "', s_lasttime='" . $date . "', s_player='" . $nicknamedata . "'";
                     $t = dbInsert('', $querySQL);
                     usleep(10000);
                     if (!$t) {
@@ -600,25 +580,25 @@ ON DUPLICATE KEY UPDATE s_pg=" . $player_server_uid . ", " . $join . "";
 		  if (empty($dateregister))  
 					  $dateregister = date('Y-m-d H:i:s');					  
 					  
-                      if (empty($w_n)) $sql = "INSERT INTO db_stats_day (servername,s_pg,w_guid,w_port,s_player,s_kills,s_deaths,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $dateregister . "','" . $date . "') 
+                      if (empty($nicknamedata)) $sql = "INSERT INTO db_stats_day (servername,s_pg,w_guid,w_port,s_player,s_kills,s_deaths,s_heads,s_time,s_lasttime)
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $nicknamedata . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                       else $sql = "INSERT INTO db_stats_day 
 					(servername,s_pg,w_guid,w_port,s_player,s_kills,s_deaths,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $dateregister . "','" . $date . "') 
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $nicknamedata . "'," . $kills . "," . $deaths . "," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
-    UPDATE s_pg='" . $player_server_uid . "', s_player='" . $w_n . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
-                      if (empty($w_n)) $sql2 = "INSERT INTO db_stats_week 
+    UPDATE s_pg='" . $player_server_uid . "', s_player='" . $nicknamedata . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
+                      if (empty($nicknamedata)) $sql2 = "INSERT INTO db_stats_week 
 					(servername,s_pg,w_guid,w_port,s_player,s_kills,s_killsweap,s_killsweap_min,s_deaths,s_deathsweap_min,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $dateregister . "','" . $date . "') 
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $nicknamedata . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
     UPDATE s_pg='" . $player_server_uid . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                       else $sql2 = "INSERT INTO db_stats_week 
 					(servername,s_pg,w_guid,w_port,s_player,s_kills,s_killsweap,s_killsweap_min,s_deaths,s_deathsweap_min,s_heads,s_time,s_lasttime)
-VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $w_n . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $dateregister . "','" . $date . "') 
+VALUES ('" . $servername . "','" . $player_server_uid . "','" . $guid . "','" . $svipport . "','" . $nicknamedata . "'," . $kills . ",0,0," . $deaths . ",0," . $heads . ",'" . $dateregister . "','" . $date . "') 
 ON DUPLICATE KEY
-    UPDATE s_pg='" . $player_server_uid . "', s_player='" . $w_n . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
+    UPDATE s_pg='" . $player_server_uid . "', s_player='" . $nicknamedata . "', s_kills=s_kills + " . $kills . ", s_deaths=s_deaths + " . $deaths . ", s_heads=s_heads + " . $heads . ",s_lasttime='" . $date . "'";
                       $cc = dbInsert('', $sql2);
                       $ff = dbInsert('', $sql);
                       if (!$cc) {

@@ -180,10 +180,12 @@ class Censure
                          | manda(?=[ln]|rin)
                          | манде(?=ль)
                       )',
-               */
+               
 
 				#FUCK
 				'(?<=\PL) f_?u_?[cс]_?k',  #fuck, fucking
+
+                */
 
 				/*
 			    #ЖОПА

@@ -103,8 +103,8 @@ $geodata = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat";
                 }
                 $shiddeath = 0;
                 $shid = 0;
-                $death_player_name = htmlentities($death_player_name);
-                $killer_player_name = htmlentities($killer_player_name);
+                $death_player_name = $death_player_name;
+                $killer_player_name = $killer_player_name;
                 ///////////////////////////SHID = PORT+GUID
                 $shid = trim($server_port . $player_killer_guid);
                 //$shid = CRC16::calculate($shid);
