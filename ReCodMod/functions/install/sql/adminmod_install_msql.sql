@@ -73,31 +73,6 @@ CREATE TABLE IF NOT EXISTS `playermaps` (
 -- --------------------------------------------------------
 
 -- 
--- Table structure for table `playeraction`
--- 
-
-CREATE TABLE IF NOT EXISTS `playeraction` (
-  `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `gt_map_shid` bigint(28) NOT NULL,
-  `s_pg` bigint(28) NOT NULL,
-  `mapname` varchar(50) NOT NULL DEFAULT '',
-  `gametype` varchar(50) NOT NULL DEFAULT '',
-  `port` bigint(28) UNSIGNED NOT NULL DEFAULT 0,
-  `guid` varchar(40) NOT NULL,
-  `wins` mediumint(8) UNSIGNED NOT NULL DEFAULT 0,
-  `lose` mediumint(8) UNSIGNED NOT NULL DEFAULT 0,
-  `draw` mediumint(8) UNSIGNED NOT NULL DEFAULT 0,
-  `rounds` smallint(5) UNSIGNED NOT NULL DEFAULT 0,
-  `time` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `gt_map_shid` (`gt_map_shid`),
-  KEY `mapname` (`mapname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
- 
- 
--- --------------------------------------------------------
-
--- 
 -- Table structure for table `opponents`
 -- 
 
@@ -111,6 +86,7 @@ CREATE TABLE IF NOT EXISTS `opponents` (
   KEY `target_spg` (`target_spg`),
   KEY `killer_spg` (`killer_spg`)
 )  ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
  
 -- --------------------------------------------------------
@@ -217,30 +193,9 @@ CREATE TABLE IF NOT EXISTS `banip` (
   `bantime` varchar(100) NOT NULL,
   `days` smallint(5) NOT NULL,
   `whooo` varchar(80) NOT NULL,
-  `patch` int(8) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `iprange` (`iprange`)
+  `patch` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `users`
---
- 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `guid` bigint(24) NOT NULL,  
-  `playername` varchar(80) NOT NULL,
-  `password` varchar(32) NOT NULL,  
-  `ip` varchar(18) NOT NULL,
-  `geo` varchar(3) NOT NULL,
-  `time` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `guid` (`guid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 
 -- --------------------------------------------------------
@@ -650,15 +605,14 @@ CREATE TABLE IF NOT EXISTS `x_cmd_kck` (
 --
 -- Структура таблицы `x_db_admins`
 --
-DROP TABLE IF EXISTS `x_db_admins`; 
+ 
 CREATE TABLE IF NOT EXISTS `x_db_admins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `s_adm` varchar(100) NOT NULL,
   `s_dat` varchar(55) NOT NULL,
   `s_group` varchar(55) NOT NULL,
   `s_guid` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `s_adm` (`s_adm`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

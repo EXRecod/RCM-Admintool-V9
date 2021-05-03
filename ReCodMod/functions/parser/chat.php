@@ -1,6 +1,6 @@
 <?php
  
-  if (preg_match('/tell;/', $parseline, $xm)) {
+if (ActionIs('tell', $parseline)) {	  
       if(CharCountFind($parseline) < 9) 
 		list($f, $forguidn, $foridnum, $fornick, $guidn, $idnum, $nickr, $msgr) = explode(';', $parseline);
     }
@@ -15,6 +15,8 @@
     $guidnk = $guidn;	
 ////////////////////////////////////////////////////////////
   }
+  
+  $msgr = dddzz($msgr);
   
    $nicknamedata = pChar_preg_match($nickr,$guidn);
 						
@@ -498,5 +500,5 @@ VALUES ('" . $servername . "', '" . $svipport . "', '" . $guidn . "', '" . $nick
     }
   }
   echo '.' . $tfinishh = (microtime(true) - $start);
- 
+ slowscript(__FILE__);
 ?>

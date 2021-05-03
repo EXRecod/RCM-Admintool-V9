@@ -2153,9 +2153,37 @@ function dbInsert($SQLiteDatabase, $query) {
   return $xresult;
 }
 
-function dbLazy($SQLiteDatabase, $query) {
+
+function dbwork($SQLiteDatabase, $query) {
   $xresult = '';
   global $cpath, $SqlDataBase, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass;
+  try {
+    if (!empty($SQLiteDatabase)) {
+      $db = new PDO('sqlite:' . $SQLiteDatabase);
+    }
+    else {
+      $dsn = "mysql:host=" . $host_adress . ";dbname=" . $db_name . ";charset=$charset_db";
+      if (empty($msqlconnect)) $msqlconnect = new PDO($dsn, $db_user, $db_pass);
+      $db = $msqlconnect;
+    }
+    $result = $db->query($query); //->fetch(PDO::FETCH_LAZY);
+    if (!empty($result)) 
+	{
+		$xresult = $result;
+	}
+    $db = null;
+	$result = null;
+  }
+  catch(PDOException $e) {
+    errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function dbSelect / : ' . $e->getMessage());
+  }
+  return $xresult;
+}
+
+
+function dbLazy($SQLiteDatabase, $query) {
+  $xresult = '';
+  global $cpath, $SqlDataBase, $msqlconnect, $host_adress, $db_name, $charset_db, $db_user, $db_pass, $datetime;
   try {
     if (empty($SqlDataBase)) {
       $db = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/' . $SQLiteDatabase . '.sqlite');
@@ -2174,6 +2202,25 @@ function dbLazy($SQLiteDatabase, $query) {
   }
   return $xresult;
 } 
+ 
+
+function dbLazySourceBans($query, $host, $name, $user, $pass) {
+  $xresult = '';
+  global $cpath,$datetime;
+  try {
+      $dsn = "mysql:host=" . $host . ";dbname=" . $name . ";charset=utf8";
+      $db = new PDO($dsn, $user, $pass);
+     
+    $result = $db->query($query)->fetch(PDO::FETCH_LAZY);
+    if (!empty($result)) $xresult = $result;
+    require $cpath . 'ReCodMod/functions/funcx/null_db_connection.php';
+  }
+  catch(PDOException $e) {
+    errorspdo('[' . $datetime . ']  ' . __FILE__ . '  Exception / function dbSelect / : ' . $e->getMessage());
+  }
+  return $xresult;
+}
+
 
 function txt_db($server_ip, $server_port, $guid, $name, $value, $status) {
   if (!empty($guid)) {

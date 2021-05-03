@@ -155,14 +155,14 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
       //////////////////////                                        //////////////////////
       ////////////////////////////////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////
-      if (!file_exists(dirname($cpath . 'ReCodMod/databases/sqlitechat.sqlite'))) {
-        echo "\n\n\033[38;5;1m ERROR: \n cfg/_settings.ini  \n " . dirname($cpath . 'ReCodMod/databases/sqlitechat.sqlite') . "  \n is false FOLDER \033[38;5;255m";
+      if (!file_exists(dirname(chatdb))) {
+        echo "\n\n\033[38;5;1m ERROR: \n cfg/_settings.ini  \n " . dirname(chatdb) . "  \n is false FOLDER \033[38;5;255m";
         sleep(20);
         exit;
       }
-      if (!file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
+      if (!file_exists(chatdb)) {
         try {
-          if (empty(SqlDataBase)) $dbc = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/sqlitechat.sqlite');
+          if (empty(SqlDataBase)) $dbc = new PDO('sqlite:' . chatdb);
           else {
             $dsn = "mysql:host=" . host_adress . ";dbname=" . db_name . ";charset=$charset_db";
             $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false, ];
@@ -194,8 +194,8 @@ if ((!file_exists($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $serve
         catch(PDOException $e) {
           die($e->getMessage());
         }
-        $pravanadbchat = substr(sprintf('%o', fileperms($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) , -4);
-        if ($pravanadbchat != '0666') chmod($cpath . 'ReCodMod/databases/sqlitechat.sqlite', 0666);
+        $pravanadbchat = substr(sprintf('%o', fileperms(chatdb)) , -4);
+        if ($pravanadbchat != '0666') chmod(chatdb, 0666);
       }
       ////////////////////////////////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////
@@ -764,9 +764,9 @@ if (!empty(SqlDataBase)) {
       echo $e->getMessage(); //Remove or change message in production code
       
     }
-    if (!file_exists($cpath . 'ReCodMod/databases/sqlitechat.sqlite')) {
+    if (!file_exists(chatdb)) {
       try {
-        $dbc = new PDO('sqlite:' . $cpath . 'ReCodMod/databases/sqlitechat.sqlite');
+        $dbc = new PDO('sqlite:' . chatdb);
         $dbc->exec('CREATE table chat(
 			id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
 			servername varchar(150)  NOT NULL,
@@ -945,40 +945,26 @@ if (!is_dir($dircache)) {
   }
 }
 $dircache = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat";
-$dirc = $cpath . "ReCodMod/functions/geoip_bases/MaxMD/";
 $geoudir[] = 'https://github.com/EXRecod/RCM-Admintool-V5/raw/master/RCM/ReCodMod/geoip_bases/MaxMD/GeoLiteCity.dat';
 $geoudir[] = 'https://github.com/EXRecod/RCM-Admintool-V9/raw/master/ReCodMod/functions/geoip_bases/MaxMD/GeoLiteCity.dat';
 $geoudir[] = 'http://xxxreal.ru/GeoLiteCity.dat';
 
 
 foreach ($geoudir as $geof => $d)
-{ 
+{
 if (!file_exists($dircache)) {
-$file_headers = @get_headers($d);
-if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found')
-    $exists = false;
-else
-{	
   echo " \n \033[38;5;23m Try to download: GeoLiteCity.dat";
-  if (@file_put_contents($dircache, @fopen($d, 'r'))) {
+  if (file_put_contents($dircache, fopen($d, 'r'))) {
     echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
   }
 }
-}
-if (file_exists($dircache)) {
+
 if ((filesize($dircache)) != 20539238) {
-	$file_headers = @get_headers($d);
-if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found')
-    $exists = false;
-else
-{
   echo " \n \033[0;38;5;27m Try to reupload: GeoLiteCity.dat";
-  if (@file_put_contents($dircache, @fopen($d, 'r'))) {
-    echo " \n \033[38;5;10m Download: GeoLiteCity.dat";
+  if (file_put_contents($dircache, fopen($d, 'r'))) {
+    echo " \n \033[38;5;10m Downloaded: GeoLiteCity.dat";
   }
 }
-}
-} 
 }
 
 if (!file_exists($dircache)) {

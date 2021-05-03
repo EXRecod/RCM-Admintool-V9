@@ -40,5 +40,6 @@ if(!empty($keylokX))
 						  if (!empty($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))))]['layerNUM'])) 
                                unset($stats_array[(dbGuid(4) . (abs(hexdec(crc32(trim($server_port . $guid))))))]['layerNUM']);						   
 		  echo "\n [Q;] guid:" , $guid , ' num:' , $idk , ' time: ' , $tfinishh = (microtime(true) - $start);
+		  slowscript(__FILE__);
 }
 ?>
