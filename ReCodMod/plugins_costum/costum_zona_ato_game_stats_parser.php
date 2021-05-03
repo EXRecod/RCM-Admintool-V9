@@ -20,7 +20,7 @@ if (strpos($parseline, ' CP;') !== false)
 				
 		echo "\n [camp] : ".$camp_guid."  ".$camp_player_name."";
 	  }
-		  }
+		  slowscript(__FILE__);}
 	  else if (strpos($parseline, ' FC;') !== false)
          {
 	  //FC;2310346615720138741;34;TyK TyK.. kTo TaM?			 
@@ -38,7 +38,8 @@ if (strpos($parseline, ' CP;') !== false)
 		echo "\n [flag] : ".$flag_guid."  ".$flag_player_name."";
 		     //debuglog("\n ".(__FILE__) . " : " .$parseline);
          }
-		 }
+		slowscript(__FILE__); }
+	  
 	  else if (strpos($parseline, ' XC;') !== false)
          {
 	  //FC;2310346615720138741;34;TyK TyK.. kTo TaM?			 
@@ -56,7 +57,28 @@ if (strpos($parseline, ' CP;') !== false)
 		echo "\n [saveflag] : ".$flags_guid."  ".$flags_player_name."";
 		    // debuglog("\n ".(__FILE__) . " : " .$parseline);
          }
-		 }	
+		slowscript(__FILE__); 
+		}
+
+	  else if (strpos($parseline, ' NK;') !== false)
+         {
+	  //NK;2310346615720138741;34;TyK TyK.. kTo TaM?			 
+      list($not, $flags_guid, $idnm, $flags_player_name) = explode(';', $parseline);
+	  if(!empty($flags_guid)){
+					$fsshid = trim($server_port.$flags_guid);	
+					$fsshid = dbGuid(4).(abs(hexdec(crc32($fsshid))));
+		if (empty($stats_array[$fsshid]['scores;nukebomb'])) 			
+	    $stats_array[$fsshid]['scores;nukebomb'] = 1;
+         else	
+		 {
+		 $saveflags = $stats_array[$fsshid]['scores;nukebomb'];	 
+		 $stats_array[$fsshid]['scores;nukebomb'] = $saveflags+1; 	 
+		 }
+		echo "\n [nukebomb] : ".$flags_guid."  ".$flags_player_name."";
+		    // debuglog("\n ".(__FILE__) . " : " .$parseline);
+         }
+		slowscript(__FILE__); 
+		}		
 	 
 	 else if (strpos($parseline, ' BONUS;') !== false)
          {
@@ -84,5 +106,5 @@ if (strpos($parseline, ' CP;') !== false)
 		echo "\n [$bplayer_funct] : ".$bguid."  ".$bplayer_name."";
 //debuglog("\n ".(__FILE__) . " : " .$parseline);
          
-}}
+}slowscript(__FILE__);}
 ?>		 

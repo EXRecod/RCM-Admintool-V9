@@ -36,5 +36,6 @@ if ((strpos($parseline, "say;") !== false) || (strpos($parseline, "teamsay;") !=
       }
     }
   }
+  slowscript(__FILE__);
 }
 ?>

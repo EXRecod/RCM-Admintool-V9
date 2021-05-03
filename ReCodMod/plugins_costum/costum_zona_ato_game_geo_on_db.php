@@ -30,7 +30,7 @@ Example:
   if ((strpos($parseline, ' GEO;') !== false)&&(strpos($parseline, '<=>') !== false)) {
 	 $datetime = $dtx2; 
 	usleep(190555);  
-	 
+	 $steamID = "0";
 	$cod4xprestigex = ''; 
 	 
     $counttdot    = substr_count($parseline, ';');
@@ -70,17 +70,17 @@ $nicknamedata = pChar_preg_match($nickname,$guid);
 				
 				
 	$sql = "INSERT INTO x_db_players 
-				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat)
-         VALUES ('$svipport','" . $nicknamedata . "', '0', '$cod4xipu', '0', '$cod4xping', '$guid', '1', '$date', '0', '$date', '1')
+				  (s_port,x_db_name, x_up_name, x_db_ip, x_up_ip, x_db_ping, x_db_guid, x_db_conn, x_db_date, x_db_warn, x_date_reg, stat, steam_id )
+         VALUES ('$svipport','" . $nicknamedata . "', '0', '$cod4xipu', '0', '$cod4xping', '$guid', '1', '$date', '0', '$date', '1', '$steamID')
 ON DUPLICATE KEY UPDATE x_db_date='" . $date . "', x_db_ip='" . $cod4xipu . "', x_db_name = '" . $nicknamedata . "', 
-x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "'"; 
+x_db_conn=x_db_conn+1, x_db_guid='" . $guid . "', steam_id='" . $steamID . "'"; 
    $gt = dbInsert('',$sql);			
 							if(!$gt) 
 							{
                              errorspdo('[' . $datetime . '] 77  ' . __FILE__ . '  Exception : ' . $sql);							
 							}				
   
- 	$sql = "INSERT INTO x_up_players (name, ip, guid) VALUES ('" . $nicknamedata . "','$cod4xipu','$guid')
+ 	$sql = "INSERT INTO x_up_players (name, ip, guid, steam_id) VALUES ('" . $nicknamedata . "','$cod4xipu','$guid', '$steamID')
 ON DUPLICATE KEY UPDATE name = '" . $nicknamedata . "', ip='" . $cod4xipu . "', guid='" . $guid . "'"; 
    $gtx = dbInsert('',$sql);			
 							if(!$gtx) 
@@ -373,7 +373,7 @@ if(empty($ftr))
 echo $key ."\n" . $value . "\n";
    if ((empty($key))&&(empty($value))){
 						 echo '-314';
-                        $db4->query("INSERT INTO x_up_players (name, ip, guid) VALUES ('".$nicknamedata."','$cod4xip','$guid')");					
+                        $db4->query("INSERT INTO x_up_players (name, ip, guid, steam_id) VALUES ('".$nicknamedata."','$cod4xip','$guid','$steamID')");					
 					 $ftr = 1;
 					 
 					 }}}
@@ -452,5 +452,7 @@ if($fin > 4.5)
 {
 require $cpath . 'ReCodMod/functions/null.php';
 exit;	
-}}
+}
+slowscript(__FILE__);
+}
 ?>
