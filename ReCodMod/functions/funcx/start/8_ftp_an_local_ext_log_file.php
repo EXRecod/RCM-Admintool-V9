@@ -1,5 +1,11 @@
 <?php
 if ($mplogfile) {
+	
+	if(!defined('no_guid_servers'))
+		$no_guid_servers = '9999999999999';
+	else 
+	    $no_guid_servers = no_guid_servers;
+	
     ///if ($x_stop_lp == 0) {
         if (strpos($mplogfile, 'ftp:') !== false) {
             list($ftp_exp_user, $ftp_exp_password, $ftp_exp_ip, $ftp_exp_url, $gmlobame) = explode('%', ftp2locallog($mplogfile));
@@ -70,7 +76,9 @@ if ($mplogfile) {
                             sleep(1);
                             echo 'GAME SERVER OFFLINE!?';					
 	                      debuglog((__FILE__)." GAME SERVER OFFLINE!?");
-                            exit;
+require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
+exit;
+ 
                         }
                         if (trim($mpgamenname) && (trim($mpshortver) == 'main')) $game_patch = 'cod1_1.1';
                         else if (trim($mpgamenname) && (trim($mpshortver) == '1.1')) $game_patch = 'cod1_1.1';

@@ -202,5 +202,25 @@ $wp['winchester1200_reflex_mp'] = "Winchester 1200 Reflex";
 $wp['mod_melee'] = "Knife";
 $wp['mod_falling'] = "Falling";
 
+ //ЛЕНЬ ПИСАТЬ ЗНАЧЕНИЕ
+$htZone['head'] = "Falling";
+$htZone['torso_lower'] = "Falling";
+$htZone['torso_upper'] = "Falling";
+$htZone['right_arm_lower'] = "Falling";
+$htZone['left_leg_upper'] = "Falling";
+$htZone['neck'] = "Falling";
+$htZone['right_arm_upper'] = "Falling";
+$htZone['left_hand'] = "Falling";
+$htZone['left_arm_lower'] = "Falling";
+$htZone['none'] = "Falling";
+$htZone['right_leg_upper'] = "Falling";
+$htZone['left_arm_upper'] = "Falling";
+$htZone['right_leg_lower'] = "Falling";
+$htZone['left_foot'] = "Falling";
+$htZone['right_foot'] = "Falling";
+$htZone['right_hand'] = "Falling";
+$htZone['left_leg_lower'] = "Falling";
+	 
+
 
 ?>

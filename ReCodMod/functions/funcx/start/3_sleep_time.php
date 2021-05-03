@@ -1,5 +1,10 @@
 <?php
 
+if(empty($stats_array))
+{
+	$stats_array = [];
+}
+
 ////////////////////////////
 ////////////////////////////
 ////////////////////////////
@@ -36,7 +41,7 @@ else if(2000<$minusposs)
 else if(2000>$minusposs)
 { 
           $xmoretime = 10;
-		  $spps = ceil(($LoadSpeed*2)-10000);	
+		  $spps = ceil(($LoadSpeed*2)-15000);	
 } 
  
 } 	

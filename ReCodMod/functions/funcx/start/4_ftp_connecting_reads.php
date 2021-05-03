@@ -157,7 +157,10 @@ debuglog((__FILE__)."\n * ФАТАЛЬНАЯ ОШИБКА: НЕ МОЖЕТ ЗА�
  
   
  if($ftpcntup > 10)
-	 exit;
+ {
+	 require $cpath . 'ReCodMod/functions/parser/stats_opt.php';
+exit;
+ }
  
  }
 }
