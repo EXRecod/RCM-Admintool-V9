@@ -41,9 +41,9 @@ self playerMsg( level.cocoColor + "Command not found: ^7" + chatcmd[ 0 ] + " " +
 
 + add after that line - this 2 lines
 
-    printconsole("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
+    printconsole("say;0;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
 
-    logPrint("say;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
+    logPrint("say;0;" + self.getEntityNumber() + ";" + self.name + ";" + chatcmd[ 0 ] + " " + combineChatCommand( chatcmd, " " ) + "\n");
 
 # HIDE MESSAGES b3hide FOR Call OF Duty 4 X 1.8 - Modern Warfare
 
