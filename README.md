@@ -68,7 +68,9 @@ b3HideLvl "0"
 
 
 ### Support:
-- Skype: larocca2012
+- RUS https://kwork.ru/game-dev/14731131/sozdanie-igrovogo-servera-v-call-of-duty-4-mw-veb-statistika
+
+- ENG https://kwork.ru/games/14730856/creating-a-server-in-call-of-duty-4-modern-warfare-web-stats
 
 - New version RECODMOD V9 not compatible with old RECODMOD versions 
 -    and not compatible with old WEB RECODMOD versions!!
