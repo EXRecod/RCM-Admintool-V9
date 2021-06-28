@@ -68,9 +68,9 @@ b3HideLvl "0"
 
 
 ### Support:
-- RUS https://kwork.ru/game-dev/14731131/sozdanie-igrovogo-servera-v-call-of-duty-4-mw-veb-statistika
+- RUS https://kwork.ru/website-repair/15260745/skripty-php-s-msql-na-vashem-sayte
 
-- ENG https://kwork.ru/games/14730856/creating-a-server-in-call-of-duty-4-modern-warfare-web-stats
+- ENG https://kwork.ru/website-revision/15264676/website-loading-speed-optimization
 
 - New version RECODMOD V9 not compatible with old RECODMOD versions 
 -    and not compatible with old WEB RECODMOD versions!!
