@@ -156,6 +156,8 @@ $mplogfile = "'$log'";
 
 $server_port = trim($server_port);
 
+$nullLogFiles = 1;
+
 require $cpath . "w.php";
 
 '> $CURDIR/cache_ms/go_$IPPORTW.php  
