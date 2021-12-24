@@ -1,45 +1,4 @@
 <?php
-
-
-if (strpos($mplogfile, 'ftp:') !== false) {
-            list($ftp_exp_user, $ftp_exp_password, $ftp_exp_ip, $ftp_exp_url, $gmlobame) = explode('%', ftp2locallog($mplogfile));
-	$filei = $cpath."ReCodMod/cache/server_empty_ftp_log.log"; 
-        $file = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-	     $posftpe = ftp_to_upload_ftp($conn_idqnew, $ftp_q_url, $filei, $file);
-	
-if($posftpe != false)
- { 
-debuglog((__FILE__)."\n * RCM DEBUG: ".$server_ip."_".$server_port." Обнуление фтп лога. УСПЕХ! ");
-if(!empty($conn_idqnew))
-{
-        if (is_resource($conn_idqnew)) {
-            ftp_quit($conn_idqnew);
-        } 
-}	
-$ftp_fatal_error = 1;
-$fileh = hxlog($cpath."ReCodMod/cache/".$server_ip."_".$server_port.'_'.$gmlobame);
-$fp = fopen($fileh, 'w');
-fputs($fp, " ---\n");
-						
-                        $fpb = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_pos.txt", "w+");
-                        fputs($fpb, "0");
-                        fclose($fpb);
-						
-                        $hu = fopen($cpath . 'ReCodMod/cache/x_cache/' . $server_ip . '_' . $server_port . '_pos_ftp.txt', 'w+');
-                        fwrite($hub, "1");
-                        fclose($hub);		
-	
- }
- else
- {
-debuglog((__FILE__)."\n * ФАТАЛЬНАЯ ОШИБКА: НЕ МОЖЕТ ЗАГРУЗИТЬ НУЛЕВОЙ ФАЙЛ $filei НА ЗАМЕНУ и НЕ ОБНУЛИЛО $file !!! ПРОШЛО $xftp_time СЕКУНД! ".$server_ip."_".$server_port.".");
- }
-	
-}
-
-
-
-
 //.main cfg _settings.ini LOADER
 $config_data = parse_ini_file($cpath . "cfg/_settings.ini", true);
 foreach ($config_data as $section => $r) {
