@@ -157,6 +157,149 @@ $mplogfile = "'$log'";
 $server_port = trim($server_port);
 
 $nullLogFiles = 1;
+ 
+if (empty($_SERVER["OS"])) $_SERVER["OS"] = "";
+if (strpos($_SERVER["OS"], "Win") !== false) {
+  function hxlog2($scwin) {
+    $scwin = str_replace(array(
+      "//////"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "/////"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "////"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "///"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "//"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "/"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "\\\\"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "\\\"
+    ) , "\\", $scwin);
+    $scwin = str_replace(array(
+      "\\"
+    ) , "\\", $scwin);
+    return $scwin . "";
+  }
+}
+else {
+  function hxlog2($scwin) {
+    $scwin = str_replace(array(
+      "//////"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "/////"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "////"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "///"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "//"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "\\\\"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "'\\\'"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "\\"
+    ) , "/", $scwin);
+    $scwin = str_replace(array(
+      "\\"
+    ) , "/", $scwin);
+    return $scwin . "";
+  }
+}
+function debuglog2($s) {
+  global $cpath;
+   $s = str_replace(array("\r","\n"), "", $s);
+  $fp = fopen($cpath . "ReCodMod/cache/x_errors/debug.log", "a");
+  fwrite($fp, " [".date('Y.m.d H:i:s')."] Debug : ".$s . "\n");
+  fclose($fp);
+}
+function ftp_to_upload_ftp2($conn_idqnew, $ftp_q_url, $filei, $file){
+	global $cpath,$server_ip,$server_port;
+if (@ftp_put($conn_idqnew, $ftp_q_url, $filei, FTP_BINARY)) {
+ if (is_resource($conn_idqnew))
+       ftp_quit($conn_idqnew);
+                        $fpa = fopen($file, "w+");
+                        fputs($fpa, "---");
+                        fclose($fpa);
+						
+                        $fpb = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_pos.txt", "w+");
+                        fputs($fpb, "0");
+                        fclose($fpb);
+						
+                        $hu = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_pos_ftp.txt", "w+");
+                        fwrite($hub, "1");
+                        fclose($hub);							
+  return true;						
+}else{
+  if (is_resource($conn_idqnew))
+    ftp_quit($conn_idqnew);
+	return false;		
+}}
+
+function ftp2locallog2($gmlobame) {
+  global $mplogfile;
+  $mplogfilei = str_replace(array(
+    "ftp://"
+  ) , '', $mplogfile);
+  $ftp_user_explode = explode(':', $mplogfilei);
+  $ftp_exp_user = $ftp_user_explode[0];
+  $ftp_pass_explode = explode('@', $ftp_user_explode[1]);
+  $ftp_exp_password = $ftp_pass_explode[0];
+  $mssf = explode('@', $ftp_user_explode[1]);
+  $mssy = explode('/', $mssf[1]);
+  $ftp_exp_ip = $mssy[0];
+  $mssy = explode($mssy[0], $mssf[1]);
+  $ftp_exp_url = $mssy[1];
+  $gmlobame = basename($ftp_exp_url);
+  return $ftp_exp_user . "%" . $ftp_exp_password . "%" . $ftp_exp_ip . "%" . $ftp_exp_url . "%" . $gmlobame;
+}
+
+
+if (strpos($mplogfile, "ftp:") !== false) {
+            list($ftp_exp_user, $ftp_exp_password, $ftp_exp_ip, $ftp_exp_url, $gmlobame) = explode("%", ftp2locallog2($mplogfile));
+	$filei = $cpath."ReCodMod/cache/server_empty_ftp_log.log"; 
+        $file = hxlog2($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame);
+	     $posftpe = ftp_to_upload_ftp2($conn_idqnew, $ftp_q_url, $filei, $file);
+	
+if($posftpe != false)
+ { 
+debuglog2((__FILE__)."\n * RCM DEBUG: ".$server_ip."_".$server_port." Обнуление фтп лога. УСПЕХ! ");
+$ftp_fatal_error = 1;
+$fileh = hxlog2($cpath."ReCodMod/cache/".$server_ip."_".$server_port."_".$gmlobame);
+$fp = fopen($fileh, "w");
+fputs($fp, " ---\n");
+						
+                        $fpb = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_pos.txt", "w+");
+                        fputs($fpb, "0");
+                        fclose($fpb);
+						
+                        $hu = fopen($cpath . "ReCodMod/cache/x_cache/" . $server_ip . "_" . $server_port . "_pos_ftp.txt", "w+");
+                        fwrite($hub, "1");
+                        fclose($hub);		
+	
+ }
+ else
+ {
+debuglog2((__FILE__)."\n * ФАТАЛЬНАЯ ОШИБКА: НЕ МОЖЕТ ЗАГРУЗИТЬ НУЛЕВОЙ ФАЙЛ $filei НА ЗАМЕНУ и НЕ ОБНУЛИЛО $file !!! ПРОШЛО $xftp_time СЕКУНД! ".$server_ip."_".$server_port.".");
+ }	
+}
 
 require $cpath . "w.php";
 
